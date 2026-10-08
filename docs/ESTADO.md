@@ -19,7 +19,7 @@ Actualizado: 2026-10-08. Para ponerse al día: leer este archivo, luego `CLAUDE.
 ## Quién hace qué
 | Persona | Tarea en curso | Rama |
 |---|---|---|
-| Joaquín | Verificación de fuentes nacionales | — |
+| Joaquín | Conseguir las bases nacionales (ver \docs/verificacion_fuentes_nacionales.md\) | — |
 | (socio) | por asignar | — |
 
 Tareas sugeridas para repartir sin pisarse: (a) 1.1 limpieza de BACI y 1.2 depuración (código puro, sin decisiones abiertas); (b) conseguir los archivos nacionales de la lista de arriba; (c) revisar los mapeos de confianza media y baja (`docs/taxonomia.md`, `data/clean/puente_*.csv`).

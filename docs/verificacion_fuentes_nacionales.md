@@ -1,0 +1,30 @@
+# Verificación de fuentes nacionales
+
+Fecha: 2026-10-08. Método: lectura de las páginas oficiales (INE, MEC, MIC, DNIT, BCP) y búsquedas. No se descargó nada nuevo. El sitio del BCP rechazó el acceso automático (403), así que sus datos hay que bajarlos a mano desde el navegador. Las licencias no se leyeron en detalle: INE y MEC declaran licencias abiertas (el MEC, CC BY 4.0); revisar el texto antes de publicar.
+
+## Resumen por fuente
+| Fuente | Qué hay publicado | Cómo se consigue | Fase |
+|---|---|---|---|
+| **Comercio exterior de Paraguay** (aduana) | La Dirección Nacional de Aduanas es la fuente primaria (sistema SOFIA); entrega los registros al BCP cada quince días. La energía eléctrica exportada se suma con reportes de la ANDE. Una herramienta de terceros menciona archivos de datos abiertos de la DNA por código arancelario, sin nombres de empresa. El portal de la DNIT (adonde redirige aduana.gov.py) no lista datos de comercio. | **No ubicada.** Buscar en el portal de datos abiertos de la Aduana o en la sección de Sector Externo del BCP; si no, pedido formal: exportaciones mensuales por NCM de 8 dígitos y país de destino, 2010 en adelante, y exportaciones de energía por la ANDE | 1 (validación y reexportaciones) |
+| **EPHC** (INE) | **Sí.** Trimestral 2017–2026 (T1 y T2 de 2026) y anual 2022–2025. Formatos SAV y CSV, diccionario en XLS/DOC, por registros (INGREFAM, REG01, REG02). Serie comparable 1997–2021. Cobertura: Región Oriental y Presidente Hayes (sin Alto Paraguay ni Boquerón). Licencia de uso de la información pública del Gobierno | Descarga manual desde https://www.ine.gov.py/microdatos/ . Falta confirmar con el diccionario si trae un código de rama más detallado que las 8 ramas | 3 |
+| **Censo Económico Nacional 2011** (INE) | Solo publicaciones y visualizaciones por departamento (unidades económicas y población ocupada). No se vio base de microdatos. Según un material del SINAFOCAL, las variables están por distrito, tamaño y sector; excluye lo agropecuario y no distingue formal de informal | Pedido formal al INE (informacionpublica.paraguay.gov.py): establecimientos y ocupados por CIIU y distrito | 2 (backtest territorial) |
+| **Maquila** (MIC/CNIME) | Informes mensuales **agregados** en PDF (Oct 2023 – Ago 2026; febrero de 2024 en PPTX) en https://www.mic.gov.py/estadisticas-maquila/ . Sin lista de empresas ni proyectos | Los PDF se pueden bajar y leer de a uno (datos de exportación, empleo y rubro por mes). Para proyectos individuales: pedido formal a la SE-CNIME (Ley 5282/14). Cambió el régimen: Ley 7547/2025 y Decreto 5714/2026 | 2 (validación hacia adelante) |
+| **Ley de Inversiones (ex 60/90)** | Informes mensuales en PDF (Oct 2023 – Ago 2026; sin Sep–Dic 2025; ene–feb 2026 bajo la Ley 7548/25) en https://www.mic.gov.py/?page_id=7945 . No se pudo ver si traen proyecto por proyecto | Igual que maquila | 2 |
+| **Régimen de materia prima** (MIC) | Aparece en el anexo estadístico del MIC con un enlace de vista previa (`preview=true`) que puede no ser público | Pedido formal si no se abre | 2 |
+| **Mapa MIC, otras capas** | Mismo visor que industrias; devuelve coordenadas | Extracción de la página, capa por capa (técnica ya probada) | 2 |
+| **Escuelas** (MEC) | **Sí.** Establecimientos escolares con departamento, distrito, zona y coordenadas, por año (2012–2023, CC BY 4.0) en https://datos.mec.gov.py/data/establecimientos | Descarga manual; falta ver formato y cantidad | 2 |
+| **Títulos** (MEC) | Registro con enlaces de descarga al pie (CSV/XLS/JSON en zip) que rechazan scripts. Trae 44 campos con la clasificación UNESCO CINE-P y la ubicación de la carrera. Además existe el **Registro Nacional de Carreras** (https://datos.mec.gov.py/data/rnc), sin datos personales, que serviría para emparejar carreras con actividades | Descarga manual; la tabla de carreras puede evitar tocar datos personales | 2 |
+| **Crédito por actividad** (BCP) | No se ubicó la tabla exacta. Los Boletines Estadístico-Financieros de la Superintendencia de Bancos publican la cartera por sector (hay notas de prensa de julio de 2026 con cifras de servicios, vivienda, consumo) | Descarga manual desde bcp.gov.py > Superintendencia de Bancos > Boletines | 3 |
+| **Matriz insumo-producto** | Existe una MIP de Paraguay de 40×40 para 2014 y 2015 (CEPAL, MIP Sudamericana) construida con las cuentas del BCP, y la MIP Mercosur con el año 2011. El SCN que tenemos solo trae matrices resumidas de 3×3; el detalle de 33 actividades × 52 productos está en la publicación "Cambio del año base… serie 2008-2014" | Pedir al BCP los cuadros de oferta y utilización detallados, o a CEPAL la MIP 2014/2015 | 3 |
+| **SIMEL** | Plataforma SIMELpy, coordinada por el INE con la OIT y el MTESS. Dirección incierta (simel.gov.py o simel.mtess.gov.py); no se encontró una descripción de descargas | Revisar el portal; si no hay descarga, pedido al Observatorio Laboral | 3 |
+| **Leyes y normas** | Sin verificar | BACN y Gaceta Oficial | 3 |
+
+## Para la Fase 1 (módulo nacional) faltan además
+- **Intensidades por producto** (energía, capital, habilidades) y **costo de energía por país**: decisión D4 sin tomar.
+- **ILOSTAT**: sin descargar, licencia sin confirmar.
+
+## Qué conseguir primero
+1. **Comercio exterior de Paraguay por NCM** (única base nacional que toca la Fase 1: validar BACI y marcar reexportaciones).
+2. **EPHC anual 2022–2025** (descarga directa; me permite revisar el código de rama).
+3. **Registro Nacional de Carreras y establecimientos escolares del MEC.**
+4. **Pedidos formales en paralelo** (tardan semanas): proyectos de maquila y de la Ley de Inversiones, régimen de materia prima y capas del mapa MIC (MIC); Censo Económico 2011 por distrito (INE); cuadros de oferta y utilización detallados (BCP).
