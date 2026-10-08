@@ -14,12 +14,12 @@ Actualizado: 2026-10-08. Para ponerse al día: leer este archivo, luego `CLAUDE.
 ## Qué falta
 **Para la Fase 1 (módulo nacional):** decidir D1 a D4 y D6 a D8 (`docs/PLAN_fase0_fase1.md`), conseguir las intensidades por producto y el costo de energía (D4) y luego tareas 1.1 a 1.11: limpieza de BACI, depuración (energía de Itaipú/Yacyretá, reexportaciones), RCA, proximidad y densidad sin fuga de información, dotaciones, panel de entradas, logit con efectos fijos, XGBoost de control y backtest.
 
-**Bases nacionales aún sin conseguir** (en verificación; ver `docs/verificacion_fuentes_nacionales.md` cuando exista): comercio exterior DNIT/BCP, maquila y 60/90 a nivel de proyecto, régimen de materia prima, EPHC, crédito por actividad, matriz insumo-producto, Censo Económico 2011, SIMEL, escuelas y títulos del MEC, las otras capas del mapa MIC (rutas, red eléctrica, combustibles, salud, polos, aduanas), leyes.
+**Bases nacionales aún sin conseguir** (verificadas el 2026-10-08; `docs/verificacion_fuentes_nacionales.md` dice qué se baja solo, qué hay que bajar a mano y qué requiere pedido formal): comercio exterior DNIT/BCP, maquila y 60/90 a nivel de proyecto, régimen de materia prima, EPHC, crédito por actividad, matriz insumo-producto, Censo Económico 2011, SIMEL, escuelas y títulos del MEC, las otras capas del mapa MIC (rutas, red eléctrica, combustibles, salud, polos, aduanas), leyes.
 
 ## Quién hace qué
 | Persona | Tarea en curso | Rama |
 |---|---|---|
-| Joaquín | Conseguir las bases nacionales (ver \docs/verificacion_fuentes_nacionales.md\) | — |
+| Joaquín | Conseguir las bases nacionales (ver `docs/verificacion_fuentes_nacionales.md`) | — |
 | (socio) | por asignar | — |
 
 Tareas sugeridas para repartir sin pisarse: (a) 1.1 limpieza de BACI y 1.2 depuración (código puro, sin decisiones abiertas); (b) conseguir los archivos nacionales de la lista de arriba; (c) revisar los mapeos de confianza media y baja (`docs/taxonomia.md`, `data/clean/puente_*.csv`).
