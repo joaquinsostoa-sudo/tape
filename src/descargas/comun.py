@@ -49,6 +49,12 @@ def anotar(destino: Path, url: str, nbytes: int, sha: str) -> None:
     ruta.write_text(json.dumps(datos, indent=1, ensure_ascii=False), encoding="utf-8")
 
 
+def es_html_inesperado(tipo_contenido: str, nombre: str) -> bool:
+    """True si el servidor devolvió una página HTML y el archivo pedido no es HTML
+    (suele ser un desafío anti-bots o un error)."""
+    return "text/html" in tipo_contenido.lower() and not nombre.lower().endswith((".html", ".htm"))
+
+
 def descargar(url: str, fuente: str, nombre: str, *, reintentos: int = 3) -> Path:
     """Baja `url` a data/raw/<fuente>/<nombre> (con subcarpetas si `nombre` las trae)."""
     destino = RAW / fuente / nombre
@@ -61,6 +67,10 @@ def descargar(url: str, fuente: str, nombre: str, *, reintentos: int = 3) -> Pat
         try:
             with requests.get(url, headers=CABECERAS, stream=True, timeout=120) as r:
                 r.raise_for_status()
+                if es_html_inesperado(r.headers.get("Content-Type", ""), nombre):
+                    raise RuntimeError(
+                        f"{url} devolvió una página HTML (¿protección anti-bots?): "
+                        f"bajar {nombre} a mano a data/raw/{fuente}/")
                 with parcial.open("wb") as f:
                     for chunk in r.iter_content(1 << 20):
                         f.write(chunk)

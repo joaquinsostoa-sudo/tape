@@ -13,3 +13,4 @@ Formato: fecha · decisión · alternativa descartada · motivo · quién decidi
 | 2026-10-08 | D9: la taxonomía de sectores TAPE parte de CIIU Rev.4, con manufactura y agroindustria desagregadas | Partir de subsectores MIC | Internacional y auditable; el MIC ya se mapea a CIIU | Joaquín |
 | 2026-10-08 | D5: HS92 a 4 dígitos para estimar; 6 dígitos para el puente a CIIU y robustez | HS6 en todo | Más entradas por producto, menos ruido; sigue el documento técnico | Joaquín |
 | 2026-10-08 | D12: unidad común CIIU Rev.4 a 2 dígitos (bajando a 3-4 donde haga falta) y sector TAPE encima | Mapear cada clasificación directo a sector TAPE | Permite auditar cada salto | Joaquín |
+| 2026-10-08 | PWT no se pudo bajar por script: el servidor devolvió una página anti-bots. Se baja a mano; el script ahora rechaza respuestas HTML | Sortear la protección | No se evaden protecciones del sitio | Claude |

@@ -1,4 +1,15 @@
-from src.descargas.comun import archivos_dataverse, sha256_archivo, ya_descargado
+from src.descargas.comun import (
+    archivos_dataverse,
+    es_html_inesperado,
+    sha256_archivo,
+    ya_descargado,
+)
+
+
+def test_html_inesperado_se_detecta_solo_si_el_archivo_no_es_html():
+    assert es_html_inesperado("text/html; charset=utf-8", "pwt110.xlsx")
+    assert not es_html_inesperado("application/octet-stream", "pwt110.xlsx")
+    assert not es_html_inesperado("text/html", "pagina.html")
 
 
 def test_archivos_dataverse_extrae_nombre_e_id():

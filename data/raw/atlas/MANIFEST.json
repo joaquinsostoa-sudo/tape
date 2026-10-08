@@ -1,0 +1,116 @@
+{
+ "hs92_country_product_year_4.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13685110",
+  "fecha_utc": "2026-10-08",
+  "bytes": 451749132,
+  "sha256": "06c77ef4c9e3a3afe9aaac6d053e11209275d09eb91f82de7b2a54d37f9c25e2"
+ },
+ "hs92_country_product_year_6.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13685115",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1014979406,
+  "sha256": "7adadc40212c20cbacf6604a521b6192a9680f25ce4530f68f019314289d686d"
+ },
+ "hs92_country_year.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13685109",
+  "fecha_utc": "2026-10-08",
+  "bytes": 363501,
+  "sha256": "af929b790e95b1ef1815229640ecc5d66f8ca48da0e226782571ded42994d468"
+ },
+ "hs92_data_dictionary.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13685113",
+  "fecha_utc": "2026-10-08",
+  "bytes": 3257,
+  "sha256": "c8cbf90b676b3f9417d265751dde6f8e8c7f698f56ca521f038e5ebd91a331a1"
+ },
+ "hs92_product_year_4.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13685116",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1589755,
+  "sha256": "f57886cce6044dfa0973071f58cc948ae799bcac4ca5991ff2e32b9843b98030"
+ },
+ "hs92_product_year_6.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13685119",
+  "fecha_utc": "2026-10-08",
+  "bytes": 5617888,
+  "sha256": "f63d981b16827bd6ca390686bebe316ee7369e578a84b1ab8a46639a7ea8c3b1"
+ },
+ "clasificaciones/classification_data_dictionary.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438091",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2917,
+  "sha256": "3116dbe1bd202c8d57132174de26e52a454393b0af1a5ca3fcfc2381cc9363b9"
+ },
+ "clasificaciones/location_country.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13809180",
+  "fecha_utc": "2026-10-08",
+  "bytes": 9677,
+  "sha256": "e855d6bd3790234bf66cb20b5de0fec179e58d19623a77d652f9e53ac2216ddc"
+ },
+ "clasificaciones/location_group.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13809181",
+  "fecha_utc": "2026-10-08",
+  "bytes": 52345,
+  "sha256": "526fd8548878d6a1c1359cf1dc668b209e921a6b91a3a25b4695f79e06609eff"
+ },
+ "clasificaciones/product_hs12.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438092",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1125749,
+  "sha256": "0b94f66581ce6c423fadc3ca51785ab9cda6423fabad7098676f00ccf7099be6"
+ },
+ "clasificaciones/product_hs22.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13655310",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1208670,
+  "sha256": "d03377f276ee52761865ff49e55d390c0dc7154e06d561ade16c92fc6463076f"
+ },
+ "clasificaciones/product_hs92.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438093",
+  "fecha_utc": "2026-10-08",
+  "bytes": 837108,
+  "sha256": "2af85a498a13741a5615210a57b0652840e9b3bb7c13a1bc38d876ac49cdf71c"
+ },
+ "clasificaciones/product_services_unilateral.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438095",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1301,
+  "sha256": "2a7c1b1e8f597a3867cb6ef82204a18f268e00f3b14b65efc1c68ebf7ed0a010"
+ },
+ "clasificaciones/product_sitc.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438096",
+  "fecha_utc": "2026-10-08",
+  "bytes": 108149,
+  "sha256": "a3a20709f3cd8eafb73376419603178c8a8f02efab2ad9084b7a3d739b6f6ac1"
+ },
+ "espacio_producto/product_space_data_dictionary.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438221",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1070,
+  "sha256": "f4d4a3d7fd5fece0a809a035780125c140a5816efb9b8704170de01bba81542a"
+ },
+ "espacio_producto/top_edges_hs92.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438220",
+  "fecha_utc": "2026-10-08",
+  "bytes": 42580,
+  "sha256": "7dde2fd610f1c05f34dc32af316627069a8ccc20a25909bba70817fcc745ed83"
+ },
+ "espacio_producto/umap_layout_hs92.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13438222",
+  "fecha_utc": "2026-10-08",
+  "bytes": 53115,
+  "sha256": "cbf4d43f0639b16abad5446c7c775cdaa336313b3e4aaa567b32a1143273b523"
+ },
+ "rankings/growth_proj_eci_rankings.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13439575",
+  "fecha_utc": "2026-10-08",
+  "bytes": 198703,
+  "sha256": "51faff164e10c00872118c823d1f342f38f6fc170b8aeef75a9b783b51f5ed0a"
+ },
+ "rankings/rankings_data_dictionary.csv": {
+  "url": "https://dataverse.harvard.edu/api/access/datafile/13439574",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2566,
+  "sha256": "96b1be4765f5ee86b91f2232d216c9ed3015761f868577b7b30522a613ddb677"
+ }
+}
