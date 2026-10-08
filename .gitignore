@@ -28,3 +28,8 @@ data/model/**
 outputs/
 .env
 web/node_modules/
+
+# Tablas puente y clasificaciones transcritas: pequeñas y se versionan
+!data/clean/clasificaciones_locales_ciiu.csv
+!data/clean/ciiu4_atomos_clasificaciones.csv
+!data/raw/**/clasificacion_*.txt

@@ -1,0 +1,78 @@
+clasificacion,codigo,nombre,tipo,ciiu4_atomos,confianza,notas
+ephc,E1,"Agricultura, ganadería, caza y pesca",actividad,"01x,014,02,03",alta,
+ephc,E2,Industrias manufactureras,actividad,10-33,alta,
+ephc,E3,"Electricidad, gas y agua",actividad,35-39,media,incluye saneamiento (37-39)
+ephc,E4,Construcciones,actividad,41-43,alta,
+ephc,E5,"Comercio, restaurantes y hoteles",actividad,"45-47,55-56",alta,
+ephc,E6,"Transporte, almacenamiento y comunicaciones",actividad,"49-53,61,79",media,61 telecomunicaciones; 79 agencias de viaje: supuesto
+ephc,E7,"Finanzas, seguros e inmuebles",actividad,"64-66,68,62-63,69-75,77-78,80-82",media,"agrupa servicios a empresas, como la CIIU Rev.2/3 (supuesto)"
+ephc,E8,"Servicios comunales, sociales y personales",actividad,"84-88,90-99,58-60",media,"58-60 (edición, audiovisual, radiodifusión): supuesto, confianza baja"
+credito,K01,ACTIVIDADES INMOBILIARIAS,actividad,68,alta,
+credito,K02,ADMINISTRACION PUBLICA,actividad,84,alta,
+credito,K03,AGRICULTURA,actividad,"01x,02",media,incluye forestal: supuesto
+credito,K04,COMERCIO AL POR MAYOR,actividad,46,alta,
+credito,K05,COMERCIO AL POR MENOR,actividad,"47,45",media,45 (vehículos): supuesto
+credito,K06,CONSTRUCCION,actividad,41-43,alta,puede solapar con VIVIENDA (finalidad)
+credito,K07,CONSUMO,finalidad,,alta,crédito a hogares; no es actividad CIIU
+credito,K08,GANADERIA,actividad,014,media,
+credito,K09,INDUSTRIA,actividad,10-33,alta,
+credito,K10,OTROS,residual,*,baja,"residual: minería, utilities, pesca, etc. (verificar)"
+credito,K11,SECTOR FINANCIERO,actividad,64-66,alta,
+credito,K12,SERVICIOS,actividad,"49-53,55-56,58-63,69-75,77-82,85-88,90-98",media,
+credito,K13,VIVIENDA,finalidad,,alta,crédito hipotecario/vivienda; no es actividad CIIU
+regional,R1,Agricultura,actividad,01x,media,supuesto: sin ganadería (la lista tiene Gan. aparte)
+regional,R2,Gan./Forestal/Pesca/Min.,actividad,"014,02,03,05-09",media,
+regional,R3,Manufactura,actividad,10-33,alta,
+regional,R4,Electricidad y Agua,actividad,35-39,media,
+regional,R5,Construcción,actividad,41-43,alta,
+regional,R6,Servicios,actividad,45-99,media,todo lo demás
+regional,R7,Impuestos,impuestos,,alta,"impuestos netos de subvenciones; aparece en la imagen, no en el texto del documento"
+mip,M01,"Agricultura, ganadería, caza y pesca",actividad,"01x,014,02,03",alta,
+mip,M02,Minería,actividad,05-09,alta,
+mip,M03,"Alimentos, bebidas y tabacos",actividad,10-12,alta,
+mip,M04,"Textiles, confecciones y calzado",actividad,13-15,alta,
+mip,M05,"Madera, papel y cartón",actividad,16-18,media,18 impresión: supuesto
+mip,M06,"Química, farmacia y caucho",actividad,19-22,media,19 refinación de petróleo: supuesto; 22 incluye plásticos
+mip,M07,Minerales no metálicos,actividad,23,alta,
+mip,M08,Hierro y acero,actividad,24,media,24 incluye metales no ferrosos (aluminio)
+mip,M09,Productos de metal,actividad,25,alta,
+mip,M10,"Maquinaria, equipo y vehículos",actividad,26-30,media,
+mip,M11,Otras manufacturas y reparación,actividad,31-33,media,
+mip,M12,"Electricidad, gas, y agua",actividad,35-39,media,
+mip,M13,Construcción,actividad,41-43,alta,
+mip,M14,Comercio al por mayor y menor,actividad,45-47,alta,
+mip,M15,Transporte,actividad,49-53,alta,
+mip,M16,"Turismo (aloj., alimentación y recreación)",actividad,"55-56,79,90-93",media,
+mip,M17,"Telecomunicaciones, edición y servicios de info.",actividad,58-63,alta,
+mip,M18,Finanzas y seguros,actividad,64-66,alta,
+mip,M19,Servicios inmobiliarios,actividad,68,alta,
+mip,M20,Servicios a las empresas,actividad,"69-75,77-78,80-82",media,
+mip,M21,Otros servicios,actividad,"84-88,94-99",media,
+maquila,Q01,Autopartes,producto,29,media,los arneses pueden caer en 27 (cables) o 29
+maquila,Q02,Confecciones y Textiles,producto,13-14,alta,
+maquila,Q03,Bebidas y líquidos alcohólicos,producto,11,alta,solo en el gráfico de exportaciones
+maquila,Q04,Aluminio y sus manufacturas,producto,"24,25",media,
+maquila,Q05,Productos quimicos y farmaceuticos,producto,20-21,alta,
+maquila,Q06,Plásticos y sus manufacturas,producto,22,alta,
+maquila,Q07,Productos alimenticios,producto,10,alta,
+maquila,Q08,Servicios Intangibles,producto,"62-63,82",baja,"servicios (BPO, software): fuera del espacio producto"
+maquila,Q09,Madera y sus manufacturas,producto,16,alta,muebles (31) si corresponde
+maquila,Q10,Metalúrgico y sus manufacturas,producto,24-25,media,
+maquila,Q11,Alimentos para mascotas,producto,10,alta,CIIU 1080
+maquila,Q12,Agroquímicos,producto,20,alta,CIIU 2021
+maquila,Q13,Productos carnicos y sus derivados,producto,10,alta,CIIU 101
+maquila,Q14,Domisanitarios,producto,20,alta,CIIU 2023
+maquila,Q15,maquinaria y equipos,producto,28,media,
+maquila,Q16,Calzados y sus partes,producto,15,alta,
+maquila,Q17,Tabaco,producto,12,alta,
+maquila,Q18,Electronica y electricidad,producto,26-27,alta,
+maquila,Q19,Yerba mate y productos medicinales,producto,"10,21",baja,mezcla alimento y fitoterápicos
+maquila,Q20,Cueros y sus manufacturas,producto,15,alta,
+maquila,Q21,Manufacturas diversas,producto,31-32,baja,
+maquila,Q22,Preparados Solubles,producto,10,media,
+maquila,Q23,"Pigmento, pintura y colorantes",producto,20,alta,CIIU 2022
+maquila,Q24,Joyas y articulos conexos,producto,32,alta,CIIU 3211
+maquila,Q25,Articulos deportivos,producto,32,alta,CIIU 3230
+maquila,Q26,Fabricación de productos de vidrio,producto,23,alta,CIIU 231
+maquila,Q27,Plomo,producto,24,baja,metales no ferrosos; uso no aclarado
+maquila,Q28,Otros,residual,*,baja,
