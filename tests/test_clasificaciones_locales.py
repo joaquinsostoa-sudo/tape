@@ -22,6 +22,16 @@ def test_cada_atomo_cae_en_a_lo_sumo_una_categoria(clasif):
     assert not solapados, solapados
 
 
+def test_mic_mapa_cubre_los_73_subsectores_y_las_industrias_suman_17080():
+    import pandas as pd
+
+    from src.puentes.clasificaciones_locales import _MIC, MIC_CSV
+
+    df = pd.read_csv(MIC_CSV)
+    assert len(df) == 73 and set(df["subsector"]) == set(_MIC)
+    assert df["n_industrias"].sum() == 17080  # coincide con los totales por zona del visor
+
+
 def test_manufactura_es_un_solo_grupo_en_ephc_y_se_parte_en_nueve_en_mip():
     df = tabla_atomos().set_index("atomo")
     manu = [a for a in ATOMOS if len(a) == 2 and 10 <= int(a) <= 33]

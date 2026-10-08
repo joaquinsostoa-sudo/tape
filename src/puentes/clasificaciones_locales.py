@@ -1,4 +1,4 @@
-"""Equivalencia de las clasificaciones sectoriales locales con CIIU Rev.4.
+﻿"""Equivalencia de las clasificaciones sectoriales locales con CIIU Rev.4.
 
 Unidad mínima ("átomo"): división CIIU Rev.4 de 2 dígitos, salvo la 01, que se parte en
 `014` (producción pecuaria) y `01x` (resto), porque crédito y cuentas regionales separan la
@@ -24,7 +24,7 @@ ATOMOS: list[str] = ["01x", "014"] + [f"{d:02d}" for a, b in _RANGOS for d in ra
 class Categoria:
     codigo: str
     nombre: str
-    tipo: str  # actividad | finalidad | impuestos | residual | producto
+    tipo: str  # actividad | residual | producto (CONSUMO, VIVIENDA e Impuestos se excluyen)
     atomos: str  # "10-12,45,01x"; "*" = todo lo no asignado en la clasificación
     confianza: str  # alta | media | baja
     notas: str = ""
@@ -68,14 +68,12 @@ CREDITO = [
     C("K03", "AGRICULTURA", "actividad", "01x,02", "media", "incluye forestal: supuesto"),
     C("K04", "COMERCIO AL POR MAYOR", "actividad", "46", "alta"),
     C("K05", "COMERCIO AL POR MENOR", "actividad", "47,45", "media", "45 (vehículos): supuesto"),
-    C("K06", "CONSTRUCCION", "actividad", "41-43", "alta", "puede solapar con VIVIENDA (finalidad)"),
-    C("K07", "CONSUMO", "finalidad", "", "alta", "crédito a hogares; no es actividad CIIU"),
+    C("K06", "CONSTRUCCION", "actividad", "41-43", "alta"),
     C("K08", "GANADERIA", "actividad", "014", "media"),
     C("K09", "INDUSTRIA", "actividad", "10-33", "alta"),
     C("K10", "OTROS", "residual", "*", "baja", "residual: minería, utilities, pesca, etc. (verificar)"),
     C("K11", "SECTOR FINANCIERO", "actividad", "64-66", "alta"),
     C("K12", "SERVICIOS", "actividad", "49-53,55-56,58-63,69-75,77-82,85-88,90-98", "media"),
-    C("K13", "VIVIENDA", "finalidad", "", "alta", "crédito hipotecario/vivienda; no es actividad CIIU"),
 ]
 
 REGIONAL = [
@@ -85,8 +83,6 @@ REGIONAL = [
     C("R4", "Electricidad y Agua", "actividad", "35-39", "media"),
     C("R5", "Construcción", "actividad", "41-43", "alta"),
     C("R6", "Servicios", "actividad", "45-99", "media", "todo lo demás"),
-    C("R7", "Impuestos", "impuestos", "", "alta",
-      "impuestos netos de subvenciones; aparece en la imagen, no en el texto del documento"),
 ]
 
 MIP = [
@@ -145,8 +141,100 @@ MAQUILA = [
     C("Q28", "Otros", "residual", "*", "baja"),
 ]
 
+# Mapa logístico MIC, pestaña INDUSTRIAS: sector > subsector (> sector específico, texto libre).
+# Se mapea el subsector (73 pares). Los 1.744 "sectores específicos" quedan para una etapa posterior.
+MIC_CSV = RAIZ / "data" / "raw" / "mic_mapa" / "industrias_sector_subsector_2026-10-08.csv"
+_MIC: dict[str, tuple[str, str, str]] = {  # subsector -> (átomos, confianza, notas)
+    "AGROINDUSTRIA GENERAL": ("01x,02,10", "baja", "mezcla producción primaria y procesamiento"),
+    "APICULTURA Y MIEL": ("01x,10", "media", "CIIU 0149 y 1079"),
+    "BALANCEADOS Y NUTRICION ANIMAL": ("10", "alta", "CIIU 1080"),
+    "PRODUCCION PECUARIA Y GRANJAS": ("014", "alta"),
+    "SILOS, ACOPIO Y GRANOS": ("01x,52", "media", "CIIU 0163 y 5210"),
+    "TABACO Y DERIVADOS": ("12", "alta"),
+    "ACEITES Y OLEAGINOSAS": ("10", "alta"),
+    "ALIMENTOS PROCESADOS": ("10", "alta"),
+    "AZUCAR, ALCOHOL Y CANA": ("10,11", "media", "azúcar 1072; alcohol 1101"),
+    "BEBIDAS Y AGUA": ("11", "alta"),
+    "EMBUTIDOS Y FIAMBRES": ("10", "alta", "CIIU 1010"),
+    "ESENCIAS, AROMAS Y EXTRACTOS": ("10,20", "baja", "230 industrias; revisar qué son (¿yuyos/tereré?)"),
+    "FRIGORIFICOS Y CARNICOS": ("10", "alta", "CIIU 1010"),
+    "HELADOS": ("10", "alta", "CIIU 1050"),
+    "HIELO Y AGUA": ("11,36", "media"),
+    "LACTEOS": ("10", "alta", "CIIU 1050"),
+    "MOLINERIA, HARINAS Y ALMIDONES": ("10", "alta", "CIIU 106"),
+    "PANIFICADOS Y CONFITERIA": ("10", "alta", "CIIU 1071/1073; 1.671 industrias, en su mayoría panaderías"),
+    "PASTAS Y FIDEOS": ("10", "alta", "CIIU 1074"),
+    "YERBA MATE Y HIERBAS": ("10", "media", "CIIU 1079"),
+    "ARTESANIA Y MANUALIDADES": ("13,16,32", "baja"),
+    "FABRICA DE BALANCEADOS DE LA COOPERATIVA": ("10", "alta", "registro suelto: sector mal cargado"),
+    "ELECTRICIDAD Y ELECTRONICA": ("26,27", "media"),
+    "REFRIGERACION Y CLIMATIZACION": ("28,43", "media"),
+    "CARBON, LENA Y COMBUSTIBLES SOLIDOS": ("02,19", "baja"),
+    "COMBUSTIBLES Y LUBRICANTES": ("19,47", "baja", "puede incluir estaciones de servicio (47)"),
+    "ASERRADEROS Y MADERA ASERRADA": ("16", "alta", "CIIU 1610"),
+    "CAJAS, ENVASES Y EMBALAJES DE MADERA": ("16", "alta"),
+    "CARPINTERIA Y EBANISTERIA": ("16,31", "media", "carpintería 1622 y muebles 3100"),
+    "MUEBLES Y MOBILIARIO": ("31", "alta"),
+    "PRODUCTOS DE MADERA": ("16", "alta"),
+    "BASCULAS Y BALANZAS": ("28", "alta"),
+    "MAQUINARIA, EQUIPOS Y REPUESTOS": ("28,29,33", "media"),
+    "ALUMINIO Y ABERTURAS": ("25", "media", "aberturas 2511"),
+    "ASTILLEROS Y EMBARCACIONES": ("30", "alta", "CIIU 3011"),
+    "HERRERIA Y ESTRUCTURAS METALICAS": ("25", "alta", "CIIU 2511/2599; 2.250 industrias"),
+    "HOJALATERIA Y CHAPERIA": ("25,45", "media", "chapería de vehículos 4520"),
+    "METALURGIA Y FUNDICION": ("24", "alta"),
+    "METALURGIA Y METALMECANICA": ("24,25", "media"),
+    "PRODUCTOS METALICOS": ("25", "alta"),
+    "TORNERIA Y MECANIZADO": ("25", "alta", "CIIU 2592"),
+    "BALDOSAS, MARMOL Y REVESTIMIENTOS": ("23", "alta"),
+    "CAL Y DERIVADOS": ("23", "alta"),
+    "CANTERAS Y ARIDOS": ("08", "alta", "es minería (sección B), no manufactura"),
+    "CEMENTO, YESO Y AFINES": ("23", "alta"),
+    "CERAMICA, LADRILLOS Y OLERIA": ("23", "alta", "2.944 industrias, en su mayoría olerías"),
+    "MATERIALES DE CONSTRUCCION": ("23", "media"),
+    "PREFABRICADOS Y HORMIGON": ("23", "alta"),
+    "VIDRIO Y VIDRIERIA": ("23", "alta", "vidrierías pueden ser comercio/servicio"),
+    "FABRICA Y VENTA DE MOBILIARIO DE METAL Y CARPINTERIA": ("25,31", "media", "registro suelto"),
+    "INDUSTRIA GENERAL Y MULTIACTIVIDAD": ("10-33", "baja", "no asignable a un sector"),
+    "OTROS INDUSTRIALES": ("10-33", "baja", "no asignable a un sector"),
+    "GRAFICA, IMPRENTA Y SENALETICA": ("18", "alta"),
+    "PAPEL, CARTON Y EMBALAJES": ("17", "alta"),
+    "BOLSAS Y ENVASES PLASTICOS": ("22", "alta"),
+    "CAUCHO Y GOMA": ("22", "alta"),
+    "PLASTICOS Y ENVASES": ("22", "alta"),
+    "AGROQUIMICOS Y FERTILIZANTES": ("20", "alta"),
+    "COSMETICA Y PERFUMERIA": ("20", "alta"),
+    "PINTURAS Y RECUBRIMIENTOS": ("20", "alta"),
+    "PRODUCTOS DE LIMPIEZA": ("20", "alta"),
+    "QUIMICOS, FARMACIA Y LABORATORIO": ("20,21", "media"),
+    "RECICLAJE DE PAPEL Y CARTON": ("38", "alta"),
+    "RECICLAJE DE PLASTICOS": ("38", "alta"),
+    "RECICLAJE GENERAL": ("38", "alta"),
+    "RECICLAJE METALICO": ("38", "alta"),
+    "SERVICIOS INDUSTRIALES Y MANTENIMIENTO": ("33", "media", "reparación 33; puede incluir 43"),
+    "CALZADOS": ("15", "alta"),
+    "COLCHONES, TAPICERIA Y HOGAR": ("13,31,95", "baja"),
+    "CONFECCION E INDUMENTARIA": ("14", "alta"),
+    "CUERO Y MARROQUINERIA": ("15", "alta"),
+    "TEXTILES Y TEJIDOS": ("13", "alta"),
+    "FABRICA DE HAMACAS Y COLCHAS DE LA COOPERATIVA": ("13", "alta", "registro suelto: sector mal cargado"),
+}
+
+
+def mic_categorias(ruta: Path = MIC_CSV) -> list[Categoria]:
+    """Subsectores del mapa MIC como categorías, con los átomos de `_MIC`."""
+    df = pd.read_csv(ruta, dtype=str)
+    cats = []
+    for i, f in enumerate(df.itertuples(index=False), start=1):
+        atomos, conf, *nota = _MIC[f.subsector]
+        cats.append(Categoria(f"I{i:02d}", f"{f.sector} > {f.subsector}", "producto", atomos, conf,
+                              (nota[0] if nota else "") + f" [n={f.n_industrias}]"))
+    return cats
+
+
 CLASIFICACIONES: dict[str, list[Categoria]] = {
     "ephc": EPHC, "credito": CREDITO, "regional": REGIONAL, "mip": MIP, "maquila": MAQUILA,
+    "mic_mapa": mic_categorias(),
 }
 ANIDAN = ["ephc", "credito", "regional", "mip"]  # clasificaciones por actividad
 SIN_GRUPO = "SIN_GRUPO"

@@ -33,3 +33,4 @@ web/node_modules/
 !data/clean/clasificaciones_locales_ciiu.csv
 !data/clean/ciiu4_atomos_clasificaciones.csv
 !data/raw/**/clasificacion_*.txt
+!data/raw/mic_mapa/industrias_sector_subsector_*.csv

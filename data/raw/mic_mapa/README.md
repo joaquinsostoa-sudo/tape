@@ -1,16 +1,10 @@
-# Mapa Logístico MIC (capas)
+﻿# Mapa Logístico MIC (capas)
 
-- **Institución:** MIC
-- **Registro:** fila `mic_mapa` de `data/fuentes.csv`
-- **Acceso:** Visor (verificar si permite descarga) / solicitud de acceso a la información
-- **Cobertura:** Foto 2026
+Registro: fila `mic_mapa` de `data/fuentes.csv`. El visor es un panel de Zoho Analytics (https://mapaprodpy.mic.gov.py/) sin botón de descarga.
 
-## Qué esperamos aquí
+## Qué hay aquí
+- `industrias_sector_subsector_2026-10-08.csv`: resumen sector > subsector de la pestaña **F- INDUSTRIAS** (tabla F4), leído del visor el 2026-10-08: 73 pares, 17.080 industrias en total (coincide con los totales por zona). Incluye el número de "sectores específicos" distintos por subsector.
+- Los **1.744 sectores específicos** (texto libre del tercer nivel) se pueden volver a leer del visor; no están guardados todavía.
 
-Una subcarpeta por capa (`habitantes_pea/`, `rutas/`, `red_electrica/`, `combustibles/`, `salud/`, `industrias/`, `polos_ifcl/`, `aduanas/`), cada una con shapefile/GeoJSON/CSV tal como salió del visor o de la solicitud. Anotar en un `LEEME_fecha.txt` la fecha de descarga o de entrega.
-
-## Reglas
-
-- No modificar, renombrar columnas ni resguardar versiones editadas: `data/raw` es solo lectura.
-- Al copiar archivos, completar `fecha de descarga` y `versión` en `data/fuentes.csv`.
-- Los archivos pesados están ignorados por git (solo se versionan los README).
+## Qué falta
+Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustibles, E salud, G polos, H aduanas, I comercio global) y las **coordenadas de las industrias**, necesarias para el geoprocesamiento de la Fase 2. El visor muestra el mapa pero no se pudo comprobar si expone coordenadas. Si el MIC las entrega por solicitud de acceso a la información, guardarlas en subcarpetas por capa (ver `data/raw/mic_mapa` en el plan).
