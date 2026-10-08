@@ -35,3 +35,4 @@ web/node_modules/
 !data/raw/**/clasificacion_*.txt
 !data/raw/mic_mapa/industrias_sector_subsector_*.csv
 !data/raw/*/MANIFEST.json
+!data/clean/taxonomia_sectores_tape.csv
