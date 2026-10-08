@@ -56,7 +56,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 - Registro de títulos del MEC: contiene nombre y documento de personas; usar solo agregados (carrera, institución, mes) y no guardar datos personales.
 
 ## Hoja de ruta (estado)
-- **Fase 0 Fundamentos** ← *estamos aquí*: estructura, CLAUDE.md, fuentes, taxonomía TAPE aprobada, fuentes de Fase 1 descargadas.
+- **Fase 0 Fundamentos** ← *estamos aquí*: hechos estructura, CLAUDE.md, fuentes de Fase 1 descargadas y taxonomía de 67 sectores TAPE (`docs/taxonomia.md`, `data/clean/taxonomia_sectores_tape.csv`). Falta la tarea 0.5: puente HS → CPC → CIIU → sector (biocombustibles y arneses se fijan por producto HS).
 - Fase 1 Módulo nacional: descargas, depuración, RCA/φ/densidad, logit + XGBoost + backtest. Paso si el modelo con capas supera a la densidad sola en precision@k.
 - Fase 2 Territorial (capas MIC, tabla MIC→CIIU, MEC, modelo jerárquico). Fase 3 Brechas, valor, política (EPHC, cuentas, MIP, crédito, SIMEL, leyes). Fase 4 Interfaz (FastAPI + MapLibre sobre la app Vercel). Fase 5 Monitoreo y difusión.
 - Datos locales (MIC, MEC, EPHC, BCP, maquila, 60/90) aún no disponibles: se trabaja primero con datos públicos descargables.

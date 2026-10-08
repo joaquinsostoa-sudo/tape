@@ -4,6 +4,8 @@ from src.puentes.clasificaciones_locales import (
     ANIDAN,
     ATOMOS,
     CLASIFICACIONES,
+    CNAEP_SOLAPE_PERMITIDO,
+    DIV10,
     atomo_a_categoria,
     expandir,
     tabla_atomos,
@@ -11,8 +13,13 @@ from src.puentes.clasificaciones_locales import (
 
 
 def test_expandir_rangos_y_atomos():
-    assert expandir("10-12,45,014") == ["10", "11", "12", "45", "014"]
+    assert expandir("11-12,45,014") == ["11", "12", "45", "014"]
     assert expandir("*") == []
+
+
+def test_la_division_10_se_expande_en_sus_subatomos():
+    assert expandir("10") == DIV10
+    assert expandir("10-11") == DIV10 + ["11"]
 
 
 def test_expandir_rechaza_atomo_invalido():
@@ -27,6 +34,14 @@ def test_cada_atomo_cae_en_a_lo_sumo_una_categoria(clasif):
     assert not solapados, solapados
 
 
+def test_cnaep33_tiene_33_actividades_y_solo_solapa_educacion_y_salud():
+    assert len(CLASIFICACIONES["cnaep33"]) == 33
+    mapa = atomo_a_categoria(CLASIFICACIONES["cnaep33"])
+    assert {a for a, cs in mapa.items() if len(cs) > 1} == CNAEP_SOLAPE_PERMITIDO
+    sin_grupo = [a for a, cs in mapa.items() if not cs and a not in ("99",)]
+    assert not sin_grupo, sin_grupo
+
+
 def test_mic_mapa_cubre_los_73_subsectores_y_las_industrias_suman_17080():
     import pandas as pd
 
@@ -39,6 +54,6 @@ def test_mic_mapa_cubre_los_73_subsectores_y_las_industrias_suman_17080():
 
 def test_manufactura_es_un_solo_grupo_en_ephc_y_se_parte_en_nueve_en_mip():
     df = tabla_atomos().set_index("atomo")
-    manu = [a for a in ATOMOS if len(a) == 2 and 10 <= int(a) <= 33]
+    manu = [a for a in ATOMOS if a[:2].isdigit() and 10 <= int(a[:2]) <= 33]
     assert df.loc[manu, "ephc"].nunique() == 1
     assert df.loc[manu, "mip"].nunique() == 9

@@ -146,3 +146,36 @@ mic_mapa,I70,"TEXTIL, CONFECCION Y CUERO > CONFECCION E INDUMENTARIA",producto,1
 mic_mapa,I71,"TEXTIL, CONFECCION Y CUERO > CUERO Y MARROQUINERIA",producto,15,alta, [n=91]
 mic_mapa,I72,"TEXTIL, CONFECCION Y CUERO > TEXTILES Y TEJIDOS",producto,13,alta, [n=102]
 mic_mapa,I73,TEXTILES Y TEJIDOS > FABRICA DE HAMACAS Y COLCHAS DE LA COOPERATIVA,producto,13,alta,registro suelto: sector mal cargado [n=1]
+cnaep33,N01,Agricultura,actividad,01x,alta,
+cnaep33,N02,Ganadería,actividad,014,alta,
+cnaep33,N03,Forestal,actividad,02,alta,
+cnaep33,N04,Pesca,actividad,03,alta,
+cnaep33,N05,Minería,actividad,05-09,alta,
+cnaep33,N06,Producción de carne,actividad,101,alta,
+cnaep33,N07,Elaboración de aceites,actividad,104,alta,
+cnaep33,N08,Producción de lácteos,actividad,105,alta,
+cnaep33,N09,Producción de molinería y panadería,actividad,"106,1071",media,supuesto: molinería (106) y panadería (1071)
+cnaep33,N10,Producción de azúcar,actividad,1072,alta,
+cnaep33,N11,Producción de otros alimentos,actividad,10o,media,"supuesto: pescado, frutas, confitería, pastas, yerba, balanceados"
+cnaep33,N12,Producción de bebidas y tabaco,actividad,"11,12",alta,
+cnaep33,N13,Producción de textiles y prendas de vestir,actividad,"13,14",alta,
+cnaep33,N14,Producción de cuero y calzado,actividad,15,alta,
+cnaep33,N15,Industria de la madera,actividad,16,alta,
+cnaep33,N16,Producción de papel y productos del papel,actividad,"17,18",media,18 impresión: supuesto
+cnaep33,N17,Productos químicos,actividad,19-22,media,"supuesto: incluye refinación, caucho y plásticos"
+cnaep33,N18,Minerales no metálicos,actividad,23,alta,
+cnaep33,N19,Metales comunes,actividad,24,alta,
+cnaep33,N20,Productos metálicos,actividad,25,alta,vale 0 de 1991 a 2007 (corte de serie)
+cnaep33,N21,Maquinaria y equipo,actividad,26-30,media,supuesto: incluye electrónica y transporte
+cnaep33,N22,Otras industrias manufactureras,actividad,31-33,media,"supuesto: muebles, diversas, reparación"
+cnaep33,N23,Electricidad y agua,actividad,35-39,media,supuesto: incluye saneamiento y residuos
+cnaep33,N24,Construcción,actividad,41-43,alta,
+cnaep33,N25,Comercio,actividad,45-47,alta,
+cnaep33,N26,Transporte,actividad,49-53,media,53 correos: supuesto
+cnaep33,N27,Telecomunicaciones,actividad,61,alta,
+cnaep33,N28,Intermediación financiera,actividad,64-66,alta,
+cnaep33,N29,Servicios inmobiliarios,actividad,68,alta,
+cnaep33,N30,Servicios a las empresas,actividad,"58-60,62-63,69-75,77-82",media,"supuesto: incluye informática, edición y agencias de viaje (79)"
+cnaep33,N31,Restaurantes y hoteles,actividad,55-56,alta,
+cnaep33,N32,Servicios a los hogares,actividad,"85-88,90-98",baja,"privado: educación, salud y servicios personales (supuesto)"
+cnaep33,N33,Servicios gubernamentales,actividad,84-88,baja,administración pública y educación y salud públicas (supuesto): se solapa con N32 en 85-88

@@ -6,13 +6,14 @@ from src.puentes.taxonomia_tape import (
     SECTORES,
     atomo_de,
     clases_ciiu4,
-    grupos_de_sector,
+    cruces,
     sectores_de_clase,
 )
 
 
 def test_atomo_de_prefijos():
-    assert atomo_de("0141") == "014" and atomo_de("011") == "01x" and atomo_de("1072") == "10"
+    assert atomo_de("0141") == "014" and atomo_de("011") == "01x"
+    assert atomo_de("1072") == "1072" and atomo_de("1073") == "10o" and atomo_de("101") == "101"
 
 
 def test_ids_unicos_y_cantidad_razonable():
@@ -21,8 +22,7 @@ def test_ids_unicos_y_cantidad_razonable():
 
 
 def test_ningun_sector_cruza_grupos_de_las_clasificaciones_locales():
-    cruzados = {s.id: g for s in SECTORES for k, g in grupos_de_sector(s).items() if "+" in g}
-    assert not cruzados, cruzados
+    assert not {s.id: c for s in SECTORES if (c := cruces(s))}
 
 
 @pytest.mark.skipif(not ISIC4_CLASES.exists(), reason="falta data/raw/concordancias (no versionado)")

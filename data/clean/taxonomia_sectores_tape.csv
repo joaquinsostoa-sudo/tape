@@ -1,67 +1,68 @@
 sector_id,nombre,seccion_ciiu,ciiu4,atomos,entra_en_comercio,confianza,grupo_ephc,grupo_credito,grupo_regional,grupo_mip,grupo_cnaep33,notas
-S01,"Cultivos anuales (soja, maíz, trigo, arroz, caña, algodón, hortalizas)",A,011,01x,True,alta,E1,K03,R1,M01,,núcleo exportador de Paraguay
-S02,Cultivos perennes y viveros,A,"012,013",01x,True,alta,E1,K03,R1,M01,,
-S03,Ganadería bovina y otras especies,A,"0141,0142,0143,0144,0149",014,True,alta,E1,K08,R2,M01,,0149 incluye apicultura
-S04,Avicultura y porcicultura,A,"0145,0146",014,True,alta,E1,K08,R2,M01,,
-S05,"Servicios agropecuarios y poscosecha (silos, acopio)",A,"015,016,017",01x,False,media,E1,K03,R1,M01,,015 (mixta) se agrupa aquí porque no se puede separar de la agricultura
-S06,Silvicultura y extracción de madera,A,02,02,True,alta,E1,K03,R2,M01,,
-S07,Pesca y acuicultura,A,03,03,True,alta,E1,K10,R2,M01,,
-S08,Minería y canteras,B,"05,06,07,08,09","05,06,07,08,09",True,media,SIN_GRUPO,K10,R2,M02,,en Paraguay es sobre todo canteras y áridos (08)
-S09,Frigoríficos y productos cárnicos,C,101,10,True,alta,E2,K09,R3,M03,,carne bovina
-S10,Lácteos,C,105,10,True,alta,E2,K09,R3,M03,,
-S11,Aceites y oleaginosas,C,104,10,True,alta,E2,K09,R3,M03,,molienda de soja
-S12,Molinería y almidones,C,106,10,True,alta,E2,K09,R3,M03,,
-S13,"Panificados, confitería y pastas",C,"1071,1073,1074",10,True,alta,E2,K09,R3,M03,,
-S14,"Frutas, hortalizas y pescado procesados",C,"102,103",10,True,alta,E2,K09,R3,M03,,
-S15,Azúcar y alcohol,C,"1072,1101","10,11",True,media,E2,K09,R3,M03,,1101 incluye alcohol; ver nota de biocombustibles
-S16,"Yerba mate, hierbas y otros alimentos",C,"1075,1079",10,True,media,E2,K09,R3,M03,,
-S17,Alimentos balanceados y para mascotas,C,108,10,True,alta,E2,K09,R3,M03,,
-S18,Bebidas y agua envasada,C,"1102,1103,1104",11,True,alta,E2,K09,R3,M03,,
-S19,Tabaco,C,12,12,True,alta,E2,K09,R3,M03,,
-S20,Textiles e hilandería,C,13,13,True,alta,E2,K09,R3,M04,,
-S21,Confecciones,C,14,14,True,alta,E2,K09,R3,M04,,maquila
-S22,Cuero y calzado,C,15,15,True,alta,E2,K09,R3,M04,,
-S23,Aserrado y productos de madera,C,16,16,True,alta,E2,K09,R3,M05,,
-S24,Muebles,C,31,31,True,alta,E2,K09,R3,M11,,
-S25,Papel y cartón,C,17,17,True,alta,E2,K09,R3,M05,,
-S26,Impresión y reproducción,C,18,18,False,alta,E2,K09,R3,M05,,mayormente servicios; poco comercio
-S27,Petróleo refinado y combustibles,C,19,19,True,media,E2,K09,R3,M06,,"los biocombustibles (biodiésel, bioetanol) no tienen clase CIIU propia: ver docs/taxonomia.md"
-S28,"Químicos básicos, fertilizantes y agroquímicos",C,"201,2021,203",20,True,alta,E2,K09,R3,M06,,
-S29,"Pinturas, limpieza y cosmética",C,"2022,2023,2029",20,True,alta,E2,K09,R3,M06,,
-S30,Farmacéutica,C,21,21,True,alta,E2,K09,R3,M06,,
-S31,Caucho y plásticos,C,22,22,True,alta,E2,K09,R3,M06,,maquila de plásticos
-S32,"Cemento, hormigón y prefabricados",C,"2394,2395",23,True,alta,E2,K09,R3,M07,,
-S33,Cerámica y ladrillos,C,"2391,2392,2393",23,True,alta,E2,K09,R3,M07,,olerías
-S34,"Vidrio, piedra y otros minerales no metálicos",C,"231,2396,2399",23,True,alta,E2,K09,R3,M07,,
-S35,Siderurgia y fundición,C,"241,243",24,True,alta,E2,K09,R3,M08,,
-S36,Metales no ferrosos y aluminio,C,242,24,True,alta,E2,K09,R3,M08,,maquila de aluminio
-S37,"Productos de metal y estructuras (herrería, mecanizado)",C,25,25,True,alta,E2,K09,R3,M09,,
-S38,Maquinaria y equipo,C,28,28,True,alta,E2,K09,R3,M10,,
-S39,Electrónica y equipo eléctrico (incluye cables),C,"26,27","26,27",True,media,E2,K09,R3,M10,,los arneses pueden clasificarse en 27 o en 29: ver docs/taxonomia.md
-S40,Autopartes y vehículos,C,29,29,True,alta,E2,K09,R3,M10,,maquila de autopartes
-S41,Otro equipo de transporte y astilleros,C,30,30,True,alta,E2,K09,R3,M10,,
-S42,"Joyería, deportes y manufacturas diversas",C,32,32,True,alta,E2,K09,R3,M11,,
-S43,Reparación e instalación de maquinaria,C,33,33,False,alta,E2,K09,R3,M11,,
-S44,"Electricidad, gas y vapor",D,35,35,False,alta,E3,K10,R4,M12,,la exportación de energía eléctrica (HS 271600) se excluye del comercio
-S45,"Agua, saneamiento y remediación",E,"36,37,39","36,37,39",False,alta,E3,K10,R4,M12,,
-S46,Gestión de residuos y reciclaje,E,38,38,False,alta,E3,K10,R4,M12,,
-S47,Construcción,F,"41,42,43","41,42,43",False,alta,E4,K06,R5,M13,,
-S48,Comercio mayorista,G,46,46,False,alta,E5,K04,R6,M14,,
-S49,Comercio minorista y de vehículos,G,"45,47","45,47",False,alta,E5,K05,R6,M14,,
-S50,Transporte terrestre y por tuberías,H,49,49,False,alta,E6,K12,R6,M15,,
-S51,Transporte acuático y aéreo,H,"50,51","50,51",False,alta,E6,K12,R6,M15,,hidrovía
-S52,"Almacenamiento, logística y correos",H,"52,53","52,53",False,alta,E6,K12,R6,M15,,
-S53,Alojamiento y gastronomía,I,"55,56","55,56",False,alta,E5,K12,R6,M16,,
-S54,Agencias de viaje y turismo,N,79,79,False,alta,E6,K12,R6,M16,,separado de S53 porque EPHC lo agrupa en otra rama
-S55,Telecomunicaciones,J,61,61,False,alta,E6,K12,R6,M17,,
-S56,"Software, informática y servicios de información",J,"62,63","62,63",False,alta,E7,K12,R6,M17,,
-S57,"Edición, audiovisual y medios",J,"58,59,60","58,59,60",False,media,E8,K12,R6,M17,,
-S58,Finanzas y seguros,K,"64,65,66","64,65,66",False,alta,E7,K11,R6,M18,,
-S59,Servicios inmobiliarios,L,68,68,False,alta,E7,K01,R6,M19,,
-S60,"Servicios profesionales, científicos y técnicos",M,"69,70,71,72,73,74,75","69,70,71,72,73,74,75",False,alta,E7,K12,R6,M20,,
-S61,Servicios administrativos y de apoyo a empresas,N,"77,78,80,81,82","77,78,80,81,82",False,alta,E7,K12,R6,M20,,
-S62,Administración pública y defensa,O,84,84,False,alta,E8,K02,R6,M21,,
-S63,Educación,P,85,85,False,alta,E8,K12,R6,M21,,
-S64,Salud y asistencia social,Q,"86,87,88","86,87,88",False,alta,E8,K12,R6,M21,,
-S65,"Arte, recreación y deportes",R,"90,91,92,93","90,91,92,93",False,alta,E8,K12,R6,M16,,
-S66,Otros servicios personales y de reparación,S,"94,95,96,97,98","94,95,96,97,98",False,media,E8,K12,R6,M21,,
+S01,"Cultivos anuales (soja, maíz, trigo, arroz, caña, algodón, hortalizas)",A,011,01x,True,alta,E1,K03,R1,M01,N01,núcleo exportador de Paraguay
+S02,Cultivos perennes y viveros,A,"012,013",01x,True,alta,E1,K03,R1,M01,N01,
+S03,Ganadería bovina y otras especies,A,"0141,0142,0143,0144,0149",014,True,alta,E1,K08,R2,M01,N02,0149 incluye apicultura
+S04,Avicultura y porcicultura,A,"0145,0146",014,True,alta,E1,K08,R2,M01,N02,
+S05,"Servicios agropecuarios y poscosecha (silos, acopio)",A,"015,016,017",01x,False,media,E1,K03,R1,M01,N01,015 (mixta) se agrupa aquí porque no se puede separar de la agricultura
+S06,Silvicultura y extracción de madera,A,02,02,True,alta,E1,K03,R2,M01,N03,
+S07,Pesca y acuicultura,A,03,03,True,alta,E1,K10,R2,M01,N04,
+S08,Minería y canteras,B,"05,06,07,08,09","05,06,07,08,09",True,media,SIN_GRUPO,K10,R2,M02,N05,en Paraguay es sobre todo canteras y áridos (08)
+S09,Frigoríficos y productos cárnicos,C,101,101,True,alta,E2,K09,R3,M03,N06,carne bovina
+S10,Lácteos,C,105,105,True,alta,E2,K09,R3,M03,N08,
+S11,Aceites y oleaginosas,C,104,104,True,alta,E2,K09,R3,M03,N07,molienda de soja
+S12,Molinería y almidones,C,106,106,True,alta,E2,K09,R3,M03,N09,
+S13,Panificados,C,1071,1071,True,alta,E2,K09,R3,M03,N09,
+S14,Confitería y pastas,C,"1073,1074",10o,True,alta,E2,K09,R3,M03,N11,separado de panificados porque el BCP los pone en actividades distintas
+S15,"Frutas, hortalizas y pescado procesados",C,"102,103",10o,True,alta,E2,K09,R3,M03,N11,
+S16,Azúcar,C,1072,1072,True,alta,E2,K09,R3,M03,N10,
+S17,"Yerba mate, hierbas y otros alimentos",C,"1075,1079",10o,True,media,E2,K09,R3,M03,N11,
+S18,Alimentos balanceados y para mascotas,C,108,10o,True,alta,E2,K09,R3,M03,N11,
+S19,"Bebidas, alcohol y agua envasada",C,"1101,1102,1103,1104",11,True,alta,E2,K09,R3,M03,N12,1101 incluye alcohol etílico; los biocombustibles se identifican por producto HS
+S20,Tabaco,C,12,12,True,alta,E2,K09,R3,M03,N12,
+S21,Textiles e hilandería,C,13,13,True,alta,E2,K09,R3,M04,N13,
+S22,Confecciones,C,14,14,True,alta,E2,K09,R3,M04,N13,maquila
+S23,Cuero y calzado,C,15,15,True,alta,E2,K09,R3,M04,N14,
+S24,Aserrado y productos de madera,C,16,16,True,alta,E2,K09,R3,M05,N15,
+S25,Muebles,C,31,31,True,alta,E2,K09,R3,M11,N22,
+S26,Papel y cartón,C,17,17,True,alta,E2,K09,R3,M05,N16,
+S27,Impresión y reproducción,C,18,18,False,alta,E2,K09,R3,M05,N16,mayormente servicios; poco comercio
+S28,Petróleo refinado y combustibles,C,19,19,True,media,E2,K09,R3,M06,N17,los biocombustibles no tienen clase CIIU propia: se identifican por producto HS (ver docs/taxonomia.md)
+S29,"Químicos básicos, fertilizantes y agroquímicos",C,"201,2021,203",20,True,alta,E2,K09,R3,M06,N17,
+S30,"Pinturas, limpieza y cosmética",C,"2022,2023,2029",20,True,alta,E2,K09,R3,M06,N17,
+S31,Farmacéutica,C,21,21,True,alta,E2,K09,R3,M06,N17,
+S32,Caucho y plásticos,C,22,22,True,alta,E2,K09,R3,M06,N17,maquila de plásticos
+S33,"Cemento, hormigón y prefabricados",C,"2394,2395",23,True,alta,E2,K09,R3,M07,N18,
+S34,Cerámica y ladrillos,C,"2391,2392,2393",23,True,alta,E2,K09,R3,M07,N18,olerías
+S35,"Vidrio, piedra y otros minerales no metálicos",C,"231,2396,2399",23,True,alta,E2,K09,R3,M07,N18,
+S36,Siderurgia y fundición,C,"241,243",24,True,alta,E2,K09,R3,M08,N19,
+S37,Metales no ferrosos y aluminio,C,242,24,True,alta,E2,K09,R3,M08,N19,maquila de aluminio
+S38,"Productos de metal y estructuras (herrería, mecanizado)",C,25,25,True,alta,E2,K09,R3,M09,N20,
+S39,Maquinaria y equipo,C,28,28,True,alta,E2,K09,R3,M10,N21,
+S40,Electrónica y equipo eléctrico (incluye cables),C,"26,27","26,27",True,media,E2,K09,R3,M10,N21,los arneses de maquila se asignan a Autopartes y vehículos por producto HS
+S41,Autopartes y vehículos,C,29,29,True,alta,E2,K09,R3,M10,N21,maquila de autopartes; incluye los arneses
+S42,Otro equipo de transporte y astilleros,C,30,30,True,alta,E2,K09,R3,M10,N21,
+S43,"Joyería, deportes y manufacturas diversas",C,32,32,True,alta,E2,K09,R3,M11,N22,
+S44,Reparación e instalación de maquinaria,C,33,33,False,alta,E2,K09,R3,M11,N22,
+S45,"Electricidad, gas y vapor",D,35,35,False,alta,E3,K10,R4,M12,N23,la exportación de energía eléctrica (HS 271600) se excluye del comercio
+S46,"Agua, saneamiento y remediación",E,"36,37,39","36,37,39",False,alta,E3,K10,R4,M12,N23,
+S47,Gestión de residuos y reciclaje,E,38,38,False,alta,E3,K10,R4,M12,N23,
+S48,Construcción,F,"41,42,43","41,42,43",False,alta,E4,K06,R5,M13,N24,
+S49,Comercio mayorista,G,46,46,False,alta,E5,K04,R6,M14,N25,
+S50,Comercio minorista y de vehículos,G,"45,47","45,47",False,alta,E5,K05,R6,M14,N25,
+S51,Transporte terrestre y por tuberías,H,49,49,False,alta,E6,K12,R6,M15,N26,
+S52,Transporte acuático y aéreo,H,"50,51","50,51",False,alta,E6,K12,R6,M15,N26,hidrovía
+S53,"Almacenamiento, logística y correos",H,"52,53","52,53",False,alta,E6,K12,R6,M15,N26,
+S54,Alojamiento y gastronomía,I,"55,56","55,56",False,alta,E5,K12,R6,M16,N31,
+S55,Agencias de viaje y turismo,N,79,79,False,alta,E6,K12,R6,M16,N30,separado de alojamiento porque EPHC lo agrupa en otra rama
+S56,Telecomunicaciones,J,61,61,False,alta,E6,K12,R6,M17,N27,
+S57,"Software, informática y servicios de información",J,"62,63","62,63",False,alta,E7,K12,R6,M17,N30,
+S58,"Edición, audiovisual y medios",J,"58,59,60","58,59,60",False,media,E8,K12,R6,M17,N30,
+S59,Finanzas y seguros,K,"64,65,66","64,65,66",False,alta,E7,K11,R6,M18,N28,
+S60,Servicios inmobiliarios,L,68,68,False,alta,E7,K01,R6,M19,N29,
+S61,"Servicios profesionales, científicos y técnicos",M,"69,70,71,72,73,74,75","69,70,71,72,73,74,75",False,alta,E7,K12,R6,M20,N30,
+S62,Servicios administrativos y de apoyo a empresas,N,"77,78,80,81,82","77,78,80,81,82",False,alta,E7,K12,R6,M20,N30,
+S63,Administración pública y defensa,O,84,84,False,alta,E8,K02,R6,M21,N33,
+S64,Educación,P,85,85,False,alta,E8,K12,R6,M21,N32+N33,público y privado: reparte entre N32 y N33 del BCP
+S65,Salud y asistencia social,Q,"86,87,88","86,87,88",False,alta,E8,K12,R6,M21,N32+N33,público y privado: reparte entre N32 y N33 del BCP
+S66,"Arte, recreación y deportes",R,"90,91,92,93","90,91,92,93",False,alta,E8,K12,R6,M16,N32,
+S67,Otros servicios personales y de reparación,S,"94,95,96,97,98","94,95,96,97,98",False,media,E8,K12,R6,M21,N32,
