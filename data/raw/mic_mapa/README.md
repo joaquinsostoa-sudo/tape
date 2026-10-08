@@ -11,6 +11,8 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
 
 ## Hallazgos sobre la extracción (2026-10-08)
 - El visor entrega **coordenadas** en las respuestas de sus gráficos de mapa (campos `Latitud_1` y `Longitud_1`). En la pestaña **C- RED ELECTRICA** se vieron: subestaciones con tensión (kV), tablas de demanda proyectada por subestación y año (MW) y las líneas (≈ 776 KB de vértices).
-- La pestaña **F- INDUSTRIAS** tiene un campo geográfico de latitud; falta comprobar si el mapa devuelve las 17.080 industrias con coordenadas o solo puntos agrupados por zoom.
-- Los filtros Zona / Departamento / Ciudad permiten leer la tabla F4 por ciudad (263 ciudades) y así tener industrias por ciudad sin depender de las coordenadas.
+- **Prueba hecha (2026-10-08): el mapa de F- INDUSTRIAS devuelve las 17.080 industrias, una por una, con coordenadas.** La respuesta del gráfico (`ZAChartView`, tipo `MAPSCATTER`, ≈ 2,9 MB) trae 19 series (una por sector) y cada punto es `[latitud, 1, SECTOR, SUB-SECTOR, SECTOR ESPECÍFICO, longitud, índice]`. El conteo por sector coincide con el visor (p. ej. madera y muebles 3.976). **No trae ciudad ni departamento por punto**: la ciudad se obtiene cruzando las coordenadas con los límites administrativos (carpeta `limites_admin`). No trae nombre ni identificador de la empresa.
+- Falta guardar esos puntos a disco: el navegador integrado bloquea el envío directo a un receptor local, así que hay que generar un archivo descargable desde la página (con permiso del usuario).
+- Las otras capas (rutas, red eléctrica, combustibles, salud, polos, aduanas) usan el mismo tipo de gráfico y también devuelven coordenadas.
+- Los filtros Zona / Departamento / Ciudad permitirían leer la tabla F4 por ciudad (263), pero con las coordenadas ya no hace falta.
 - El visor no declara licencia ni ofrece descarga. La extracción es provisoria: **pedir los datos al MIC por acceso a la información** sigue siendo la vía formal, igual que la copia anual del mapa para construir un panel propio.
