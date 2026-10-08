@@ -1,0 +1,16 @@
+# Leyes y normas
+
+- **Institución:** BACN / Gaceta Oficial
+- **Registro:** fila `leyes` de `data/fuentes.csv`
+- **Acceso:** Texto
+- **Cobertura:** Por vigencia
+
+## Qué esperamos aquí
+
+Archivos esperados: textos de leyes/decretos en PDF o texto, uno por norma, nombrados `{tipo}_{número}_{año}.pdf`.
+
+## Reglas
+
+- No modificar, renombrar columnas ni resguardar versiones editadas: `data/raw` es solo lectura.
+- Al copiar archivos, completar `fecha de descarga` y `versión` en `data/fuentes.csv`.
+- Los archivos pesados están ignorados por git (solo se versionan los README).

@@ -1,0 +1,30 @@
+# Entorno
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Datos pesados: se versionan solo los README y .gitkeep
+data/raw/**
+!data/raw/
+!data/raw/*/
+!data/raw/**/README.md
+!data/raw/**/.gitkeep
+data/clean/**
+!data/clean/.gitkeep
+data/model/**
+!data/model/.gitkeep
+*.parquet
+*.duckdb
+*.gpkg
+*.shp
+*.dta
+*.sav
+
+# Salidas y secretos
+outputs/
+.env
+web/node_modules/

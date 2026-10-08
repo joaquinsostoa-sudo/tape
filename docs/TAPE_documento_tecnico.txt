@@ -1,0 +1,893 @@
+
+=== PAGINA 1 ===
+TAPE — Territorio, Actividades y Potencial
+Económico
+Sistema de predicción de potencial productivo y brechas territoriales · Laboratorio de
+Desarrollo Económico (LabDE)
+ Oct 8, 2026  ·  @Joaquín
+1. Resumen y objetivo
+TAPE es una herramienta para identificar a qué actividades puede diversificarse Paraguay,
+dónde, con qué probabilidad, qué falta para lograrlo y quién debe actuar para cerrar esa
+brecha. Su nombre viene del guaraní tape, "camino".
+Objetivo general. Predecir actividades con potencial de desarrollo o de ganar ventaja
+comparativa en Paraguay, y traducir sus brechas en una respuesta de política
+estandarizada.
+Preguntas que responde:
+1. ¿Qué actividades puede desarrollar Paraguay, dado lo que ya produce? (factibilidad)
+2. ¿Cuánto vale desarrollarlas? (complejidad, empleo, salarios, encadenamientos)
+3. ¿Dónde dentro del país son más factibles? (departamento y ciudad)
+4. ¿Qué falta para que ocurran? (brechas de capital humano, logística, energía, insumos,
+crédito, regulación)
+5. ¿Quién tiene que actuar? (mercado, acción colectiva o Estado) y ¿con qué
+instrumento?
+6. ¿Habría anticipado el modelo lo que efectivamente ocurrió en el pasado? (validación)
+Qué la distingue. El espacio producto dice qué es posible; TAPE agrega el cómo, el dónde y
+el quién, con pesos estimados empíricamente en lugar de supuestos.
+Autoría. Laboratorio de Desarrollo Económico (LabDE). Proyecto independiente,
+construido solo con fuentes públicas o solicitadas por acceso a la información.
+2. Lógica conceptual
+TAPE funciona en tres pasos: el espacio producto define los candidatos, las capas de
+capacidades ajustan su probabilidad y el tipo de brecha define quién debe actuar.
+TAPE — Territorio, Actividades y Potencial Económico
+Page 1 of 17
+=== PAGINA 2 ===
+1. Qué es posible. Por el principio de relacionamiento (Hidalgo et al., 2007; 2018), un país
+tiende a desarrollar productos cercanos a los que ya hace. La densidad del espacio
+producto filtra los candidatos; la complejidad (PCI) y la ganancia de oportunidad
+(COG) miden su valor.
+2. Cómo y con qué probabilidad. La mayoría de los productos cercanos no aparece en
+una ventana de 5–10 años. Lo que distingue a los que sí aparecen son capacidades
+concretas: capital humano, logística, energía, insumos, crédito y regulación. TAPE las
+mide como brechas entre lo que la actividad requiere y lo que el país o el territorio
+tiene.
+3. Quién actúa. Si la brecha es privada la resuelve el mercado. Si es de coordinación o un
+bien público sectorial, requiere acción colectiva (gremios, consorcios). Si es regulatoria
+o de infraestructura pesada, requiere al Estado.
+Saltos largos. Algunos desarrollos ocurren lejos del espacio producto, casi siempre por
+IED o regímenes especiales. El caso de los arneses de maquila en Paraguay es un ejemplo:
+lo explican la energía, la mano de obra, el régimen de maquila y la cercanía a Brasil, no la
+densidad. TAPE los trata como una categoría propia de política, y es donde las capas
+aportan más.
+arquitectura de TAPE · datos, 4 módulos y salidas
+TAPE — Territorio, Actividades y Potencial Económico
+Page 2 of 17
+=== PAGINA 3 ===
+El comercio y el panel de países alimentan el modelo nacional; las capas locales, el
+territorial. El Módulo 3 combina ambos con las capas nacionales agregadas, y el Módulo 4
+traduce las brechas en política.
+3. Inventario de datos
+El inventario cubre todas las capas, pero con un desajuste: el comercio llega a miles de
+productos, mientras casi todo lo doméstico viene en 6 a 33 categorías y con poca historia
+territorial. Los datos marcados con (?) deben verificarse.
+# Dataset Fuente Nivel sectorial Nivel espacial Temporal Acceso Rol en TAPE
+1 Comercio
+bilateral
+BACI
+(CEPII)
+HS6 País 1995–
+2024 (?),
+anual
+Descarga
+directa
+Densidad,
+backtest; incluye
+toneladas
+(valor/peso)
+2 RCA, PCI, COG,
+proximidad
+Atlas
+(Growth
+Lab)
+HS4/HS6, SITC País Desde
+1962
+(SITC),
+anual
+Harvard
+Dataverse
+Factibilidad y valor
+3 Comercio
+exterior de
+Paraguay
+DNIT / BCP NCM 8 a 6
+dígitos
+País (ver si trae
+aduana u
+origen)
+Mensual Portal
+Aduanas /
+BCP
+Exportaciones
+reales, validación
+4.1 Habitantes, PEA Mapa
+Logístico
+MIC
+— Ciudad Foto
+2026
+Visor (ver
+descarga)
+Escala del mercado
+laboral
+4.2 Rutas y fronteras Mapa
+Logístico
+MIC
+— Línea / ciudad Foto
+2026
+Visor Accesibilidad
+4.3 Red eléctrica Mapa
+Logístico
+MIC
+— Punto / línea Foto
+2026
+Visor Factibilidad
+energética
+4.4 Red de
+combustibles
+Mapa
+Logístico
+MIC
+— Punto Foto
+2026
+Visor Logística
+(secundaria)
+4.5 Red de salud Mapa
+Logístico
+MIC
+— Punto Foto
+2026
+Visor Servicios urbanos
+(secundaria)
+4.6 Industrias Mapa
+Logístico
+MIC
+Sector /
+subsector
+MIC
+Ciudad Foto
+2026
+Visor Presencia
+sectorial,
+relacionamiento
+doméstico
+4.7 Polos e IFCLs Mapa
+Logístico
+MIC
+Clasificación
+MIC
+Ciudad Foto
+2026
+Visor Política territorial
+existente
+4.8 Aduanas Mapa
+Logístico
+MIC
+— Punto Foto
+2026
+Visor Accesibilidad
+TAPE — Territorio, Actividades y Potencial Económico
+Page 3 of 17
+=== PAGINA 4 ===
+Datos a sumar:
+# Dataset Fuente Nivel sectorial Nivel espacial Temporal Acceso Rol en TAPE
+5 EPHC
+(microdatos)
+INE 8 ramas CIIU
+Rev.4 (ver si
+hay código
+detallado)
+Departamento
+(sin Alto
+Paraguay ni
+Boquerón)
+2022–
+2025
+Web del
+INE
+Capital humano,
+salarios,
+informalidad,
+desempleo
+6 Cuentas
+nacionales
+BCP 33 actividades
+CNAEP
+País Anual
+1991–
+2025
+Web del
+BCP
+Valor,
+productividad
+7 Cuentas
+regionales
+BCP 6 actividades Departamento Anual
+2021–
+2023
+Web del
+BCP
+Especialización,
+PIB per cápita
+8 Matriz insumo-
+producto
+CEPAL-OIT 21 actividades País, integrada
+regionalmente
+2024 Propio Encadenamientos
+nacionales y
+regionales
+9 Crédito por
+actividad
+BCP 7–8 sectores País Mensual
+2020–
+2026
+Boletín
+estadístico
+Brecha financiera
+10 Registro de
+títulos
+MEC Carrera,
+institución
+Ciudad (por la
+institución)
+Mensual Web del
+MEC
+Flujo de egresados
+11 Establecimientos
+escolares
+MEC — Ciudad Foto
+actual
+Web del
+MEC
+Oferta educativa
+12 Leyes y normas BACN /
+Gaceta
+Oficial
+Codificación
+propia
+País Por
+vigencia
+Texto Barreras e
+incentivos
+13 Datos laborales y
+formación
+SIMEL
+(MTESS,
+IPS, INE,
+SNPP)
+Variable País /
+departamento
+Variable Web Empleo formal,
+formación
+14 Maquila CNIME /
+MIC
+Clasificación
+MIC
+Departamento Mensual Web del
+MIC
+Capacidades
+ocultas, validación
+15 Régimen de
+materia prima
+MIC Clasificación
+MIC
+Departamento Mensual Web del
+MIC
+Insumos usados
+16 Proyectos Ley
+60/90
+MIC /
+Consejo de
+Inversiones
+Clasificación
+MIC
+Departamento Mensual Web del
+MIC
+Indicador
+adelantado,
+validación
+Dataset Fuente Para qué
+Censo Económico Nacional
+2011
+INE Establecimientos por CIIU y
+distrito; junto con el mapa MIC
+2026 permite el backtest
+territorial
+Dotaciones de países WDI, Penn World
+Table, ILOSTAT, LPI
+Estimar en el panel internacional
+el peso de cada capacidad
+TAPE — Territorio, Actividades y Potencial Económico
+Page 4 of 17
+=== PAGINA 5 ===
+4. Organización de los datos
+Todas las fuentes se conectan a dos taxonomías pivote, una sectorial y una territorial,
+mediante tablas puente. Cada dato entra al modelo en su nivel nativo de agregación; nada
+se desagrega de forma ficticia.
+Taxonomía sectorial: "sectores TAPE"
+Una clasificación propia de unos 40–60 sectores, intermedia entre las divisiones CIIU (2
+dígitos) y los subsectores del MIC. Es jerárquica: cada sector TAPE pertenece a un grupo
+de las 33 actividades de cuentas nacionales, a una de las 21 de la MIP, a uno de los 7–8
+sectores de crédito, a una de las 8 ramas de la EPHC y a una de las 6 actividades
+regionales.
+Dataset Fuente Para qué
+Intensidades por sector Bases de EE.UU. u
+OCDE
+Requisitos de energía, capital y
+habilidades de cada producto
+Maquila y 60/90 a nivel de
+empresa o proyecto
+MIC (solicitud) Codificar a CIIU/HS y ubicar con
+precisión
+Código de rama detallado de
+la EPHC
+INE Relacionamiento por habilidades
+entre sectores
+Origen Puente Destino Cómo se construye
+HS6 / NCM8 HS → CPC → CIIU
+Rev.4
+Sector
+TAPE
+Correspondencias
+oficiales de la ONU, con
+pesos por valor exportado
+Clasificación MIC
+(industrias, polos,
+maquila, 60/90)
+MIC → CIIU Rev.4 Sector
+TAPE
+Tabla manual, una sola vez,
+con nivel de confianza por
+fila
+33 actividades CN,
+MIP 21, crédito 8,
+EPHC 8, regionales 6
+Agregación Grupo del
+sector
+TAPE
+Cada sector hereda el
+valor de su grupo; el
+modelo sabe que es un
+dato grueso
+Carreras (títulos
+MEC)
+Carrera → campo de
+formación (CINE-F) →
+sector
+Sector
+TAPE
+Tabla manual de afinidad
+carrera–sector
+TAPE — Territorio, Actividades y Potencial Económico
+Page 5 of 17
+=== PAGINA 6 ===
+Taxonomía territorial
+Dos niveles anidados: ciudad o distrito (capas del mapa MIC, títulos, escuelas) dentro de
+departamento (EPHC, cuentas regionales, maquila, materia prima, 60/90). Los puntos y
+líneas del mapa se asignan a la ciudad por geoprocesamiento.
+Esquema de base de datos
+Un esquema en estrella:
+Tablas de dimensión: producto (HS6), sector TAPE, grupos agregados, ciudad,
+departamento, año, carrera, país.
+Tablas de hechos, una por fuente: comercio, industrias por ciudad, accesibilidad por
+ciudad, energía por ciudad, empleo y salarios por rama y departamento, crédito, MIP,
+títulos, maquila, 60/90, leyes.
+Tablas puente: las de la tabla anterior, con pesos y nivel de confianza.
+Tablas derivadas: densidad, brechas por capa, probabilidades, aptitud territorial, valor
+y nivel de política.
+Repositorio
+Carpetas raw/  (tal como se descargó), clean/  (estandarizado) y model/  (tablas
+derivadas).
+Un registro por fuente: URL, fecha de descarga, versión y responsable.
+Herramientas: DuckDB o PostgreSQL con PostGIS para los datos geográficos; Python
+para limpieza y modelos; Git para el código.
+Una copia anual del mapa MIC, para construir un panel propio hacia adelante.
+5. Modelo matemático
+TAPE combina cuatro módulos: un logit nacional estimado en un panel de países, un
+modelo territorial jerárquico estimado con ciudades de Paraguay, un índice de valor y
+reglas explícitas de política. Notación: c = país, p = producto, s = sector TAPE, j = ciudad, t
+= año, k = capa de capacidad.
+Origen Puente Destino Cómo se construye
+Leyes Codificación por
+actividad
+Sector
+TAPE
+Matriz sector × requisito /
+incentivo
+TAPE — Territorio, Actividades y Potencial Económico
+Page 6 of 17
+=== PAGINA 7 ===
+5.1 Bloques básicos
+Ventaja comparativa revelada y matriz de presencia:
+RCA_{cpt} = \frac{X_{cpt} / \sum_{p} X_{cpt}}{\sum_{c} X_{cpt} / 
+\sum_{c}\sum_{p} X_{cpt}}, \qquad M_{cpt} = \mathbf{1}\left[RCA_{cpt} \geq 
+1\right]
+Proximidad entre productos y densidad (cercanía de cada producto a la canasta actual del
+país):
+\phi_{pp'} = \min\left\{ P(M_{p}=1 \mid M_{p'}=1),\; P(M_{p'}=1 \mid M_{p}=1) 
+\right\}, \qquad d_{cpt} = \frac{\sum_{p'} \phi_{pp'} M_{cp't}}{\sum_{p'} 
+\phi_{pp'}}
+El PCI y el COG se toman del Atlas del Growth Lab.
+5.2 Módulo 1: probabilidad nacional
+Variable de resultado: entrada en ventaja comparativa en un horizonte h de 5 o 10 años,
+partiendo de una posición sin ventaja.
+E_{cp,t \to t+h} = \mathbf{1}\left[ RCA_{cpt} < 0.5 \;\wedge\; RCA_{cp,t+h} 
+\geq 1 \right]
+Logit con efectos fijos país-año y producto-año, densidad e interacciones requisito ×
+dotación:
+\Pr(E_{cp}=1) = \Lambda\left( \alpha_{ct} + \gamma_{pt} + \beta\, d_{cpt} + 
+\sum_{k} \theta_{k}\, r_{pk}\, a_{ckt} + \sum_{k} \lambda_{k}\, d_{cpt}\, 
+r_{pk}\, a_{ckt} \right)
+r_pk = requisito del producto p en la capa k (intensidad energética, de capital, de
+habilidades, relación valor/peso), estandarizado.
+a_ckt = dotación del país c en la capa k (costo de energía, capital humano, crédito/PIB,
+logística), estandarizada.
+θ _k mide si los productos intensivos en k aparecen más en países abundantes en k. λ _k
+mide si una brecha anula la ventaja de la cercanía ("es cercana, pero falta k").
+Los efectos fijos absorben todo lo que es propio del país o del producto; solo se
+identifican las interacciones.
+TAPE — Territorio, Actividades y Potencial Económico
+Page 7 of 17
+=== PAGINA 8 ===
+5.3 Módulo 2: aptitud territorial
+Unidad: sector s × ciudad j, con la foto 2026 del mapa MIC. Primero, relacionamiento
+doméstico por co-localización y densidad doméstica, con P_sj = 1 si el sector está
+presente en la ciudad:
+\phi^{dom}_{ss'} = \min\left\{ P(P_{s}=1 \mid P_{s'}=1),\; P(P_{s'}=1 \mid 
+P_{s}=1) \right\}, \qquad D_{sj} = \frac{\sum_{s'} \phi^{dom}_{ss'} P_{s'j}}
+{\sum_{s'} \phi^{dom}_{ss'}}
+Modelo de conteo jerárquico (binomial negativa) para la cantidad de industrias y_sj, con
+efecto aleatorio por departamento y rezago espacial:
+\log \mu_{sj} = \alpha_{s} + u_{dep(j)} + \beta_{1} D_{sj} + \beta_{2} 
+\sum_{j'} w_{jj'} D_{sj'} + \sum_{k} \theta_{k}\, r_{sk}\, z_{jk} + 
+\log(\mathrm{PEA}_{j}), \qquad u_{dep} \sim N(0, \sigma^{2})
+z_jk = capacidad local: tiempo a frontera y aduana, distancia a subestación por nivel de
+tensión, egresados en carreras afines, escuelas, presencia de polos o maquila.
+w_jj' = pesos de vecindad entre ciudades.
+Potencial no realizado: ciudades con y_sj = 0 y probabilidad predicha de presencia
+alta.
+5.4 Brechas y contrafactual
+La brecha en la capa k se expresa en puntos de probabilidad: cuánto subiría la
+probabilidad si la capa alcanzara un nivel de referencia (por ejemplo, la mediana de los
+países o ciudades donde la actividad sí se desarrolló):
+\Delta P_{sk} = \Pr\left(E_{s}=1 \mid a_{k} = \bar{a}_{k}\right) - 
+\Pr\left(E_{s}=1 \mid a_{k} = a^{PY}_{k}\right), \qquad k^{*}_{s} = 
+\arg\max_{k} \Delta P_{sk}
+k*_s es la restricción que más frena el sector s. El mismo cálculo con el Módulo 2 da las
+brechas por ciudad. Las brechas que el modelo no puede estimar (regulación, insumos de
+la MIP, crédito sectorial) se reportan como indicadores diagnósticos, separados de las
+estimadas.
+5.5 Valor
+Índice de valor con ponderaciones ajustables por el usuario, sobre variables
+estandarizadas:
+TAPE — Territorio, Actividades y Potencial Económico
+Page 8 of 17
+=== PAGINA 9 ===
+V_{s} = \sum_{m} \omega_{m}\, \tilde{v}_{sm}, \qquad m \in \{PCI, COG, 
+\text{salario}, \text{formalidad}, \text{productividad}, BL, FL\}
+Los encadenamientos hacia atrás (BL) y hacia adelante (FL) salen de la inversa de
+Leontief de la MIP, con A = matriz de coeficientes técnicos:
+L = (I - A)^{-1}, \qquad BL_{j} = \frac{\tfrac{1}{n}\sum_{i} l_{ij}}
+{\tfrac{1}{n^{2}}\sum_{i}\sum_{j} l_{ij}}
+5.6 Módulo 4: reglas de política
+Cada capa tiene un tipo de brecha fijo: privada (crédito, escala), de coordinación o bien
+público sectorial (capital humano específico, proveedores, normas técnicas) o estatal
+(regulación, infraestructura pesada). Con eso, el nivel de política de cada sector sale de
+reglas explícitas, donde ε  es el umbral de brecha relevante:
+Extensión futura. El Módulo 1 puede reemplazarse por un modelo estructural con un
+equilibrio de coordinación entre actores (firmas, trabajadores, financistas, Estado), o por
+un modelo de machine learning más flexible, siempre que supere a este modelo base en la
+validación.
+6. Estrategia empírica
+El Módulo 1 se valida con datos históricos de forma rigurosa; el Módulo 2 se valida hacia
+adelante con los nuevos proyectos de maquila y Ley 60/90, y hacia atrás si se suma el
+Censo Económico 2011.
+Nivel Condición Respuesta
+0. Mercado Probabilidad alta y ningún Δ P
+mayor que ε
+Políticas horizontales y
+facilitación
+1. Ajuste puntual Una sola brecha mayor que ε ,
+de tipo privado
+Un instrumento: crédito,
+garantía, capacitación puntual
+2. Acción colectiva Dos o más brechas, o una de
+coordinación o bien público
+sectorial
+Gremios, consorcios, formación
+sectorial, normas técnicas
+3. Política estatal o
+apuesta estratégica
+Brecha regulatoria o de
+infraestructura pesada, o
+probabilidad baja con valor alto
+(salto largo)
+Reforma normativa,
+infraestructura, IED ancla,
+régimen especial
+TAPE — Territorio, Actividades y Potencial Económico
+Page 9 of 17
+=== PAGINA 10 ===
+Estimación
+Módulo 1: panel de unos 180 países (o una submuestra de comparables como control),
+ventanas 2000→2005→2010→2015→2020, productos a HS4. Logit con efectos fijos;
+errores agrupados por país.
+Módulo 2: binomial negativa jerárquica (o logit de presencia) sobre sector × ciudad,
+estimada en forma bayesiana para obtener intervalos de credibilidad.
+Modelo de control: XGBoost con las mismas variables, interpretado con SHAP. Si
+supera claramente al modelo principal, hay poder predictivo que el modelo
+interpretable no está usando.
+Validación
+Métricas
+Precision@k: de los k sectores con mayor probabilidad, cuántos aparecieron. Es la
+métrica principal, porque TAPE recomienda listas cortas.
+AUC-PR (área bajo la curva precisión-sensibilidad), más informativa que el AUC-ROC
+cuando las entradas son raras (1–2% por ventana).
+Calibración: que una probabilidad de 20% se cumpla cerca del 20% de las veces.
+Prueba Cómo Qué demuestra
+Backtest nacional Estimar con datos hasta 2005,
+predecir entradas 2005–2015
+Que el modelo anticipa
+transiciones reales
+Países excluidos Sacar del entrenamiento a países
+chicos comparables y predecirlos
+Que generaliza a países como
+Paraguay
+Aporte de las
+capas
+Comparar contra un modelo solo con
+densidad
+Que el "cómo" mejora la
+predicción
+Casos de
+Paraguay
+¿Marcaba el modelo arneses de
+maquila, frigoríficos,
+biocombustibles antes de su
+despegue?
+Credibilidad ante usuarios
+Territorial hacia
+adelante
+¿Los nuevos proyectos de maquila y
+60/90 caen en ciudades con aptitud
+alta?
+Validez del Módulo 2, mes a
+mes
+Territorial hacia
+atrás
+Con el Censo 2011: ¿qué sectores
+aparecieron en qué ciudades hasta
+2026?
+Backtest territorial (si se
+suma el censo)
+TAPE — Territorio, Actividades y Potencial Económico
+Page 10 of 17
+=== PAGINA 11 ===
+Siempre comparadas contra la densidad sola, no contra umbrales absolutos.
+Cuidados
+Sin fuga de información: el entrenamiento termina en t − h; la partición es temporal, no
+aleatoria.
+Depuración del comercio: excluir la energía de Itaipú y Yacyretá; marcar
+reexportaciones.
+Entradas sostenidas: exigir que la RCA se mantenga, para no contar picos de un año.
+Robustez: HS4 frente a HS6, horizontes de 5 y 10 años, umbrales de RCA alternativos.
+7. Resultados de la herramienta
+Para cada sector candidato, TAPE entrega cinco cosas: factibilidad, valor, brechas, dónde y
+qué política. Todas con su fuente y su nivel de confianza.
+Salida Nivel Contenido
+Mapa de
+oportunidades
+País Sectores candidatos con probabilidad de
+desarrollo, valor y nivel de política;
+cuadrante factibilidad × valor
+Ficha de sector País Por qué es factible (sectores cercanos
+existentes), brechas nacionales
+ordenadas por Δ P, instrumento e
+institución responsable
+Aptitud territorial Ciudad /
+departamento
+Ciudades más aptas para el sector y qué
+le falta a cada una
+Potencial no realizado Ciudad Sectores que el modelo predice en una
+ciudad donde hoy no están
+Perfil territorial Ciudad /
+departamento
+Para un lugar: sectores candidatos,
+brechas locales, especialización actual,
+PIB per cápita
+Simulador País y ciudad Cambio en la probabilidad al cerrar una
+brecha (más egresados, una subestación,
+una ruta, una reforma)
+Brechas transversales País Cuántos sectores frena cada brecha y en
+qué territorios; prioriza inversión pública
+TAPE — Territorio, Actividades y Potencial Económico
+Page 11 of 17
+=== PAGINA 12 ===
+Ejemplo de lectura de una ficha: "El sector X tiene 14% de probabilidad de desarrollarse
+en 10 años (intervalo 9–20%). Es cercano a frigoríficos y curtiembres. La brecha que más
+lo frena es capital humano técnico: cerrarla sube la probabilidad a 22%. Las ciudades más
+aptas son A y B; a B le falta capacidad eléctrica. Nivel de política 2: acción colectiva para
+formación sectorial." Las cifras son ilustrativas.
+8. Interfaz y experiencia de usuario
+La interfaz se navega por preguntas, no por bases de datos. El recorrido principal es
+Paraguay → sector → qué falta → dónde → qué política.
+Salida Nivel Contenido
+Países que dieron el
+salto
+País Qué países comparables desarrollaron el
+sector y cómo eran sus capacidades al
+despegar
+Señales Departamento,
+mensual
+Nuevos proyectos de maquila y 60/90
+frente a lo que TAPE predecía
+Validación
+retrospectiva
+País Lo que TAPE habría predicho en 2005 o
+2010 frente a lo que ocurrió
+Vista Pregunta Usuario típico Qué muestra
+1. Paraguay
+(inicio)
+¿Qué puede
+desarrollar el país?
+Ministerios,
+investigadores, gremios
+Red tipo espacio
+producto: sectores
+actuales encendidos,
+candidatos coloreados
+por probabilidad y con
+tamaño según valor;
+filtros por sector,
+complejidad, brecha y
+nivel de política;
+alternativa en lista o
+cuadrante
+2. Ficha de
+sector
+¿Qué falta para
+este sector?
+Todos Por qué es factible,
+brechas nacionales y
+territoriales, mapa de
+dónde, nivel de política,
+países que dieron el salto
+TAPE — Territorio, Actividades y Potencial Económico
+Page 12 of 17
+=== PAGINA 13 ===
+Ficha descargable. Una página en PDF por sector o por sector × territorio: factibilidad,
+valor, brechas, nivel de política, instrumento, institución, fuentes y confianza.
+Principios de diseño:
+Dos niveles de lectura: resumen en lenguaje llano arriba, detalle técnico desplegable
+abajo.
+Incertidumbre visible: rangos de probabilidad y un semáforo de confianza de los datos.
+Trazabilidad: cada número con su fuente, año y nivel de agregación.
+Explicación en texto: opcional, generada por un LLM a partir de los números del
+modelo, nunca de su propio criterio.
+Tecnología. La app actual en Vercel (dashboard, mapa, treemap) sirve de base para el
+frontend. Se agrega un mapa geoespacial (MapLibre o deck.gl), un backend en Python
+(FastAPI) que sirve el modelo y DuckDB o PostGIS para los datos.
+9. Hoja de ruta
+El orden va de lo que da resultados rápido y con datos limpios (el módulo nacional) a lo
+más laborioso (leyes y monitoreo). Cada fase cierra con una condición para pasar a la
+siguiente.
+1. Fase 0. Fundamentos
+Vista Pregunta Usuario típico Qué muestra
+3. Territorio ¿Qué puede
+desarrollarse acá?
+Gobernaciones,
+municipios, gremios
+regionales
+Mapa del departamento
+o ciudad, cuadrante de
+sectores candidatos,
+brechas locales
+4. Sector en
+el mapa
+¿Dónde puede
+instalarse?
+Inversores, empresas,
+agencias de promoción
+Mapa de calor de aptitud
+por ciudad, con lo que
+tiene y le falta cada lugar
+5. Qué
+destraba
+más
+¿Qué inversión
+pública rinde más?
+Ministerios, ANDE,
+MOPC, SNPP
+Para cada brecha:
+cuántos sectores frena y
+dónde
+6. Simulador ¿Qué pasa si
+cerramos esta
+brecha?
+Decisores de política Controles deslizantes
+por capa y cambio en
+probabilidades y aptitud
+7. Validación ¿Es confiable? Usuarios escépticos,
+revisores
+Predicciones pasadas
+frente a lo ocurrido
+TAPE — Territorio, Actividades y Potencial Económico
+Page 13 of 17
+=== PAGINA 14 ===
+Completar el inventario con lo verificado: clasificador y dígitos de la EPHC, descarga
+de capas del mapa MIC, nivel de detalle de maquila y 60/90.
+Definir la taxonomía de sectores TAPE y armar el repositorio.
+Condición de paso: taxonomía aprobada y todas las fuentes de la Fase 1
+descargadas.
+2. Fase 1. Módulo nacional
+Descargar BACI, Atlas, WDI, Penn World Table, LPI e intensidades por sector.
+Depurar comercio (energía binacional, reexportaciones), calcular RCA, proximidad,
+densidad.
+Estimar el logit con efectos fijos, el XGBoost de control y el backtest.
+Condición de paso: el modelo con capas supera a la densidad sola en precision@k.
+3. Fase 2. Módulo territorial
+Descargar y geoprocesar las capas del mapa MIC; calcular accesibilidad y distancia
+a la red eléctrica.
+Armar la tabla puente MIC → CIIU → sector TAPE.
+Sumar títulos y escuelas del MEC; estimar el modelo jerárquico; identificar potencial
+no realizado.
+Condición de paso: los coeficientes tienen sentido económico y el modelo predice la
+presencia actual mejor que el azar.
+4. Fase 3. Brechas, valor y política
+Integrar EPHC, cuentas nacionales y regionales, MIP, crédito y SIMEL.
+Calcular el índice de valor, los contrafactuales Δ P y las reglas de política.
+Codificar las leyes, empezando por los sectores candidatos mejor ubicados.
+5. Fase 4. Prototipo de interfaz
+Vistas Paraguay, ficha de sector y territorio sobre la app actual; ficha descargable.
+Probar con 3–5 usuarios reales (un ministerio, un gremio, un inversor).
+6. Fase 5. Monitoreo y difusión
+Carga mensual de maquila y 60/90 y validación hacia adelante.
+Documento metodológico o paper; copia anual del mapa MIC para construir el panel.
+10. Qué puede hacer la IA (Claude) para avanzar
+Claude puede hacer buena parte del trabajo técnico pesado: escribir y correr código,
+armar tablas puente, codificar textos y construir la interfaz. El criterio económico, la
+validación de los mapeos y las decisiones de política quedan en el equipo.
+TAPE — Territorio, Actividades y Potencial Económico
+Page 14 of 17
+=== PAGINA 15 ===
+Para trabajar mejor con Claude:
+Fase Qué puede hacer Claude Qué revisa el equipo
+0. Fundamentos Verificar cada fuente (cobertura,
+clasificadores, formatos) y
+completar el inventario; proponer
+la taxonomía de sectores TAPE;
+armar la estructura del repositorio
+y el registro de fuentes
+Que la taxonomía tenga sentido
+para Paraguay
+1. Módulo nacional Escribir y correr en Python la
+descarga y limpieza de BACI, Atlas
+y WDI; calcular RCA, proximidad y
+densidad; estimar el logit, el
+XGBoost y el backtest; producir
+tablas y gráficos
+Especificación, interpretación
+de coeficientes, casos de
+Paraguay
+2. Módulo
+territorial
+Explorar si el visor del MIC
+permite descargar capas (con el
+navegador); geoprocesar puntos y
+líneas; calcular accesibilidad sobre
+el grafo vial; proponer la tabla MIC
+→ CIIU fila por fila con nivel de
+confianza; mapear carreras a
+sectores; estimar el modelo
+jerárquico
+Validar los mapeos dudosos;
+revisar resultados por ciudad
+con conocimiento local
+3. Brechas, valor y
+política
+Procesar microdatos de la EPHC y
+la MIP (inversa de Leontief,
+encadenamientos); calcular Δ P y
+aplicar las reglas; leer y codificar
+leyes por sector con una plantilla
+fija y cita del artículo
+Muestreo de la codificación
+legal; umbrales de las reglas
+4. Interfaz Programar el frontend sobre la
+app existente, el mapa y el
+backend; generar las fichas PDF;
+publicar prototipos navegables
+Prueba con usuarios y
+prioridades de diseño
+5. Monitoreo y
+difusión
+Automatizar la carga mensual de
+maquila y 60/90 con tareas
+programadas; redactar el
+documento metodológico, notas
+de política y presentaciones
+Mensajes y conclusiones
+TAPE — Territorio, Actividades y Potencial Económico
+Page 15 of 17
+=== PAGINA 16 ===
+Conectar una carpeta del proyecto, para que el código y los datos queden en la
+computadora del equipo.
+Pasarle los archivos originales (diccionarios, PDFs, Excel del MIC y del BCP) en vez de
+describirlos.
+Pedir por partes: una fuente, un módulo o una vista por vez, con un criterio de
+"terminado" claro.
+Revisar siempre las tablas puente y la codificación legal: son los puntos donde un error
+se propaga a todo el modelo.
+Límites: Claude no puede acceder a datos que requieran solicitud formal o convenio, ni
+reemplazar el conocimiento local sobre el tejido productivo. Algunos sitios públicos
+bloquean la lectura automática; en esos casos hay que descargar los archivos y
+pasárselos.
+11. Riesgos y limitaciones
+El mayor riesgo es la falta de historia territorial: sin el Censo 2011, el módulo territorial solo
+se valida hacia adelante.
+Riesgo Efecto Mitigación
+Poca historia territorial No hay backtest territorial Sumar el Censo Económico
+2011; validar con maquila y
+60/90; copia anual del mapa
+MIC
+Datos domésticos muy
+agregados
+Brechas gruesas por sector Modelo jerárquico; buscar el
+código de rama detallado en la
+EPHC
+Errores en las tablas
+puente
+Se propagan a todo el modelo Nivel de confianza por fila;
+revisión manual de los mapeos
+dudosos
+Distorsiones del
+comercio
+Falsas ventajas (energía
+binacional, reexportaciones)
+Excluir o marcar esos
+productos
+Endogeneidad Las capacidades responden a
+los sectores que ya existen
+Rezagos; presentar resultados
+como asociación, no
+causalidad
+Servicios y mercado
+interno
+Quedan fuera del espacio
+producto
+Cubrirlos con el módulo
+territorial y las cuentas
+nacionales
+TAPE — Territorio, Actividades y Potencial Económico
+Page 16 of 17
+=== PAGINA 17 ===
+Referencias
+Hidalgo, C., Klinger, B., Barabási, A.-L. y Hausmann, R. (2007). The product space
+conditions the development of nations. Science, 317(5837).
+Hidalgo, C. y Hausmann, R. (2009). The building blocks of economic complexity. PNAS,
+106(26).
+Hidalgo, C. et al. (2018). The principle of relatedness. Springer Proceedings in
+Complexity.
+Hausmann, R. y Rodrik, D. (2003). Economic development as self-discovery. Journal of
+Development Economics, 72(2).
+Hausmann, R., Rodrik, D. y Velasco, A. (2005). Growth diagnostics. Harvard University.
+Neffke, F. y Henning, M. (2013). Skill relatedness and firm diversification. Strategic
+Management Journal, 34(3).
+Diodato, D., Neffke, F. y O'Clery, N. (2018). Why do industries coagglomerate? Journal
+of Urban Economics, 106.
+Rajan, R. y Zingales, L. (1998). Financial dependence and growth. American Economic
+Review, 88(3).
+Bahar, D. y Rapoport, H. (2018). Migration, knowledge diffusion and the comparative
+advantage of nations. Economic Journal, 128(612).
+Conviene verificar los datos bibliográficos antes de citar en un documento formal.
+Riesgo Efecto Mitigación
+Representatividad de la
+EPHC
+Muestras chicas por
+departamento
+Juntar años; agrupar
+departamentos no
+representativos
+Acceso a datos del MIC Visor sin descarga o datos solo
+agregados
+Solicitud de acceso a la
+información
+TAPE — Territorio, Actividades y Potencial Económico
+Page 17 of 17

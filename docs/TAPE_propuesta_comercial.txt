@@ -1,0 +1,480 @@
+
+=== PAGINA 1 ===
+Propuesta comercial TAPE — LabDE
+ Oct 8, 2026  ·  @Joaquín
+1. Resumen
+El LabDE vendería TAPE con un modelo mixto: una versión pública gratuita que genera
+reputación, suscripciones para usuarios frecuentes y servicios a medida (diagnósticos
+territoriales, estudios sectoriales, localización de inversiones, capacitación). En el
+escenario base, la facturación promedio ronda los USD 7.000 mensuales en el año 1 y los
+USD 12.000 en el año 2. Todas las cifras son estimaciones propias, a validar con clientes.
+Propuesta de valor. TAPE responde con datos qué actividades puede desarrollar
+Paraguay o un territorio, dónde, qué falta y quién tiene que actuar. Hoy esa información
+está dispersa en una docena de fuentes con clasificaciones distintas, y nadie la integra.
+Por qué el LabDE:
+Es la única herramienta que combina espacio producto, capacidades locales y una
+escala de política para Paraguay.
+Las predicciones están validadas con datos históricos, no son opiniones.
+Un equipo chico con IA puede entregar estudios en semanas, a menor costo que una
+consultora tradicional.
+Qué se necesita para empezar: formalizar el LabDE, terminar la versión mínima de TAPE
+(unos 6–7 meses) y cerrar un cliente piloto que sirva como caso publicable.
+2. Portafolio: qué vende el LabDE con TAPE
+El portafolio tiene cuatro capas: lo gratuito atrae, las suscripciones dan ingresos
+recurrentes, los servicios dan el grueso de la facturación y los productos derivados
+aprovechan la misma base de datos.
+Capa Producto Qué incluye
+Gratis TAPE Público Mapa nacional de oportunidades,
+fichas básicas por sector, informe
+anual "Oportunidades productivas de
+Paraguay"
+Suscripción TAPE Pro (individual o consultora) Vistas territoriales completas,
+simulador, fichas PDF ilimitadas,
+descarga de datos
+Propuesta comercial TAPE — LabDE
+Page 1 of 10
+=== PAGINA 2 ===
+Capa Producto Qué incluye
+Suscripción TAPE Institucional (bancos,
+agencias, ministerios)
+Todo lo de Pro, varios usuarios, alertas
+mensuales de maquila y 60/90,
+soporte y una sesión trimestral de
+análisis
+Suscripción API y licencia de datos Acceso programático a
+probabilidades, brechas y aptitud
+territorial
+Servicio Diagnóstico territorial Qué puede desarrollar un
+departamento o municipio, brechas y
+hoja de ruta
+Servicio Estudio sectorial Brechas, ciudades aptas, países de
+referencia y hoja de ruta de un sector
+Servicio Localización de inversiones Comparación de ciudades para
+instalar una planta: logística, energía,
+mano de obra, proveedores
+Servicio Informe a medida Ficha ampliada o respuesta puntual
+para un cliente
+Servicio Capacitación Curso de complejidad económica y
+uso de TAPE para técnicos
+Servicio Consultoría institucional Contratos con multilaterales o
+gobierno para diagnósticos de
+desarrollo productivo
+Derivado Índice territorial de capacidades Ranking anual de departamentos y
+municipios; genera prensa y demanda
+de diagnósticos
+Derivado Señal TAPE Boletín mensual de inversiones
+nuevas frente a lo que predecía el
+modelo; gratis el resumen, pago el
+detalle
+Derivado Tablero de marca blanca Una versión de TAPE con la marca de
+una gobernación o agencia, con sus
+propios datos
+Derivado Evaluación de política productiva Medir si un programa (parque
+industrial, incentivo) movió los
+sectores esperados
+Propuesta comercial TAPE — LabDE
+Page 2 of 10
+=== PAGINA 3 ===
+3. Clientes potenciales
+Los clientes con mayor capacidad de pago y menor riesgo de competir con otras
+actividades del equipo son los multilaterales, los gobiernos subnacionales, los inversores
+y los bancos.
+Segmento Necesidad Producto
+principal
+Quién decide Ciclo de
+venta
+Multilaterales y
+cooperación (BID,
+CAF, Banco
+Mundial, CEPAL,
+OIT, PNUD, UE,
+GIZ, JICA,
+KOICA)
+Diagnósticos de
+desarrollo
+productivo para
+sus programas
+Consultoría
+institucional,
+licencia de
+datos
+Especialista
+sectorial o jefe
+de proyecto
+3–6 meses
+(términos
+de
+referencia)
+Gobernaciones
+(17)
+Plan de
+desarrollo
+departamental,
+atraer
+inversiones
+Diagnóstico
+territorial,
+tablero de
+marca blanca
+Gobernador,
+secretaría de
+planificación
+2–6 meses
+(vía DNCP)
+Municipios (más
+de 250)
+Atraer empresas,
+plan local
+Diagnóstico
+municipal,
+índice
+territorial
+Intendente 1–4 meses
+Ministerios y
+agencias (MIC,
+MEF, MTESS,
+MOPC, REDIEX,
+ANDE, AFD)
+Priorizar
+inversión pública
+e instrumentos
+TAPE
+Institucional,
+evaluación de
+política
+Dirección
+técnica o
+viceministerio
+3–9 meses
+Inversores
+nacionales y
+extranjeros (p. ej.,
+empresas
+brasileñas que
+trasladan
+producción)
+Dónde instalarse
+y qué hay en cada
+lugar
+Localización de
+inversiones
+Dueño o
+gerente de
+expansión
+2–8 semanas
+Propuesta comercial TAPE — LabDE
+Page 3 of 10
+=== PAGINA 4 ===
+Las compras de entes públicos pasan por la Dirección Nacional de Contrataciones
+Públicas (DNCP); conviene conocer los umbrales de contratación directa y tener la
+documentación del LabDE lista para cotizar.
+4. Precios estimados
+Los precios son estimaciones propias para el mercado paraguayo, en dólares y sin IVA
+(10%). Deben validarse en las entrevistas con clientes antes de publicarse; a los clientes
+locales conviene cotizarles en guaraníes.
+Segmento Necesidad Producto
+principal
+Quién decide Ciclo de
+venta
+Bancos y
+financieras
+Sectores con
+potencial para su
+cartera; análisis
+de riesgo
+sectorial
+TAPE
+Institucional,
+informes a
+medida
+Gerencia de
+riesgos o banca
+corporativa
+1–3 meses
+Consultoras y
+estudios jurídicos
+Insumos para
+asesorar a sus
+clientes
+inversores
+TAPE Pro,
+informes a
+medida
+Socio 2–4
+semanas
+Cámaras y
+asociaciones
+sectoriales o
+regionales
+Hoja de ruta del
+sector,
+argumentos ante
+el gobierno
+Estudio
+sectorial
+Comisión
+directiva
+1–3 meses
+Universidades y
+centros de
+investigación
+Docencia,
+investigación
+aplicada
+Capacitación,
+licencia
+académica
+Decanato o
+director de
+proyecto
+2–6 meses
+Producto Precio estimado (USD, sin
+IVA)
+Duración o unidad
+TAPE Público Gratis —
+TAPE Pro (individual o
+consultora chica)
+80–150 por mes Mensual; 2 meses gratis si
+se paga el año
+TAPE Institucional 300–600 por mes Mensual o anual, hasta 5
+usuarios
+API y licencia de datos 500–1.500 por mes Según volumen y uso
+Propuesta comercial TAPE — LabDE
+Page 4 of 10
+=== PAGINA 5 ===
+Criterios:
+Precio de introducción con descuento para el primer cliente de cada segmento, a
+cambio de poder publicar el caso.
+Los servicios incluyen un año de TAPE Pro, para convertir clientes de servicios en
+suscriptores.
+Los multilaterales pagan por día o por producto según sus tablas; conviene conocer las
+tarifas de referencia de cada uno.
+5. Facturación estimada
+En el escenario base, el LabDE facturaría en promedio unos USD 7.200 por mes el primer
+año después del lanzamiento y unos USD 12.200 el segundo. Los servicios explican más
+del 70% en ambos años; las suscripciones crecen despacio pero dan estabilidad.
+Supuestos por escenario (año 1 después del lanzamiento)
+Producto Precio estimado (USD, sin
+IVA)
+Duración o unidad
+Diagnóstico territorial
+departamental
+8.000–15.000 6–8 semanas
+Diagnóstico municipal 3.000–6.000 3–4 semanas
+Estudio sectorial 6.000–12.000 4–8 semanas
+Localización de inversiones 2.500–6.000 2–4 semanas por proyecto
+Informe a medida 500–1.500 1–2 semanas
+Capacitación (curso de 8–12
+horas)
+1.500–3.000 por grupo, o 150–
+250 por persona
+Por cohorte
+Tablero de marca blanca 5.000–10.000 de instalación +
+300–500 por mes
+Instalación y mantenimiento
+Consultoría institucional
+(multilaterales)
+15.000–40.000 por contrato, o
+300–500 por día
+Según términos de
+referencia
+Componente Conservador Base Optimista
+Suscripciones
+(promedio mensual)
+USD 300 (unos
+3 Pro)
+USD 1.300 (llega a 15
+Pro y 2 Institucional)
+USD 3.000 (llega a 30
+Pro y 5 Institucional)
+Propuesta comercial TAPE — LabDE
+Page 5 of 10
+=== PAGINA 6 ===
+Resultado
+El año 2 base supone 25 suscriptores Pro y 4 institucionales al cierre (promedio USD 3.500
+por mes), 8 servicios, 4 capacitaciones y un contrato institucional de USD 30.000. La
+facturación de servicios es irregular: habrá meses sin ingresos y meses con un proyecto
+grande.
+Capacidad del equipo
+Dos personas con dedicación parcial suman unas 1.100 horas al año. Con apoyo de IA, un
+diagnóstico o estudio toma unas 100–150 horas y un contrato institucional unas 250–300.
+El escenario base usa casi toda la capacidad del equipo, además del mantenimiento de
+TAPE. El optimista requiere sumar una persona o pasar a dedicación completa.
+Costos mensuales estimados
+Componente Conservador Base Optimista
+Servicios (diagnósticos,
+estudios, localización)
+3 × USD 6.000 6 × USD 7.500 9 × USD 8.500
+Capacitación 1 × USD 2.000 3 × USD 2.000 5 × USD 2.500
+Consultoría
+institucional
+— 1 × USD 20.000 2 × USD 25.000
+Escenario Año 1: total Año 1: promedio
+mensual
+Año 2: total Año 2: promedio
+mensual
+Conservador USD
+23.600
+USD 2.000 USD 48.500 USD 4.000
+Base USD
+86.600
+USD 7.200 USD
+146.000
+USD 12.200
+Optimista USD
+175.000
+USD 14.600 USD
+285.000
+USD 23.800
+Rubro USD por mes
+Servidores, base de datos, dominio 50–200
+Herramientas de IA y software 100–400
+Contador y obligaciones tributarias 100–200
+Propuesta comercial TAPE — LabDE
+Page 6 of 10
+=== PAGINA 7 ===
+A eso se suman costos únicos de formalización, registro de marca y asesoría legal, a
+cotizar. En el escenario base, el margen antes de remunerar al equipo sería de unos USD
+6.000 por mes en el año 1.
+6. Pasos para vender
+La venta empieza antes de terminar la herramienta: las entrevistas y el piloto corren en
+paralelo al desarrollo, de modo que al lanzar ya haya un caso publicado y una lista de
+interesados. Los meses se cuentan desde el inicio del desarrollo.
+1. Validación (meses 0–2)
+10–15 entrevistas con clientes potenciales de cada segmento: qué decisiones toman,
+qué información les falta, cuánto pagan hoy por estudios similares.
+Ajustar el portafolio y los precios con lo que surja.
+Meta: 2–3 cartas de interés.
+2. Piloto ancla (meses 3–6)
+Un diagnóstico departamental o un estudio sectorial con un cliente real, con
+descuento a cambio de publicar el caso.
+Alternativa: que lo financie un multilateral o un fondo de investigación (por ejemplo,
+PROCIENCIA del CONACYT).
+Meta: un caso con resultados concretos y un testimonio.
+3. Lanzamiento (meses 6–7)
+Publicar TAPE Público y el informe nacional, con presentación pública y nota de
+prensa.
+Abrir TAPE Pro con prueba gratuita de 30 días.
+Meta: 300–500 usuarios registrados en TAPE Público y los primeros suscriptores.
+4. Venta activa (meses 7–18)
+Propuestas dirigidas a las 17 gobernaciones, a los 20–30 municipios más grandes, a
+bancos y a agencias.
+Demostraciones en vivo de 30 minutos y webinars mensuales.
+Ficha gratuita del departamento como puerta de entrada a la propuesta de
+diagnóstico.
+Rubro USD por mes
+Difusión, eventos, viajes al interior 200–500
+Total 450–1.300
+Propuesta comercial TAPE — LabDE
+Page 7 of 10
+=== PAGINA 8 ===
+Meta: 6 servicios y 15 suscriptores en el primer año después del lanzamiento
+(escenario base).
+5. Escala (año 2)
+Contratos marco con multilaterales; registro como proveedor en sus listas de
+consultores.
+Participar en licitaciones públicas de la DNCP.
+Evaluar replicar TAPE en otro país de la región (Bolivia, Uruguay) o sumar una
+persona al equipo.
+7. Estrategia comercial y difusión
+La estrategia se apoya en tres ideas: credibilidad antes que venta, contenido territorial
+que los gobiernos y la prensa difunden solos, y un producto gratuito que funciona como
+vidriera.
+Credibilidad:
+Publicar la validación retrospectiva: qué habría anticipado TAPE en 2005 o 2010 y qué
+ocurrió.
+Documento metodológico o paper; presentaciones en universidades y conferencias
+regionales (por ejemplo, LACEA).
+Código y metodología abiertos en GitHub; los datos y servicios a medida, no.
+Alianza con una universidad para el aval académico.
+Contenido que se difunde solo:
+Una ficha por departamento, entregada a cada gobernación y a la prensa regional.
+El índice territorial de capacidades: un ranking anual que genera notas periodísticas.
+Señal TAPE: un boletín mensual con las inversiones nuevas frente a lo que predecía el
+modelo.
+Canales:
+Canal Para qué
+Prensa económica (5días, ABC, Última Hora,
+La Nación)
+Lanzamiento, ranking anual, casos
+LinkedIn del LabDE y de los socios Fichas, hallazgos, casos; contacto directo
+con decisores
+Boletín por correo o Substack del LabDE Señal TAPE, informe anual, novedades
+Propuesta comercial TAPE — LabDE
+Page 8 of 10
+=== PAGINA 9 ===
+Mensaje central: "Qué puede producir Paraguay, dónde y qué falta para lograrlo, con
+datos."
+Mensajes por segmento:
+Gobiernos: qué inversión pública destraba más actividades en su territorio.
+Inversores: dónde instalarse y qué van a encontrar en cada lugar.
+Multilaterales: un diagnóstico de desarrollo productivo validado, rápido y replicable.
+8. Requisitos, riesgos y cuidados
+Antes de cobrar el primer servicio hay que resolver cuatro cosas: la figura legal del LabDE,
+la marca, las licencias de los datos y los límites con el empleo actual de cada socio.
+Requisitos previos:
+Riesgos:
+Canal Para qué
+Webinars mensuales Demostraciones para técnicos, bancos y
+consultoras
+Reuniones presenciales Gobernaciones, multilaterales, bancos:
+ventas de mayor valor
+Eventos de inversión y ferias Inversores extranjeros, en especial
+brasileños
+Formalizar el LabDE (empresa o asociación) con RUC para facturar, y definir la
+participación de cada socio.
+Registrar la marca TAPE y el nombre LabDE en la DINAPI, tras verificar que no estén en
+uso.
+Revisar las licencias de cada fuente para uso comercial (BACI, Atlas del Growth Lab,
+WDI, datos del MIC y del INE) y citar las fuentes en cada producto.
+Definir con cada empleador qué servicios no compiten con el trabajo actual de los
+socios. Por ejemplo, evitar consultorías a empresas industriales si ya forman parte de la
+actividad de un empleador, y priorizar gobiernos subnacionales, multilaterales,
+inversores y bancos.
+Preparar los documentos para cotizar al sector público y a multilaterales (constancias
+tributarias, CV del equipo, portafolio).
+Propuesta comercial TAPE — LabDE
+Page 9 of 10
+=== PAGINA 10 ===
+Próximos pasos: definir la figura legal, armar la lista de 15 entrevistas y elegir el cliente
+piloto.
+Riesgo Efecto Mitigación
+Ciclos de venta largos en el
+sector público
+Ingresos tardíos e
+irregulares
+Combinar con inversores,
+bancos y suscripciones, que
+cierran más rápido
+Disposición a pagar menor a
+la estimada
+Facturación más baja Validar precios en las
+entrevistas; empezar con
+servicios, no con
+suscripciones
+Capacidad del equipo Proyectos atrasados,
+herramienta sin mantener
+Limitar proyectos
+simultáneos; sumar una
+persona si se supera el
+escenario base
+Dependencia de datos del
+MIC
+Capas desactualizadas o sin
+acceso
+Solicitudes formales de
+acceso; copia anual propia
+Un competidor o un
+organismo publica algo
+similar gratis
+Pérdida de diferenciación Apostar a los servicios a
+medida y al conocimiento
+local, que no se copian
+Resultados mal
+interpretados
+Daño reputacional Mostrar siempre la
+incertidumbre y las fuentes;
+aclarar que son
+asociaciones, no garantías
+Propuesta comercial TAPE — LabDE
+Page 10 of 10

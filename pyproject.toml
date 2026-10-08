@@ -1,0 +1,29 @@
+[project]
+name = "tape"
+version = "0.1.0"
+description = "TAPE: Territorio, Actividades y Potencial Económico (LabDE)"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "pandas",
+    "polars",
+    "duckdb",
+    "geopandas",
+    "statsmodels",
+    "scikit-learn",
+    "xgboost",
+    "shap",
+    "pyarrow",
+    "matplotlib",
+    "requests",
+]
+
+[dependency-groups]
+dev = ["pytest", "ruff", "mypy", "pypdf", "jupyter"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
