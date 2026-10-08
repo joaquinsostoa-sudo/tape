@@ -7,4 +7,10 @@ Registro: fila `mic_mapa` de `data/fuentes.csv`. El visor es un panel de Zoho An
 - Los **1.744 sectores específicos** (texto libre del tercer nivel) se pueden volver a leer del visor; no están guardados todavía.
 
 ## Qué falta
-Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustibles, E salud, G polos, H aduanas, I comercio global) y las **coordenadas de las industrias**, necesarias para el geoprocesamiento de la Fase 2. El visor muestra el mapa pero no se pudo comprobar si expone coordenadas. Si el MIC las entrega por solicitud de acceso a la información, guardarlas en subcarpetas por capa (ver `data/raw/mic_mapa` en el plan).
+Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustibles, E salud, G polos, H aduanas, I comercio global) y las **coordenadas de las industrias**, necesarias para el geoprocesamiento de la Fase 2. Si el MIC las entrega por solicitud de acceso a la información, guardarlas en subcarpetas por capa.
+
+## Hallazgos sobre la extracción (2026-10-08)
+- El visor entrega **coordenadas** en las respuestas de sus gráficos de mapa (campos `Latitud_1` y `Longitud_1`). En la pestaña **C- RED ELECTRICA** se vieron: subestaciones con tensión (kV), tablas de demanda proyectada por subestación y año (MW) y las líneas (≈ 776 KB de vértices).
+- La pestaña **F- INDUSTRIAS** tiene un campo geográfico de latitud; falta comprobar si el mapa devuelve las 17.080 industrias con coordenadas o solo puntos agrupados por zoom.
+- Los filtros Zona / Departamento / Ciudad permiten leer la tabla F4 por ciudad (263 ciudades) y así tener industrias por ciudad sin depender de las coordenadas.
+- El visor no declara licencia ni ofrece descarga. La extracción es provisoria: **pedir los datos al MIC por acceso a la información** sigue siendo la vía formal, igual que la copia anual del mapa para construir un panel propio.

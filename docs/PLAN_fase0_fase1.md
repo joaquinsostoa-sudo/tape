@@ -123,3 +123,18 @@ Mi recomendación va primero en cada una.
 - **Costo de energía**: capa débil, ver D4.
 - **Tamaño de BACI**: varios GB; trabajamos con parquet y DuckDB para no cargarlo entero en memoria.
 - **Historia corta de entradas** de Paraguay para la prueba de casos: se muestra la incertidumbre.
+
+---
+
+## Anexo (2026-10-08): extracciones de fuentes locales previstas para la Fase 2
+Hallazgos de la exploración de los sitios; ninguna de estas tareas está hecha todavía.
+
+| # | Tarea | Qué produce | Estado de la fuente |
+|---|---|---|---|
+| L1 | **Registro de títulos del MEC** | `data/raw/mec_titulos/`; luego conteos por carrera × campo CINE-P × departamento/distrito × año | Hay enlaces de descarga al pie del portal (CSV/XLS/JSON en zip), pero el servidor rechaza a los scripts (403): hay que bajarlo a mano desde el navegador. El diccionario trae 44 campos: incluye `CLASIFICACION_CAMPO_AMPLIO/ESPECIFICO/DETALLADO` (CINE-P 2013) y `DEPARTAMENTO`/`DISTRITO` donde se dicta la carrera, lo que adelanta la equivalencia carrera → sector y la ubicación |
+| L2 | **Industrias por ciudad** (mapa MIC, pestaña F) | tabla industria × sector × subsector × ciudad | Se puede leer filtrando por ciudad (263) |
+| L3 | **Coordenadas de industrias** (pestaña F) | puntos con sector, para geoprocesar a distrito | A comprobar: el mapa podría devolver solo puntos agrupados |
+| L4 | **Capas logísticas** (pestañas B rutas, C red eléctrica, D combustibles, E salud, G polos/IFCLs, H aduanas) | puntos y líneas con coordenadas; demanda proyectada por subestación (MW) | Las coordenadas aparecen en las respuestas del visor; hay que extraer y limpiar cada capa |
+| L5 | **Escuelas del MEC** | establecimientos con ubicación | Hay un mapa en `datos.mec.gov.py/app/mapa_establecimientos` (por revisar) |
+
+Pedido formal recomendado en paralelo: acceso a la información al MIC (capas y coordenadas) y al MEC (si el CSV no se puede bajar).
