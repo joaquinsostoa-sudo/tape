@@ -56,7 +56,8 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 - Registro de títulos del MEC: contiene nombre y documento de personas; usar solo agregados (carrera, institución, mes) y no guardar datos personales.
 
 ## Hoja de ruta (estado)
-- **Fase 0 Fundamentos** ← *estamos aquí*: hechos estructura, CLAUDE.md, fuentes de Fase 1 descargadas y taxonomía de 67 sectores TAPE (`docs/taxonomia.md`, `data/clean/taxonomia_sectores_tape.csv`). Falta la tarea 0.5: puente HS → CPC → CIIU → sector (biocombustibles y arneses se fijan por producto HS).
+- **Fase 0 Fundamentos: CERRADA (2026-10-08).** Estructura, CLAUDE.md, fuentes de Fase 1 descargadas, taxonomía de 67 sectores TAPE (`docs/taxonomia.md`) y puente HS92 → CPC → CIIU → sector (`docs/puente_hs_sector.md`, `data/clean/puente_hs92_sector.csv`; biocombustibles y arneses por producto HS). También hay: PIB por 33 actividades y regional del BCP, equivalencias de las clasificaciones locales a CIIU, tabla CNAEP → sector, e industrias del mapa MIC por distrito y sector.
+- **Fase 1 Módulo nacional** ← *estamos aquí*: sigue la tarea 1.1 (limpieza de BACI). Decisiones D1 a D4 y D6 a D8 pendientes (ver `docs/PLAN_fase0_fase1.md`).
 - Fase 1 Módulo nacional: descargas, depuración, RCA/φ/densidad, logit + XGBoost + backtest. Paso si el modelo con capas supera a la densidad sola en precision@k.
 - Fase 2 Territorial (capas MIC, tabla MIC→CIIU, MEC, modelo jerárquico). Fase 3 Brechas, valor, política (EPHC, cuentas, MIP, crédito, SIMEL, leyes). Fase 4 Interfaz (FastAPI + MapLibre sobre la app Vercel). Fase 5 Monitoreo y difusión.
 - Datos locales (MIC, MEC, EPHC, BCP, maquila, 60/90) aún no disponibles: se trabaja primero con datos públicos descargables.

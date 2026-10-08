@@ -9,6 +9,12 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | Tarea | Estado |
 |---|---|
 | 0.1 Estructura, entorno, `CLAUDE.md`, `fuentes.csv`, README de `data/raw` | Hecha |
+| 0.2 Verificar fuentes internacionales | Hecha (`docs/verificacion_fuentes.md`) |
+| 0.3 Descargas de Fase 1 | Hecha (BACI, Atlas, WDI, concordancias; PWT 10.01 a mano) |
+| 0.4 Taxonomía de sectores TAPE | Hecha: 67 sectores (`docs/taxonomia.md`) |
+| 0.5 Puente HS → CIIU → sector | Hecha (`docs/puente_hs_sector.md`) |
+| **Fase 0** | **Cerrada el 2026-10-08.** Condición de paso cumplida |
+| 1.1 en adelante | Pendiente (D1 a D4 y D6 a D8 por decidir) |
 
 ---
 
