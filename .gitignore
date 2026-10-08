@@ -36,3 +36,5 @@ web/node_modules/
 !data/raw/mic_mapa/industrias_sector_subsector_*.csv
 !data/raw/*/MANIFEST.json
 !data/clean/taxonomia_sectores_tape.csv
+!data/clean/cnaep1_ciiu4.csv
+!data/clean/puente_cnaep_sector.csv

@@ -1,0 +1,627 @@
+cnaep,cnaep_nombre,ciiu4,ciiu_compartida,uno_a_varios,pagina,alineacion,corregida_a_mano
+01110,"DE CORRESPONDENCIA CNAEP 1.0 Denominación GANADERIA, Y PESCA GANADERIA, CAZA Y DE APOYO de cosechas no perennes de arroz",0112,False,False,2,directa,False
+01121,de soja,0111,True,False,2,directa,False
+01122,de maíz,0111,True,False,2,directa,False
+01123,de trigo,0111,True,False,2,directa,False
+01124,de girasol,0111,True,False,2,directa,False
+01125,de sésamo,0111,True,False,2,directa,False
+01126,de legumbres,0111,True,False,2,directa,False
+01129,de otros cereales y otras semillas n.c.p.,0111,True,False,2,directa,False
+01131,"de mandioca, papa y batata",0113,True,False,2,directa,False
+01132,"de bulbos, brotes, raíces y hortalizas de",0113,True,False,2,directa,False
+01133,de hortalizas de hoja y de otras hortalizas,0113,True,False,2,directa,False
+01140,de caña de azúcar,0114,False,False,2,directa,False
+01150,de tabaco,0115,False,False,2,directa,False
+01161,de algodón,0116,True,False,2,directa,False
+01169,de otras fibras vegetales,0116,True,False,2,directa,False
+01191,de forrajes,0119,True,False,2,directa,False
+01192,de flores,0119,True,False,2,directa,False
+01199,de otras cosechas no perennes n.c.p.,0119,True,False,3,directa,False
+01210,de cosechas perennes de uvas,0121,False,False,3,directa,False
+01221,,0122,True,False,3,directa,False
+01222,de piña de banana,0122,True,False,3,directa,False
+01223,,0122,True,False,3,directa,False
+01224,de mango de Mburucuyá,0122,True,False,3,directa,False
+01229,de otras frutas tropicales y subtropicales,0122,True,False,3,directa,False
+01231,de naranja,0123,True,False,3,directa,False
+01232,de mandarina,0123,True,False,3,directa,False
+01233,de limón,0123,True,False,3,directa,False
+01234,de pomelo,0123,True,False,3,directa,False
+01235,de naranjo agrio,0123,True,False,3,directa,False
+01239,de otras frutas cítricas n.c.p.,0123,True,False,3,directa,False
+01240,de frutas con pepita y con hueso,0124,False,False,3,directa,False
+01250,de otras frutas y frutos secos arbóreos y de,0125,False,False,3,directa,False
+01260,de frutos oleaginosos,0126,False,False,3,directa,False
+01271,de yerba mate,0127,True,False,3,directa,False
+01272,de té,0127,True,False,3,directa,False
+01273,de café,0127,True,False,3,directa,False
+01274,de cacao y de otras plantas para,0127,True,False,3,directa,False
+01280,"de bebidas n.c.p. de especias y plantas aromáticas, y farmacéuticas",0128,False,False,3,directa,False
+01291,de estévia,0129,True,False,3,directa,False
+01299,de otras cosechas perennes n.c.p. de plantas,0129,True,False,3,directa,False
+01300,de plantas pecuaria,0130,False,False,3,directa,False
+01411,de ganado vacuno con destino a la de carne,0141,True,False,3,directa,False
+01412,de ganado vacuno lechero,0141,True,False,3,directa,False
+01419,producciones de ganados vacunos n.c.p.,0141,True,False,3,directa,False
+01420,de ganado equino,0142,False,False,3,directa,False
+01430,de camellos y camélidos,0143,False,False,4,directa,False
+01440,de ganado ovino y caprino,0144,False,False,4,directa,False
+01450,de ganado porcino,0145,False,False,4,directa,False
+01461,de aves de corral,0146,True,False,4,directa,False
+01462,de huevos,0146,True,False,4,directa,False
+01491,,0149,True,False,4,directa,False
+01492,,0149,True,False,4,directa,False
+01499,de otros animales n.c.p. de productos agrícolas en combinación,0149,True,False,4,directa,False
+01500,la cría de animales de productos agrícolas en combinación la cría de animales de apoyo a la agricultura y las,0150,False,False,4,directa,False
+01611,posteriores a la recolección de de fumigación y riego,0161,True,False,4,directa,False
+01612,de provisión de maquinaria agrícola con y personal,0161,True,False,4,directa,False
+01613,posteriores a la cosecha,0163,False,False,4,directa,False
+01614,de semillas para la propagación,0164,False,False,4,directa,False
+01619,servicios de apoyo a la agricultura n.c.p.,0161,True,False,4,directa,False
+01621,de esquila,0162,True,False,4,directa,False
+01622,de inseminación artificial,0162,True,False,4,directa,False
+01629,servicios de apoyo a la ganadería n.c.p. ordinaria y mediante trampas y servicios,0162,True,False,4,directa,False
+01700,ordinaria y mediante trampas y servicios EXTRACCIÓN DE Y ACTIVIDADES DE APOYO,0170,False,False,4,directa,False
+02101,y otras actividades relacionadas a la de árboles forestales,0210,True,False,4,directa,False
+02102,de bosques,0210,True,False,4,directa,False
+02103,de forestación y reforestación,0210,True,False,4,directa,False
+02201,de madera de leña,0220,True,False,4,directa,False
+02209,de madera para la producción de otros n.c.p.,0220,True,False,5,directa,False
+02300,de productos forestales diferentes madera de productos forestales diferentes a la,0230,False,False,5,directa,False
+02400,de apoyo a la silvicultura de apoyo a la silvicultura ACUICULTURA Y ACTIVIDADES APOYO,0240,False,False,5,directa,False
+03110,marítima,0311,False,False,5,directa,False
+03120,de agua dulce,0312,False,False,5,directa,False
+03210,marítima,0321,False,False,5,directa,False
+03220,de agua dulce DE MINAS Y CANTERAS,0322,False,False,5,directa,False
+05100,DE CARBÓN Y LIGNITO y aglomeración de hulla y aglomeración de hulla,0510,False,False,5,directa,False
+05200,y aglomeración de lignito y aglomeración de lignito DE PETRÓLEO CRUDO Y NATURAL,0520,False,False,5,directa,False
+06100,de petróleo crudo de petróleo crudo,0610,False,False,5,directa,False
+06200,de gas natural de gas natural DE MINERALES,0620,False,False,5,directa,False
+07100,de minerales de hierro de minerales de hierro,0710,False,False,5,directa,False
+07210,de minerales metalíferos no ferrosos de minerales de uranio y torio,0721,False,False,5,directa,False
+07290,de otros minerales metalíferos no n.c.p. DE OTRAS MINAS Y,0729,False,False,5,directa,False
+08101,"de piedra, arena y arcilla de arena, piedra triturada y canto",0810,True,False,5,directa,False
+08102,de arcilla y caolín,0810,True,False,5,directa,False
+08103,de piedra caliza y yeso,0810,True,False,5,directa,False
+08104,de rocas ornamentales de otras minas y canteras n.c.p.,0810,True,False,6,directa,False
+08910,de minerales para la fabricación de y productos químicos,0891,False,False,6,directa,False
+08920,y aglomeración de turba,0892,False,False,6,directa,False
+08930,de sal,0893,False,False,6,directa,False
+08990,de otras minas y canteras n.c.p. DE APOYO A LA DE MINAS Y CANTERAS,0899,False,False,6,directa,False
+09100,de apoyo a la extracción de petróleo gas natural de apoyo a la extracción de petróleo natural de apoyo a la explotación de otras,0910,False,False,6,directa,False
+09900,y canteras n.c.p. de apoyo a la explotación de otras y canteras n.c.p. MANUFACTURERAS DE PRODUCTOS,0990,False,False,6,directa,False
+10101,y conservación de carne de ganado vacuno y procesamiento de su,1010,True,False,6,directa,False
+10102,y procesamiento de carne de aves,1010,True,False,6,directa,False
+10103,de fiambres y embutidos,1010,True,False,6,directa,False
+10109,"de animales n.c.p. y procesamiento de su elaboración de subproductos cárnicos n.c.p. y conservación de pescado,",1010,True,False,6,directa,False
+10200,"y moluscos y conservación de pescado, y moluscos y conservación de frutas",1020,False,False,6,directa,False
+10301,y conservación de frutas,1030,True,False,6,directa,False
+10302,de jugos de aceites y grasas de origen vegetal,1030,True,False,6,directa,False
+10400,animal de aceites y grasas de origen vegetal animal,1040,False,False,6,directa,False
+10501,de productos lácteos de leches y productos lácteos,1050,True,False,6,directa,False
+10502,"industrial de helados de productos de molinería, y productos derivados del almidón",1050,True,False,6,directa,False
+10611,de arroz y fabricación de productos de,1061,True,False,7,directa,False
+10612,de trigo y fabricación de productos de,1061,True,False,7,directa,False
+10613,de maíz y fabricación de productos de,1061,True,False,7,directa,False
+10619,de otros productos de molinería n.c.p.,1061,True,False,7,directa,False
+10620,de almidones y productos derivados almidón de alimentos preparados para,1062,False,False,7,directa,False
+10700,de alimentos preparados para de otros productos alimenticios,1080,False,False,7,directa,False
+10911,de galletitas y bizcochos,1071,True,False,7,directa,False
+10912,de chipas,1071,True,False,7,directa,False
+10919,de otros productos de panadería n.c.p.,1071,True,False,7,directa,False
+10920,de azúcar,1072,False,False,7,directa,False
+10930,"de cacao, chocolate y de productos",1073,False,False,7,directa,False
+10940,de pastas alimenticias y productos similares,1074,False,False,7,directa,False
+10950,y molido de café y elaboración de de café,1079,True,False,7,directa,False
+10961,de té,1079,True,False,7,directa,False
+10962,de yerba mate,1079,True,False,7,directa,False
+10970,de comidas y platos preparados,1075,False,False,7,directa,False
+10991,de hielo,3530,True,False,7,directa,False
+10999,de otros productos alimenticios n.c.p. DE BEBIDAS,1079,True,False,7,directa,False
+11110,de bebidas alcohólicas rectificación y mezcla de bebidas,1101,False,False,7,directa,False
+11120,de vinos,1102,False,False,7,directa,False
+11130,de bebidas malteadas y de malta de bebidas no alcohólicas,1103,False,False,7,directa,False
+11210,de aguas minerales y sodas,1104,True,False,7,directa,False
+11290,de otras bebidas no alcohólicas DE PRODUCTOS DE,1104,True,False,7,directa,False
+12000,de productos de tabaco de productos de tabaco DE PRODUCTOS EXCEPTO PRENDAS DE,1200,False,False,7,directa,False
+13111,tejeduría y acabado de productos e hiladería de fibras de algodón,1311,True,False,8,directa,False
+13119,e hiladería de otras fibras textiles,1311,True,False,8,directa,False
+13120,de productos textiles,1312,False,False,8,directa,False
+13130,"de productos textiles de otros productos textiles n.c.p.,",1313,False,False,8,directa,False
+13910,prendas de vestir de tejidos de punto y ganchillo,1391,False,False,8,directa,False
+13920,"de artículos confeccionados con textiles, excepto prendas de vestir",1392,False,False,8,directa,False
+13930,de tapices y alfombras,1393,False,False,8,directa,False
+13940,"de cuerdas, cordeles, bramantes",1394,False,False,8,directa,False
+13990,de otros productos textiles n.c.p. DE PRENDAS DE VESTIR,1399,False,False,8,directa,False
+14101,"de prendas de vestir, excepto prendas piel de prendas de vestir exterior, excepto de cuero y piel",1410,True,False,8,directa,False
+14102,de prendas de vestir interior,1410,True,False,8,directa,False
+14103,"de prendas de vestir de cuero, excepto de piel",1410,True,False,8,directa,False
+14200,de artículos de piel de artículos de piel de prendas de vestir de punto,1420,False,False,8,directa,False
+14300,de prendas de vestir de punto DE CUERO Y PRODUCTOS,1430,False,False,8,directa,False
+15110,y terminación de cueros; fabricación de bolsos de mano y artículos de y guarnicionería; teñido de pieles y terminación de cueros; teñido de pieles,1511,False,False,8,directa,False
+15121,"de maletas, bolsos de mano similares",1512,False,False,8,directa,False
+15129,de otros artículos de cuero n.c.p.,1512,False,False,8,directa,False
+15201,de calzado y sus partes de calzado de cuero,1520,True,False,8,directa,False
+15202,de partes de cuero para calzado,1520,True,False,9,directa,False
+15209,"de calzado de otros materiales y sus DE MADERA Y DE PRODUCTOS DE Y CORCHO, EXCEPTO FABRICACIÓN DE",1520,True,False,9,directa,False
+16100,"DE PAJA Y DE MATERIALES y cepillado de madera y cepillado de madera de productos de madera, corcho,",1610,False,False,9,directa,False
+16210,"y materiales trenzables de hojas de madera para enchapado; de tableros contrachapados, tableros tableros de partículas y otros tableros",1621,False,False,9,directa,False
+16220,de partes y piezas de carpintería para y construcciones,1622,False,False,9,directa,False
+16230,de recipientes de madera,1623,False,False,9,directa,False
+16290,"de otros productos de madera n.c.p.; de artículos de corcho, paja trenzables DE PAPEL Y PRODUCTOS PAPEL",1629,False,False,9,directa,False
+17010,"de papel y productos de papel de pasta de madera, papel y cartón",1701,False,False,9,directa,False
+17020,de papel y cartón ondulado y de de papel y cartón,1702,False,False,9,directa,False
+17090,de otros artículos de papel y cartón DE IMPRESIÓN Y DE APOYO; REPRODUCCIÓN GRABACIONES,1709,False,False,9,directa,False
+18110,de impresión y servicios de apoyo de impresión,1811,False,False,9,directa,False
+18120,relacionados con la impresión de grabaciones,1812,False,False,9,directa,False
+18200,de grabaciones DE COQUE Y DE DE LA REFINACIÓN DEL,1820,False,False,9,directa,False
+19100,de productos de hornos de coque de productos de hornos de coque de productos de la refinación del,1910,False,False,9,directa,False
+19201,de combustibles,1920,True,False,10,directa,False
+19209,de otros productos de la refinación de n.c.p. DE SUSTANCIAS Y QUÍMICOS,1920,True,False,10,directa,False
+20110,"de sustancias químicas básicas, y compuestos de nitrógeno, plásticos sintético en formas primarias de sustancias químicas básicas",2011,True,False,10,directa,False
+20120,de abonos y compuestos de nitrógeno,2012,False,False,10,directa,False
+20130,de plásticos y caucho sintético en primarias de biocombustibles,2013,False,False,10,directa,False
+20201,de alcohol,2011,True,False,10,directa,False
+20202,de carbón vegetal por destilación de madera,2011,True,False,10,directa,False
+20209,de biocombustibles n.c.p.,2011,True,False,10,directa,False
+20300,de fibras manufacturadas de fibras manufacturadas de otros productos químicos n.c.p.,2030,False,False,10,directa,False
+20910,de plaguicidas y productos químicos uso agropecuario,2021,False,False,10,directa,False
+20920,"de pinturas, barnices y productos de similares, tintas de imprenta",2022,False,False,10,directa,False
+20931,"de jabones, detergentes y preparados limpieza",2023,True,False,10,directa,False
+20932,"de cosméticos, perfumes y artículos tocador",2023,True,False,10,directa,False
+20939,de otros preparados para limpiar n.c.p.,2023,True,False,10,directa,False
+20990,de otros productos químicos n.c.p. DE PRODUCTOS SUSTANCIAS MEDICINALES Y PRODUCTOS,2029,False,False,10,directa,False
+21001,"de productos farmacéuticos, químicas medicinales y productos de medicamentos de uso humano",2100,True,False,10,directa,False
+21002,de medicamentos de uso veterinario,2100,True,False,10,directa,False
+21003,de productos farmacéuticos,2100,True,False,11,directa,False
+21004,de productos botánicos DE PRODUCTOS DE Y PLÁSTICO,2100,True,False,11,directa,False
+22111,de productos de caucho de cubiertas y cámaras de caucho,2211,True,False,11,directa,False
+22112,y renovación de cubiertas de caucho,2211,True,False,11,directa,False
+22190,de otros productos de caucho de productos de plástico,2219,False,False,11,directa,False
+22210,de envases de plástico,2220,True,False,11,directa,False
+22290,de otros productos de plástico DE PRODUCTOS DE NO METÁLICOS,2220,True,False,11,directa,False
+23101,de vidrio y productos de vidrio de vidrio plano,2310,True,False,11,directa,False
+23102,de envases de vidrio,2310,True,False,11,directa,False
+23109,de otros productos de vidrio n.c.p. de otros productos de minerales no,2310,True,False,11,directa,False
+23910,n.c.p. de productos de cerámica refractaria,2391,False,False,11,directa,False
+23920,de materiales de arcilla para la,2392,False,False,11,directa,False
+23930,de otros productos de cerámica,2393,False,False,11,directa,False
+23940,"de cemento, cal y yeso",2394,False,False,11,directa,False
+23950,"de artículos de hormigón, cemento",2395,False,False,11,directa,False
+23960,tallado y acabado de la piedra,2396,False,False,11,directa,False
+23990,de otros productos de minerales no n.c.p. DE METALES,2399,False,False,11,directa,False
+24100,básica de hierro y acero básica de hierro y acero de productos primarios de metales,2410,False,False,11,directa,False
+24200,y otros metales no ferrosos de productos primarios de metales y otros metales no ferrosos,2420,False,False,11,directa,False
+24310,de metales de hierro y acero,2431,False,False,12,directa,False
+24320,"de metales no ferrosos DE PRODUCTOS DE METAL, EXCEPTO Y EQUIPOS",2432,False,False,12,directa,False
+25110,"de productos metálicos para uso tanques, depósitos y generadores de de productos metálicos para uso",2511,False,False,12,directa,False
+25120,"de tanques, depósitos y recipientes de",2512,False,False,12,directa,False
+25130,"de generadores de vapor, excepto para calefacción central de armas y municiones",2513,False,False,12,directa,False
+25200,de armas y municiones de otros productos elaborados de,2520,False,False,12,directa,False
+25910,"y servicios de trabajo de metales prensado, estampado y laminado de pulvimetalurgia",2591,False,False,12,directa,False
+25920,tratamiento y revestimiento de,2592,False,False,12,directa,False
+25930,"de artículos de cuchillería, de mano y artículos de ferretería",2593,False,False,12,directa,False
+25991,de productos de alambre y otros para la construcción,2599,True,False,12,directa,False
+25992,de artículos de metal de uso,2599,True,False,12,directa,False
+25993,de envases metálicos,2599,True,False,12,directa,False
+25999,de otros productos elaborados de n.c.p. DE EQUIPOS ELECTRÓNICOS Y,2599,True,False,12,directa,False
+26100,de componentes electrónicos de componentes electrónicos de equipos informáticos,2610,False,False,12,directa,False
+26200,de equipos informáticos y periféricos de equipos de comunicaciones,2620,False,False,12,directa,False
+26300,de equipos de comunicaciones de aparatos electrónicos de,2630,False,False,13,directa,False
+26400,"de aparatos electrónicos de consumo de equipos para medir, verificar, navegar y de control; artículos de",2640,False,False,13,directa,False
+26510,"de equipos para medir, verificar, navegar y de control",2651,False,False,13,directa,False
+26520,"de artículos de relojería de equipos de irradiación, electro",2652,False,False,13,directa,False
+26600,"y electro terapéuticos de equipos de irradiación, electro y electro terapéuticos de instrumentos ópticos y equipo",2660,False,False,13,directa,False
+26700,de instrumentos ópticos y equipo,2670,False,False,13,directa,False
+26800,de soportes magnéticos y ópticos de soportes magnéticos y ópticos DE MAQUINARIA Y ELÉCTRICOS,2680,False,False,13,directa,False
+27100,"de motores, generadores eléctricos, aparatos de y control de electricidad de motores, generadores eléctricos, aparatos de y control de electricidad de pilas, baterías y acumuladores",2710,False,False,13,directa,False
+27200,"de pilas, baterías y acumuladores",2720,False,False,13,directa,False
+27310,de cables y aparatos de cableado de cables de fibra óptica,2731,False,False,13,directa,False
+27320,de otros cables eléctricos,2732,False,False,13,directa,False
+27330,de aparatos de cableado de equipos de iluminación eléctricos,2733,False,False,13,directa,False
+27400,de equipos de iluminación eléctricos,2740,False,False,13,directa,False
+27500,"de aparatos de uso doméstico, de audio y video de aparatos de uso doméstico, excepto audio y video",2750,False,False,14,directa,False
+27900,de otros equipos eléctricos n.c.p. de otros equipos eléctricos n.c.p. DE MAQUINARIAS Y NCP,2790,False,False,14,directa,False
+28110,"de maquinaria de uso general de motores y turbinas, excepto para aeronaves, vehículos automotores",2811,False,False,14,directa,False
+28120,de equipos hidráulicos,2812,False,False,14,directa,False
+28130,"de otras bombas, compresores, grifos válvulas",2813,False,False,14,directa,False
+28140,"de cojinetes, engranajes, trenes de y piezas de transmisión",2814,False,False,14,directa,False
+28150,de hornos y quemadores,2815,False,False,14,directa,False
+28160,de equipos de elevación,2816,False,False,14,directa,False
+28170,de maquinaria y equipo de oficina,2817,False,False,14,directa,False
+28180,de herramientas manuales con motor,2818,False,False,14,directa,False
+28190,de otros tipos de maquinaria de uso n.c.p.,2819,False,False,14,directa,False
+28210,de maquinarias de uso especial de maquinaria agropecuaria y forestal,2821,False,False,14,directa,False
+28220,de máquinas herramienta,2822,False,False,14,directa,False
+28230,de maquinaria metalúrgica,2823,False,False,14,directa,False
+28240,de maquinaria para explotación de y canteras y para obras de construcción,2824,False,False,14,directa,False
+28250,de maquinaria para la elaboración de bebidas y tabaco,2825,False,False,14,directa,False
+28260,"de maquinaria para la elaboración de textiles, prendas de vestir y cueros",2826,False,False,14,directa,False
+28290,de otros tipos de maquinaria de uso n.c.p. DE VEHÍCULOS REMOLQUES Y de vehículos automotores,2829,False,False,14,directa,False
+29101,de vehículos automotores,2910,True,False,15,directa,False
+29102,de motores de vehículos de carrocerías para vehículos fabricación de remolques,2910,True,False,15,directa,False
+29200,de carrocerías para vehículos fabricación de remolques de piezas y accesorios para,2920,False,False,15,directa,False
+29300,automotores de piezas y accesorios para vehículos DE OTROS EQUIPOS DE NCP,2930,False,False,15,directa,False
+30110,de buques y otras embarcaciones de buques y estructuras flotantes,3011,False,False,15,directa,False
+30120,de embarcaciones de recreo de locomotoras y de material,3012,False,False,15,directa,False
+30200,para ferrocarriles y tranvías de locomotoras y de material rodante ferrocarriles y tranvías,3020,False,False,15,directa,False
+30300,de aeronaves de aeronaves,3030,False,False,15,directa,False
+30400,de vehículos militares de combate de vehículos militares de combate,3040,False,False,15,directa,False
+30910,de otros equipos de transporte n.c.p. de motocicletas,3091,False,False,15,directa,False
+30920,de bicicletas y sillas de ruedas,3092,False,False,15,directa,False
+30990,de otros equipos de transporte n.c.p. DE MUEBLES,3099,False,False,15,directa,False
+31001,de muebles de muebles de madera,3100,True,False,15,directa,False
+31002,de muebles de metal,3100,True,False,16,directa,False
+31009,"de muebles de otros materiales n.c.p., colchones MANUFACTURERAS NCP",3100,True,False,16,directa,False
+32110,"de joyas, bijouterie y artículos de joyas y artículos conexos",3211,False,False,16,directa,False
+32120,de bijouterie y artículos conexos,3212,False,False,16,directa,False
+32200,de instrumentos musicales de instrumentos musicales de artículos de deporte,3220,False,False,16,directa,False
+32300,de artículos de deporte,3230,False,False,16,directa,False
+32400,de juegos y juguetes de juegos y juguetes de instrumentos y suministros,3240,False,False,16,directa,False
+32500,y dentales de instrumentos y suministros y dentales,3250,False,False,16,directa,False
+32901,"industrias manufactureras n.c.p. de escobas, cepillos, plumeros",3290,True,False,16,directa,False
+32902,de ataúdes,3290,True,False,16,directa,False
+32909,industrias manufactureras n.c.p. REPARACIÓN E DE MAQUINAS Y EQUIPOS,3290,True,False,16,directa,False
+33110,"y reparación de productos de metal, máquinas y equipos y reparación de productos de metal",3311,False,False,16,directa,False
+33120,y reparación de máquinas de uso general y especial,3312,False,False,16,directa,False
+33130,y reparación de equipos y ópticos,3313,False,False,16,directa,False
+33140,y reparación de equipos eléctricos,3314,False,False,16,directa,False
+33150,y reparación de equipos de excepto los vehículos automotores,3315,False,False,16,directa,False
+33190,y reparación de otros equipos,3319,False,False,16,directa,False
+33200,"de máquinas y equipos de máquinas y equipos DE ELECTRICIDAD, GAS, Y AIRE ACONDICIONADO GAS, VAPOR Y AIRE",3320,False,False,17,directa,False
+35101,transmisión y distribución de eléctrica de energía eléctrica,3510,True,False,17,directa,False
+35102,y distribución de energía eléctrica de gas; distribución de combustibles,3510,True,False,17,directa,False
+35200,por tuberías de gas; distribución de combustibles por tuberías,3520,False,False,17,directa,False
+35300,de vapor y aire acondicionado de vapor y aire acondicionado DE AGUA; GESTIÓN DE Y ACTIVIDADES DE,3530,False,False,17,directa,False
+36000,TRATAMIENTO Y DE AGUA tratamiento y suministro de agua tratamiento y suministro de agua,3600,False,False,17,directa,False
+37000,TRATAMIENTO Y DE DESECHOS; DE MATERIALES,3700,False,False,17,directa,False
+38110,de desechos de desechos inocuos,3811,False,False,17,directa,False
+38120,de desechos peligrosos y eliminación de desechos,3812,False,False,17,directa,False
+38210,y eliminación de desechos inocuos,3821,False,False,17,directa,False
+38220,y eliminación de desechos peligrosos de materiales,3822,False,False,17,directa,False
+38301,de materiales metálicos,3830,True,False,18,directa,False
+38302,de materiales no metálicos DE SANEAMIENTO Y SERVICIOS DE GESTIÓN DE,3830,True,False,18,directa,False
+39000,de saneamiento y otros servicios de de desechos de saneamiento y otros servicios de de desechos,3900,False,False,18,directa,False
+41001,DE EDIFICIOS de edificios de emprendimientos inmobiliarios,4100,True,False,18,directa,False
+41002,de edificios CIVIL,4100,True,False,18,directa,False
+42100,"de carreteras y vías férreas, y túneles de carreteras y vías férreas, puentes túneles",4210,True,False,18,directa,False
+42200,de proyectos de servicios públicos de proyectos de servicios públicos de otros proyectos de ingeniería,4220,False,False,18,directa,False
+42900,n.c.p. de otros proyectos de ingeniería n.c.p. ESPECIALIZADAS DE,4290,False,False,18,directa,False
+43110,y preparación del terreno,4311,False,False,18,directa,False
+43120,"del terreno eléctricas, de fontanería y otras",4312,False,False,18,directa,False
+43210,"de construcción eléctricas, electromecánicas",4321,False,False,18,directa,False
+43221,e instalaciones sanitarias,4322,True,False,18,directa,False
+43222,de calefacción y aire acondicionado,4322,True,False,19,directa,False
+43229,"instalaciones de fontanería, calefacción acondicionado",4322,True,False,19,directa,False
+43290,instalaciones de construcción,4329,False,False,19,directa,False
+43301,y acabado de edificios y empapelado de edificios,4330,True,False,19,directa,False
+43302,de revestimientos de pisos y paredes,4330,True,False,19,directa,False
+43309,tareas de terminación de edificios actividades especializadas de construcción,4330,True,False,19,directa,False
+43901,de impermeabilización de edificios,4390,True,False,19,directa,False
+43902,y desmantelamiento de y andamios,4390,True,False,19,directa,False
+43903,de pilotajes para la edificación,4390,True,False,19,directa,False
+43909,actividades especializadas de construcción AL POR MAYOR Y AL POR REPARACIÓN DE VEHÍCULOS Y MOTOCICLETAS Y REPARACIÓN DE,4390,True,False,19,directa,False
+45101,"AUTOMOTORES Y de vehículos automotores, excepto al por mayor de vehículos automotores",4510,True,False,19,directa,False
+45102,al por mayor de vehículos automotores,4510,True,False,19,directa,False
+45103,al por menor de vehículos automotores,4510,True,False,19,directa,False
+45104,al por menor de vehículos automotores,4510,True,False,19,directa,False
+45105,comisionistas por venta de vehículos y reparación de vehículos,4510,True,False,19,directa,False
+45201,excepto motocicletas y reparación mecánica de,4520,True,False,19,directa,False
+45202,y reparación eléctrica y electrónica vehículos,4520,True,False,19,directa,False
+45203,de chapería y pintura,4520,True,False,19,directa,False
+45204,de gomería,4520,True,False,19,directa,False
+45205,de alineación y balanceo,4520,True,False,20,directa,False
+45206,de autos,4520,True,False,20,directa,False
+45209,tipos de reparaciones de vehículos n.c.p. de piezas y accesorios de vehículos,4520,True,False,20,directa,False
+45301,"excepto motocicletas de partes, piezas y accesorios nuevos vehículos automotores",4530,True,False,20,directa,False
+45302,"de partes, piezas y accesorios usados vehículos automotores",4530,True,False,20,directa,False
+45303,"de partes, piezas y accesorios nuevos para vehículos automotores mantenimiento y reparación de",4530,True,False,20,directa,False
+45401,y de sus piezas y accesorios de motocicletas y de sus piezas,4540,True,False,20,directa,False
+45402,"y reparación de motocicletas AL POR MAYOR, EXCEPTO VEHÍCULOS AUTOMOTORES Y",4540,True,False,20,directa,False
+46101,al por mayor a cambio de una o por contrata al por mayor de productos agrícolas de una retribución o por contrata,4610,True,False,20,directa,False
+46102,al por mayor de productos pecuarios de una retribución o por contrata,4610,True,False,20,directa,False
+46103,"al por mayor de alimentos, bebidas a cambio de una retribución o por contrata",4610,True,False,20,directa,False
+46104,"al por mayor de combustibles, productos siderúrgicos y químicos de una retribución o por contrata",4610,True,False,20,directa,False
+46109,al por mayor de mercancías n.c.p. de una retribución o por contrata al por mayor de materias primas,4610,True,False,20,directa,False
+46201,y animales vivos al por mayor de materias primas,4620,True,False,20,directa,False
+46202,"al por mayor de materias primas y animales vivos al por mayor de alimentos, bebidas",4620,True,False,20,directa,False
+46301,"al por mayor de carne, menudencias derivados",4630,True,False,20,directa,False
+46302,"al por mayor de comestibles, excepto",4630,True,False,21,directa,False
+46303,al por mayor de alimentos para,4630,True,False,21,directa,False
+46304,al por mayor de bebidas,4630,True,False,21,directa,False
+46305,al por mayor de tabaco y cigarrillos al por mayor de enseres domésticos,4630,True,False,21,directa,False
+46410,"al por mayor de textiles, prendas de calzado, artículos de marroquinería",4641,False,False,21,directa,False
+46420,al por mayor de productos y veterinarios,4649,True,False,21,directa,False
+46430,al por mayor de productos cosméticos perfumería,4649,True,False,21,directa,False
+46440,"al por mayor de libros, revistas, papel, cartón, materiales de embalaje de librería",4649,True,False,21,directa,False
+46450,"al por mayor de artículos de óptica, relojería, joyería y fantasías",4649,True,False,21,directa,False
+46460,al por mayor de muebles y artículos de,4649,True,False,21,directa,False
+46490,"al por mayor de otros enseres n.c.p. al por mayor de maquinaria, equipo",4649,True,False,21,directa,False
+46510,al por mayor de equipos informáticos y,4651,False,False,21,directa,False
+46520,al por mayor de componentes y equipos de comunicaciones,4652,False,False,21,directa,False
+46530,"al por mayor de maquinaria, equipo y agrícolas",4653,False,False,21,directa,False
+46540,al por mayor de maquinaria y equipo uso industrial,4659,True,False,21,directa,False
+46550,al por mayor de maquinaria y equipo uso médico y hospitalario,4659,True,False,21,directa,False
+46590,al por mayor de otras maquinarias y n.c.p. al por mayor de otros productos,4659,True,False,21,directa,False
+46610,"al por mayor de combustibles sólidos, y gaseosos y de productos conexos",4661,False,False,21,directa,False
+46620,al por mayor de metales y minerales,4662,False,False,22,directa,False
+46631,al por mayor de madera,4663,True,False,22,directa,False
+46632,al por mayor de materiales de,4663,True,False,22,directa,False
+46633,"al por mayor de pinturas, barnices, de empapelar y revestimiento de pisos",4663,True,False,22,directa,False
+46634,al por mayor de vidrio,4663,True,False,22,directa,False
+46635,al por mayor de artículos sanitarios,4663,True,False,22,directa,False
+46636,al por mayor de artículos de ferretería y,4663,True,False,22,directa,False
+46691,al por mayor de productos químicos,4669,True,False,22,directa,False
+46692,al por mayor de fertilizantes y,4669,True,False,22,directa,False
+46693,al por mayor de desechos y materiales reciclar,4669,True,False,22,directa,False
+46699,al por mayor de otros productos n.c.p.,4669,True,False,22,directa,False
+46900,"al por mayor no especializada al por mayor no especializada AL POR MENOR, EXCEPTO VEHÍCULOS AUTOMOTORES Y",4690,False,False,22,directa,False
+47111,al por menor en comercios no al por menor en hipermercados,4711,True,False,22,directa,False
+47112,al por menor en mini mercados,4711,True,False,22,directa,False
+47113,al por menor realizado por los free,4711,True,False,22,directa,False
+47114,al por menor realizado por las de consumo,4711,True,False,22,directa,False
+47190,al por menor de otros productos en no especializados,4719,False,False,22,directa,False
+47211,"al por menor de alimentos, bebidas en comercios especializados al por menor de frutas y verduras",4721,True,False,23,directa,False
+47212,al por menor de carnes y pescados,4721,True,False,23,directa,False
+47213,"al por menor de productos de panadería, y pastelería",4721,True,False,23,directa,False
+47219,al por menor de otros alimentos n.c.p.,4721,True,False,23,directa,False
+47220,al por menor de bebidas,4722,False,False,23,directa,False
+47230,al por menor de tabaco al por menor de combustible para,4723,False,False,23,directa,False
+47300,automotores en comercios al por menor de combustible para automotores en comercios al por menor de equipos de y comunicaciones en comercios,4730,False,False,23,directa,False
+47411,al por menor de equipos informáticos y,4741,True,False,23,directa,False
+47412,al por menor de equipos de,4741,True,False,23,directa,False
+47420,al por menor de equipos de audio al por menor de otros artículos de uso doméstico en comercios,4742,False,False,23,directa,False
+47511,al por menor de tela en almacenes,4751,True,False,23,directa,False
+47512,al por menor de hilos y artículos de en almacenes especializados,4751,True,False,23,directa,False
+47521,al por menor de artículos de ferretería,4752,True,False,23,directa,False
+47522,al por menor de pinturas y similares,4752,True,False,24,directa,False
+47523,"al por menor de otros materiales de tales como ladrillos, madera, equipo",4752,True,False,24,directa,False
+47524,al por menor de vidrio,4752,True,False,24,directa,False
+47529,al por menor de otros artículos n.c.p.,4752,True,False,24,directa,False
+47530,"al por menor de alfombras, cubiertas de y piso en almacenes especializados",4753,False,False,24,directa,False
+47591,al por menor de electrodomésticos y,4759,True,False,24,directa,False
+47592,al por menor de muebles y accesorios el hogar,4759,True,False,24,directa,False
+47593,al por menor de cristalería y menage,4759,True,False,24,directa,False
+47594,al por menor de instrumentos musicales partituras,4759,True,False,24,directa,False
+47595,al por menor de sistemas de seguridad,4759,True,False,24,directa,False
+47599,al por menor de otros artículos y de uso doméstico n.c.p. al por menor de bienes culturales,4759,True,False,24,directa,False
+47610,"en comercios especializados al por menor de libros, periódicos y de papelería",4761,False,False,24,directa,False
+47620,"al por menor de grabaciones de audio y cintas y discos vírgenes, en comercios",4762,False,False,24,directa,False
+47631,al por menor de bicicletas,4763,True,False,24,directa,False
+47639,al por menor de otros artículos n.c.p.,4763,True,False,24,directa,False
+47640,al por menor de juegos y juguetes,4764,False,False,24,directa,False
+47711,al por menor de otros artículos en especializados al por menor de prendas de vestir,4771,True,False,25,directa,False
+47712,al por menor de calzado,4771,True,False,25,directa,False
+47713,"al por menor de accesorios de cuero, y materiales similares",4771,True,False,25,directa,False
+47721,al por menor de productos de uso humano,4772,True,False,25,directa,False
+47722,al por menor de productos de uso veterinario,4772,True,False,25,directa,False
+47723,al por menor de cosméticos y artículos tocador,4772,True,False,25,directa,False
+47724,al por menor de productos médicos y,4772,True,False,25,directa,False
+47731,"al por menor de equipo fotográfico, y de precisión",4773,True,False,25,directa,False
+47732,al por menor de relojes y joyas,4773,True,False,25,directa,False
+47733,"al por menor de flores, plantas, fertilizantes y artículos para jardín",4773,True,False,25,directa,False
+47734,"al por menor de artesanías, fantasías y",4773,True,False,25,directa,False
+47735,"al por menor de combustibles de uso gas envasado, leña y carbón",4773,True,False,25,directa,False
+47736,al por menor de objetos de galerías de comerciales,4773,True,False,25,directa,False
+47739,comercio al por menor de productos nuevos en almacenes especializados,4773,True,False,25,directa,False
+47741,al por menor de prendas de vestir usada,4774,True,False,25,directa,False
+47742,al por menor de antiguedades,4774,True,False,25,directa,False
+47749,al por menor de otras mercancías de mano n.c.p. al por menor en puestos y mercados,4774,True,False,25,directa,False
+47810,"al por menor de alimentos, bebidas y en puestos de venta y mercados",4781,False,False,26,aproximada,False
+47820,"al por menor de productos textiles, de vestir y calzado en puestos de venta y",4782,False,False,26,aproximada,False
+47890,al por menor de otros artículos en de venta y mercados al por menor no realizado en,4789,False,False,26,aproximada,False
+47910,puestos de venta y mercados al por menor a través de empresas de por correo o Internet,4791,False,False,26,aproximada,False
+47990,tipos de venta al por menor no realizada en puestos o mercados Y ALMACENAMIENTO TERRESTRE Y POR,4799,False,False,26,aproximada,False
+49110,"por vía férrea de pasajeros por vía férrea, incluso",4911,False,False,26,aproximada,False
+49120,de carga por vía férrea,4912,False,False,26,aproximada,False
+49210,tipos de transporte por vía terrestre urbano o suburbano de pasajeros por terrestre,4921,True,True,26,aproximada,True
+49210,tipos de transporte por vía terrestre urbano o suburbano de pasajeros por terrestre,4929,True,True,26,aproximada,True
+49221,en taxímetros y remises,4921,True,True,26,aproximada,True
+49221,en taxímetros y remises,4929,True,True,26,aproximada,True
+49222,en buses escolares,4921,True,False,26,aproximada,False
+49223,buses de media y larga distancia,4921,True,False,26,aproximada,False
+49229,tipos de transporte de pasajeros por vía n.c.p.,4921,True,True,26,aproximada,True
+49229,tipos de transporte de pasajeros por vía n.c.p.,4929,True,True,26,aproximada,True
+49231,terrestre local de carga,4922,True,False,26,aproximada,True
+49232,terrestre de carga interdepartamental e,4922,True,False,26,aproximada,False
+49239,tipos de transporte terrestre por carreteras,4922,True,True,26,aproximada,True
+49239,tipos de transporte terrestre por carreteras,4929,True,True,26,aproximada,True
+49300,por tuberías por tuberías POR VÍA ACUÁTICA,4930,False,False,27,directa,False
+50110,marítimo y de cabotaje de pasajeros marítimo y de cabotaje,5011,False,False,27,directa,False
+50120,de carga marítimo y de cabotaje,5012,False,False,27,directa,False
+50210,por vías fluviales de navegación de pasajeros por vías fluviales,5021,False,False,27,directa,False
+50220,de carga por vías fluviales AÉREO,5022,False,False,27,directa,False
+51100,aéreo de pasajeros aéreo de pasajeros aéreo de carga,5110,False,False,27,directa,False
+51200,aéreo de carga Y ACTIVIDADES AL TRANSPORTE,5120,False,False,27,directa,False
+52100,y almacenamiento y almacenamiento,5210,False,False,27,directa,False
+52210,auxiliares al transporte auxiliares al transporte terrestre,5221,False,False,27,directa,False
+52220,auxiliares al transporte acuático,5222,False,False,27,directa,False
+52230,auxiliares al transporte aéreo,5223,False,False,27,directa,False
+52240,de la carga,5224,False,False,27,directa,False
+52291,de los agentes de transporte aéreo,5229,True,False,27,directa,False
+52292,de los agentes de transporte terrestre,5229,True,False,27,directa,False
+52293,de los despachantes de Aduana,5229,True,False,27,directa,False
+52299,de manipulación de productos y otras complementarias al transporte n.c.p. Y SERVICIOS DE MENSAJERÍA,5229,True,False,27,directa,False
+53100,,5310,False,False,28,directa,False
+53200,de mensajería de mensajería Y SERVICIOS DE,5320,False,False,28,directa,False
+55101,"en hoteles, pensiones y otras de alojamiento temporal de alojamiento en hoteles",5510,True,False,28,directa,False
+55102,de alojamiento en casas de huéspedes moteles,5510,True,False,28,directa,False
+55109,"alojamientos de corto plazo n.c.p. de caravanas, parques de remolques,",5510,True,False,28,directa,False
+55200,"de recreo y camping de caravanas, parques de remolques, de recreo",5520,False,False,28,directa,False
+55901,tipos de alojamiento de alojamiento en pensiones sin servicios,5590,True,False,28,directa,False
+55909,actividades de alojamientos n.c.p. DE COMIDAS Y BEBIDAS,5590,True,False,28,directa,False
+56101,bares y similares y parrilladas,5610,True,False,28,directa,False
+56102,,5610,True,False,28,directa,False
+56103,que no elaboran el producto,5610,True,False,28,directa,False
+56109,servicios de comida n.c.p. de eventos y otros servicios de,5610,True,False,28,directa,False
+56210,de eventos,5621,False,False,28,directa,False
+56290,servicios de comida n.c.p.,5629,False,False,28,directa,False
+56300,vinculadas al servicio de bebidas vinculadas al servicio de bebidas,5630,False,False,28,directa,False
+58110,"Y COMUNICACIÓN de libros, periódicos y otras incluso integrada a la impresión de libros, incluso integrada a la impresión",5811,False,False,29,aproximada,False
+58120,"de directorios y listas de direcciones, integrada a la impresión",5812,False,False,29,aproximada,False
+58130,"de periódicos, diarios y revistas, incluso a la impresión",5813,False,False,29,aproximada,False
+58190,"actividades de edición n.c.p., incluso a la impresión",5819,False,False,29,aproximada,False
+58200,de software de software CINEMATOGRÁFICAS; DE VÍDEOS Y DE TELEVISIÓN; SONORA Y DE EDICIÓN DE,5820,False,False,29,aproximada,False
+59110,"cinematográficas, de vídeo y de de televisión de producción y post producción de vídeos y programas de televisión",5911,False,True,29,aproximada,False
+59110,"cinematográficas, de vídeo y de de televisión de producción y post producción de vídeos y programas de televisión",5912,False,True,29,aproximada,False
+59120,"de distribución de películas, vídeos y de televisión",5913,False,False,29,aproximada,False
+59130,de proyección de películas de grabación sonora y edición de,5914,False,False,29,aproximada,False
+59200,de grabación sonora y edición de DE PROGRAMACIÓN Y DE RADIO Y TELEVISIÓN,5920,False,False,29,aproximada,False
+60100,programación y difusión de radio programación y difusión de radio programación y difusión de,6010,False,False,29,aproximada,False
+60201,de televisión abierta,6020,False,False,29,aproximada,False
+60202,y actividades relacionadas con la por suscripción,6020,False,False,29,aproximada,False
+61000,DE PROGRAMACIÓN Y INFORMÁTICAS Y,6110,True,True,30,aproximada,False
+61000,DE PROGRAMACIÓN Y INFORMÁTICAS Y,6120,True,True,30,aproximada,False
+61000,DE PROGRAMACIÓN Y INFORMÁTICAS Y,6130,True,True,30,aproximada,False
+61000,DE PROGRAMACIÓN Y INFORMÁTICAS Y,6190,True,True,30,aproximada,False
+62010,ACTIVIDADES CONEXAS de programación y consultoría y otras actividades conexas de programación informática,6201,False,False,30,aproximada,False
+62020,de consultoría y gestión de servicios,6202,False,False,30,aproximada,False
+62090,actividades de tecnología de la información servicios informáticos DE SERVICIOS DE,6209,False,False,30,aproximada,False
+63110,"de datos, hospedaje y servicios portales Web de datos, hospedaje y servicios",6311,False,False,30,aproximada,False
+63120,Web actividades de servicios de información,6312,False,False,30,aproximada,False
+63910,de agencias de noticias,6391,False,False,30,aproximada,False
+63990,"actividades de servicios de información FINANCIERAS Y DE FINANCIERA Y SERVICIOS FINANCIEROS,",6399,False,False,30,aproximada,False
+64110,LOS DE SEGUROS Y DE FONDOS DE Y PENSIONES monetaria central,6411,False,False,30,aproximada,False
+64190,tipos de intermediación monetaria de sociedades de cartera,6419,False,False,30,aproximada,False
+64200,"de sociedades de cartera coletiva, fondos y otros instrumentos",6420,False,False,31,aproximada,False
+64300,"similares coletiva, fondos y otros instrumentos similares servicios financieros, excepto la",6430,False,False,31,aproximada,False
+64911,de planes de seguros y de pensiones de crédito sin aval bancario,6492,True,False,31,aproximada,False
+64912,de las casas de empeño,6492,True,False,31,aproximada,False
+64913,de los prestamistas,6492,True,False,31,aproximada,False
+64914,de los círculos de ahorro,6492,True,False,31,aproximada,False
+64990,"actividades de servicios financieros, excepto financiación de planes de seguros y de",6491,False,False,31,aproximada,False
+64990,"actividades de servicios financieros, excepto financiación de planes de seguros y de REASEGUROS Y FONDOS DE EXCEPTO LOS PLANES DE SOCIAL DE AFILIACIÓN",6499,False,False,31,aproximada,False
+65110,de seguros de vida,6511,False,False,31,aproximada,False
+65120,generales de reaseguros,6512,False,False,31,aproximada,False
+65200,de reaseguros,6520,False,False,31,aproximada,False
+65300,de pensiones de pensiones AUXILIARES A LOS FINANCIEROS Y A LOS auxiliares de la intermediación,6530,False,False,31,aproximada,False
+66100,excepto la financiación de planes de y de pensiones auxiliares de la intermediación excepto la financiación de planes de y de pensiones,6611,False,True,31,aproximada,False
+66100,excepto la financiación de planes de y de pensiones auxiliares de la intermediación excepto la financiación de planes de y de pensiones,6612,False,True,31,aproximada,False
+66100,excepto la financiación de planes de y de pensiones auxiliares de la intermediación excepto la financiación de planes de y de pensiones,6619,False,True,31,aproximada,False
+66210,auxiliares de seguros y de pensiones de riesgos y daños,6621,False,False,32,aproximada,False
+66220,de los agentes y corredores de seguro,6622,False,False,32,aproximada,True
+66290,actividades auxiliares de seguros y fondos pensiones n.c.p.,6629,False,False,32,aproximada,False
+66300,de administración de fondos de administración de fondos INMOBILIARIAS INMOBILIARIAS,6630,False,False,32,aproximada,False
+68100,inmobiliarias realizadas con bienes o arrendados inmobiliarias realizadas con bienes o arrendados inmobiliarias realizadas a cambio de,6810,False,False,32,aproximada,False
+68201,"retribución o por contrata en la compra, venta y de inmuebles",6820,True,False,32,aproximada,False
+68202,de inmuebles,6820,True,False,32,aproximada,False
+68203,de inmuebles rurales,6820,True,False,32,aproximada,False
+68209,"actividades inmobiliarias realizadas a de una retribución o por contrata n.c.p. PROFESIONALES, Y TÉCNICAS JURÍDICAS Y DE",6820,True,False,32,aproximada,False
+69100,"jurídicas jurídicas de contabilidad, teneduría de libros,",6910,False,False,32,aproximada,False
+69200,"y asesoria fiscal de contabilidad, teneduría de libros, y asesoria fiscal DE LAS OFICINAS Y CONSULTORÍA DE EMPRESARIAL de las oficinas centrales",6920,False,False,32,aproximada,False
+70100,de las oficinas centrales de servicios de consultoría en gestión,7010,False,False,33,directa,False
+70201,"de contabilidad, administración y de empresas, excepto los prestados profesionales independientes",7020,True,False,33,directa,False
+70209,actividades de administración y consultoría administración de empresas n.c.p. DE ARQUITECTURA E ENSAYOS Y ANÁLISIS,7020,True,False,33,directa,False
+71101,de servicios de arquitectura y actividades conexas de técnico de servicios de arquitectura,7110,True,False,33,directa,False
+71102,de servicios de diseño de paisajes,7110,True,False,33,directa,False
+71103,de servicios de ingeniería,7110,True,False,33,directa,False
+71109,actividades de servicios de arquitectura e n.c.p.,7110,True,False,33,directa,False
+71200,y análisis técnicos y análisis técnicos Y DESARROLLO,7120,False,False,33,directa,False
+72100,y desarrollo experimental en naturales y la ingeniería y desarrollo experimental en naturales y la ingeniería y desarrollo experimental en,7210,False,False,33,directa,False
+72200,sociales y las humanidades y desarrollo experimental en sociales y las humanidades E INVESTIGACIÓN DE,7220,False,False,33,directa,False
+73100,publicitarias publicitarias de mercados y encuestas de pública,7310,False,False,33,directa,False
+73200,"de mercados y encuestas de opinión ACTIVIDADES PROFESIONALES, Y TÉCNICAS",7320,False,False,34,directa,False
+74100,de diseño especializado de diseño especializado de fotografía,7410,False,False,34,directa,False
+74200,"de fotografía actividades profesionales, científicas",7420,False,False,34,directa,False
+74901,n.c.p. de traducción e interpretación,7490,True,False,34,directa,False
+74902,de consultoría en agronomía,7490,True,False,34,directa,False
+74903,de servicios de consultoría ambiental,7490,True,False,34,directa,False
+74904,de meteorología,7490,True,False,34,directa,False
+74909,"actividades profesionales, científicas y n.c.p. VETERINARIAS",7490,True,False,34,directa,False
+75000,veterinarias veterinarias ADMINISTRATIVAS Y DE APOYO DE ALQUILER Y EXCEPTO Y GESTIÓN DE LOS,7500,False,False,34,directa,False
+77100,INTANGIBLES NO de alquiler y arrendamiento de automotores sin conductor de alquiler y arrendamiento de automotores sin conductor y arrendamiento de efectos personales,7710,False,False,34,directa,False
+77210,domésticos de cintas de vídeo y discos,7722,False,False,34,directa,False
+77290,y arrendamiento de otros efectos y enseres domésticos n.c.p.,7721,False,False,34,directa,False
+77290,y arrendamiento de otros efectos y enseres domésticos n.c.p. y arrendamiento de otros tipos de equipo y bienes materiales n.c.p. sin,7729,False,False,34,directa,False
+77301,y arrendamiento de maquinaria sin operario,7730,True,False,35,aproximada,False
+77302,y arrendamiento de maquinaria para la sin operario,7730,True,False,35,aproximada,False
+77309,y arrendamiento de otros tipos de equipo y bienes materiales n.c.p. sin de activos intangibles no,7730,True,False,35,aproximada,False
+77400,de activos intangibles no RELACIONADAS CON EL DE EMPLEO relacionadas con el suministro de,7740,False,False,35,aproximada,False
+78000,"relacionadas con el suministro de DE VIAJES, OPERADORES",7810,False,True,35,aproximada,False
+78000,"relacionadas con el suministro de DE VIAJES, OPERADORES",7820,False,True,35,aproximada,False
+78000,"relacionadas con el suministro de DE VIAJES, OPERADORES",7830,False,True,35,aproximada,False
+79110,Y ACTIVIDADES CONEXAS de las agencias de viajes turísticos de las agencias de viajes,7911,False,False,35,aproximada,False
+79120,de los operadores turísticos,7912,False,False,35,aproximada,False
+79900,servicios de turismo n.c.p. servicios de turismo n.c.p. DE INVESTIGACIÓN Y de investigación y seguridad,7990,False,False,35,aproximada,False
+80000,de investigación y seguridad,8010,False,True,35,aproximada,False
+80000,de investigación y seguridad,8020,False,True,35,aproximada,False
+80000,de investigación y seguridad,8030,False,True,35,aproximada,False
+81100,DE APOYO A EDIFICIOS Y DE LIMPIEZA EN SERVICIOS DE PAISAJISMO Y de servicios de mantenimiento e instalaciones de servicios de mantenimiento a e instalaciones,8110,False,False,36,directa,False
+81210,de limpieza general de edificios,8121,False,False,36,directa,False
+81290,actividades de limpieza de edificios e de paisajismo y jardinería,8129,False,False,36,directa,False
+81300,de paisajismo y jardinería ADMINISTRATIVAS DE Y OTRAS ACTIVIDADES DE LAS EMPRESAS,8130,False,False,36,directa,False
+82110,de apoyo a la administración de y empresas de administración de oficinas,8211,False,False,36,directa,False
+82190,preparación de documentos y otras especializadas de apoyo,8219,False,False,36,directa,False
+82200,de las centrales de llamadas de las centrales de llamadas de convenciones y ferias de,8220,False,False,36,directa,False
+82300,de convenciones y ferias de de servicios de apoyo a empresas,8230,False,False,36,directa,False
+82910,de agencias de cobro y oficinas de,8291,False,False,36,directa,False
+82920,de envase y empaque,8292,False,False,36,directa,False
+82990,actividades de servicios de apoyo a n.c.p. PÚBLICA Y DEFENSA; DE SEGURO SOCIAL PÚBLICA Y DEFENSA; DE SEGURO SOCIAL de la administración pública en,8299,False,False,36,directa,False
+84110,de la administración pública en,8411,False,False,37,directa,False
+84120,"de las actividades de organismos que servicios sanitarios, educativos, culturales otros servicios sociales, excepto servicios de social",8412,False,False,37,directa,False
+84130,y facilitación de la actividad de servicios a la comunidad en,8413,False,False,37,directa,False
+84210,exteriores,8421,False,False,37,directa,False
+84220,de defensa,8422,False,False,37,directa,False
+84230,de mantenimiento del orden público y seguridad de planes de seguro social,8423,False,False,37,directa,False
+84300,de planes de seguro social obligatorio,8430,False,False,37,directa,False
+85101,"inicial, primaria y jardines maternales",8890,False,False,37,directa,False
+85102,"prescolar, primaria secundaria",8510,False,False,37,directa,False
+85210,secundaria de formación general,8521,False,False,37,directa,False
+85220,secundaria de formación técnica y,8522,False,False,37,directa,False
+85300,superior superior,8530,False,False,37,directa,False
+85410,tipos de enseñanza deportiva y recreativa,8541,False,False,37,directa,False
+85420,cultural,8542,False,False,37,directa,False
+85490,tipos de enseñanza n.c.p. de apoyo a la enseñanza,8549,False,False,37,directa,False
+85500,de apoyo a la enseñanza,8550,False,False,37,directa,False
+86100,HUMANA Y SERVICIOS SOCIALES DE ATENCIÓN A LA HUMANA de hospitales de hospitales,8610,False,False,38,aproximada,False
+86200,de médicos y odontólogos de médicos y odontólogos actividades relacionadas con la salud,8620,False,False,38,aproximada,False
+86901,de laboratorios de análisis clínicos y de diagnósticos,8690,True,False,38,aproximada,False
+86909,actividades relacionadas con la salud SOCIAL RELACIONADA LA ATENCIÓN A LA SALUD social relacionada con la atención a la,8690,True,False,38,aproximada,False
+87000,social relacionada con la atenciõn a la SOCIALES SIN,8710,False,True,38,aproximada,False
+87000,social relacionada con la atenciõn a la SOCIALES SIN,8720,False,True,38,aproximada,False
+87000,social relacionada con la atenciõn a la SOCIALES SIN,8730,False,True,38,aproximada,False
+87000,social relacionada con la atenciõn a la SOCIALES SIN,8790,False,True,38,aproximada,False
+88000,sociales sin alojamiento sociales sin alojamiento ENTRETENIMIENTO Y ARTÍSTICAS Y DE,8810,False,True,38,aproximada,False
+88000,sociales sin alojamiento sociales sin alojamiento ENTRETENIMIENTO Y ARTÍSTICAS Y DE,8890,False,True,38,aproximada,False
+90000,"artísticas y de espectáculos artísticas y de espectáculos DE BIBLIOTECAS, MUSEOS Y OTRAS CULTURALES",9000,False,False,39,directa,False
+91010,"de bibliotecas, archivos, museos actividades culturales de bibliotecas y archivos",9101,False,False,39,directa,False
+91020,de museos y preservación de lugares edificios históricos,9102,False,False,39,directa,False
+91030,de jardines botánicos y zoológicos y reservas naturales DE JUEGOS DE AZAR Y,9103,False,False,39,directa,False
+92000,de juegos de azar y apuestas de juegos de azar y apuestas DEPORTIVAS Y DE,9200,False,False,39,directa,False
+93110,deportivas y de entretenimiento de instalaciones deportivas,9311,False,False,39,directa,False
+93120,de clubes deportivos,9312,False,False,39,directa,False
+93190,deportivas actividades de diversión y entretenimiento,9319,False,False,39,directa,False
+93210,de parques de atracciones y parques,9321,False,False,39,directa,False
+93290,actividades de diversión y entretenimiento ACTIVIDADES DE SERVICIOS DE ASOCIACIONES,9329,False,False,39,directa,False
+94110,"de organizaciones empresariales, y de empleadores de organizaciones empresariales y de",9411,False,False,39,directa,False
+94120,de organizaciones profesionales de sindicatos,9412,False,False,39,directa,False
+94200,de sindicatos de otras asociaciones n.c.p.,9420,False,False,40,directa,False
+94910,de organizaciones religiosas,9491,False,False,40,directa,False
+94920,de organizaciones políticas,9492,False,False,40,directa,False
+94991,de las comisiones de fomento,9499,False,False,40,directa,False
+94999,"de las sociedades literarias, cívicas y y otras organizaciones n.c.p. DE EQUIPOS Y DE COMUNICACIÓN; DE USO PERSONAL Y",9499,False,False,40,directa,False
+95110,de equipos informáticos y de de equipos informáticos y periféricos,9511,False,False,40,directa,False
+95120,de equipos de comunicaciones de efectos de uso personal,9512,False,False,40,directa,False
+95210,de aparatos eléctricos de consumo,9521,False,False,40,directa,False
+95220,de aparatos domésticos y de hogar y jardín,9522,False,False,40,directa,False
+95230,de calzado y artículos de cuero,9523,False,False,40,directa,False
+95240,de muebles y accesorios para el hogar,9524,False,False,40,directa,False
+95291,de bicicletas y similares,9529,True,False,40,directa,False
+95292,"de relojes, joyas y cronómetros",9529,True,False,40,directa,False
+95293,y modificación de ropa,9529,True,False,40,directa,False
+95299,de otros bienes personales y n.c.p. ACTIVIDADES DE SERVICIOS,9529,True,False,40,directa,False
+96011,actividades de servicios personales de lavaderías de ropa,9601,True,False,40,directa,False
+96012,de tintorerías y limpieza a seco,9601,True,False,40,directa,False
+96019,servicios de limpieza de prendas y de otros n.c.p.,9601,True,False,40,directa,False
+96020,y otros tratamientos de belleza,9602,False,False,41,aproximada,False
+96030,fúnebres y actividades conexas,9603,False,False,41,aproximada,False
+96091,de baños de vapor y de sol (solarios),9609,True,False,41,aproximada,False
+96092,de agencias matrimoniales y similares,9609,True,False,41,aproximada,False
+96093,"de quiromancia, astrología, tarot, etc",9609,True,False,41,aproximada,False
+96094,de masajes reductores y de,9609,True,False,41,aproximada,False
+96095,de prostíbulos y similares,9609,True,False,41,aproximada,False
+96099,actividades de servicios personales n.c.p. DE LOS HOGARES COMO DE PERSONAL,9609,True,False,41,aproximada,False
+97000,DE LOS HOGARES COMO DE PERSONAL de los hogares como empleadores de domestico de los hogares como empleadores de domestico eliminada eliminada,9700,True,True,41,aproximada,True
+97000,DE LOS HOGARES COMO DE PERSONAL de los hogares como empleadores de domestico de los hogares como empleadores de domestico eliminada eliminada,9810,True,True,41,aproximada,True
+97000,DE LOS HOGARES COMO DE PERSONAL de los hogares como empleadores de domestico de los hogares como empleadores de domestico eliminada eliminada,9820,True,True,41,aproximada,True
+99000,DE ORGANIZACIONES Y EXTRATERRITORIALES DE ORGANIZACIONES Y EXTRATERRITORIALES de organizaciones y organismos de organizaciones y organismos,9900,False,False,41,aproximada,False
