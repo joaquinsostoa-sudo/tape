@@ -10,5 +10,11 @@
   "fecha_utc": "2026-10-08",
   "bytes": 1167813,
   "sha256": "c3d35134946415bc4623a6f6f5637ea45afd8d9d1172ba05a6665b8b5ca10120"
+ },
+ "SCN_Paraguay_Anio_Base_2014.pdf": {
+  "url": "https://www.bcp.gov.py (entregado por el usuario)",
+  "fecha_utc": "2026-10-08",
+  "bytes": 1402259,
+  "sha256": "adc0fb3cc0a88b3636c287c89d947f4ae068cc7e03b19bdaf14972ed1590a820"
  }
 }

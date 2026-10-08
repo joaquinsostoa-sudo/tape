@@ -18,7 +18,7 @@ Archivo: `data/clean/taxonomia_sectores_tape.csv`. Código y validaciones: `src/
 4. **Detalle según los datos disponibles.** Dentro de un grupo se puede dividir; nunca juntar grupos distintos.
 
 ## Tabla
-Columna "grupos": EPHC / crédito / cuentas regionales / MIP / 33 actividades BCP, según los mapeos supuestos de `clasificaciones_locales.py`.
+Columna "grupos": EPHC / crédito / cuentas regionales / MIP / 33 actividades BCP. Las 33 actividades y las 6 ramas regionales siguen las definiciones **oficiales** del BCP (SCN año base 2014 y Metodología de Cuentas Regionales); EPHC, crédito y MIP son supuestos por nombre (ver `clasificaciones_locales.py`).
 
 | ID | Sector | CIIU Rev.4 | Comercio | Grupos | Confianza | Notas |
 |---|---|---|---|---|---|---|
@@ -28,9 +28,11 @@ Columna "grupos": EPHC / crédito / cuentas regionales / MIP / 33 actividades BC
 - Se mantiene la taxonomía de 66 sectores propuesta, más uno forzado por el BCP: **confitería y pastas** se separa de panificados.
 - **Biocombustibles:** no tienen clase CIIU propia; se identifican **por producto HS** en el puente (tarea 0.5), no por sector.
 - **Arneses de maquila:** se asignan a **Autopartes y vehículos** por producto HS.
+- **Las 33 actividades del BCP se mapean con la definición oficial** (SCN año base 2014). Frente a mi primer supuesto cambió: el almidón (CIIU 1062) va con otros alimentos y no con la molinería; ganadería incluye el apoyo pecuario (0162) y la caza (017); "telecomunicaciones" incluye edición, audiovisual, informática y servicios de información (58 a 63); y las agencias de viaje (79) van en servicios a las empresas. Por eso molinería se separa de almidones, y los servicios pecuarios y la caza pasan al sector de ganadería.
+- Excepción conocida: el hielo (CNAEP 10991) lo cuenta el BCP en otros alimentos, pero su clase CIIU (3530) cae en electricidad, gas y vapor. Solo afecta a datos codificados en CNAEP.
 
 ## Puntos pendientes de revisión
-1. **Mapeo de las 33 actividades del BCP.** Es supuesto por el nombre de cada actividad (confianza media o baja en varias). Falta la nota metodológica del BCP para confirmar dónde cae, por ejemplo, la imprenta, el caucho y los plásticos, los correos, la edición y la informática. Si algún supuesto cambia, la prueba indica qué sector pasa a cruzar grupos.
+1. **Mapeos supuestos de EPHC, crédito y MIP.** Se hicieron por el nombre de cada categoría. Con los clasificadores oficiales (INE, BCP, CEPAL-OIT) se pueden confirmar; si alguno cambia, la prueba indica qué sector pasa a cruzar grupos.
 2. **"Productos metálicos" vale cero de 1991 a 2007** en la serie del BCP: corte de serie, hay que saber dentro de qué actividad estaba antes.
 3. **Educación y salud** (público y privado) se reparten entre dos actividades del BCP; el dato público/privado no se puede asignar por CIIU.
 4. **Minería.** La EPHC no muestra una rama de minería: queda `SIN_GRUPO` hasta tener el clasificador del INE.

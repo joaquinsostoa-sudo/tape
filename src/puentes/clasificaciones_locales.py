@@ -1,7 +1,7 @@
-﻿"""Equivalencia de las clasificaciones sectoriales locales con CIIU Rev.4.
+"""Equivalencia de las clasificaciones sectoriales locales con CIIU Rev.4.
 
 Unidad mínima ("átomo"): división CIIU Rev.4 de 2 dígitos, salvo la 01, que se parte en
-`014` (producción pecuaria) y `01x` (resto), porque crédito y cuentas regionales separan la
+`014` (ganadería, apoyo pecuario 0162 y caza 017) y `01x` (resto), porque crédito y cuentas regionales separan la
 ganadería de la agricultura. Cada categoría local se declara como lista de átomos con un nivel
 de confianza. Es un BORRADOR para revisión del equipo (CLAUDE.md, regla 5).
 """
@@ -19,7 +19,7 @@ _RANGOS = [(2, 3), (5, 9), (10, 33), (35, 39), (41, 43), (45, 47), (49, 53), (55
            (90, 93), (94, 96), (97, 98), (99, 99)]
 _DIVISIONES = [f"{d:02d}" for a, b in _RANGOS for d in range(a, b + 1)]
 # La CNAEP del BCP separa los alimentos (división 10) en seis actividades: por eso se parte en subátomos.
-DIV10 = ["101", "104", "105", "106", "1071", "1072", "10o"]  # 10o = resto: 102, 103, 1073-1079, 108
+DIV10 = ["101", "104", "105", "1061", "1062", "1071", "1072", "10o"]  # 10o = 102, 103, 1073-1079, 108
 ATOMOS: list[str] = ["01x", "014"] + [x for d in _DIVISIONES for x in (DIV10 if d == "10" else [d])]
 
 
@@ -113,48 +113,50 @@ MIP = [
     C("M21", "Otros servicios", "actividad", "84-88,94-99", "media"),
 ]
 
-# 33 actividades de las cuentas nacionales del BCP (CNAEP). Los ids siguen el orden del Excel
+# 33 actividades de las cuentas nacionales del BCP (CNAP). Los ids siguen el orden del Excel
 # (data/raw/bcp_cuentas_nacionales) y coinciden con `actividad_id` de pib_33_actividades.parquet.
-# Es un MAPEO SUPUESTO por el nombre de cada actividad: falta la nota metodológica del BCP.
+# Mapeo OFICIAL a CIIU Rev.4 según el SCN Paraguay año base 2014 (cuadros 8.2, 9.2, 10.2, 13.1, 14.1,
+# 15.1, 17.1, 18.1, 19.2, 21.1, 22.1, 24.1) y la Metodología de Cuentas Regionales. Nota: el átomo
+# `014` agrupa ganadería (014), servicios de apoyo pecuario (0162) y caza (017), como en el BCP.
 CNAEP33 = [
-    C("N01", "Agricultura", "actividad", "01x", "alta"),
-    C("N02", "Ganadería", "actividad", "014", "alta"),
+    C("N01", "Agricultura", "actividad", "01x", "alta", "011-013, 015, 0161, 0163, 0164"),
+    C("N02", "Ganadería", "actividad", "014", "alta", "014, 0162 (apoyo pecuario), 017 (caza)"),
     C("N03", "Forestal", "actividad", "02", "alta"),
     C("N04", "Pesca", "actividad", "03", "alta"),
     C("N05", "Minería", "actividad", "05-09", "alta"),
     C("N06", "Producción de carne", "actividad", "101", "alta"),
     C("N07", "Elaboración de aceites", "actividad", "104", "alta"),
     C("N08", "Producción de lácteos", "actividad", "105", "alta"),
-    C("N09", "Producción de molinería y panadería", "actividad", "106,1071", "media",
-      "supuesto: molinería (106) y panadería (1071)"),
+    C("N09", "Producción de molinería y panadería", "actividad", "1061,1071", "alta"),
     C("N10", "Producción de azúcar", "actividad", "1072", "alta"),
-    C("N11", "Producción de otros alimentos", "actividad", "10o", "media",
-      "supuesto: pescado, frutas, confitería, pastas, yerba, balanceados"),
+    C("N11", "Producción de otros alimentos", "actividad", "1062,10o", "alta",
+      "pescado, frutas y hortalizas, almidones, balanceados, cacao y confites, pastas, café, té y yerba, "
+      "comidas preparadas; la CNAEP 10991 (hielo) también va aquí aunque su CIIU es 3530"),
     C("N12", "Producción de bebidas y tabaco", "actividad", "11,12", "alta"),
     C("N13", "Producción de textiles y prendas de vestir", "actividad", "13,14", "alta"),
     C("N14", "Producción de cuero y calzado", "actividad", "15", "alta"),
     C("N15", "Industria de la madera", "actividad", "16", "alta"),
-    C("N16", "Producción de papel y productos del papel", "actividad", "17,18", "media", "18 impresión: supuesto"),
-    C("N17", "Productos químicos", "actividad", "19-22", "media", "supuesto: incluye refinación, caucho y plásticos"),
+    C("N16", "Producción de papel y productos del papel", "actividad", "17,18", "alta"),
+    C("N17", "Productos químicos", "actividad", "19-22", "alta", "incluye refinación, caucho y plásticos"),
     C("N18", "Minerales no metálicos", "actividad", "23", "alta"),
     C("N19", "Metales comunes", "actividad", "24", "alta"),
     C("N20", "Productos metálicos", "actividad", "25", "alta", "vale 0 de 1991 a 2007 (corte de serie)"),
-    C("N21", "Maquinaria y equipo", "actividad", "26-30", "media", "supuesto: incluye electrónica y transporte"),
-    C("N22", "Otras industrias manufactureras", "actividad", "31-33", "media", "supuesto: muebles, diversas, reparación"),
-    C("N23", "Electricidad y agua", "actividad", "35-39", "media", "supuesto: incluye saneamiento y residuos"),
+    C("N21", "Maquinaria y equipo", "actividad", "26-30", "alta", "incluye electrónica y transporte"),
+    C("N22", "Otras industrias manufactureras", "actividad", "31-33", "alta"),
+    C("N23", "Electricidad y agua", "actividad", "35-39", "alta", "incluye saneamiento y gestión de desechos"),
     C("N24", "Construcción", "actividad", "41-43", "alta"),
     C("N25", "Comercio", "actividad", "45-47", "alta"),
-    C("N26", "Transporte", "actividad", "49-53", "media", "53 correos: supuesto"),
-    C("N27", "Telecomunicaciones", "actividad", "61", "alta"),
+    C("N26", "Transporte", "actividad", "49-53", "alta", "incluye almacenamiento y correo"),
+    C("N27", "Telecomunicaciones", "actividad", "58-63", "alta",
+      "incluye edición, audiovisual, radio y televisión, informática y servicios de información"),
     C("N28", "Intermediación financiera", "actividad", "64-66", "alta"),
     C("N29", "Servicios inmobiliarios", "actividad", "68", "alta"),
-    C("N30", "Servicios a las empresas", "actividad", "58-60,62-63,69-75,77-82", "media",
-      "supuesto: incluye informática, edición y agencias de viaje (79)"),
+    C("N30", "Servicios a las empresas", "actividad", "69-75,77-82", "alta", "incluye agencias de viaje (79)"),
     C("N31", "Restaurantes y hoteles", "actividad", "55-56", "alta"),
-    C("N32", "Servicios a los hogares", "actividad", "85-88,90-98", "baja",
-      "privado: educación, salud y servicios personales (supuesto)"),
-    C("N33", "Servicios gubernamentales", "actividad", "84-88", "baja",
-      "administración pública y educación y salud públicas (supuesto): se solapa con N32 en 85-88"),
+    C("N32", "Servicios a los hogares", "actividad", "85-88,90-98", "alta",
+      "servicio doméstico, educación y salud privadas, artísticas, deportivas, asociaciones y reparaciones"),
+    C("N33", "Servicios gubernamentales", "actividad", "84-88", "media",
+      "administración pública; la parte pública de educación y salud se solapa con N32 en 85-88"),
 ]
 # Educación y salud (85-88) se reparten entre N32 (privado) y N33 (público): la CIIU no distingue
 # la titularidad, así que esos átomos quedan en las dos categorías (único solapamiento permitido).

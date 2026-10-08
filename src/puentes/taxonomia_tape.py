@@ -42,11 +42,11 @@ _BORRADOR: list[Sector] = [
     S("Cultivos anuales (soja, maíz, trigo, arroz, caña, algodón, hortalizas)", "A", "011", True, "alta",
       "núcleo exportador de Paraguay"),
     S("Cultivos perennes y viveros", "A", "012,013", True, "alta"),
-    S("Ganadería bovina y otras especies", "A", "0141,0142,0143,0144,0149", True, "alta",
-      "0149 incluye apicultura"),
+    S("Ganadería bovina y otras especies, servicios pecuarios y caza", "A", "0141,0142,0143,0144,0149,0162,017",
+      True, "alta", "0149 incluye apicultura; el BCP pone el apoyo pecuario (0162) y la caza (017) con ganadería"),
     S("Avicultura y porcicultura", "A", "0145,0146", True, "alta"),
-    S("Servicios agropecuarios y poscosecha (silos, acopio)", "A", "015,016,017", False, "media",
-      "015 (mixta) se agrupa aquí porque no se puede separar de la agricultura"),
+    S("Servicios agrícolas, poscosecha (silos, acopio) y agricultura mixta", "A", "015,0161,0163,0164", False,
+      "media", "015 (mixta) se agrupa aquí porque el BCP la cuenta como agricultura"),
     S("Silvicultura y extracción de madera", "A", "02", True, "alta"),
     S("Pesca y acuicultura", "A", "03", True, "alta"),
     S("Minería y canteras", "B", "05,06,07,08,09", True, "media",
@@ -55,13 +55,14 @@ _BORRADOR: list[Sector] = [
     S("Frigoríficos y productos cárnicos", "C", "101", True, "alta", "carne bovina"),
     S("Lácteos", "C", "105", True, "alta"),
     S("Aceites y oleaginosas", "C", "104", True, "alta", "molienda de soja"),
-    S("Molinería y almidones", "C", "106", True, "alta"),
+    S("Molinería (trigo, maíz y otros)", "C", "1061", True, "alta",
+      "los almidones (1062) van con otros alimentos porque el BCP los cuenta en otra actividad"),
     S("Panificados", "C", "1071", True, "alta"),
     S("Confitería y pastas", "C", "1073,1074", True, "alta",
       "separado de panificados porque el BCP los pone en actividades distintas"),
     S("Frutas, hortalizas y pescado procesados", "C", "102,103", True, "alta"),
     S("Azúcar", "C", "1072", True, "alta"),
-    S("Yerba mate, hierbas y otros alimentos", "C", "1075,1079", True, "media"),
+    S("Almidones, yerba mate, hierbas y otros alimentos", "C", "1062,1075,1079", True, "media"),
     S("Alimentos balanceados y para mascotas", "C", "108", True, "alta"),
     S("Bebidas, alcohol y agua envasada", "C", "1101,1102,1103,1104", True, "alta",
       "1101 incluye alcohol etílico; los biocombustibles se identifican por producto HS"),
@@ -133,12 +134,12 @@ def prefijos(sector: Sector) -> list[str]:
 
 def atomo_de(prefijo: str) -> str:
     """Átomo de `clasificaciones_locales` al que pertenece un prefijo CIIU."""
-    if prefijo.startswith("014"):
+    if prefijo.startswith(("014", "0162", "017")):  # ganadería, apoyo pecuario y caza (como el BCP)
         return "014"
     if prefijo.startswith("01"):
         return "01x"
     if prefijo.startswith("10"):
-        return next((a for a in ("1071", "1072", "101", "104", "105", "106") if prefijo.startswith(a)), "10o")
+        return next((a for a in ("1061", "1062", "1071", "1072", "101", "104", "105") if prefijo.startswith(a)), "10o")
     return prefijo[:2]
 
 

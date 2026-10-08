@@ -1,21 +1,21 @@
 sector_id,nombre,seccion_ciiu,ciiu4,atomos,entra_en_comercio,confianza,grupo_ephc,grupo_credito,grupo_regional,grupo_mip,grupo_cnaep33,notas
 S01,"Cultivos anuales (soja, maíz, trigo, arroz, caña, algodón, hortalizas)",A,011,01x,True,alta,E1,K03,R1,M01,N01,núcleo exportador de Paraguay
 S02,Cultivos perennes y viveros,A,"012,013",01x,True,alta,E1,K03,R1,M01,N01,
-S03,Ganadería bovina y otras especies,A,"0141,0142,0143,0144,0149",014,True,alta,E1,K08,R2,M01,N02,0149 incluye apicultura
+S03,"Ganadería bovina y otras especies, servicios pecuarios y caza",A,"0141,0142,0143,0144,0149,0162,017",014,True,alta,E1,K08,R2,M01,N02,0149 incluye apicultura; el BCP pone el apoyo pecuario (0162) y la caza (017) con ganadería
 S04,Avicultura y porcicultura,A,"0145,0146",014,True,alta,E1,K08,R2,M01,N02,
-S05,"Servicios agropecuarios y poscosecha (silos, acopio)",A,"015,016,017",01x,False,media,E1,K03,R1,M01,N01,015 (mixta) se agrupa aquí porque no se puede separar de la agricultura
+S05,"Servicios agrícolas, poscosecha (silos, acopio) y agricultura mixta",A,"015,0161,0163,0164",01x,False,media,E1,K03,R1,M01,N01,015 (mixta) se agrupa aquí porque el BCP la cuenta como agricultura
 S06,Silvicultura y extracción de madera,A,02,02,True,alta,E1,K03,R2,M01,N03,
 S07,Pesca y acuicultura,A,03,03,True,alta,E1,K10,R2,M01,N04,
 S08,Minería y canteras,B,"05,06,07,08,09","05,06,07,08,09",True,media,SIN_GRUPO,K10,R2,M02,N05,en Paraguay es sobre todo canteras y áridos (08)
 S09,Frigoríficos y productos cárnicos,C,101,101,True,alta,E2,K09,R3,M03,N06,carne bovina
 S10,Lácteos,C,105,105,True,alta,E2,K09,R3,M03,N08,
 S11,Aceites y oleaginosas,C,104,104,True,alta,E2,K09,R3,M03,N07,molienda de soja
-S12,Molinería y almidones,C,106,106,True,alta,E2,K09,R3,M03,N09,
+S12,"Molinería (trigo, maíz y otros)",C,1061,1061,True,alta,E2,K09,R3,M03,N09,los almidones (1062) van con otros alimentos porque el BCP los cuenta en otra actividad
 S13,Panificados,C,1071,1071,True,alta,E2,K09,R3,M03,N09,
 S14,Confitería y pastas,C,"1073,1074",10o,True,alta,E2,K09,R3,M03,N11,separado de panificados porque el BCP los pone en actividades distintas
 S15,"Frutas, hortalizas y pescado procesados",C,"102,103",10o,True,alta,E2,K09,R3,M03,N11,
 S16,Azúcar,C,1072,1072,True,alta,E2,K09,R3,M03,N10,
-S17,"Yerba mate, hierbas y otros alimentos",C,"1075,1079",10o,True,media,E2,K09,R3,M03,N11,
+S17,"Almidones, yerba mate, hierbas y otros alimentos",C,"1062,1075,1079","1062,10o",True,media,E2,K09,R3,M03,N11,
 S18,Alimentos balanceados y para mascotas,C,108,10o,True,alta,E2,K09,R3,M03,N11,
 S19,"Bebidas, alcohol y agua envasada",C,"1101,1102,1103,1104",11,True,alta,E2,K09,R3,M03,N12,1101 incluye alcohol etílico; los biocombustibles se identifican por producto HS
 S20,Tabaco,C,12,12,True,alta,E2,K09,R3,M03,N12,
@@ -55,8 +55,8 @@ S53,"Almacenamiento, logística y correos",H,"52,53","52,53",False,alta,E6,K12,R
 S54,Alojamiento y gastronomía,I,"55,56","55,56",False,alta,E5,K12,R6,M16,N31,
 S55,Agencias de viaje y turismo,N,79,79,False,alta,E6,K12,R6,M16,N30,separado de alojamiento porque EPHC lo agrupa en otra rama
 S56,Telecomunicaciones,J,61,61,False,alta,E6,K12,R6,M17,N27,
-S57,"Software, informática y servicios de información",J,"62,63","62,63",False,alta,E7,K12,R6,M17,N30,
-S58,"Edición, audiovisual y medios",J,"58,59,60","58,59,60",False,media,E8,K12,R6,M17,N30,
+S57,"Software, informática y servicios de información",J,"62,63","62,63",False,alta,E7,K12,R6,M17,N27,
+S58,"Edición, audiovisual y medios",J,"58,59,60","58,59,60",False,media,E8,K12,R6,M17,N27,
 S59,Finanzas y seguros,K,"64,65,66","64,65,66",False,alta,E7,K11,R6,M18,N28,
 S60,Servicios inmobiliarios,L,68,68,False,alta,E7,K01,R6,M19,N29,
 S61,"Servicios profesionales, científicos y técnicos",M,"69,70,71,72,73,74,75","69,70,71,72,73,74,75",False,alta,E7,K12,R6,M20,N30,
