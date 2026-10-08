@@ -1,0 +1,14 @@
+{
+ "geoBoundaries-PRY-ADM1.geojson": {
+  "url": "https://github.com/wmgeolab/geoBoundaries/raw/9469f09/releaseData/gbOpen/PRY/ADM1/geoBoundaries-PRY-ADM1.geojson",
+  "fecha_utc": "2026-10-08",
+  "bytes": 12435474,
+  "sha256": "82173f047c41db35fe12651e42ea5f5ed442a538247a4082a4f7edf090e6daab"
+ },
+ "geoBoundaries-PRY-ADM2.geojson": {
+  "url": "https://github.com/wmgeolab/geoBoundaries/raw/f549eab/releaseData/gbOpen/PRY/ADM2/geoBoundaries-PRY-ADM2.geojson",
+  "fecha_utc": "2026-10-08",
+  "bytes": 45589273,
+  "sha256": "d42bd1f910070bf805e32dc46708230c91f58902a3c8792eda60928b22362858"
+ }
+}

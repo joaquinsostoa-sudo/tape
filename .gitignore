@@ -38,3 +38,4 @@ web/node_modules/
 !data/clean/taxonomia_sectores_tape.csv
 !data/clean/cnaep1_ciiu4.csv
 !data/clean/puente_cnaep_sector.csv
+!data/clean/puente_mic_subsector_sector.csv
