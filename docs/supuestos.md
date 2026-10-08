@@ -14,3 +14,4 @@ Formato: fecha · decisión · alternativa descartada · motivo · quién decidi
 | 2026-10-08 | D5: HS92 a 4 dígitos para estimar; 6 dígitos para el puente a CIIU y robustez | HS6 en todo | Más entradas por producto, menos ruido; sigue el documento técnico | Joaquín |
 | 2026-10-08 | D12: unidad común CIIU Rev.4 a 2 dígitos (bajando a 3-4 donde haga falta) y sector TAPE encima | Mapear cada clasificación directo a sector TAPE | Permite auditar cada salto | Joaquín |
 | 2026-10-08 | PWT no se pudo bajar por script: el servidor devolvió una página anti-bots. Se baja a mano; el script ahora rechaza respuestas HTML | Sortear la protección | No se evaden protecciones del sitio | Claude |
+| 2026-10-08 | PWT 10.01 (no la 11.0) como fuente de capital humano y stock de capital; hasta 2019 | Esperar la 11.0 | La bajó el usuario a mano; las dotaciones se miden al inicio de ventana (t ≤ 2015), no se necesita 2020 | Joaquín |
