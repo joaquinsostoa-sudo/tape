@@ -1,0 +1,50 @@
+{
+ "wdi_SE.TER.ENRR_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/SE.TER.ENRR?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2357734,
+  "sha256": "5ddad9fbee05ae66ef1c8df6866c14375c4ce0b8fdd7e73abc93fcc6446f60d7"
+ },
+ "wdi_SE.SEC.ENRR_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/SE.SEC.ENRR?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2373958,
+  "sha256": "2c85207ef53820320f18a4bd16a933e27cf3259e1a0c014950fde0128adf6c49"
+ },
+ "wdi_FS.AST.PRVT.GD.ZS_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/FS.AST.PRVT.GD.ZS?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2499633,
+  "sha256": "a05955495dd64c888da25325f1f3ea519ded8f50c135e77e7a2a828bca4d69ab"
+ },
+ "wdi_FS.AST.DOMS.GD.ZS_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/FS.AST.DOMS.GD.ZS?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2541198,
+  "sha256": "63c054e0bffb1a6a008af3e9380e53f943b8e6d7c424b041289760cf3ef18b4b"
+ },
+ "wdi_EG.USE.ELEC.KH.PC_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/EG.USE.ELEC.KH.PC?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2490090,
+  "sha256": "e3ae7c06c3698949b1b3e9acd33e7fc04c28448a216b2f07afdf2b0b35e85828"
+ },
+ "wdi_EG.ELC.ACCS.ZS_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.ACCS.ZS?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2359732,
+  "sha256": "05653bb3f0b7b54bf9c93c74b29646cbd75dfe84ba00206757d7eb3d59a2eb24"
+ },
+ "wdi_NE.TRD.GNFS.ZS_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/NE.TRD.GNFS.ZS?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2212066,
+  "sha256": "9329e3ee8792b06c55c0e39a26fbdbf8e8c40c6347f9a0145de9eeb47252d415"
+ },
+ "wdi_LP.LPI.OVRL.XQ_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/LP.LPI.OVRL.XQ?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-08",
+  "bytes": 2490636,
+  "sha256": "697654a143a396e60a888ce759b3880436cd76699e63ecef36134d01a1bf3b2c"
+ }
+}

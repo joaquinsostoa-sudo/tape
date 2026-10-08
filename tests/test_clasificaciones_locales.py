@@ -1,7 +1,12 @@
 import pytest
 
 from src.puentes.clasificaciones_locales import (
-    ANIDAN, ATOMOS, CLASIFICACIONES, atomo_a_categoria, expandir, tabla_atomos,
+    ANIDAN,
+    ATOMOS,
+    CLASIFICACIONES,
+    atomo_a_categoria,
+    expandir,
+    tabla_atomos,
 )
 
 

@@ -1,0 +1,44 @@
+{
+ "unsd/CPC21-HS2017.csv": {
+  "url": "https://unstats.un.org/unsd/classifications/Econ/tables/CPC/CPCv21_HS2017/CPC21-HS2017.csv",
+  "fecha_utc": "2026-10-08",
+  "bytes": 111062,
+  "sha256": "a8a4e088e637fd253f6c329f98c7a2f288a23ac2fee79d6529f238c0569f3c5c"
+ },
+ "unsd/cpc21-hs2012.txt": {
+  "url": "https://unstats.un.org/unsd/classifications/Econ/tables/CPC/CPCv21_HS12/cpc21-hs2012.txt",
+  "fecha_utc": "2026-10-08",
+  "bytes": 128485,
+  "sha256": "537c2d2c728226d9d9c8f5ee19ff2644d060ceeda01d28e760448686827d7df1"
+ },
+ "unsd/cpc21-isic4.txt": {
+  "url": "https://unstats.un.org/unsd/classifications/Econ/tables/CPC/CPCv21_ISIC4/cpc21-isic4.txt",
+  "fecha_utc": "2026-10-08",
+  "bytes": 54303,
+  "sha256": "0272188c086fb5d8efa3923749cc7b5a1bd5a12e7719843d26c2f2b38ea2f392"
+ },
+ "unsd/isic4-cpc21.txt": {
+  "url": "https://unstats.un.org/unsd/classifications/Econ/tables/ISIC/ISIC4_CPCv21/isic4-cpc21.txt",
+  "fecha_utc": "2026-10-08",
+  "bytes": 53315,
+  "sha256": "2ec05e53b07183114c21cbaca53d3d989c1e180c1371573637b630966d50436e"
+ },
+ "wits/Concordance_H0_to_I3.zip": {
+  "url": "https://wits.worldbank.org/data/public/concordance/Concordance_H0_to_I3.zip",
+  "fecha_utc": "2026-10-08",
+  "bytes": 91146,
+  "sha256": "c4a2c417465777fef3bcacd492438743702b427ca03353dca43076d9a27a632e"
+ },
+ "wits/Concordance_H4_to_H0.zip": {
+  "url": "https://wits.worldbank.org/data/public/concordance/Concordance_H4_to_H0.zip",
+  "fecha_utc": "2026-10-08",
+  "bytes": 121089,
+  "sha256": "87ec150cada97dcf4c0671feef660a1d854f70bd4e7c53f04c2e40b72f45228f"
+ },
+ "wits/Concordance_H5_to_H0.zip": {
+  "url": "https://wits.worldbank.org/data/public/concordance/Concordance_H5_to_H0.zip",
+  "fecha_utc": "2026-10-08",
+  "bytes": 169331,
+  "sha256": "1def4e8342aeefdc405a78f47afc99d09dfc0a62502b90002648d761de41adb9"
+ }
+}

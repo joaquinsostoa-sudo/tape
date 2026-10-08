@@ -41,8 +41,19 @@ Notación: c país, p producto, s sector TAPE, j ciudad, t año, k capa.
 ## Forma de trabajo
 Una tarea acotada por vez con criterio de terminado. Si implica una decisión metodológica, proponer opciones y esperar respuesta. Al terminar: resumen, tabla o gráfico de control y commit con mensaje claro (autor: Joaquín Sostoa).
 
+## Decisiones tomadas (detalle en `docs/supuestos.md`)
+- Sectores TAPE parten de CIIU Rev.4 (D9). Unidad común: división CIIU de 2 dígitos, bajando a 3-4 donde haga falta, con el sector TAPE encima (D12). Las carreras del MEC se vinculan a CIIU/sector, no a HS (D11).
+- HS92 a 4 dígitos para estimar; 6 dígitos para el puente a CIIU y la robustez (D5).
+- Se excluyen CONSUMO, VIVIENDA e Impuestos: no son actividades económicas.
+
 ## Decisiones abiertas (ver el plan)
-Agregación producto→sector; predicción fuera de muestra con efectos fijos país-año; fuente de intensidades r_pk y de costo de energía; revisión HS y último año de BACI; definición de entrada sostenida; anidamiento de las 5 taxonomías agregadas; fórmula de ε.
+Agregación producto→sector (D1); predicción fuera de muestra con efectos fijos país-año (D2); cómo calcular φ sin fuga (D3); fuente de intensidades r_pk y de costo de energía (D4); marcar reexportaciones (D6); entrada sostenida (D7); muestra de países (D8); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
+
+## Datos y herramientas locales
+- Clasificaciones locales ya mapeadas a CIIU (borrador): `src/puentes/clasificaciones_locales.py` → `data/clean/clasificaciones_locales_ciiu.csv` y `ciiu4_atomos_clasificaciones.csv`.
+- Mapa MIC: el visor Zoho (https://mapaprodpy.mic.gov.py/) se puede leer con el navegador integrado; no ofrece descarga. Resumen en `data/raw/mic_mapa/`.
+- Descargas: `uv run python -m src.descargas.todas` (idempotente; manifiesto en `data/raw/<fuente>/MANIFEST.json`).
+- Registro de títulos del MEC: contiene nombre y documento de personas; usar solo agregados (carrera, institución, mes) y no guardar datos personales.
 
 ## Hoja de ruta (estado)
 - **Fase 0 Fundamentos** ← *estamos aquí*: estructura, CLAUDE.md, fuentes, taxonomía TAPE aprobada, fuentes de Fase 1 descargadas.

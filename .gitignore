@@ -34,3 +34,4 @@ web/node_modules/
 !data/clean/ciiu4_atomos_clasificaciones.csv
 !data/raw/**/clasificacion_*.txt
 !data/raw/mic_mapa/industrias_sector_subsector_*.csv
+!data/raw/*/MANIFEST.json
