@@ -17,5 +17,7 @@ def test_todos_los_km_quedan_asignados(tabla):
 
 def test_distritos_con_ruta(tabla):
     por = tabla.groupby("distrito").km_ruta.sum()
-    assert por.max() < 400  # ningún distrito concentra más que la ruta más larga
+    # los distritos del Chaco son enormes y las rutas largas los cruzan: Mariscal Estigarribia lidera
+    assert por.idxmax() == "Mariscal Estigarribia"
+    assert tabla.groupby("departamento_geo").km_ruta.sum().idxmax() == "BOQUERON"
     assert tabla.ruta_codigo.nunique() == 22
