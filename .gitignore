@@ -46,3 +46,5 @@ web/node_modules/
 !data/clean/mic_potencia_disponible.csv
 !data/clean/mic_rutas_km.csv
 !data/clean/mic_rutas_km_distrito.csv
+!data/clean/mic_afi_jerarquia.csv
+!data/clean/mic_snpp_centros.csv

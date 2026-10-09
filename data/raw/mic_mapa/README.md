@@ -41,3 +41,12 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
   - **4.033 puntos de frontera**, uno por km: 1.455 de frontera seca y 2.578 de ríos, con límite (Argentina, Brasil, Bolivia y Región Occidental-Oriental), nombre del río y tramo (14 tramos).
 - Solo las rutas nacionales numeradas: no hay caminos departamentales ni vecinales, ni estado del pavimento.
 - Limpieza: `src/limpieza/mic_rutas.py` -> `data/clean/mic_rutas_km.csv`, `mic_rutas_hitos.parquet`, `mic_fronteras_puntos.parquet`; km de ruta por distrito en `src/puentes/rutas_distrito.py` -> `mic_rutas_km_distrito.csv` (199 distritos con ruta nacional, límites de 2012).
+
+## Capa G: polos y AFI (extraída 2026-10-09)
+- `polos_afi_snpp_mic_2026-10-09.json` (1,6 MB), generado por la página con el navegador:
+  - **6.987 puntos de AFI (Áreas de Fomento Industrial)** con jerarquía zona (5: agroindustrial y forestal, alto valor agregado, industria pesada, industrial integrado, enclave exportador) > subregión (5) > polo (21) > nodo (42). Cada punto parece una muestra del área y no un vértice de polígono (por confirmar).
+  - **53 centros de formación del SNPP** con ciudad y departamento; 23 vienen sin coordenadas.
+- **El filtro Capa tiene dos valores (AFI y Polo industrial), pero "Polo industrial" no devuelve ningún dato**: solo hay AFI. Lo que el nombre de la pestaña llama IFCL no aparece como capa.
+- El visor trae el centro **SNPP D.F.C.P. Encarnación** bajo el departamento Alto Paraná (Encarnación es de Itapúa): inconsistencia de la fuente; queda sin ubicación.
+- Las capas de rutas y fronteras de esta pestaña repiten las de la B con pequeñas diferencias (9.104 puntos de ruta contra 9.107; 2.576 puntos de ríos contra 2.578): se usa la capa B.
+- Limpieza: `src/limpieza/mic_polos.py` -> `data/clean/mic_afi_puntos.parquet`, `mic_afi_jerarquia.csv` y `mic_snpp_centros.csv` (los centros sin coordenadas toman las de su ciudad, marcado en `ubicacion`).

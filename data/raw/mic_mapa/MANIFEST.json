@@ -16,5 +16,11 @@
   "fecha_utc": "2026-10-09",
   "bytes": 2063594,
   "sha256": "bea9667e048ba061bcf959bb9efef52eef03e2ad7350a440f4842010cb21f168"
+ },
+ "polos_afi_snpp_mic_2026-10-09.json": {
+  "url": "https://mapaprodpy.mic.gov.py/ (pestaña G- POLOS E IFCLs, extraída con el navegador)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 1643046,
+  "sha256": "9b02f1ed76a62d97945f8d1d7d5de00c5a3424f777dc9e144371e5bf961c3172"
  }
 }

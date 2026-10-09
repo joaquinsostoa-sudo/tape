@@ -17,6 +17,7 @@ PASOS = [
     "src.limpieza.mic_ciudades",
     "src.limpieza.mic_red_electrica",
     "src.limpieza.mic_rutas",
+    "src.limpieza.mic_polos",
     "src.puentes.clasificaciones_locales",
     "src.puentes.taxonomia_tape",
     "src.puentes.cnaep_sector",
