@@ -1,0 +1,43 @@
+departamento,ciudad_aduana,punto,red_aduanera,imp_kg,imp_usd_cif,exp_kg,exp_usd,con_operaciones,tipo,lat,lon,union_mapa
+100- CAPITAL,ASUNCION,Aduana Administrativa (Despachos Administrativos),ASUNCION - Aduana Administrativa (Despachos Administrativos),50.63,56.0,0.0,0.0,True,Aduana administrativa,-25.2822,-57.635,exacta
+100- CAPITAL,ASUNCION,Deposito Fiscal (Gical),ASUNCION - Deposito Fiscal (Gical),72.12,157.0,0.0,0.0,True,Deposito fiscal,-25.3,-57.615,exacta
+100- CAPITAL,ASUNCION,Puerto Fluvial (Ita Enramada),ASUNCION - Puerto Fluvial (Ita Enramada),255333974.0,166961462.0,3522807.0,44427331.0,True,Puerto fluvial,-25.335,-57.635,exacta
+101- CONCEPCION,CONCEPCION,Paso Fronterizo - Brasil (San Carlos del Apa - Caracol),CONCEPCION - Paso Fronterizo - Brasil (San Carlos del Apa - Caracol),,,,,False,,,,sin_coordenadas
+101- CONCEPCION,CONCEPCION,Puerto Fluvial (Puerto Concepcion),CONCEPCION - Puerto Fluvial (Puerto Concepcion),203142457.0,52156262.0,874836837.0,279893991.0,True,Puerto fluvial,-23.4059,-57.4348,exacta
+107- ITAPUA,ENCARNACION,Paso Fronterizo - Argentina (Puente San Roque Gonzalez),ENCARNACION - Paso Fronterizo - Argentina (Puente San Roque Gonzalez),257402172.0,288534864.0,,940960654.0,True,Paso fronterizo terrestre,-27.3306,-55.8664,exacta
+107- ITAPUA,MAYOR OTANO,Paso Fronterizo - Argentina (El Dorado),MAYOR OTANO - Paso Fronterizo - Argentina (El Dorado),,,,,False,,,,sin_coordenadas
+108- MISIONES,AYOLAS,Paso Fronterizo - Argentina (Represa Yacyreta),AYOLAS - Paso Fronterizo - Argentina (Represa Yacyreta),,,,,False,,,,sin_coordenadas
+110- ALTO PARANA,CDE,Paso Fronterizo - Brasil (Puente de la Amistad),CDE - Paso Fronterizo - Brasil (Puente de la Amistad),1288422463.0,2200968724.0,611688138.0,235063736.0,True,Paso fronterizo terrestre,-25.5095,-54.6111,exacta
+110- ALTO PARANA,CDE,Zona Franca (Global),CDE - Zona Franca (Global),31193834.0,449401607.0,2233509.0,24162672.0,True,Zona franca,-25.51,-54.61,exacta
+110- ALTO PARANA,CDE,Zona Franca (Trans Trade),CDE - Zona Franca (Trans Trade),,,,,False,,,,sin_coordenadas
+110- ALTO PARANA,MINGA GUAZU,Aeropuerto Internacional (Guarani),MINGA GUAZU - Aeropuerto Internacional (Guarani),11318443.0,1630839485.0,26.0,1130142.0,True,Aeropuerto internacional,-25.4558,-54.8434,exacta
+110- ALTO PARANA,PRESIDENTE FRANCO,Paso Fronterizo - Brasil (Puente de la Integracion),PRESIDENTE FRANCO - Paso Fronterizo - Brasil (Puente de la Integracion),,,,,False,,,,sin_coordenadas
+110- ALTO PARANA,PRESIDENTE FRANCO,Terminal de Cargas (Km 12),PRESIDENTE FRANCO - Terminal de Cargas (Km 12),62826764.0,380459399.0,,1245725414.0,True,Terminal de cargas terrestre,-25.48,-54.72,exacta
+111- CENTRAL,LUQUE,Aeropuerto Internacional (Silvio Pettirossi),LUQUE - Aeropuerto Internacional (Silvio Pettirossi),20388485.0,1632224295.0,2809096.0,151541379.0,True,Aeropuerto internacional,-25.2397,-57.5192,exacta
+111- CENTRAL,LUQUE,Deposito Fiscal (Codesa),LUQUE - Deposito Fiscal (Codesa),24153539.0,371392617.0,0.0,0.0,True,Deposito fiscal,-25.275,-57.575,exacta
+111- CENTRAL,LUQUE,Puerto Seco (Boreal),LUQUE - Puerto Seco (Boreal),133055462.0,417757436.0,459834374.0,1153291073.0,True,"Puerto seco (deposito de contenedores, sin frente fluvial)",-25.35,-57.55,exacta
+111- CENTRAL,VILLETA,Puerto Fluvial (ANNP),VILLETA - Puerto Fluvial (ANNP),1068238467.0,713398310.0,,1363299762.0,True,Puerto fluvial publico (ANNP),-25.517,-57.545,exacta
+111- CENTRAL,VILLETA,Puerto Fluvial (Caacupemi),VILLETA - Puerto Fluvial (Caacupemi),280579719.0,1262210648.0,,714479880.0,True,Puerto fluvial privado,-25.517,-57.545,exacta
+111- CENTRAL,VILLETA,Puerto Fluvial (Puerto Seguro Fluvial),VILLETA - Puerto Fluvial (Puerto Seguro Fluvial),687726684.0,1515757906.0,411023147.0,691629950.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Puerto Fluvial (Solucion Logistica),VILLETA - Puerto Fluvial (Solucion Logistica),179606253.0,892323435.0,187859298.0,70177900.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Puerto Fluvial (Terport - sin distinguir),VILLETA - Puerto Fluvial (Terport - sin distinguir),2677925939.0,2455661736.0,,1079261667.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Puerto Fluvial (Terport),VILLETA - Puerto Fluvial (Terport),807857734.0,1592888739.0,490357815.0,578204416.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Terminal Privada (Campestre),VILLETA - Terminal Privada (Campestre),105320537.0,487045489.0,253850308.0,974517224.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Terminal Privada (Empedril),VILLETA - Terminal Privada (Empedril),328171239.0,693722498.0,125.0,724.26,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Terminal Privada (Logistic Group),VILLETA - Terminal Privada (Logistic Group),41.56,640.0,0.0,0.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Terminal Privada (Paksa),VILLETA - Terminal Privada (Paksa),110746918.0,328915183.0,58748949.0,26099836.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Terminal Privada (Puertos y Estibajes),VILLETA - Terminal Privada (Puertos y Estibajes),333178376.0,1207508839.0,170647567.0,126926765.0,True,,,,sin_coordenadas
+111- CENTRAL,VILLETA,Terminal Privada (Santa Helena),VILLETA - Terminal Privada (Santa Helena),40322951.0,21721100.0,899572518.0,202057555.0,True,,,,sin_coordenadas
+112- ÑEEMBUCU,PILAR,Paso Fronterizo - Argentina (Puerto Cano),PILAR - Paso Fronterizo - Argentina (Puerto Cano),92.02,567.0,0.0,0.0,True,Paso fronterizo fluvial,-26.8664,-58.2939,exacta
+112- ÑEEMBUCU,PILAR,Puerto Fluvial (Caacupemi Pilar),PILAR - Puerto Fluvial (Caacupemi Pilar),2052366.0,6475196.0,41360956.0,17329285.0,True,Puerto fluvial privado,-26.8664,-58.2939,exacta
+113- AMAMBAY,PEDRO JUAN CABALLERO,Paso Fronterizo - Brasil (Ponta Pora),PEDRO JUAN CABALLERO - Paso Fronterizo - Brasil (Ponta Pora),320754880.0,249272384.0,143317572.0,80550316.0,True,Paso fronterizo terrestre,-22.545,-55.7333,exacta
+114- CANINDEYU,SALTO DEL GUAIRA,Deposito Fiscal (ALGESA),SALTO DEL GUAIRA - Deposito Fiscal (ALGESA),21572438.0,13756526.0,438160223.0,109261258.0,True,Deposito fiscal,-24.07,-54.31,exacta
+114- CANINDEYU,SALTO DEL GUAIRA,Paso Fronterizo - Brasil (Cruce Guaira),SALTO DEL GUAIRA - Paso Fronterizo - Brasil (Cruce Guaira),592509672.0,154717926.0,624092937.0,167979668.0,True,Paso fronterizo terrestre/fluvial,-24.0587,-54.3336,exacta
+115- PTE HAYES,JOSE FALCON,Paso Fronterizo - Argentina (Clorinda),JOSE FALCON - Paso Fronterizo - Argentina (Clorinda),457225557.0,483621618.0,0.0,0.0,True,Paso fronterizo terrestre/fluvial,-25.167,-57.717,exacta
+115- PTE HAYES,NANAWA,Paso Fronterizo - Argentina (Puente San Ignacio de Loyola),NANAWA - Paso Fronterizo - Argentina (Puente San Ignacio de Loyola),,,,,False,,,,sin_coordenadas
+115- PTE HAYES,VILLA HAYES,Puerto/Paso Fluvial (Chaco-i),VILLA HAYES - Puerto/Paso Fluvial (Chaco-i),313682044.0,279736942.0,77298834.0,44395703.0,True,Puerto/paso fluvial,-25.245,-57.605,exacta
+116- BOQUERON,MCAL. ESTIGARRIBIA,Paso Fronterizo - Bolivia (Hito III),MCAL. ESTIGARRIBIA - Paso Fronterizo - Bolivia (Hito III),,,,,False,,,,sin_coordenadas
+116- BOQUERON,MCAL. ESTIGARRIBIA,Paso Fronterizo - Bolivia (Hito Villazon),MCAL. ESTIGARRIBIA - Paso Fronterizo - Bolivia (Hito Villazon),,,,,False,,,,sin_coordenadas
+116- BOQUERON,MCAL. ESTIGARRIBIA,Paso Fronterizo - Bolivia (Infante Rivarola),MCAL. ESTIGARRIBIA - Paso Fronterizo - Bolivia (Infante Rivarola),192625000.0,3833524.0,0.0,0.0,True,Paso fronterizo terrestre,-21.68,-62.396,exacta
+116- BOQUERON,MCAL. ESTIGARRIBIA,Puesto de Control Aduanero (Transito Ruta 9),MCAL. ESTIGARRIBIA - Puesto de Control Aduanero (Transito Ruta 9),93558754.0,59162747.0,104440986.0,108785633.0,True,Puesto de control aduanero (transito),-22.034,-60.594,exacta
+117- ALTO PARAGUAY,CARMELO PERALTA,Paso Fronterizo - Brasil (Puente Bioceanico),CARMELO PERALTA - Paso Fronterizo - Brasil (Puente Bioceanico),,,,,False,,,,sin_coordenadas

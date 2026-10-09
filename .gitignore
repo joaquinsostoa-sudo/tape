@@ -48,3 +48,7 @@ web/node_modules/
 !data/clean/mic_rutas_km_distrito.csv
 !data/clean/mic_afi_jerarquia.csv
 !data/clean/mic_snpp_centros.csv
+!data/clean/mic_aduanas_detalle.csv
+!data/clean/mic_aduanas_mapa.csv
+!data/clean/mic_aduanas_mapa_localizadas.csv
+!data/clean/mic_aduanas_ranking.csv

@@ -50,3 +50,13 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
 - El visor trae el centro **SNPP D.F.C.P. Encarnación** bajo el departamento Alto Paraná (Encarnación es de Itapúa): inconsistencia de la fuente; queda sin ubicación.
 - Las capas de rutas y fronteras de esta pestaña repiten las de la B con pequeñas diferencias (9.104 puntos de ruta contra 9.107; 2.576 puntos de ríos contra 2.578): se usa la capa B.
 - Limpieza: `src/limpieza/mic_polos.py` -> `data/clean/mic_afi_puntos.parquet`, `mic_afi_jerarquia.csv` y `mic_snpp_centros.csv` (los centros sin coordenadas toman las de su ciudad, marcado en `ubicacion`).
+
+## Capa H: aduanas (extraída 2026-10-09)
+- `aduanas_mic_2026-10-09.json` (14 KB), generado por la página con el navegador. Tres vistas del comercio exterior **por aduana** (no por producto):
+  - Detalle H3: 42 redes aduaneras (ciudad - tipo - nombre) con importaciones (USD CIF y kg brutos) y exportaciones (USD FOB y kg). Total: importaciones USD 20.012 millones y exportaciones USD 10.431 millones (FOB). Nueve redes vienen sin valores (sin operaciones registradas).
+  - Mapa H1: 35 puntos con coordenadas, tipo de aduana y los mismos importes; sus exportaciones son CIF (USD 10.841 millones), distintas de las FOB del detalle, y algunas aduanas del detalle quedan agrupadas en un punto (los terminales privados de Villeta).
+  - Ranking H2: 35 aduanas con su clave de la DNA y sus importaciones y exportaciones en USD CIF (la mayor: Terport).
+- **El visor no indica el año ni el período** de las cifras; los indicadores de portada (importaciones USD 19.993 M, exportaciones CIF USD 10.830 M) difieren levemente de los totales de la tabla (20.012 M y 10.431 M FOB). Por confirmar con el MIC.
+- Tipos de aduana: puertos fluviales (públicos y privados), pasos fronterizos terrestres y fluviales, aeropuertos, depósitos fiscales, puertos secos, zonas francas, terminales, puestos de control.
+- En esta pestaña también viene la frontera con 88.682 puntos (1.455 km de frontera seca a 32.010 puntos y ríos a 56.672): una resolución mucho más fina que la de la capa B; no se guardó.
+- Limpieza: `src/limpieza/mic_aduanas.py` -> `data/clean/mic_aduanas_detalle.csv` (con coordenadas donde la unión por importaciones es exacta: 23 de 42), `mic_aduanas_mapa.csv`, `mic_aduanas_ranking.csv`; distrito de cada punto en `src/puentes/aduanas_distrito.py` -> `mic_aduanas_mapa_localizadas.csv`.
