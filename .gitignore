@@ -40,3 +40,4 @@ web/node_modules/
 !data/clean/puente_cnaep_sector.csv
 !data/clean/puente_mic_subsector_sector.csv
 !data/clean/puente_hs92_sector.csv
+!data/clean/ciudades_mic.csv

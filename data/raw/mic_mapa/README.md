@@ -16,3 +16,11 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
 - Las otras capas (rutas, red eléctrica, combustibles, salud, polos, aduanas) usan el mismo tipo de gráfico y también devuelven coordenadas.
 - Los filtros Zona / Departamento / Ciudad permitirían leer la tabla F4 por ciudad (263), pero con las coordenadas ya no hace falta.
 - El visor no declara licencia ni ofrece descarga. La extracción es provisoria: **pedir los datos al MIC por acceso a la información** sigue siendo la vía formal, igual que la copia anual del mapa para construir un panel propio.
+
+## Capa A: zonas y ciudades (extraída 2026-10-09)
+- `capaA_ciudades_censo2022_2026-10-09.csv`: tabla A3 del visor, 263 ciudades con zona (4), departamento, **población del Censo 2022** y distancias por carretera en km a Asunción, Ciudad del Este, Encarnación y al puerto de Central. Totales verificados contra el visor: 6.109.903 habitantes y los 18 totales departamentales del gráfico A2.
+- `capaA_ciudades_mapa_2026-10-09.csv`: mapa A1, mismas ciudades con **latitud y longitud** (un punto por ciudad), hombres, mujeres, **PEA** (3.331.360 en total) y **edad mediana**.
+- Cómo se leyó: la tabla A3 carga solo 200 de las 263 filas, así que se recorrió el filtro de zona (Centro 58, Este 78, Norte y Chaco 60, Sur 67) interceptando la respuesta de cada consulta. El mapa se leyó de la respuesta del gráfico `MAPBUBBLE`.
+- Las 263 ciudades coinciden con los 263 distritos del Censo 2022. Ojo: los límites administrativos que usamos para asignar industrias (DGEEC 2012) tienen 247 distritos; al unir ambas fuentes hay distritos nuevos que reconciliar.
+- Limpieza y unión: `src/limpieza/mic_ciudades.py` -> `data/clean/ciudades_mic.csv`. Dos nombres difieren entre tabla y mapa (BELLA VISTA NORTE / BELLA VISTA en Amambay, ÑUMI / NUMI). **María Antonia (Paraguarí) viene con coordenadas 0,0 en el visor**: queda sin ubicación.
+- Las otras pestañas (B rutas, C red eléctrica, D combustibles, E salud, G polos, H aduanas, I comercio global) siguen pendientes.
