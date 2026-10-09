@@ -4,5 +4,11 @@
   "fecha_utc": "2026-10-08",
   "bytes": 2502511,
   "sha256": "3d707d671e2a0dd8d9d1d645b38828e09e2d23f5d719470e8cbfd926f8da6a6b"
+ },
+ "red_electrica_mic_2026-10-09.json": {
+  "url": "https://mapaprodpy.mic.gov.py/ (pesta?a C- RED ELECTRICA, extra?da con el navegador)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 928702,
+  "sha256": "b39c6de5198783e9ccf040496235ed05ded0a3c4d0d8effbe7e90da20af545df"
  }
 }

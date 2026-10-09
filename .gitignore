@@ -41,3 +41,6 @@ web/node_modules/
 !data/clean/puente_mic_subsector_sector.csv
 !data/clean/puente_hs92_sector.csv
 !data/clean/ciudades_mic.csv
+!data/clean/mic_subestaciones.csv
+!data/clean/mic_subestaciones_localizadas.csv
+!data/clean/mic_potencia_disponible.csv

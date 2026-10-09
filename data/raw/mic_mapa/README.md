@@ -24,3 +24,12 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
 - Las 263 ciudades coinciden con los 263 distritos del Censo 2022. Ojo: los límites administrativos que usamos para asignar industrias (DGEEC 2012) tienen 247 distritos; al unir ambas fuentes hay distritos nuevos que reconciliar.
 - Limpieza y unión: `src/limpieza/mic_ciudades.py` -> `data/clean/ciudades_mic.csv`. Dos nombres difieren entre tabla y mapa (BELLA VISTA NORTE / BELLA VISTA en Amambay, ÑUMI / NUMI). **María Antonia (Paraguarí) viene con coordenadas 0,0 en el visor**: queda sin ubicación.
 - Las otras pestañas (B rutas, C red eléctrica, D combustibles, E salud, G polos, H aduanas, I comercio global) siguen pendientes.
+
+## Capa C: red eléctrica (extraída 2026-10-09)
+- `red_electrica_mic_2026-10-09.json` (0,9 MB): generado por la página con el navegador (descarga autorizada por el usuario para las capas del MIC). Contiene:
+  - **104 subestaciones y generadoras** (mapa C3): coordenadas, tensión (23, 66, 220 y 500 kV), estado (todas OPERATIVA), potencia disponible 2026.
+  - **Potencia disponible proyectada por subestación** (tablas C4 y C5): 23 kV en 2026-2029 y 2031-2033; 220/66 kV en 2025-2028 y 2030-2033. Los años no son consecutivos (23 kV omite 2030 y 220/66 kV omite 2029). Los cuatro primeros años de cada tabla coinciden con los gráficos C7 y C8; los siguientes se deducen del orden de los encabezados (por confirmar).
+  - **Trazado de las líneas**: 3.823 vértices en cuatro tipos (línea de transmisión, troncal de 500 kV, corredor de 220 kV, central hidroeléctrica) con tensión, nombre del corredor, zona y departamento.
+- La subestación `SE023kV_LUQUE` no tiene valores en la tabla 220/66 kV (se guarda como dato faltante). `Yacyretá` cae sobre el río, entre Misiones e Itapúa.
+- Alto Paraguay no tiene subestaciones de 23 kV en el visor.
+- Limpieza: `src/limpieza/mic_red_electrica.py` -> `data/clean/mic_subestaciones.csv`, `mic_potencia_disponible.csv` (formato largo) y `mic_lineas_vertices.parquet`; asignación a distrito en `src/puentes/subestaciones_distrito.py` -> `mic_subestaciones_localizadas.csv` (las 104 caen dentro de un distrito de los límites de 2012).
