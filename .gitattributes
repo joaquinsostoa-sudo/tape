@@ -2,4 +2,5 @@
 *.parquet binary
 *.xlsx binary
 *.pdf binary
+*.docx binary
 *.geojson -diff
