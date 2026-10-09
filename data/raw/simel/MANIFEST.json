@@ -1,0 +1,62 @@
+{
+ "DF_ESTNB_TIPEST_ECO.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_ESTNB_TIPEST_ECO,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 210251,
+  "sha256": "8be337cc5671fa2eb5d7fc93cf5b4783669899f9fa3534dd03138d463c91dd89"
+ },
+ "DF_ESTNB_AREAREF_TIPEST.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_ESTNB_AREAREF_TIPEST,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 426777,
+  "sha256": "f1ed38740ee880a812a1ddd286f315c081b91fe54b3177572cab8cb8d1bcca69"
+ },
+ "DF_PUESTONB_TIPEST_ECO.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_PUESTONB_TIPEST_ECO,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 80754,
+  "sha256": "45a116c602674ed017efc22f9d1f850719fd188442a03ef864c664de20530897"
+ },
+ "DF_PUESTONB_AREAREF_TIPEST.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_PUESTONB_AREAREF_TIPEST,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 396375,
+  "sha256": "5b3def4dd75a846ba632b9bf6f39f2fe3074be52897f1cea2bbd0492b415d0cd"
+ },
+ "DF_AFSINANB_AREAREF_ECO.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_AFSINANB_AREAREF_ECO,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 93951,
+  "sha256": "1bad0612ff416765f7841b19953e9433d3c1f16a878806add3a36a334b763970"
+ },
+ "DF_AFSNPPNB_FLIAPRO.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_AFSNPPNB_FLIAPRO,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 48895,
+  "sha256": "f8f71ecf369c19c3931c6b50459a727892ca92db53506936465fddc08b846678"
+ },
+ "DF_MATRNB_AREAREF_SEXO.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_MATRNB_AREAREF_SEXO,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 115270,
+  "sha256": "85579ac3be0b1747d38c8f662e55cadded989dd71626f0c501fa99653f703e6c"
+ },
+ "DF_CERSNPP_AREAREF_SEXO.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_CERSNPP_AREAREF_SEXO,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 116995,
+  "sha256": "6b8d8aac8d13cb6f17d37e441a81177a143a14cd95792d1bc444cab90dfba1b0"
+ },
+ "DF_INFORNAC_AREAREF.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_INFORNAC_AREAREF,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 43371,
+  "sha256": "855a699158bb09c4d06870c1632994a6e485764a528fe25b150d7ba7bf1b2e39"
+ },
+ "DF_INFORPRIV_AREAREF.csv": {
+  "url": "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_INFORPRIV_AREAREF,1.0/all",
+  "fecha_utc": "2026-10-09",
+  "bytes": 34052,
+  "sha256": "a7811a9579b4d0b6f5418bfc54041f1a974152c0b8aa5db54cca1a45e7410075"
+ }
+}

@@ -17,3 +17,5 @@ Archivos esperados: series mensuales de crédito por sector (boletín estadísti
 
 ## Archivos presentes (2026-10-09)
 `Boletin_Bancos_Ago26.xlsm` (33 MB), entregado a mano. Hoja `5. Cred. por sector`: cartera total en Gs por 13 sectores (incluye CONSUMO y VIVIENDA) y por banco, solo para 2026/08. Hoja `6. Cred. por acti`: por actividad económica (cultivo de soja, arroz, etc.). Las demás hojas son tablas dinámicas de una sola fecha: la serie histórica requiere otros boletines.
+
+**Serie mensual (2026-10-09):** `Creditos_bcp_sector_082026.xlsx`, extraída por el usuario desde el modelo del boletín: cartera total en Gs por sector (13) y banco, mes a mes. La fecha figura solo en la primera fila de cada mes (rellenar hacia abajo). La serie por actividad económica se descartó: trae solo tres actividades sueltas.

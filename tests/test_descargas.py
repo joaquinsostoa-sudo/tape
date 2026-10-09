@@ -18,6 +18,13 @@ def test_archivos_dataverse_extrae_nombre_e_id():
     assert archivos_dataverse(resp) == {"a.csv": 7, "b.csv": 9}
 
 
+def test_simel_url_datos_y_tablas_unicas():
+    from src.descargas import simel
+
+    assert simel.url_datos("DF_X") == "https://sdmx.simel.mtess.gov.py/rest/data/PY110,DF_X,1.0/all"
+    assert len(simel.TABLAS) == len(set(simel.TABLAS)) == 10
+
+
 def test_sha256_y_ya_descargado(tmp_path):
     f = tmp_path / "x.bin"
     f.write_bytes(b"abc")

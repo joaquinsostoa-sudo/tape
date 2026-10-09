@@ -4,5 +4,11 @@
   "fecha_utc": "2026-10-09",
   "bytes": 33428672,
   "sha256": "89181404ade6855dccdbfbcb7ab0ef552e32e8f878728df592f5642de8f16a76"
+ },
+ "Creditos_bcp_sector_082026.xlsx": {
+  "url": "https://www.bcp.gov.py (Boletín Estadístico-Financiero de Bancos, ago 2026; serie extraída por el usuario)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 325346,
+  "sha256": "721cdf6de8b247b14527b888fe48c0442fd3168245d691af8c8899efd0166863"
  }
 }
