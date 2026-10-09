@@ -28,5 +28,11 @@
   "fecha_utc": "2026-10-09",
   "bytes": 13987,
   "sha256": "7c1eb7673441830c75b45288f6cf8a328506bb373087b0fff884606fd3e9d1f3"
+ },
+ "salud_mic_2026-10-09.json": {
+  "url": "https://mapaprodpy.mic.gov.py/ (pestaña E- RED DE SALUD, extraída con el navegador)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 33354,
+  "sha256": "3a4df5c11ecd0b341647ff22e09c0553d69dd8206e1d9d73af836b944f6c17fc"
  }
 }

@@ -52,3 +52,5 @@ web/node_modules/
 !data/clean/mic_aduanas_mapa.csv
 !data/clean/mic_aduanas_mapa_localizadas.csv
 !data/clean/mic_aduanas_ranking.csv
+!data/clean/mic_salud_establecimientos.csv
+!data/clean/mic_salud_localizados.csv

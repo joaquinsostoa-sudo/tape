@@ -60,3 +60,10 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
 - Tipos de aduana: puertos fluviales (públicos y privados), pasos fronterizos terrestres y fluviales, aeropuertos, depósitos fiscales, puertos secos, zonas francas, terminales, puestos de control.
 - En esta pestaña también viene la frontera con 88.682 puntos (1.455 km de frontera seca a 32.010 puntos y ríos a 56.672): una resolución mucho más fina que la de la capa B; no se guardó.
 - Limpieza: `src/limpieza/mic_aduanas.py` -> `data/clean/mic_aduanas_detalle.csv` (con coordenadas donde la unión por importaciones es exacta: 23 de 42), `mic_aduanas_mapa.csv`, `mic_aduanas_ranking.csv`; distrito de cada punto en `src/puentes/aduanas_distrito.py` -> `mic_aduanas_mapa_localizadas.csv`.
+
+## Capa E: red de salud (extraída 2026-10-09)
+- `salud_mic_2026-10-09.json` (33 KB), generado por la página con el navegador: **212 establecimientos** (138 en la serie IPS y 74 del Ministerio de Salud), con nombre, prestador (IPS 82, MSPBS 74, convenio 43, tercerizado 13), ciudad, departamento y coordenadas.
+- **Sin camas, nivel de complejidad ni personal**: es un indicador de presencia de servicios, no un inventario. No se sabe si la lista es completa (74 del MSPBS parece una cifra baja).
+- Cinco establecimientos del MSPBS en San Pedro vienen sin coordenadas; se ubican por su ciudad (`ubicacion = ciudad`). Hay 24 pares nombre + ciudad repetidos (por ejemplo un mismo servicio como IPS y como convenio): no se eliminaron.
+- Limpieza: `src/limpieza/mic_salud.py` -> `data/clean/mic_salud_establecimientos.csv`; distrito en `src/puentes/salud_distrito.py` -> `mic_salud_localizados.csv`.
+- La capa D (red de combustibles) no se extrajo: el usuario la consideró de menor importancia.

@@ -19,6 +19,7 @@ PASOS = [
     "src.limpieza.mic_rutas",
     "src.limpieza.mic_polos",
     "src.limpieza.mic_aduanas",
+    "src.limpieza.mic_salud",
     "src.puentes.clasificaciones_locales",
     "src.puentes.taxonomia_tape",
     "src.puentes.cnaep_sector",
@@ -28,6 +29,7 @@ PASOS = [
     "src.puentes.subestaciones_distrito",
     "src.puentes.rutas_distrito",
     "src.puentes.aduanas_distrito",
+    "src.puentes.salud_distrito",
     "src.puentes.hs_sector",
     "src.puentes.doc_taxonomia",
 ]
