@@ -33,3 +33,11 @@ Las demás pestañas (A zonas y ciudades, B rutas, C red eléctrica, D combustib
 - La subestación `SE023kV_LUQUE` no tiene valores en la tabla 220/66 kV (se guarda como dato faltante). `Yacyretá` cae sobre el río, entre Misiones e Itapúa.
 - Alto Paraguay no tiene subestaciones de 23 kV en el visor.
 - Limpieza: `src/limpieza/mic_red_electrica.py` -> `data/clean/mic_subestaciones.csv`, `mic_potencia_disponible.csv` (formato largo) y `mic_lineas_vertices.parquet`; asignación a distrito en `src/puentes/subestaciones_distrito.py` -> `mic_subestaciones_localizadas.csv` (las 104 caen dentro de un distrito de los límites de 2012).
+
+## Capa B: rutas y fronteras (extraída 2026-10-09)
+- `rutas_fronteras_mic_2026-10-09.json` (2,1 MB), generado por la página con el navegador (descarga autorizada para las capas del MIC):
+  - **22 rutas nacionales** (PY01 Asunción-Encarnación, 414 km, a PY22 Santaní-San Lázaro, 442 km), 9.107 km en total, con la lista de km por ruta (gráfico B2 = tabla B3).
+  - **9.107 hitos kilométricos**: un punto por km ("PY01 KM 412") con coordenadas, departamento y zona. La geometría es la secuencia de hitos, no un trazado fino.
+  - **4.033 puntos de frontera**, uno por km: 1.455 de frontera seca y 2.578 de ríos, con límite (Argentina, Brasil, Bolivia y Región Occidental-Oriental), nombre del río y tramo (14 tramos).
+- Solo las rutas nacionales numeradas: no hay caminos departamentales ni vecinales, ni estado del pavimento.
+- Limpieza: `src/limpieza/mic_rutas.py` -> `data/clean/mic_rutas_km.csv`, `mic_rutas_hitos.parquet`, `mic_fronteras_puntos.parquet`; km de ruta por distrito en `src/puentes/rutas_distrito.py` -> `mic_rutas_km_distrito.csv` (199 distritos con ruta nacional, límites de 2012).

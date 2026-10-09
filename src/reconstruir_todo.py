@@ -16,6 +16,7 @@ PASOS = [
     "src.limpieza.aneaes",
     "src.limpieza.mic_ciudades",
     "src.limpieza.mic_red_electrica",
+    "src.limpieza.mic_rutas",
     "src.puentes.clasificaciones_locales",
     "src.puentes.taxonomia_tape",
     "src.puentes.cnaep_sector",
@@ -23,6 +24,7 @@ PASOS = [
     "src.puentes.geoprocesar_industrias",
     "src.puentes.industrias_distrito_sector",
     "src.puentes.subestaciones_distrito",
+    "src.puentes.rutas_distrito",
     "src.puentes.hs_sector",
     "src.puentes.doc_taxonomia",
 ]

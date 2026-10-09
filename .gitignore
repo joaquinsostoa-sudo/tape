@@ -44,3 +44,5 @@ web/node_modules/
 !data/clean/mic_subestaciones.csv
 !data/clean/mic_subestaciones_localizadas.csv
 !data/clean/mic_potencia_disponible.csv
+!data/clean/mic_rutas_km.csv
+!data/clean/mic_rutas_km_distrito.csv

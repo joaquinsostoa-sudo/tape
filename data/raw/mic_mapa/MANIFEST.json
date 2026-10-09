@@ -10,5 +10,11 @@
   "fecha_utc": "2026-10-09",
   "bytes": 928702,
   "sha256": "b39c6de5198783e9ccf040496235ed05ded0a3c4d0d8effbe7e90da20af545df"
+ },
+ "rutas_fronteras_mic_2026-10-09.json": {
+  "url": "https://mapaprodpy.mic.gov.py/ (pesta?a B- RUTAS Y FRONTERAS, extra?da con el navegador)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 2063594,
+  "sha256": "bea9667e048ba061bcf959bb9efef52eef03e2ad7350a440f4842010cb21f168"
  }
 }
