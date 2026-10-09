@@ -1,0 +1,14 @@
+{
+ "establecimientos_2012.pdf": {
+  "url": "https://datos.mec.gov.py/data/establecimientos",
+  "fecha_utc": "2026-10-09",
+  "bytes": 29863892,
+  "sha256": "7b62a4e688bbe535c651f33a0872bfde2825221886024db3b5362e1aa25297c9"
+ },
+ "instituciones_2018.csv": {
+  "url": "https://datos.mec.gov.py/data/instituciones",
+  "fecha_utc": "2026-10-09",
+  "bytes": 49956,
+  "sha256": "b5f10c7b6519067b297d82663d4e8239e56215a655523d57169b869b204fb163"
+ }
+}

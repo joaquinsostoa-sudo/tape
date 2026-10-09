@@ -13,6 +13,7 @@ PASOS = [
     "src.limpieza.bcp_cra",
     "src.limpieza.cnaep_ciiu",
     "src.limpieza.industrias_mic",
+    "src.limpieza.aneaes",
     "src.puentes.clasificaciones_locales",
     "src.puentes.taxonomia_tape",
     "src.puentes.cnaep_sector",

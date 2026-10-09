@@ -1,0 +1,98 @@
+{
+ "2023/REG01_EPHC_ANUAL_2023.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 2310661,
+  "sha256": "20cf3df047eda40ddc39cd183a98c17cc16f1794cb6d22980580ce1dab75f7f9"
+ },
+ "2023/REG02_EPHC_ANUAL_2023.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 27925200,
+  "sha256": "f387f979d32b85684132903f3fad35b0e4d5fbcdbddccd01109c534acaef442a"
+ },
+ "2023/INGREFAM_EPHC_ANUAL_2023.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 3421004,
+  "sha256": "9db43197e50c50baa4a43c6571b22e36faa279d272dbec413cc837a1e0de65c9"
+ },
+ "2024/REG01_EPHC_ANUAL_2024.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 2341614,
+  "sha256": "b5e456e0b0d331f44725dbe57305046bbad47377c49d392c79bb70037f341147"
+ },
+ "2024/REG02_EPHC_ANUAL_2024.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 27814273,
+  "sha256": "75f753b2319214a1168e545e448a24a4267bae18707a8bf963697886b869b01c"
+ },
+ "2024/INGREFAM_EPHC_ANUAL_2024.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 3436786,
+  "sha256": "6712b1abf365ccfa567439751eaebb017090117f0d1e67ee23f25afd1aad85a2"
+ },
+ "2025/REG01_EPHC_ANUAL_2025.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 2353759,
+  "sha256": "c9e1bec27c3ed74d2e14d3c3ba0dbd9d83c6f0aa38e2c8f992bf4c9275f5fc6e"
+ },
+ "2025/REG02_EPHC_ANUAL_2025.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 27005945,
+  "sha256": "0b91f3a2fbcbdebd956817fb156acf8b7df7c017c0e0e9549c13387a5f4d4d1e"
+ },
+ "2025/INGREFAM_EPHC_ANUAL_2025.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 3366564,
+  "sha256": "fe012ac674011ed083cb0b1e60ff3428e1b321ac52e39c72810887303ccec4f9"
+ },
+ "2025/diccionario_EPHC_ANUAL_2025.xls": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 353792,
+  "sha256": "febc47cd66c919eeead8c27dfb56f6c7cc56c63a3d5f642cbc96acc9cf8a6b1c"
+ },
+ "2022_sitio_previo/INGREFAM_EPHC_ANUAL_2022.csv": {
+  "url": "https://www.ine.gov.py/Publicaciones/Biblioteca/documento/microdato/EPHC-ANUAL/2022/INGREFAM_EPHC_ANUAL_2022.csv",
+  "fecha_utc": "2026-10-09",
+  "bytes": 4008308,
+  "sha256": "d40d985b7caf6d17e97ae25c3fd10555cf3b723464c69fcc2ed1e51873a629ac"
+ },
+ "2022_sitio_previo/REG01_EPHC_ANUAL_2022.csv": {
+  "url": "https://www.ine.gov.py/Publicaciones/Biblioteca/documento/microdato/EPHC-ANUAL/2022/REG01_EPHC_ANUAL_2022.csv",
+  "fecha_utc": "2026-10-09",
+  "bytes": 2609530,
+  "sha256": "bb7fcad7d1009ce7890e6a2e72715f0f23ec03acadb3af9ee6019da8f301f69b"
+ },
+ "2022_sitio_previo/REG02_EPHC_ANUAL_2022.csv": {
+  "url": "https://www.ine.gov.py/Publicaciones/Biblioteca/documento/microdato/EPHC-ANUAL/2022/REG02_EPHC_ANUAL_2022.csv",
+  "fecha_utc": "2026-10-09",
+  "bytes": 30384763,
+  "sha256": "8d1b85c57c3511799b05a93ba714f454c6c37db1d637bbdd887538cc07fdf971"
+ },
+ "2022/REG01_EPHC_ANUAL_2022.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 2434387,
+  "sha256": "b1f65cd5c759c41af5c3b4849f4cf09e4f3cfd6bc561583abcd9d8143c492dff"
+ },
+ "2022/REG02_EPHC_ANUAL_2022.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 29780987,
+  "sha256": "8aab90268790709245a73fbca8d7170d2e0451ecb90146f2c43d597fc2a6ce31"
+ },
+ "2022/INGREFAM_EPHC_ANUAL_2022.csv": {
+  "url": "https://www.ine.gov.py/microdato/encuesta-permanente-de-hogares-continua-ephc-2022-2023-2024-2025-anual-factor-revision-2025",
+  "fecha_utc": "2026-10-09",
+  "bytes": 3661378,
+  "sha256": "4fba7e02f9029e85a9ee0e8866eda49baac536f03c1b358e674c18d8fa695c43"
+ }
+}

@@ -1,0 +1,32 @@
+{
+ "carreras_grado_acreditadas.xls": {
+  "url": "https://www.aneaes.gov.py (consulta de acreditaciones; exportado por el usuario)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 96256,
+  "sha256": "eb4c52e632799d34514143b2cf0c2834ccddb71b6a6992da64080338b549f324"
+ },
+ "programas_posgrado_acreditados.xls": {
+  "url": "https://www.aneaes.gov.py (consulta de acreditaciones; exportado por el usuario)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 43008,
+  "sha256": "6e9ac657235f33b44619694a2e86dcf77c273d9fde838ecd539d8de40e7f5e84"
+ },
+ "instituciones_acreditadas.xls": {
+  "url": "https://www.aneaes.gov.py (consulta de acreditaciones; exportado por el usuario)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 9216,
+  "sha256": "c25f91283c64dba523310275f495b45d560d294f99f3d19dd74a1fc634941c02"
+ },
+ "carreras_grado_no_acreditadas.xls": {
+  "url": "https://www.aneaes.gov.py (consulta de acreditaciones; exportado por el usuario)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 14848,
+  "sha256": "4d56f0b188db4a2b3dfc46d7352fc3cd6d29bf9c5d5f9b24003d544dd7530ff8"
+ },
+ "programas_posgrado_no_acreditados.xls": {
+  "url": "https://www.aneaes.gov.py (consulta de acreditaciones; exportado por el usuario)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 6144,
+  "sha256": "6cbe3a342071b00b88f203897e2b668625c293a1e9420768af8be40109c9caf0"
+ }
+}
