@@ -36,7 +36,7 @@ Se descomprime en la raíz y deja cada archivo en `data/raw/<fuente>/`. No inclu
 | `bcp_credito/` | `Boletin_Bancos_Ago26.xlsm` (33 MB; datos en un modelo Power Pivot que solo lee Excel) y `Creditos_bcp_sector_082026.xlsx` (serie mensual por sector 2020-2026, extraída con Excel) | BCP, Superintendencia de Bancos |
 | `ephc/` | `2022/` a `2025/`: REG01, REG02 e INGREFAM en CSV, más el diccionario de 2025 (136 MB) | INE |
 | `aneaes/` | 5 `.xls` de carreras y programas, acreditados y no acreditados (se leen con `xlrd`) | ANEAES |
-| `censo_agropecuario/` | `CAN2022_Volumen_I.xlsx` (78 cuadros por departamento) | MAG |
+| `censo_agropecuario/` | `CAN2022_Volumen_I.xlsx` (78 cuadros por departamento) y `CAN2022_fincas_por_distrito.xlsx` (fincas y superficie por distrito) | MAG |
 | `mip_cepal_oit/` | `Simulador-MIP-Paraguay.xlsm` (MIP de 21 sectores; autoría por confirmar) | BCP y terceros |
 | `mec_escuelas/` | `establecimientos_2012.pdf` (30 MB) e `instituciones_2018.csv` | MEC |
 | `mic_maquila/` | `Informe-MAQUILA-AGOSTO26.pdf` | MIC |

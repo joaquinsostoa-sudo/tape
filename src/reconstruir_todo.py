@@ -15,6 +15,7 @@ PASOS = [
     "src.limpieza.industrias_mic",
     "src.limpieza.aneaes",
     "src.limpieza.mic_ciudades",
+    "src.limpieza.can_distrito",
     "src.limpieza.mic_red_electrica",
     "src.limpieza.mic_rutas",
     "src.limpieza.mic_polos",

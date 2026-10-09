@@ -4,5 +4,11 @@
   "fecha_utc": "2026-10-09",
   "bytes": 5192117,
   "sha256": "cd6aed3105c9c361173af056a9bb7682b9508d434da0ebba1a12c5bafd2c9a30"
+ },
+ "CAN2022_fincas_por_distrito.xlsx": {
+  "url": "Entregado por el usuario (Censo Agropecuario Nacional 2022, fincas por distrito y tamaño; MAG)",
+  "fecha_utc": "2026-10-09",
+  "bytes": 128587,
+  "sha256": "0f49889eaa08a0fe08ea1afeb9642ce4cf5b144cf21b9b437ce9e493d7a3d314"
  }
 }
