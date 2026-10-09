@@ -133,7 +133,7 @@ Mi recomendación va primero en cada una.
 ---
 
 ## Anexo (2026-10-08): extracciones de fuentes locales previstas para la Fase 2
-Hallazgos de la exploración de los sitios; ninguna de estas tareas está hecha todavía.
+Hallazgos de la exploración de los sitios del 2026-10-08. **Estado al 2026-10-09:** L2, L3 y L4 hechas (salvo la capa D de combustibles, que se decidió no extraer); L1 y L5 pendientes de archivos (ver la lista al final del anexo).
 
 | # | Tarea | Qué produce | Estado de la fuente |
 |---|---|---|---|
@@ -144,3 +144,15 @@ Hallazgos de la exploración de los sitios; ninguna de estas tareas está hecha 
 | L5 | **Escuelas del MEC** | establecimientos con ubicación | Hay un mapa en `datos.mec.gov.py/app/mapa_establecimientos` (por revisar) |
 
 Pedido formal recomendado en paralelo: acceso a la información al MIC (capas y coordenadas) y al MEC (si el CSV no se puede bajar).
+
+**Estado detallado al 2026-10-09**
+
+| # | Estado |
+|---|---|
+| L1 Registro de títulos del MEC | Pendiente: Joaquín lo consigue a mano. Con el Registro Nacional de Carreras se define carrera → CINE-F → sector. Mientras tanto hay 792 carreras y posgrados de la ANEAES con la marca acreditada o no (`data/clean/aneaes_programas.parquet`) |
+| L2 Industrias por ciudad | Hecha: 17.080 industrias por distrito y sector TAPE |
+| L3 Coordenadas de industrias | Hecha: el visor devuelve un punto por industria |
+| L4 Capas logísticas | Hecha: A (263 distritos con población, PEA y distancias), B (22 rutas y fronteras), C (red eléctrica), E (salud), G (polos y AFI, más 53 centros del SNPP) y H (aduanas). No se extrajo D (combustibles). Detalle y límites en `data/raw/mic_mapa/README.md` |
+| L5 Escuelas del MEC | Parcial: `establecimientos_2012.pdf` (30 MB, 2012) e `instituciones_2018.csv` (incompleto). Falta un establecimientos reciente en CSV |
+
+Pendiente adicional descubierto: reconciliar los 247 distritos de los límites de 2012 con los 263 del Censo 2022.

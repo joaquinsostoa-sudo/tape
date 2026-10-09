@@ -1,5 +1,7 @@
 # Verificación de fuentes nacionales
 
+**Actualización 2026-10-09 (la verificación de abajo es la del 2026-10-08):** ya están incorporados EPHC 2022-2025, crédito del BCP, MIP (simulador), SIMEL (10 tablas por API abierta), censo agropecuario 2022, carreras de la ANEAES, parte de los datos del MEC y siete capas del mapa MIC; ver `docs/ESTADO.md` y `docs/COLABORACION.md`. Siguen pendientes: títulos y carreras del MEC, Censo Económico 2011, materia prima, cuadros de oferta y utilización del BCP y el comercio exterior por NCM (opcional). Hallazgos nuevos: la EPHC trae la rama de actividad solo en 8 categorías; SIMEL no cruza actividad con departamento; la pestaña de aduanas del MIC trae comercio por aduana (no por producto) y no declara el año.
+
 Fecha: 2026-10-08. Método: lectura de las páginas oficiales (INE, MEC, MIC, DNIT, BCP) y búsquedas. No se descargó nada nuevo. El sitio del BCP rechazó el acceso automático (403), así que sus datos hay que bajarlos a mano desde el navegador. Las licencias no se leyeron en detalle: INE y MEC declaran licencias abiertas (el MEC, CC BY 4.0); revisar el texto antes de publicar.
 
 ## Resumen por fuente

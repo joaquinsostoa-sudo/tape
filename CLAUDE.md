@@ -51,7 +51,8 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 
 ## Datos y herramientas locales
 - Clasificaciones locales ya mapeadas a CIIU (borrador): `src/puentes/clasificaciones_locales.py` → `data/clean/clasificaciones_locales_ciiu.csv` y `ciiu4_atomos_clasificaciones.csv`.
-- Mapa MIC: el visor Zoho (https://mapaprodpy.mic.gov.py/) se puede leer con el navegador integrado; no ofrece descarga. Resumen en `data/raw/mic_mapa/`.
+- Mapa MIC: el visor Zoho (https://mapaprodpy.mic.gov.py/) se puede leer con el navegador integrado; no ofrece descarga. Se interceptan las respuestas de sus gráficos (técnica y capas extraídas en `data/raw/mic_mapa/README.md`; limpieza en `src/limpieza/mic_*.py`).
+- Datos manuales: `TAPE_datos_manuales.zip` (Drive); se arma con `uv run python -m src.empaquetar_datos_manuales`. Los tests que dependen de datos faltantes se saltan.
 - Descargas: `uv run python -m src.descargas.todas` (idempotente; manifiesto en `data/raw/<fuente>/MANIFEST.json`).
 - Registro de títulos del MEC: contiene nombre y documento de personas; usar solo agregados (carrera, institución, mes) y no guardar datos personales.
 
@@ -60,7 +61,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 - **Fase 1 Módulo nacional** ← *estamos aquí*: sigue la tarea 1.1 (limpieza de BACI). Decisiones D1 a D4 y D6 a D8 pendientes (ver `docs/PLAN_fase0_fase1.md`).
 - Fase 1 Módulo nacional: descargas, depuración, RCA/φ/densidad, logit + XGBoost + backtest. Paso si el modelo con capas supera a la densidad sola en precision@k.
 - Fase 2 Territorial (capas MIC, tabla MIC→CIIU, MEC, modelo jerárquico). Fase 3 Brechas, valor, política (EPHC, cuentas, MIP, crédito, SIMEL, leyes). Fase 4 Interfaz (FastAPI + MapLibre sobre la app Vercel). Fase 5 Monitoreo y difusión.
-- Datos locales (MIC, MEC, EPHC, BCP, maquila, 60/90) aún no disponibles: se trabaja primero con datos públicos descargables.
+- Datos locales ya incorporados (2026-10-09; ver `docs/ESTADO.md` y `docs/COLABORACION.md`): BCP (PIB, regional, crédito), MIP, EPHC 2022-2025, censo agropecuario 2022, SIMEL, ANEAES, MEC (parcial) y siete capas del mapa MIC. Faltan títulos y carreras del MEC, Censo Económico 2011, materia prima, oferta-utilización del BCP, y maquila y 60/90 a nivel de proyecto (decidido no pedirlos). La Fase 1 usa solo datos internacionales.
 
 ## Convenciones de código
 Python 3.12, `uv`. Funciones pequeñas y puras, con tipos (`mypy`), docstring corto. Una prueba en `tests/` por cada cálculo clave (RCA, φ, densidad, definición de entrada, partición temporal) con ejemplos mínimos hechos a mano. Scripts reproducibles en `src/` (no lógica en notebooks). Datos tabulares en parquet; consultas con DuckDB/polars. Nombres de columnas en español sin tildes y snake_case (`pais`, `producto`, `anio`, `rca`); códigos ISO3 para países, HS como texto de 6 dígitos. Formato y lint: `ruff`.

@@ -1,35 +1,51 @@
-﻿# Estado del proyecto TAPE
+# Estado del proyecto TAPE
 
-Actualizado: 2026-10-08. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan y decisiones abiertas) y `docs/COLABORACION.md` (cómo trabajar de a dos).
+Actualizado: 2026-10-09. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan y decisiones abiertas) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada.** Está hecho:
-- Estructura del repositorio, entorno `uv`, registro de fuentes (`data/fuentes.csv`), 48 pruebas automáticas.
-- **Fuentes internacionales de la Fase 1 descargadas:** BACI (HS92, 1995-2024), Atlas de Complejidad, WDI (13 indicadores), Penn World Table 10.01, LPI, correspondencias de la ONU y WITS (`docs/verificacion_fuentes.md`).
-- **Taxonomía de 67 sectores TAPE** sobre CIIU Rev.4 (`docs/taxonomia.md`). Cada sector hereda un solo grupo de las clasificaciones locales (EPHC, crédito, cuentas regionales, MIP, 33 actividades del BCP).
-- **Puente HS92 → CPC → CIIU → sector** con confianza por fila (`docs/puente_hs_sector.md`): 86 % del valor exportado mundial con confianza alta; 99,4 % de coincidencia con WITS.
-- **Datos del BCP:** PIB por 33 actividades (1991-2024) y PIB regional por 6 ramas y 18 departamentos (2021-2024), más la tabla CNAEP ↔ CIIU con puente a sectores.
-- **Mapa logístico MIC, capa de industrias:** 17.080 industrias con coordenadas, asignadas a distrito y departamento (los totales por zona del visor se reproducen exactamente) y repartidas por sector TAPE. Es una extracción provisoria de un visor sin licencia declarada.
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) no empezó.** Hay 95 pruebas automáticas que pasan (`uv run pytest`).
+
+**Fuentes internacionales descargadas** (`uv run python -m src.descargas.todas`): BACI (HS92, 1995-2024), Atlas de Complejidad, WDI (13 indicadores), Penn World Table 10.01 (a mano), LPI, correspondencias de la ONU y WITS, límites administrativos de geoBoundaries y 10 tablas de SIMEL. Ver `docs/verificacion_fuentes.md`.
+
+**Taxonomía y puentes:** 67 sectores TAPE sobre CIIU Rev.4 (`docs/taxonomia.md`); puente HS92 → CPC → CIIU → sector con confianza por fila (`docs/puente_hs_sector.md`: 86 % del valor exportado mundial con confianza alta, 99,4 % de coincidencia con WITS); tabla CNAEP → sector y subsectores MIC → sector.
+
+**Datos nacionales ya incorporados** (a mano, en `TAPE_datos_manuales.zip`; detalle en `docs/COLABORACION.md` y en el README de cada carpeta `data/raw/<fuente>/`):
+- **BCP:** PIB por 33 actividades (1991-2024) y regional por 6 ramas y 18 departamentos (2021-2024); crédito por 13 sectores y banco (mensual 2020-2026/08); cuentas nacionales base 2014.
+- **MIP:** simulador con la matriz de 21 sectores (autoría y año por confirmar).
+- **INE:** EPHC anual 2022-2025 (rama de actividad en 8 categorías, sin CIIU más fino).
+- **MAG:** Censo Agropecuario 2022: Volumen I (78 cuadros por departamento) y fincas y superficie por distrito (259 distritos; los totales cuadran con el Volumen I).
+- **MTESS (SIMEL):** establecimientos y puestos inscritos (por actividad y por departamento, pero no el cruce), formación SINAFOCAL/SNPP e informalidad por departamento.
+- **Educación:** carreras y programas de la ANEAES con la marca acreditada o no (792); establecimientos 2012 e instituciones 2018 del MEC (incompletos).
+- **Mapa logístico del MIC** (visor sin licencia declarada; provisorio): 263 distritos con población del Censo 2022, PEA y distancias; 17.080 industrias por distrito y sector; red eléctrica (104 subestaciones, potencia disponible y líneas); 22 rutas nacionales y fronteras; 6.987 puntos de AFI y 53 centros del SNPP; comercio por aduana (sin año declarado); 212 establecimientos de salud. La capa de combustibles no se extrajo.
+- **Maquila:** informe agregado de agosto 2026.
 
 ## Qué falta
-**Para la Fase 1 (módulo nacional):** decidir D1 a D4 y D6 a D8 (`docs/PLAN_fase0_fase1.md`), conseguir las intensidades por producto y el costo de energía (D4) y luego tareas 1.1 a 1.11: limpieza de BACI, depuración (energía de Itaipú/Yacyretá, reexportaciones), RCA, proximidad y densidad sin fuga de información, dotaciones, panel de entradas, logit con efectos fijos, XGBoost de control y backtest.
+**Fase 1 (módulo nacional):** decidir D1 a D4 y D6 a D8 (`docs/PLAN_fase0_fase1.md`) y hacer las tareas 1.1 a 1.11: limpieza de BACI, depuración (energía de Itaipú y Yacyretá, reexportaciones), RCA, proximidad y densidad sin fuga de información, dotaciones y requisitos por producto (intensidades y costo de energía: D4), panel de entradas, logit con efectos fijos, XGBoost de control y backtest. Los países y productos de todo el mundo son necesarios: Paraguay es solo el caso al que se aplica.
 
-**Bases nacionales aún sin conseguir** (verificadas el 2026-10-08; `docs/verificacion_fuentes_nacionales.md` dice qué se baja solo, qué hay que bajar a mano y qué requiere pedido formal): comercio exterior DNIT/BCP, maquila y 60/90 (solo informes agregados: se decidió no pedir proyectos), régimen de materia prima, EPHC, crédito por actividad, matriz insumo-producto, Censo Económico 2011, SIMEL, escuelas y títulos del MEC, las otras capas del mapa MIC (rutas, red eléctrica, combustibles, salud, polos, aduanas; de ahí también la población por distrito), leyes.
+**Datos nacionales por conseguir:**
+- Registro de títulos y Registro Nacional de Carreras del MEC (descarga manual; el sitio rechaza scripts).
+- Pedidos formales: Censo Económico 2011 por distrito (INE), régimen de materia prima (MIC) y cuadros de oferta y utilización detallados (BCP).
+- Comercio exterior de Paraguay por NCM (aduana o BCP): opcional, BACI ya trae a Paraguay.
+- Cultivos y ganadería del censo agropecuario por distrito, si existe otro tomo.
+- Informes de maquila y de la Ley de Inversiones: última capa, complementos.
+- Leyes y normas (BACN y Gaceta), ILOSTAT, licencias de SIMEL y del visor del MIC.
 
-**Novedades del 2026-10-09:** ya están EPHC 2022-2025, ANEAES (con marca acreditada/no acreditada), crédito del BCP (agosto 2026), simulador de la MIP, establecimientos e instituciones del MEC y el **Censo Agropecuario 2022, Volumen I** (cultivos, superficie, producción y ganadería por departamento; capa de la Fase 2). SIMEL tiene una API abierta (`https://sdmx.simel.mtess.gov.py/rest`, 141 tablas) que permite descarga automática. Ya está también la **capa A del mapa MIC** (263 distritos con población del Censo 2022, PEA, edad mediana, coordenadas y distancias; `data/clean/ciudades_mic.csv`) y 10 tablas de SIMEL. Pendientes: títulos del MEC, serie histórica de crédito (hay que seleccionar todos los meses en el boletín), población distrital desde el mapa MIC, informes de maquila y Ley de Inversiones (última capa, complementos).
+**Trabajo de datos pendiente:** reconciliar los 247 distritos de los límites de 2012 con los 263 del Censo 2022 (industrias, subestaciones y rutas usan los viejos; población y censo agropecuario, los nuevos); definir carrera → CINE-F → sector cuando lleguen los títulos.
 
 ## Quién hace qué
 | Persona | Tarea en curso | Rama |
 |---|---|---|
-| Joaquín | Conseguir las bases nacionales (ver `docs/verificacion_fuentes_nacionales.md`) | — |
-| (socio) | por asignar | — |
+| Joaquín | Datos nacionales pendientes; decisiones D4, D6 y D3 con Claude Code | — |
+| (socio) | Por acordar. Propuesta: 1.1 limpieza de BACI, 1.3 RCA y 1.8 métricas de evaluación | — |
 
-Tareas sugeridas para repartir sin pisarse: (a) 1.1 limpieza de BACI y 1.2 depuración (código puro, sin decisiones abiertas); (b) conseguir los archivos nacionales de la lista de arriba; (c) revisar los mapeos de confianza media y baja (`docs/taxonomia.md`, `data/clean/puente_*.csv`).
+Las tareas 1.1, 1.3 y 1.8 son código sin decisiones abiertas. Una tarea por rama (`fase1/1-1-limpieza-baci`), con pruebas y lint en verde antes de cada commit.
 
 ## Cómo reproducir todo
 ```bash
 uv sync
-uv run python -m src.descargas.todas     # fuentes automáticas
+uv run python -m src.descargas.todas     # fuentes automáticas (≈ 4 GB)
+# descomprimir TAPE_datos_manuales.zip (Drive) en la raíz del repositorio
 uv run python -m src.reconstruir_todo    # tablas limpias, puentes y taxonomía
 uv run pytest
 ```
+Para regenerar el zip: `uv run python -m src.empaquetar_datos_manuales`.
