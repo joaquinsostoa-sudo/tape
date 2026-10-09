@@ -1,8 +1,8 @@
 """Corre todas las descargas de Fase 1, de la más chica a la más pesada. Cada fuente es independiente."""
-from . import atlas, baci, concordancias, pwt, simel, wdi
+from . import atlas, baci, concordancias, limites_admin, pwt, simel, wdi
 
-PASOS = [("concordancias", concordancias), ("wdi", wdi), ("pwt", pwt), ("simel", simel), ("atlas", atlas),
-         ("baci", baci)]
+PASOS = [("concordancias", concordancias), ("limites_admin", limites_admin), ("wdi", wdi), ("pwt", pwt),
+         ("simel", simel), ("atlas", atlas), ("baci", baci)]
 
 
 def main() -> None:

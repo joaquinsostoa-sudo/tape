@@ -37,6 +37,7 @@ PASOS = [
 
 def main() -> None:
     faltan: list[str] = []
+    fallos: list[str] = []
     for nombre in PASOS:
         print(f"=== {nombre}")
         try:
@@ -44,9 +45,16 @@ def main() -> None:
         except FileNotFoundError as e:
             faltan.append(f"{nombre}: falta {e.filename}")
             print(f"  SALTADO: falta {e.filename}")
-    print("\nRESUMEN:", "todo reconstruido" if not faltan else "faltan archivos de entrada")
+        except Exception as e:  # noqa: BLE001  (p. ej. un límite administrativo ausente lo reporta pyogrio)
+            fallos.append(f"{nombre}: {type(e).__name__}: {e}")
+            print(f"  FALLÓ: {type(e).__name__}: {e}")
+    print("\nRESUMEN:", "todo reconstruido" if not (faltan or fallos) else "revisar lo de abajo")
     for f in faltan:
-        print(" -", f)
+        print(" - falta entrada:", f)
+    for f in fallos:
+        print(" - falló:", f)
+    if fallos:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

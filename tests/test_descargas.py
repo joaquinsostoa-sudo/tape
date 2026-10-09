@@ -25,6 +25,14 @@ def test_simel_url_datos_y_tablas_unicas():
     assert len(simel.TABLAS) == len(set(simel.TABLAS)) == 10
 
 
+def test_todas_incluye_cada_modulo_de_descarga():
+    """Cada módulo de src/descargas con un main() de descarga debe estar en todas.py (la guía lo promete)."""
+    from src.descargas import todas
+
+    esperados = {"concordancias", "limites_admin", "wdi", "pwt", "simel", "atlas", "baci"}
+    assert {nombre for nombre, _ in todas.PASOS} == esperados
+
+
 def test_sha256_y_ya_descargado(tmp_path):
     f = tmp_path / "x.bin"
     f.write_bytes(b"abc")
