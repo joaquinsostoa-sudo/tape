@@ -148,5 +148,17 @@
   "fecha_utc": "2026-10-08",
   "bytes": 2674955,
   "sha256": "551eb2cef4be3d4930f697090e884fad8ed799e8760905c5fe39da4447f6c0f4"
+ },
+ "hs_naics_schott/hssicnaics_20181015.zip": {
+  "url": "https://spinup-000d1a-wp-offload-media.s3.amazonaws.com/faculty/wp-content/uploads/sites/47/2019/06/hssicnaics_20181015.zip",
+  "fecha_utc": "2026-10-12",
+  "bytes": 15050843,
+  "sha256": "9a70301b09c5026b851b2bbb3cb210f078962744e46d567bfdac74ebc77adf81"
+ },
+ "hs_naics_schott/hs_sic_38.pdf": {
+  "url": "https://spinup-000d1a-wp-offload-media.s3.amazonaws.com/faculty/wp-content/uploads/sites/47/2019/06/hs_sic_38.pdf",
+  "fecha_utc": "2026-10-12",
+  "bytes": 127371,
+  "sha256": "8443e304ab6731f0af2593afb9d9d620150be0347fef92e0fc4a2f1f63651966"
  }
 }
