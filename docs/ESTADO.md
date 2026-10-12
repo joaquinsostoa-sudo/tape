@@ -23,7 +23,8 @@ Actualizado: 2026-10-09. Para ponerse al día: leer este archivo, luego `CLAUDE.
 **Fase 1 (módulo nacional):** decidir D1 a D4 y D6 a D8 (`docs/PLAN_fase0_fase1.md`) y hacer las tareas 1.1 a 1.11: limpieza de BACI, depuración (energía de Itaipú y Yacyretá, reexportaciones), RCA, proximidad y densidad sin fuga de información, dotaciones y requisitos por producto (intensidades y costo de energía: D4), panel de entradas, logit con efectos fijos, XGBoost de control y backtest. Los países y productos de todo el mundo son necesarios: Paraguay es solo el caso al que se aplica.
 
 **Datos nacionales por conseguir:**
-- Registro de títulos y Registro Nacional de Carreras del MEC (descarga manual; el sitio rechaza scripts).
+- Registro de títulos del MEC: **solicitud formal enviada el 2026-10-12** (títulos expedidos agregados por año, carrera, institución, nivel, campo CINE, departamento y distrito, sin datos personales). **El MEC tiene plazo hasta el 2026-11-02 para responder.** Al llegar: guardar en `data/raw/mec_titulos/`, anotar en `data/fuentes.csv` y regenerar el zip.
+- Registro Nacional de Carreras del MEC (descarga manual; el sitio rechaza scripts; no se incluyó en la solicitud).
 - Pedidos formales: Censo Económico 2011 por distrito (INE), régimen de materia prima (MIC) y cuadros de oferta y utilización detallados (BCP).
 - Comercio exterior de Paraguay por NCM (aduana o BCP): opcional, BACI ya trae a Paraguay.
 - Cultivos y ganadería del censo agropecuario por distrito, si existe otro tomo.
