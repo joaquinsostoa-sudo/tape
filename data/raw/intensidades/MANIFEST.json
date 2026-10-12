@@ -1,0 +1,20 @@
+{
+ "nberces/nberces5818v1_n2012.csv": {
+  "url": "https://data.nber.org/nberces/nberces5818v1/nberces5818v1_n2012.csv",
+  "fecha_utc": "2026-10-12",
+  "bytes": 5120742,
+  "sha256": "b5b690ee08ea56b49e3e47a3157395518fba8e047d006f2ed5bcdaabc68a0c80"
+ },
+ "nberces/naics_names_2012.txt": {
+  "url": "https://data.nber.org/nberces/nberces5818v1/naics_names_2012.txt",
+  "fecha_utc": "2026-10-12",
+  "bytes": 101222,
+  "sha256": "eb79804d67d12e94272765aeb99be98852080625886a40b6167a3b8cf2519f0a"
+ },
+ "nberces/nberces5818v1_technical_notes_Mar2021.pdf": {
+  "url": "https://data.nber.org/nberces/nberces5818v1/nberces5818v1_technical_notes_Mar2021.pdf",
+  "fecha_utc": "2026-10-12",
+  "bytes": 137366,
+  "sha256": "fc985641b8f3d9475c3252fcc0986aade31333d658c49b92409c6598b497b098"
+ }
+}

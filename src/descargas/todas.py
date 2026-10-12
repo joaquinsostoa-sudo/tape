@@ -1,7 +1,7 @@
 """Corre todas las descargas de Fase 1, de la más chica a la más pesada. Cada fuente es independiente."""
-from . import atlas, baci, concordancias, limites_admin, pwt, simel, wdi
+from . import atlas, baci, concordancias, limites_admin, nberces, pwt, simel, wdi
 
-PASOS = [("concordancias", concordancias), ("limites_admin", limites_admin), ("wdi", wdi), ("pwt", pwt),
+PASOS = [("concordancias", concordancias), ("limites_admin", limites_admin), ("nberces", nberces), ("wdi", wdi), ("pwt", pwt),
          ("simel", simel), ("atlas", atlas), ("baci", baci)]
 
 
