@@ -14,7 +14,7 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | 0.4 Taxonomía de sectores TAPE | Hecha: 67 sectores (`docs/taxonomia.md`) |
 | 0.5 Puente HS → CIIU → sector | Hecha (`docs/puente_hs_sector.md`) |
 | **Fase 0** | **Cerrada el 2026-10-08.** Condición de paso cumplida |
-| 1.1 en adelante | Pendiente (D1 a D4 y D6 a D8 por decidir) |
+| 1.1 en adelante | Pendiente. Decididas el 2026-10-12: D3, D4 y D6 (ver `docs/supuestos.md`); siguen abiertas D1, D2, D7 y D8 |
 
 ---
 

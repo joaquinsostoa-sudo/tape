@@ -47,7 +47,12 @@ Una tarea acotada por vez con criterio de terminado. Si implica una decisión me
 - Se excluyen CONSUMO, VIVIENDA e Impuestos: no son actividades económicas.
 
 ## Decisiones abiertas (ver el plan)
-Agregación producto→sector (D1); predicción fuera de muestra con efectos fijos país-año (D2); cómo calcular φ sin fuga (D3); fuente de intensidades r_pk y de costo de energía (D4); marcar reexportaciones (D6); entrada sostenida (D7); muestra de países (D8); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
+Agregación producto→sector (D1); predicción fuera de muestra con efectos fijos país-año (D2); entrada sostenida (D7); muestra de países (D8); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
+
+## Decididas el 2026-10-12 (detalle en `docs/supuestos.md`)
+- **D3**: φ con ventana de 5 años que termina en t, solo con datos ≤ t.
+- **D4**: intensidades r_pk con NBER-CES (puente NAICS→HS del Census); costo de energía con proxies de WDI.
+- **D6**: reexportaciones marcadas automáticamente (importaciones y exportaciones del mismo orden en BACI), con revisión posterior producto por producto y confirmación con la aduana.
 
 ## Datos y herramientas locales
 - Clasificaciones locales ya mapeadas a CIIU (borrador): `src/puentes/clasificaciones_locales.py` → `data/clean/clasificaciones_locales_ciiu.csv` y `ciiu4_atomos_clasificaciones.csv`.
@@ -58,7 +63,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 
 ## Hoja de ruta (estado)
 - **Fase 0 Fundamentos: CERRADA (2026-10-08).** Estructura, CLAUDE.md, fuentes de Fase 1 descargadas, taxonomía de 67 sectores TAPE (`docs/taxonomia.md`) y puente HS92 → CPC → CIIU → sector (`docs/puente_hs_sector.md`, `data/clean/puente_hs92_sector.csv`; biocombustibles y arneses por producto HS). También hay: PIB por 33 actividades y regional del BCP, equivalencias de las clasificaciones locales a CIIU, tabla CNAEP → sector, e industrias del mapa MIC por distrito y sector.
-- **Fase 1 Módulo nacional** ← *estamos aquí*: sigue la tarea 1.1 (limpieza de BACI). Decisiones D1 a D4 y D6 a D8 pendientes (ver `docs/PLAN_fase0_fase1.md`).
+- **Fase 1 Módulo nacional** ← *estamos aquí*: sigue la tarea 1.1 (limpieza de BACI). Decididas D3, D4 y D6; pendientes D1, D2, D7 y D8 (ver `docs/PLAN_fase0_fase1.md`).
 - Fase 1 Módulo nacional: descargas, depuración, RCA/φ/densidad, logit + XGBoost + backtest. Paso si el modelo con capas supera a la densidad sola en precision@k.
 - Fase 2 Territorial (capas MIC, tabla MIC→CIIU, MEC, modelo jerárquico). Fase 3 Brechas, valor, política (EPHC, cuentas, MIP, crédito, SIMEL, leyes). Fase 4 Interfaz (FastAPI + MapLibre sobre la app Vercel). Fase 5 Monitoreo y difusión.
 - Datos locales ya incorporados (2026-10-09; ver `docs/ESTADO.md` y `docs/COLABORACION.md`): BCP (PIB, regional, crédito), MIP, EPHC 2022-2025, censo agropecuario 2022, SIMEL, ANEAES, MEC (parcial) y siete capas del mapa MIC. Faltan títulos y carreras del MEC, Censo Económico 2011, materia prima, oferta-utilización del BCP, y maquila y 60/90 a nivel de proyecto (decidido no pedirlos). La Fase 1 usa solo datos internacionales.
