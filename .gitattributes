@@ -3,4 +3,5 @@
 *.xlsx binary
 *.pdf binary
 *.docx binary
+*.png binary
 *.geojson -diff

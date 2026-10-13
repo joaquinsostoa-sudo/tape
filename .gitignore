@@ -42,6 +42,7 @@ web/node_modules/
 !data/clean/puente_hs92_sector.csv
 !data/clean/ciudades_mic.csv
 !data/clean/requisitos_producto_hs4.csv
+!data/clean/dotaciones_cortes.csv
 !data/clean/can_fincas_totales.csv
 !data/clean/can_fincas_distrito.csv
 !data/clean/mic_subestaciones.csv
