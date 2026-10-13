@@ -34,7 +34,9 @@ def test_arrastrar_ediciones_solo_hacia_adelante():
 
 
 def test_leer_wdi_descarta_agregados_y_valores_vacios(tmp_path):
-    reg = lambda iso, fecha, v: {"countryiso3code": iso, "date": fecha, "value": v}
+    def reg(iso, fecha, v):
+        return {"countryiso3code": iso, "date": fecha, "value": v, "country": {"value": iso}}
+
     datos = [{"page": 1}, [reg("PRY", "2015", 43.3), reg("WLD", "2015", 99.0), reg("PRY", "2016", None),
                            reg("BRA", "2015", 60.1)]]
     (tmp_path / "wdi_X.Y_p1.json").write_text(json.dumps(datos), encoding="utf-8")
@@ -68,6 +70,45 @@ def test_estandarizacion_y_cobertura(tabla):
     assert not set(tabla.iso3) & {"WLD", "EUU", "LCN"}  # sin agregados regionales
 
 
-def test_las_capas_estan_correlacionadas_como_se_documento(tabla):
+def test_leer_wdi_se_queda_con_la_fila_del_pais_y_no_con_las_ciudades(tmp_path):
+    def reg(iso, fecha, v, nombre):
+        return {"countryiso3code": iso, "date": fecha, "value": v, "country": {"value": nombre}}
+
+    datos = [{"page": 1}, [reg("IND", "2019", 16.3, "Delhi"), reg("IND", "2019", 20.3, "Mumbai"),
+                           reg("IND", "2019", 18.2, "India"),  # la fila del país: promedio ponderado de las ciudades
+                           reg("PRY", "2019", 6.6, "Paraguay"),
+                           reg("XXX", "2019", 10.0, "Ciudad A"), reg("XXX", "2019", 20.0, "Ciudad B")]]
+    (tmp_path / "wdi_P.Q_p1.json").write_text(json.dumps(datos), encoding="utf-8")
+    nombres = {"IND": "India", "PRY": "Paraguay", "XXX": "Xlandia"}
+    out = d.leer_wdi("P.Q", {"IND", "PRY", "XXX"}, tmp_path, nombres=nombres).set_index("iso3").valor
+    assert out["IND"] == 18.2 and out["PRY"] == 6.6
+    assert out["XXX"] == 15.0  # ninguna lleva el nombre de la economía: se promedian
+
+
+def test_precio_promedio_usa_solo_los_anios_con_precio():
+    df = pd.DataFrame({"iso3": ["A", "A", "A", "B"], "anio": [2013, 2015, 2017, 2020],
+                       "precio_electricidad_db": [100.0, 10.0, 20.0, 99.0]})
+    p = d.precio_promedio(df, anios=range(2014, 2020))
+    assert p["A"] == 15.0  # el dato de 2013 queda fuera
+    assert "B" not in p.index  # su único dato es de 2020, fuera de la ventana
+
+
+def test_una_fila_por_pais_y_anio(tabla):
+    assert not tabla.duplicated(["iso3", "anio"]).any()  # las filas por ciudad de Doing Business no deben duplicar
+
+
+def test_energia_es_el_precio_de_la_electricidad_y_paraguay_es_barato(tabla):
+    py = tabla[(tabla.iso3 == "PRY") & (tabla.anio == 2015)].iloc[0]
+    assert py.precio_electricidad_kwh == pytest.approx(6.6, abs=0.3)  # centavos de USD por kWh
+    assert py.pct_energia > 0.85  # entre los más baratos: la capa mide "barato = mejor"
+    assert tabla[tabla.iso3 == "PRY"].z_energia.round(9).nunique() == 1  # característica estable, igual en todos los años
+    assert py.hidro > 95  # casi toda la electricidad de Paraguay es hidroeléctrica
+    caro = tabla[(tabla.iso3 == "DEU") & (tabla.anio == 2015)].iloc[0]
+    assert caro.z_energia < 0 < py.z_energia
+
+
+def test_capas_correlacionadas_salvo_la_energia(tabla):
     c = tabla[tabla.anio == 2015][[f"z_{x}" for x in d.CAPAS]].corr()
-    assert (c.to_numpy()[np.triu_indices(4, 1)] > 0.5).all()  # advertencia de colinealidad para el modelo
+    otras = c.loc[["z_capital_humano", "z_credito", "z_logistica"], ["z_capital_humano", "z_credito", "z_logistica"]]
+    assert (otras.to_numpy()[np.triu_indices(3, 1)] > 0.5).all()  # advertencia de colinealidad entre estas tres
+    assert c.loc["z_energia", ["z_capital_humano", "z_credito", "z_logistica"]].abs().max() < 0.3  # el precio es independiente

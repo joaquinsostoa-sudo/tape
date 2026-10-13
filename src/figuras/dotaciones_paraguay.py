@@ -15,7 +15,7 @@ import pandas as pd
 from src.limpieza.dotaciones import CAPAS, RAIZ, SALIDA
 
 SALIDA_PNG = RAIZ / "docs" / "figuras" / "dotaciones_paraguay.png"
-ETIQUETAS = {"capital_humano": "Capital humano", "credito": "Crédito privado", "energia": "Energía (electricidad)",
+ETIQUETAS = {"capital_humano": "Capital humano", "credito": "Crédito privado", "energia": "Energía (precio bajo)",
              "logistica": "Logística (LPI)"}
 COLORES = {"capital_humano": "#2a78d6", "credito": "#eb6834", "energia": "#1baf7a", "logistica": "#eda100"}
 TINTA, TINTA_SUAVE, FONDO = "#0b0b0b", "#52514e", "#fcfcfb"
@@ -53,13 +53,15 @@ def dibujar(df: pd.DataFrame, destino=SALIDA_PNG) -> None:
         ax.spines[lado].set_visible(False)
     ax.spines["bottom"].set_color("#c9c8c2")
     ax.set_ylabel("Percentil entre países con dato (100 = el mejor)", color=TINTA_SUAVE, fontsize=9)
-    fig.suptitle("Desde 2015, Paraguay está cerca de la mitad de la tabla en las cuatro dotaciones", x=0.06, ha="left",
+    fig.suptitle("Paraguay tiene energía barata y está cerca de la mitad en las otras tres dotaciones", x=0.06, ha="left",
                  fontsize=13, fontweight="bold", color=TINTA, y=0.975)
-    ax.set_title("Percentil por capa, 2000-2022. Capital humano: PWT, hasta 2019.\n"
-                 "Logística: LPI desde 2007; cada edición se arrastra hasta la siguiente (los saltos son cambios de edición).",
-                 loc="left", fontsize=8.5, color=TINTA_SUAVE, pad=8)
+    ax.set_title("Percentil por capa (100 = mejor). Energía: precio de la electricidad 2014-2019 aplicado a todos los años "
+                 "(100 = el más barato).\nCapital humano: PWT, hasta 2019. Logística: LPI desde 2007, con la edición "
+                 "arrastrada hasta la siguiente (los saltos son cambios de edición).",
+                 loc="left", fontsize=8, color=TINTA_SUAVE, pad=8)
     ax.legend(loc="lower right", frameon=False, fontsize=9, labelcolor=TINTA, ncol=2)
-    fig.text(0.06, 0.012, "Fuentes: Penn World Table 10.01 y WDI. Tarea 1.5 de TAPE (LabDE).", fontsize=8, color=TINTA_SUAVE)
+    fig.text(0.06, 0.012, "Fuentes: Penn World Table 10.01, WDI y Doing Business (Banco Mundial). Tarea 1.5 de TAPE (LabDE).",
+             fontsize=8, color=TINTA_SUAVE)
     fig.tight_layout(rect=(0, 0.03, 1, 0.95))
     destino.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destino, facecolor=FONDO)

@@ -76,5 +76,17 @@
   "fecha_utc": "2026-10-08",
   "bytes": 2126942,
   "sha256": "117f0def798ca7523e736c48c575ff06eb2b7ab6a6f8fc2d5c61206d9225264e"
+ },
+ "wdi_EG.ELC.HYRO.ZS_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.HYRO.ZS?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-13",
+  "bytes": 2638549,
+  "sha256": "6d6223e8c8a78a606b31dcb22038b62bfe658f0f3c7253702fc8319a68df75cf"
+ },
+ "wdi_IC.ELC.PRI.KH.DB1619_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/IC.ELC.PRI.KH.DB1619?format=json&per_page=20000&date=1990:2025&page=1&source=1",
+  "fecha_utc": "2026-10-13",
+  "bytes": 1049697,
+  "sha256": "381a528da16dc74aa4654a62f31edaf6ac9998df9b4ac6578e5b5476226d1962"
  }
 }
