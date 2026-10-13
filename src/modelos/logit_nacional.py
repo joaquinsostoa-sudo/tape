@@ -147,6 +147,7 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
         a = pd.DataFrame({"iso3": d.iso3})
         for capa, (_, col) in CAPAS.items():
             a[f"a_{capa}"] = z(d[col]).to_numpy()  # re-estandarizada entre los países de la muestra
+        a["a_pib"] = z(np.log(d.pib_pc_ppa.where(d.pib_pc_ppa > 0))).to_numpy()  # control de desarrollo
         trozos.append(p.merge(a, on="iso3", how="inner"))
     df = pd.concat(trozos, ignore_index=True).merge(r, on="hs4", how="inner")
     cols_a = [f"a_{c}" for c in CAPAS]
@@ -155,6 +156,7 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
     for capa in CAPAS:
         df[f"ra_{capa}"] = df[f"r_{capa}"] * df[f"a_{capa}"]
         df[f"dra_{capa}"] = df.d_z * df[f"ra_{capa}"]
+        df[f"rpib_{capa}"] = df[f"r_{capa}"] * df.a_pib  # control: cada requisito × nivel de desarrollo
     df["pais_ventana"] = df.iso3 + "_" + df.anio.astype(str)
     df["producto_ventana"] = df.hs4 + "_" + df.anio.astype(str)
     return df.reset_index(drop=True)
@@ -164,12 +166,14 @@ ESPECIFICACIONES = {
     "densidad_sola": ["d_z"],
     "capas": ["d_z", *(f"ra_{c}" for c in CAPAS)],
     "capas_e_interacciones": ["d_z", *(f"ra_{c}" for c in CAPAS), *(f"dra_{c}" for c in CAPAS)],
+    # control por PIB per cápita (opción prevista en la tarea 1.9): separa «la capa» de «el desarrollo general»
+    "capas_con_control_pib": ["d_z", *(f"ra_{c}" for c in CAPAS), *(f"rpib_{c}" for c in CAPAS)],
 }
 
 
 def ajustar_especificacion(df: pd.DataFrame, columnas: list[str]) -> tuple[pd.DataFrame, dict]:
     """Ajusta el logit con efectos fijos de país-ventana y producto-ventana; devuelve la tabla de coeficientes."""
-    d = sin_variacion(df, "E", ["pais_ventana", "producto_ventana"])
+    d = sin_variacion(df.dropna(subset=columnas), "E", ["pais_ventana", "producto_ventana"])
     m = LogitEfectosFijos(columnas, ["pais_ventana", "producto_ventana"], C=None).ajustar(d, "E")
     tabla = m.errores_agrupados(d, "E", "iso3")
     info = {"filas": len(d), "filas_descartadas": len(df) - len(d), "entradas": int(d.E.sum()),

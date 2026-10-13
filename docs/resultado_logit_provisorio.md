@@ -24,9 +24,25 @@ Con la densidad sola, el coeficiente de densidad es 1,18 (0,06). Las interaccion
 
 ## Lo que se ve
 1. **La densidad predice las entradas** en las cuatro ventanas (coeficiente 0,98 a 1,31), como se esperaba.
-2. **Capital humano es robusto:** la interacción habilidades × capital humano da 0,087 a 0,091 en todas las submuestras, siempre significativa. Los productos que exigen más habilidades entran más en países con más capital humano.
+2. **Capital humano: significativo, pero no se distingue del desarrollo general.** La interacción habilidades × capital humano da 0,087 a 0,091 en todas las submuestras, siempre significativa. **Al controlar por el PIB per cápita pierde fuerza** (0,042, p = 0,18; ver la prueba más abajo): los productos que exigen más habilidades entran más en los países más ricos, y el capital humano (correlación 0,79 con el PIB per cápita) no se separa bien de eso.
 3. **Energía y crédito no se distinguen de cero.** El precio de la electricidad solo existe para 2014-2019 (anacrónico antes). Crédito y capital humano están correlacionados con la logística (0,65 a 0,72 entre las dotaciones).
 4. **La logística sale con el signo contrario al esperado y no es robusta.** Con el requisito definido como «menos log valor/peso» (más voluminoso = necesita más logística), se esperaba signo positivo. Sale −0,085. Pero depende de las ventanas con el LPI arrastrado hacia atrás (D14): en 2000 y 2005 da −0,132 (p = 0,001) y con solo 2010 y 2015 (datos reales) da −0,048 (p = 0,15). **No se cambió el signo del requisito para que coincida**: sería elegir la definición mirando el resultado. Una lectura posible es que el LPI favorezca más a los productos livianos y valiosos (el tiempo y la trazabilidad importan más ahí). Hay que decidirlo antes de repetir.
+
+## Prueba del control por PIB per cápita (2026-10-13)
+Se agregó, para cada capa, el requisito multiplicado por el log del PIB per cápita (`rpib_k`), sobre la misma muestra (124 países; se pierden 6.237 filas de 2 países sin PIB). Pregunta: ¿la interacción de logística es solo «desarrollo»?
+
+| Variable | Sin control | Con control | Con control, solo 2010 y 2015 |
+|---|---|---|---|
+| Capital humano (r·a) | 0,091 (p < 0,001) | 0,042 (p = 0,18) | 0,062 (p = 0,09) |
+| Crédito (r·a) | 0,014 (p = 0,44) | 0,009 (p = 0,79) | −0,021 (p = 0,67) |
+| Energía (r·a) | 0,028 (p = 0,43) | 0,024 (p = 0,47) | −0,005 (p = 0,89) |
+| **Logística (r·a)** | **−0,085 (p = 0,005)** | **−0,091 (p = 0,023)** | −0,051 (p = 0,27) |
+| Habilidades × PIB per cápita | | 0,081 (p = 0,005) | 0,055 (p = 0,10) |
+
+- **La logística no es un efecto del desarrollo.** El coeficiente casi no cambia con el control (−0,085 a −0,091), y su interacción con el PIB per cápita es cero (0,003). El signo contrario al esperado sigue ahí, con las mismas dudas: con datos reales de LPI (2010 y 2015) no se distingue de cero (p = 0,27).
+- **El capital humano sí pierde fuerza** (de 0,091 a 0,042), y en 2000-2005 casi desaparece (0,003), mientras que habilidades × PIB per cápita pasa a ser significativa (0,122). Los datos no separan «capital humano» de «ser un país rico»: el error estándar casi se duplica.
+- **Energía:** la interacción con el PIB per cápita es positiva (0,054 a 0,077): los productos intensivos en energía entran más en países ricos; el precio de la electricidad no aporta aparte.
+- **Conclusión para la decisión (a) de la logística:** no se explica por desarrollo; sigue sin interpretación clara y no es robusta. Se decide con el backtest fuera de muestra (tarea 1.11), eligiendo el signo solo con las ventanas de entrenamiento.
 
 ## Limitaciones de esta versión
 - **No marca reexportaciones (D6):** hace falta el comercio bilateral (`baci_global`, no disponible en la foto). Afecta a Paraguay y a pocos centros comerciales.
