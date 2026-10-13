@@ -3,9 +3,9 @@
 Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 130 pruebas automáticas que pasan (`uv run pytest`).
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 132 pruebas automáticas que pasan (`uv run pytest`).
 
-**Decisión D2 (2026-10-13):** coeficientes con la especificación del documento (efectos país-año y producto-año, errores agrupados por país); backtest con efectos de país y producto constantes más indicador de ventana, prediciendo la ventana siguiente; Mundlak solo para países excluidos y Paraguay. Falta agregar errores estándar agrupados a `logit_disperso.py` y repetir el baseline fuera de muestra.
+**Decisión D2 (2026-10-13):** coeficientes con la especificación del documento (efectos país-año y producto-año, errores agrupados por país); backtest con efectos de país y producto constantes más indicador de ventana, prediciendo la ventana siguiente; Mundlak solo para países excluidos y Paraguay. Los errores estándar agrupados ya están en `logit_disperso.py` (`errores_agrupados`); falta repetir el baseline fuera de muestra.
 
 **Decisión D14 (2026-10-13):** la primera edición del LPI (2007) se arrastra hacia atrás para tener logística en 2000 y 2005 (marca `lpi_hacia_atras`); robustez con las ventanas de datos reales.
 
