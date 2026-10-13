@@ -17,6 +17,9 @@ Capas y transformaciones (por revisar, ver docs/dotaciones.md):
   antes de 2007 queda vacío.
 - Cada capa se estandariza por año (media 0, desvío 1) y se guarda también su percentil. No se imputa nada: la muestra
   definitiva de países (D8) se fija al armar el panel.
+
+FIX 2026-10-12: paises_baci lee el CSV suelto si no hay zip. No hace falta
+copiar los 8,7 GB de BACI: solo se usa `country_codes_V202601.csv`.
 """
 from __future__ import annotations
 
@@ -31,6 +34,7 @@ RAIZ = Path(__file__).resolve().parents[2]
 WDI = RAIZ / "data" / "raw" / "wdi"
 PWT = RAIZ / "data" / "raw" / "pwt" / "pwt1001.xlsx"
 BACI_ZIP = RAIZ / "data" / "raw" / "baci" / "BACI_HS92_V202601.zip"
+BACI_CSV_PAISES = RAIZ / "data" / "raw" / "baci" / "country_codes_V202601.csv"
 SALIDA = RAIZ / "data" / "clean" / "dotaciones.parquet"
 SALIDA_CORTES = RAIZ / "data" / "clean" / "dotaciones_cortes.csv"
 ANIOS = range(1990, 2025)
@@ -50,6 +54,9 @@ ANIOS_PRECIO = range(2014, 2020)  # el precio de Doing Business existe solo en e
 
 
 def paises_baci(zip_ruta=BACI_ZIP) -> set[str]:
+    """Catálogo de países de BACI. FIX: lee el CSV suelto si no hay zip."""
+    if BACI_CSV_PAISES.exists():
+        return set(pd.read_csv(BACI_CSV_PAISES).country_iso3.dropna())
     with zipfile.ZipFile(zip_ruta) as z, z.open("country_codes_V202601.csv") as f:
         return set(pd.read_csv(f).country_iso3.dropna())
 
