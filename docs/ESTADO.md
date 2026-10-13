@@ -5,6 +5,8 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 ## Hasta dónde llegamos
 **Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 129 pruebas automáticas que pasan (`uv run pytest`).
 
+**Decisión D13 (2026-10-13):** presencia para φ y densidad = RCA ≥ 1 en 2 de los 3 años de calendario que terminan en t.
+
 **Decisiones tomadas el 2026-10-12** (detalle en `docs/supuestos.md`): D3 (proximidad con ventana de 5 años que termina en t; la distancia del Atlas solo como control), D4 (intensidades con NBER-CES, puente NAICS → HS de Pierce y Schott, energía con el **precio de la electricidad** de Doing Business) D6 (reexportaciones marcadas por regla automática, a revisar después con la aduana), **D7** (entrada de un solo año como principal y «2 de 3 años» como robustez; el promedio móvil de 3 años se descartó) y **D8** (población ≥ 1 millón y exportaciones ≥ USD 1.000 millones: 112 a 144 países, ≈ 97 % del comercio). Siguen abiertas D1, D2 y D10.
 
 **Tareas de la Fase 1:**
@@ -30,7 +32,7 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - **Maquila:** informe agregado de agosto 2026.
 
 ## Qué falta
-**Decisiones abiertas:** D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3. **Pendiente de confirmar:** la presencia que se usa para la proximidad y la densidad (hoy, promedio móvil de 3 años ≥ 1 en algún año de la ventana) y qué hacer con la capa de logística en las ventanas de 2000 y 2005 (el LPI empieza en 2007).
+**Decisiones abiertas:** D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3. **Pendiente de confirmar:** qué hacer con la capa de logística en las ventanas de 2000 y 2005 (el LPI empieza en 2007).
 
 **Hallazgos a resolver en la Fase 1:**
 - **Las capas de dotaciones están correlacionadas:** capital humano, crédito y logística entre sí (0,65 a 0,76); la energía (precio) es independiente. Decidir en la tarea 1.9 cómo tratarlo (capa por capa, control por PIB per cápita o componentes).
@@ -53,7 +55,7 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 | Persona | Tarea en curso | Rama |
 |---|---|---|
 | Joaquín | Datos nacionales pendientes | — |
-| Ever | Modelos de `src/modelos/`: pasar a `densidad_np.py` y `logit_disperso.py`, recalcular el RCA después de depurar, aplicar la depuración a la presencia y la densidad, aplicar D7 y D8 en el panel (entrada de un solo año y variante «2 de 3 años»; filtro de países) y sacar las rutas fijas | — |
+| Ever | Modelos de `src/modelos/`: pasar a `densidad_np.py` y `logit_disperso.py`, recalcular el RCA después de depurar, aplicar la depuración a la presencia y la densidad, aplicar D7 y D8 en el panel (entrada de un solo año y variante «2 de 3 años»; filtro de países), contar la presencia D13 en años de calendario y sacar las rutas fijas | — |
 | Claude Code | Hechas: 1.5, 1.6 y las versiones livianas. Siguiente: revisar los borradores de Ever contra D3, D5 y D6 cuando él los suba | — |
 
 Una tarea por rama (`fase1/1-1-limpieza-baci`), con pruebas y lint en verde antes de cada commit. Los archivos de `src/modelos/` existentes los modifica solo quien trabaja ese módulo.
