@@ -4,7 +4,7 @@
 | Capa | Qué es | Dónde vive | Cómo se comparte |
 |---|---|---|---|
 | **Código y documentos** | `src/`, `tests/`, `docs/`, `CLAUDE.md`, tablas puente pequeñas de `data/clean/` | Git (repositorio privado) | `git pull` / `git push` |
-| **Datos automáticos** | BACI, Atlas, WDI, PWT (aviso abajo), concordancias, límites administrativos y 10 tablas de SIMEL (≈ 4 GB) | No se comparten: cada uno los baja | `uv run python -m src.descargas.todas` |
+| **Datos automáticos** | BACI, Atlas, WDI (15 indicadores), PWT (aviso abajo), concordancias (ONU, WITS y HS → NAICS de Pierce y Schott), NBER-CES, límites administrativos y 10 tablas de SIMEL (≈ 4 GB) | No se comparten: cada uno los baja | `uv run python -m src.descargas.todas` |
 | **Datos manuales** | Archivos que no se bajan solos (lista abajo, 45 MB) | Carpeta compartida de Drive: `TAPE_datos_manuales.zip` | Descomprimir en la raíz del repositorio |
 
 Los derivados (`data/clean`, `data/model`) **no se suben**: se regeneran con `uv run python -m src.reconstruir_todo`. Solo se versionan las tablas pequeñas que son resultados de trabajo (taxonomía, puentes, equivalencias), indicadas en `.gitignore`.
@@ -24,6 +24,9 @@ Requisitos: Python 3.12 y `uv` (en Windows: `winget install astral-sh.uv`), y Gi
 `reconstruir_todo` salta los pasos cuyas entradas faltan (dice cuáles) y sigue; si un paso falla por otra causa, lo informa y termina con error. Sin los datos automáticos corren los pasos de datos manuales, pero los que necesitan límites, Atlas o concordancias se saltan o fallan. Pasa lo mismo con `pytest`: unas 13 pruebas se saltan si faltan datos.
 
 **Aviso PWT:** `src.descargas.pwt` no baja el archivo: la página lo bloquea por script. `pwt1001.xlsx` viene en el zip.
+
+## Bases DuckDB y modelos
+Las bases `.duckdb` (por ejemplo `econofold.duckdb`, de unos 3 GB) **no se comparten ni se suben a Git ni a un servidor**: cada uno arma la suya, y están en `.gitignore`. Para calcular la densidad y el logit se usan las versiones livianas (`src/modelos/densidad_np.py` y `logit_disperso.py`) y se pasa la ruta de la base por parámetro, no fija en el código. Detalle y cómo recuperar espacio en el disco: `docs/optimizacion_modelos.md`. Para publicar la aplicación se suben solo las tablas resultado en parquet (megabytes).
 
 ## Archivos manuales: el contenido de `TAPE_datos_manuales.zip` (2026-10-09)
 Se descomprime en la raíz y deja cada archivo en `data/raw/<fuente>/`. No incluye los README ni los manifiestos (ya están en Git).

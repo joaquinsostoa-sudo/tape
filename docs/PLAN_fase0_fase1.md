@@ -16,7 +16,8 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | **Fase 0** | **Cerrada el 2026-10-08.** Condición de paso cumplida |
 | 1.5 Dotaciones por país | **Hecha el 2026-10-12** (`docs/dotaciones.md`, `src/limpieza/dotaciones.py`) |
 | 1.6 Requisitos por producto | **Hecha el 2026-10-12** (`docs/puente_requisitos.md`, `src/puentes/requisitos.py`) |
-| 1.1 y demás | Pendientes por nuestra parte; el socio subió borradores en `src/modelos/` (sin revisar). Decididas el 2026-10-12: D3, D4 y D6 (ver `docs/supuestos.md`); siguen abiertas D1, D2, D7 y D8 |
+| 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever** en `src/modelos/` (`depurar`, `importaciones`, `presencia`, `densidad`, `panel`, `evaluacion`, `logit_densidad`, `backtest`), sin revisar contra D3, D5 y D6. Pasan a las versiones livianas `densidad_np.py` y `logit_disperso.py` (`docs/optimizacion_modelos.md`); falta recalcular el RCA después de depurar y aplicar la depuración a la presencia y la densidad |
+| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1). Decididas el 2026-10-12: D3, D4 y D6 (ver `docs/supuestos.md`); siguen abiertas D1, D2, D7 y D8 |
 
 ---
 

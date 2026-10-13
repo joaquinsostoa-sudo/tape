@@ -1,13 +1,23 @@
 # Estado del proyecto TAPE
 
-Actualizado: 2026-10-09. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan y decisiones abiertas) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
+Actualizado: 2026-10-12. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) no empezó.** Hay 95 pruebas automáticas que pasan (`uv run pytest`).
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 125 pruebas automáticas que pasan (`uv run pytest`).
 
-**Fuentes internacionales descargadas** (`uv run python -m src.descargas.todas`): BACI (HS92, 1995-2024), Atlas de Complejidad, WDI (13 indicadores), Penn World Table 10.01 (a mano), LPI, correspondencias de la ONU y WITS, límites administrativos de geoBoundaries y 10 tablas de SIMEL. Ver `docs/verificacion_fuentes.md`.
+**Decisiones tomadas el 2026-10-12** (detalle en `docs/supuestos.md`): D3 (proximidad con ventana de 5 años que termina en t; la distancia del Atlas solo como control), D4 (intensidades con NBER-CES, puente NAICS → HS de Pierce y Schott, energía con el **precio de la electricidad** de Doing Business) y D6 (reexportaciones marcadas por regla automática, a revisar después con la aduana). Siguen abiertas D1, D2, D7, D8 y D10.
 
-**Taxonomía y puentes:** 67 sectores TAPE sobre CIIU Rev.4 (`docs/taxonomia.md`); puente HS92 → CPC → CIIU → sector con confianza por fila (`docs/puente_hs_sector.md`: 86 % del valor exportado mundial con confianza alta, 99,4 % de coincidencia con WITS); tabla CNAEP → sector y subsectores MIC → sector.
+**Tareas de la Fase 1:**
+| Tarea | Estado |
+|---|---|
+| 1.5 Dotaciones por país | **Hecha** (`docs/dotaciones.md`): capital humano, crédito, energía (precio) y logística, 235 países × 1990-2024 |
+| 1.6 Requisitos por producto | **Hecha** (`docs/puente_requisitos.md`): energía, capital, habilidades y valor/peso para 1.242 productos HS4 |
+| 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever en `src/modelos/`**, sin revisar contra D3, D5, D6 y D7. Van a pasar a las versiones livianas `densidad_np.py` y `logit_disperso.py` (ver `docs/optimizacion_modelos.md`) |
+| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1) |
+
+**Fuentes internacionales descargadas** (`uv run python -m src.descargas.todas`): BACI (HS92, 1995-2024), Atlas de Complejidad, WDI (15 indicadores, incluidos el precio de la electricidad y la proporción hidroeléctrica), Penn World Table 10.01 (a mano), LPI, correspondencias de la ONU y WITS, límites administrativos, 10 tablas de SIMEL, **NBER-CES** (intensidades por industria de EE. UU.) y la **concordancia HS → NAICS** de Pierce y Schott. Ver `docs/verificacion_fuentes.md`.
+
+**Taxonomía y puentes:** 67 sectores TAPE sobre CIIU Rev.4 (`docs/taxonomia.md`); puente HS92 → CPC → CIIU → sector con confianza por fila (`docs/puente_hs_sector.md`); tabla CNAEP → sector y subsectores MIC → sector; puente de requisitos por producto.
 
 **Datos nacionales ya incorporados** (a mano, en `TAPE_datos_manuales.zip`; detalle en `docs/COLABORACION.md` y en el README de cada carpeta `data/raw/<fuente>/`):
 - **BCP:** PIB por 33 actividades (1991-2024) y regional por 6 ramas y 18 departamentos (2021-2024); crédito por 13 sectores y banco (mensual 2020-2026/08); cuentas nacionales base 2014.
@@ -16,11 +26,17 @@ Actualizado: 2026-10-09. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - **MAG:** Censo Agropecuario 2022: Volumen I (78 cuadros por departamento) y fincas y superficie por distrito (259 distritos; los totales cuadran con el Volumen I).
 - **MTESS (SIMEL):** establecimientos y puestos inscritos (por actividad y por departamento, pero no el cruce), formación SINAFOCAL/SNPP e informalidad por departamento.
 - **Educación:** carreras y programas de la ANEAES con la marca acreditada o no (792); establecimientos 2012 e instituciones 2018 del MEC (incompletos).
-- **Mapa logístico del MIC** (visor sin licencia declarada; provisorio): 263 distritos con población del Censo 2022, PEA y distancias; 17.080 industrias por distrito y sector; red eléctrica (104 subestaciones, potencia disponible y líneas); 22 rutas nacionales y fronteras; 6.987 puntos de AFI y 53 centros del SNPP; comercio por aduana (sin año declarado); 212 establecimientos de salud. La capa de combustibles no se extrajo.
+- **Mapa logístico del MIC** (visor sin licencia declarada; provisorio): 263 distritos con población del Censo 2022, PEA y distancias; 17.080 industrias por distrito y sector; red eléctrica; 22 rutas nacionales y fronteras; AFI y centros del SNPP; comercio por aduana (sin año declarado); 212 establecimientos de salud. La capa de combustibles no se extrajo.
 - **Maquila:** informe agregado de agosto 2026.
 
 ## Qué falta
-**Fase 1 (módulo nacional):** decidir D1 a D4 y D6 a D8 (`docs/PLAN_fase0_fase1.md`) y hacer las tareas 1.1 a 1.11: limpieza de BACI, depuración (energía de Itaipú y Yacyretá, reexportaciones), RCA, proximidad y densidad sin fuga de información, dotaciones y requisitos por producto (intensidades y costo de energía: D4), panel de entradas, logit con efectos fijos, XGBoost de control y backtest. Los países y productos de todo el mundo son necesarios: Paraguay es solo el caso al que se aplica.
+**Decisiones abiertas:** D7 (entradas sostenidas) y D8 (muestra de países) para el panel de entradas; D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3.
+
+**Hallazgos a resolver en la Fase 1:**
+- **Las capas de dotaciones están correlacionadas:** capital humano, crédito y logística entre sí (0,65 a 0,76); la energía (precio) es independiente. Decidir en la tarea 1.9 cómo tratarlo (capa por capa, control por PIB per cápita o componentes).
+- **Agricultura, minería y servicios no tienen requisitos** (NBER-CES es solo manufactura; 13 % del valor mundial, incluida la soja): decidir cómo tratarlos en el modelo (tarea 1.7) y en el módulo territorial (Fase 2).
+- **Código de `src/modelos/`** (ver `docs/optimizacion_modelos.md`): `depurar.py` quita la energía y las reexportaciones pero no recalcula el RCA, y la depuración no llega a la densidad; las constantes de D8 de `panel.py` no se aplican; hay rutas fijas de Windows (`C:\ever\...`) y dos copias de la base DuckDB.
+- **Precio de la electricidad:** solo existe para 2014-2019 y se aplica a todos los años; en la robustez, repetir el modelo con las ventanas desde 2015.
 
 **Datos nacionales por conseguir:**
 - Registro de títulos del MEC: **solicitud formal enviada el 2026-10-12** (títulos expedidos agregados por año, carrera, institución, nivel, campo CINE, departamento y distrito, sin datos personales). **El MEC tiene plazo hasta el 2026-11-02 para responder.** Al llegar: guardar en `data/raw/mec_titulos/`, anotar en `data/fuentes.csv` y regenerar el zip.
@@ -29,24 +45,25 @@ Actualizado: 2026-10-09. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - Comercio exterior de Paraguay por NCM (aduana o BCP): opcional, BACI ya trae a Paraguay.
 - Cultivos y ganadería del censo agropecuario por distrito, si existe otro tomo.
 - Informes de maquila y de la Ley de Inversiones: última capa, complementos.
-- Leyes y normas (BACN y Gaceta), ILOSTAT, licencias de SIMEL y del visor del MIC.
+- Leyes y normas (BACN y Gaceta), ILOSTAT, licencias de SIMEL, del visor del MIC y de BACI/Atlas.
 
-**Trabajo de datos pendiente:** reconciliar los 247 distritos de los límites de 2012 con los 263 del Censo 2022 (industrias, subestaciones y rutas usan los viejos; población y censo agropecuario, los nuevos); definir carrera → CINE-F → sector cuando lleguen los títulos.
+**Trabajo de datos pendiente:** reconciliar los 247 distritos de los límites de 2012 con los 263 del Censo 2022; definir carrera → CINE-F → sector cuando lleguen los títulos.
 
 ## Quién hace qué
 | Persona | Tarea en curso | Rama |
 |---|---|---|
-| Joaquín | Datos nacionales pendientes; decisiones D4, D6 y D3 con Claude Code | — |
-| (socio) | Por acordar. Propuesta: 1.1 limpieza de BACI, 1.3 RCA y 1.8 métricas de evaluación | — |
+| Joaquín | Datos nacionales pendientes; decisiones D7 y D8 | — |
+| Ever | Modelos de `src/modelos/`: pasar a `densidad_np.py` y `logit_disperso.py`, recalcular el RCA después de depurar, aplicar la depuración a la presencia y la densidad, y sacar las rutas fijas | — |
+| Claude Code | Hechas: 1.5, 1.6 y las versiones livianas. Siguiente: revisar los borradores de Ever contra D3, D5 y D6 cuando él los suba | — |
 
-Las tareas 1.1, 1.3 y 1.8 son código sin decisiones abiertas. Una tarea por rama (`fase1/1-1-limpieza-baci`), con pruebas y lint en verde antes de cada commit.
+Una tarea por rama (`fase1/1-1-limpieza-baci`), con pruebas y lint en verde antes de cada commit. Los archivos de `src/modelos/` existentes los modifica solo quien trabaja ese módulo.
 
 ## Cómo reproducir todo
 ```bash
 uv sync
 uv run python -m src.descargas.todas     # fuentes automáticas (≈ 4 GB)
 # descomprimir TAPE_datos_manuales.zip (Drive) en la raíz del repositorio
-uv run python -m src.reconstruir_todo    # tablas limpias, puentes y taxonomía
+uv run python -m src.reconstruir_todo    # tablas limpias, puentes, requisitos y dotaciones
 uv run pytest
 ```
 Para regenerar el zip: `uv run python -m src.empaquetar_datos_manuales`.

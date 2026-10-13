@@ -51,7 +51,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 
 ## Decididas el 2026-10-12 (detalle en `docs/supuestos.md`)
 - **D3**: φ con ventana de 5 años que termina en t, solo con datos ≤ t.
-- **D4**: intensidades r_pk con NBER-CES (puente NAICS→HS del Census); costo de energía con proxies de WDI.
+- **D4**: intensidades r_pk con NBER-CES y el puente NAICS→HS de Pierce y Schott (`docs/puente_requisitos.md`); energía = **precio de la electricidad** (Doing Business 2014-2019, promedio, barato = mejor; `docs/dotaciones.md`). Agro, minería y servicios quedan sin requisitos.
 - **D6**: reexportaciones marcadas automáticamente (importaciones y exportaciones del mismo orden en BACI), con revisión posterior producto por producto y confirmación con la aduana.
 
 ## Datos y herramientas locales
@@ -63,10 +63,13 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 
 ## Hoja de ruta (estado)
 - **Fase 0 Fundamentos: CERRADA (2026-10-08).** Estructura, CLAUDE.md, fuentes de Fase 1 descargadas, taxonomía de 67 sectores TAPE (`docs/taxonomia.md`) y puente HS92 → CPC → CIIU → sector (`docs/puente_hs_sector.md`, `data/clean/puente_hs92_sector.csv`; biocombustibles y arneses por producto HS). También hay: PIB por 33 actividades y regional del BCP, equivalencias de las clasificaciones locales a CIIU, tabla CNAEP → sector, e industrias del mapa MIC por distrito y sector.
-- **Fase 1 Módulo nacional** ← *estamos aquí*: sigue la tarea 1.1 (limpieza de BACI). Decididas D3, D4 y D6; pendientes D1, D2, D7 y D8 (ver `docs/PLAN_fase0_fase1.md`).
+- **Fase 1 Módulo nacional** ← *estamos aquí*: hechas la 1.5 (dotaciones, `docs/dotaciones.md`) y la 1.6 (requisitos, `docs/puente_requisitos.md`). Ever subió borradores de 1.2, 1.3, 1.4, 1.7 y 1.8 en `src/modelos/`, sin revisar contra D3, D5 y D6; van a pasar a `densidad_np.py` y `logit_disperso.py`. Decididas D3, D4 y D6; pendientes D1, D2, D7 y D8 (ver `docs/PLAN_fase0_fase1.md` y `docs/ESTADO.md`).
 - Fase 1 Módulo nacional: descargas, depuración, RCA/φ/densidad, logit + XGBoost + backtest. Paso si el modelo con capas supera a la densidad sola en precision@k.
 - Fase 2 Territorial (capas MIC, tabla MIC→CIIU, MEC, modelo jerárquico). Fase 3 Brechas, valor, política (EPHC, cuentas, MIP, crédito, SIMEL, leyes). Fase 4 Interfaz (FastAPI + MapLibre sobre la app Vercel). Fase 5 Monitoreo y difusión.
 - Datos locales ya incorporados (2026-10-09; ver `docs/ESTADO.md` y `docs/COLABORACION.md`): BCP (PIB, regional, crédito), MIP, EPHC 2022-2025, censo agropecuario 2022, SIMEL, ANEAES, MEC (parcial) y siete capas del mapa MIC. Faltan títulos y carreras del MEC, Censo Económico 2011, materia prima, oferta-utilización del BCP, y maquila y 60/90 a nivel de proyecto (decidido no pedirlos). La Fase 1 usa solo datos internacionales.
+
+## Rendimiento (aprendido el 2026-10-12)
+Una consulta SQL que une cada par país-producto con todos los vecinos de la tabla de proximidad genera ≈ 1.600 millones de filas por ventana y llenó el disco de un integrante del equipo. Reglas: la densidad se calcula con matrices (`src/modelos/densidad_np.py`); los logit con efectos fijos de país y producto, con matrices dispersas (`src/modelos/logit_disperso.py`), no con `C(country) + C(product)` de statsmodels (matriz densa de 14 a 16 GB); no materializar uniones de más de unos 100 millones de filas; fijar `temp_directory` y limpiarlo. Detalle en `docs/optimizacion_modelos.md`.
 
 ## Convenciones de código
 Python 3.12, `uv`. Funciones pequeñas y puras, con tipos (`mypy`), docstring corto. Una prueba en `tests/` por cada cálculo clave (RCA, φ, densidad, definición de entrada, partición temporal) con ejemplos mínimos hechos a mano. Scripts reproducibles en `src/` (no lógica en notebooks). Datos tabulares en parquet; consultas con DuckDB/polars. Nombres de columnas en español sin tildes y snake_case (`pais`, `producto`, `anio`, `rca`); códigos ISO3 para países, HS como texto de 6 dígitos. Formato y lint: `ruff`.
