@@ -113,6 +113,17 @@ Se reemplazaron los requisitos de la tecnología de EE. UU. por el **requisito r
 - **Signos dentro de la muestra, de acuerdo con la hipótesis en la mayoría:** en el entrenamiento de cada prueba, el faltante de energía, capital humano y capital físico tiene coeficiente negativo (entre −0,06 y −0,58). La logística lo tiene en las dos primeras (−0,60 y −0,23) y cambia a +0,01 en la última. El faltante de ingreso cambia de signo (+0,27, −0,10, −0,34). Que los signos sean los esperados dentro de la muestra y no mejoren la predicción fuera de ella es lo que ya se había visto con r·a.
 - **Frente al modelo de solo ingreso**, las capas aportan algo en dos casos (+0,008, IC +0,001 a +0,016 en 2005→2010, y +0,004, IC 0,000 a +0,009 en 2010→2015 con la muestra de requisitos), pero en esos casos el modelo de solo ingreso es **peor que la densidad sola**: agregar el ingreso empeora la predicción. No es evidencia de que las capas importen.
 
+**Variante sin efectos fijos con el requisito revelado (declarada el 2026-10-13 antes de correrla; commit `82e756b`).** `mundlak_reveladas`: regresión logística con densidad, densidad media del país y del producto y los cinco faltantes, sin efectos fijos (`backtest_revelado_mundlak.py`). Dos pruebas separadas, con el mismo criterio de éxito.
+
+| Todos los productos | 2005→2010 | 2010→2015 | 2015→2020 |
+|---|---|---|---|
+| **(i) Aporte de las capas**: `mundlak_reveladas` − `mundlak_densidad` (precision@20 por país) | +0,000 (−0,003; +0,004) | +0,002 (−0,002; +0,005) | −0,000 (−0,005; +0,004) |
+| **(ii) Condición de paso**: `mundlak_reveladas` − `densidad_sola` con efectos fijos | **−0,031** (−0,046; −0,015) | **−0,034** (−0,049; −0,020) | **−0,026** (−0,039; −0,016) |
+
+- **Ninguna de las dos pruebas se cumple.** (i) Sin efectos fijos, las capas reveladas tampoco agregan nada a la densidad con las medias de país y producto (diferencias de 0,000 a +0,002 con el cero dentro; la muestra solo de productos con requisitos da −0,003 a +0,002). (ii) El modelo sin efectos fijos es significativamente **peor** que el logit de densidad sola con efectos fijos, en las tres ventanas y en las dos muestras (−0,026 a −0,036).
+- **La hipótesis (los cuatro coeficientes de capas negativos) no se cumple.** Estandarizados: capital humano negativo (−0,08 a −0,13), logística negativa y pequeña (−0,02 a −0,08), energía cerca de cero (+0,00 a +0,03) y **capital físico positivo (+0,12 a +0,18)**, el signo contrario al esperado. El ingreso queda en torno a cero.
+- **Lectura:** los efectos fijos de país y de producto aportan más que cualquier capa. Con las capas medidas como hoy, el modelo nacional queda en densidad más propensión de país y producto.
+
 **Por qué puede pasar esto (hipótesis, no probada).** Con efectos fijos de país y de producto, el producto ya incorpora «qué tipo de país lo hace» (su efecto aprendido de entradas pasadas) y el país, su nivel de dotaciones. Del faltante solo queda la parte no lineal del cruce (el «codo» del máximo con cero), que es poca información. La variante sin efectos fijos (Mundlak) deja los efectos principales libres, pero no se probó con el requisito revelado y **no estaba en la especificación declarada**.
 
 ## Opciones para seguir (a decidir)
