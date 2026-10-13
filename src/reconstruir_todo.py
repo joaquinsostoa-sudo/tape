@@ -1,4 +1,4 @@
-"""Reconstruye las tablas de data/clean y los puentes a partir de data/raw, en orden.
+﻿"""Reconstruye las tablas de data/clean y los puentes a partir de data/raw, en orden.
 
 Uso: `uv run python -m src.reconstruir_todo`. Si falta un archivo de entrada (p. ej. un archivo manual que
 no se descarga solo), el paso se salta y se informa cuál falta; los demás siguen.
@@ -15,6 +15,7 @@ PASOS = [
     "src.limpieza.industrias_mic",
     "src.limpieza.aneaes",
     "src.limpieza.dotaciones",
+    "src.puentes.paises_baci",
     "src.limpieza.mic_ciudades",
     "src.limpieza.can_distrito",
     "src.limpieza.mic_red_electrica",

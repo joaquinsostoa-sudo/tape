@@ -1,9 +1,9 @@
 # Estado del proyecto TAPE
 
-Actualizado: 2026-10-12. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
+Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 125 pruebas automáticas que pasan (`uv run pytest`).
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 129 pruebas automáticas que pasan (`uv run pytest`).
 
 **Decisiones tomadas el 2026-10-12** (detalle en `docs/supuestos.md`): D3 (proximidad con ventana de 5 años que termina en t; la distancia del Atlas solo como control), D4 (intensidades con NBER-CES, puente NAICS → HS de Pierce y Schott, energía con el **precio de la electricidad** de Doing Business) D6 (reexportaciones marcadas por regla automática, a revisar después con la aduana), **D7** (entrada de un solo año como principal y «2 de 3 años» como robustez; el promedio móvil de 3 años se descartó) y **D8** (población ≥ 1 millón y exportaciones ≥ USD 1.000 millones: 112 a 144 países, ≈ 97 % del comercio). Siguen abiertas D1, D2 y D10.
 
@@ -12,7 +12,7 @@ Actualizado: 2026-10-12. Para ponerse al día: leer este archivo, luego `CLAUDE.
 |---|---|
 | 1.5 Dotaciones por país | **Hecha** (`docs/dotaciones.md`): capital humano, crédito, energía (precio) y logística, 235 países × 1990-2024 |
 | 1.6 Requisitos por producto | **Hecha** (`docs/puente_requisitos.md`): energía, capital, habilidades y valor/peso para 1.242 productos HS4 |
-| 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever en `src/modelos/`**, sin revisar contra D3, D5, D6 y D7. Van a pasar a las versiones livianas `densidad_np.py` y `logit_disperso.py` (ver `docs/optimizacion_modelos.md`) |
+| 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever en `src/modelos/`**; baseline de densidad sola subido el 2026-10-12 (dentro de la muestra, sin D2). Revisión y cambios pedidos: `docs/NOTA_revision_modelos_Ever.md`. Van a pasar a las versiones livianas `densidad_np.py` y `logit_disperso.py` (ver `docs/optimizacion_modelos.md`) |
 | 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1) |
 
 **Fuentes internacionales descargadas** (`uv run python -m src.descargas.todas`): BACI (HS92, 1995-2024), Atlas de Complejidad, WDI (15 indicadores, incluidos el precio de la electricidad y la proporción hidroeléctrica), Penn World Table 10.01 (a mano), LPI, correspondencias de la ONU y WITS, límites administrativos, 10 tablas de SIMEL, **NBER-CES** (intensidades por industria de EE. UU.) y la **concordancia HS → NAICS** de Pierce y Schott. Ver `docs/verificacion_fuentes.md`.

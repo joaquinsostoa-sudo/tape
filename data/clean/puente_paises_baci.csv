@@ -1,0 +1,239 @@
+codigo_baci,iso3,nombre,historico
+4,AFG,Afghanistan,False
+8,ALB,Albania,False
+12,DZA,Algeria,False
+16,ASM,American Samoa,False
+20,AND,Andorra,False
+24,AGO,Angola,False
+28,ATG,Antigua and Barbuda,False
+31,AZE,Azerbaijan,False
+32,ARG,Argentina,False
+36,AUS,Australia,False
+40,AUT,Austria,False
+44,BHS,Bahamas,False
+48,BHR,Bahrain,False
+50,BGD,Bangladesh,False
+51,ARM,Armenia,False
+52,BRB,Barbados,False
+56,BEL,Belgium,False
+58,BEL,Belgium-Luxembourg (...1998),True
+60,BMU,Bermuda,False
+64,BTN,Bhutan,False
+68,BOL,Bolivia (Plurinational State of),False
+70,BIH,Bosnia Herzegovina,False
+72,BWA,Botswana,False
+76,BRA,Brazil,False
+84,BLZ,Belize,False
+86,IOT,Br. Indian Ocean Terr.,False
+90,SLB,Solomon Isds,False
+92,VGB,Br. Virgin Isds,False
+96,BRN,Brunei Darussalam,False
+100,BGR,Bulgaria,False
+104,MMR,Myanmar,False
+108,BDI,Burundi,False
+112,BLR,Belarus,False
+116,KHM,Cambodia,False
+120,CMR,Cameroon,False
+124,CAN,Canada,False
+132,CPV,Cabo Verde,False
+136,CYM,Cayman Isds,False
+140,CAF,Central African Rep.,False
+144,LKA,Sri Lanka,False
+148,TCD,Chad,False
+152,CHL,Chile,False
+156,CHN,China,False
+162,CXR,Christmas Isds,False
+166,CCK,Cocos Isds,False
+170,COL,Colombia,False
+174,COM,Comoros,False
+175,MYT,Mayotte (Overseas France),False
+178,COG,Congo,False
+180,COD,Dem. Rep. of the Congo,False
+184,COK,Cook Isds,False
+188,CRI,Costa Rica,False
+191,HRV,Croatia,False
+192,CUB,Cuba,False
+196,CYP,Cyprus,False
+200,CSK,Czechoslovakia (...1992),True
+203,CZE,Czechia,False
+204,BEN,Benin,False
+208,DNK,Denmark,False
+212,DMA,Dominica,False
+214,DOM,Dominican Rep.,False
+218,ECU,Ecuador,False
+222,SLV,El Salvador,False
+226,GNQ,Equatorial Guinea,False
+231,ETH,Ethiopia,False
+232,ERI,Eritrea,False
+233,EST,Estonia,False
+238,FLK,Falkland Isds (Malvinas),False
+242,FJI,Fiji,False
+246,FIN,Finland,False
+251,FRA,France,False
+258,PYF,French Polynesia,False
+260,ATF,Fr. South Antarctic Terr.,False
+262,DJI,Djibouti,False
+266,GAB,Gabon,False
+268,GEO,Georgia,False
+270,GMB,Gambia,False
+275,PSE,State of Palestine,False
+276,DEU,Germany,False
+278,DDR,Dem. Rep. of Germany (...1990),True
+280,DEU,Fed. Rep. of Germany (...1990),True
+288,GHA,Ghana,False
+292,GIB,Gibraltar,False
+296,KIR,Kiribati,False
+300,GRC,Greece,False
+304,GRL,Greenland,False
+308,GRD,Grenada,False
+316,GUM,Guam,False
+320,GTM,Guatemala,False
+324,GIN,Guinea,False
+328,GUY,Guyana,False
+332,HTI,Haiti,False
+340,HND,Honduras,False
+344,HKG,"China, Hong Kong SAR",False
+348,HUN,Hungary,False
+352,ISL,Iceland,False
+360,IDN,Indonesia,False
+364,IRN,Iran,False
+368,IRQ,Iraq,False
+372,IRL,Ireland,False
+376,ISR,Israel,False
+380,ITA,Italy,False
+384,CIV,CÃ´te d'Ivoire,False
+388,JAM,Jamaica,False
+392,JPN,Japan,False
+398,KAZ,Kazakhstan,False
+400,JOR,Jordan,False
+404,KEN,Kenya,False
+408,PRK,Dem. People's Rep. of Korea,False
+410,KOR,Rep. of Korea,False
+414,KWT,Kuwait,False
+417,KGZ,Kyrgyzstan,False
+418,LAO,Lao People's Dem. Rep.,False
+422,LBN,Lebanon,False
+426,LSO,Lesotho,False
+428,LVA,Latvia,False
+430,LBR,Liberia,False
+434,LBY,Libya,False
+440,LTU,Lithuania,False
+442,LUX,Luxembourg,False
+446,MAC,"China, Macao SAR",False
+450,MDG,Madagascar,False
+454,MWI,Malawi,False
+458,MYS,Malaysia,False
+462,MDV,Maldives,False
+466,MLI,Mali,False
+470,MLT,Malta,False
+478,MRT,Mauritania,False
+480,MUS,Mauritius,False
+484,MEX,Mexico,False
+490,S19,"Other Asia, nes",False
+496,MNG,Mongolia,False
+498,MDA,Rep. of Moldova,False
+499,MNE,Montenegro,False
+500,MSR,Montserrat,False
+504,MAR,Morocco,False
+508,MOZ,Mozambique,False
+512,OMN,Oman,False
+516,NAM,Namibia,False
+520,NRU,Nauru,False
+524,NPL,Nepal,False
+528,NLD,Netherlands,False
+530,ANT,Netherlands Antilles (...2010),True
+531,CUW,CuraÃ§ao,False
+533,ABW,Aruba,False
+534,SXM,Saint Maarten,False
+535,BES,Bonaire,False
+540,NCL,New Caledonia,False
+548,VUT,Vanuatu,False
+554,NZL,New Zealand,False
+558,NIC,Nicaragua,False
+562,NER,Niger,False
+566,NGA,Nigeria,False
+570,NIU,Niue,False
+574,NFK,Norfolk Isds,False
+579,NOR,Norway,False
+580,MNP,N. Mariana Isds,False
+583,FSM,FS Micronesia,False
+584,MHL,Marshall Isds,False
+585,PLW,Palau,False
+586,PAK,Pakistan,False
+591,PAN,Panama,False
+598,PNG,Papua New Guinea,False
+600,PRY,Paraguay,False
+604,PER,Peru,False
+608,PHL,Philippines,False
+612,PCN,Pitcairn,False
+616,POL,Poland,False
+620,PRT,Portugal,False
+624,GNB,Guinea-Bissau,False
+626,TLS,Timor-Leste,False
+634,QAT,Qatar,False
+642,ROU,Romania,False
+643,RUS,Russian Federation,False
+646,RWA,Rwanda,False
+652,BLM,Saint BarthÃ©lemy,False
+654,SHN,Saint Helena,False
+659,KNA,Saint Kitts and Nevis,False
+660,AIA,Anguilla,False
+662,LCA,Saint Lucia,False
+666,SPM,Saint Pierre and Miquelon,False
+670,VCT,Saint Vincent and the Grenadines,False
+674,SMR,San Marino,False
+678,STP,Sao Tome and Principe,False
+682,SAU,Saudi Arabia,False
+686,SEN,Senegal,False
+688,SRB,Serbia,False
+690,SYC,Seychelles,False
+694,SLE,Sierra Leone,False
+697,R20,"Europe EFTA, nes",False
+699,IND,India,False
+702,SGP,Singapore,False
+703,SVK,Slovakia,False
+704,VNM,Viet Nam,False
+705,SVN,Slovenia,False
+706,SOM,Somalia,False
+710,ZAF,South Africa,False
+711,ZA1,Southern African Customs Union (...1999),True
+716,ZWE,Zimbabwe,False
+724,ESP,Spain,False
+728,SSD,South Sudan,False
+729,SDN,Sudan,False
+736,SDN,Sudan (...2011),True
+740,SUR,Suriname,False
+748,SWZ,Eswatini,False
+752,SWE,Sweden,False
+757,CHE,Switzerland,False
+760,SYR,Syria,False
+762,TJK,Tajikistan,False
+764,THA,Thailand,False
+768,TGO,Togo,False
+772,TKL,Tokelau,False
+776,TON,Tonga,False
+780,TTO,Trinidad and Tobago,False
+784,ARE,United Arab Emirates,False
+788,TUN,Tunisia,False
+792,TUR,TÃ¼rkiye,False
+795,TKM,Turkmenistan,False
+796,TCA,Turks and Caicos Isds,False
+798,TUV,Tuvalu,False
+800,UGA,Uganda,False
+804,UKR,Ukraine,False
+807,MKD,North Macedonia,False
+810,SUN,USSR (...1990),True
+818,EGY,Egypt,False
+826,GBR,United Kingdom,False
+834,TZA,United Rep. of Tanzania,False
+842,USA,USA,False
+849,PUS,US Misc. Pacific Isds,False
+854,BFA,Burkina Faso,False
+858,URY,Uruguay,False
+860,UZB,Uzbekistan,False
+862,VEN,Venezuela,False
+876,WLF,Wallis and Futuna Isds,False
+882,WSM,Samoa,False
+887,YEM,Yemen,False
+891,SCG,Serbia and Montenegro (...2005),True
+894,ZMB,Zambia,False

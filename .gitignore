@@ -63,3 +63,5 @@ web/node_modules/
 db/ 
 *.duckdb.wal 
 duckdb_temp/ 
+!data/clean/puente_paises_baci.csv
+!data/clean/poblacion_pais.csv

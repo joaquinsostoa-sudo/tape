@@ -37,6 +37,7 @@ BACI_ZIP = RAIZ / "data" / "raw" / "baci" / "BACI_HS92_V202601.zip"
 BACI_CSV_PAISES = RAIZ / "data" / "raw" / "baci" / "country_codes_V202601.csv"
 SALIDA = RAIZ / "data" / "clean" / "dotaciones.parquet"
 SALIDA_CORTES = RAIZ / "data" / "clean" / "dotaciones_cortes.csv"
+SALIDA_POBLACION = RAIZ / "data" / "clean" / "poblacion_pais.csv"  # versionada: filtro D8 sin reconstruir todo
 ANIOS = range(1990, 2025)
 CORTES = (2000, 2005, 2010, 2015, 2019, 2024)
 INDICADORES = {
@@ -156,7 +157,8 @@ def main() -> None:
     cols = ["iso3", "anio", *(f"z_{c}" for c in CAPAS), *(f"pct_{c}" for c in CAPAS),
             *(f"z_{e}" for e in EXTRAS), "precio_electricidad_kwh", "poblacion", "pib_pc_ppa"]
     df[df.anio.isin(CORTES)][cols].round(4).to_csv(SALIDA_CORTES, index=False, encoding="utf-8")
-    print(f"{df.iso3.nunique()} países × {df.anio.nunique()} años; países con dato por capa y corte:")
+    df[["iso3", "anio", "poblacion"]].dropna().to_csv(SALIDA_POBLACION, index=False, encoding="utf-8")
+    print(f"{df.iso3.nunique()} países ×{df.anio.nunique()} años; países con dato por capa y corte:")
     print(cobertura(df).to_string())
 
 
