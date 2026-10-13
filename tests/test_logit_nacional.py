@@ -43,6 +43,20 @@ def test_panel_incluye_los_que_no_exportaban_y_define_la_entrada_de_un_solo_anio
     assert p.loc[("A", "0303"), "E"] == 0  # tampoco exportaba y sigue sin hacerlo
 
 
+def test_entrada_con_umbrales_alternativos_y_dos_de_tres_anios():
+    r = _rca([(2000, "A", "0101", 0.3), (2005, "A", "0101", 1.4),  # RCA 0,3 → 1,4
+              (2000, "A", "0202", 0.8), (2005, "A", "0202", 1.2),  # 0,8 → 1,2
+              (2000, "A", "0303", 0.1), (2003, "A", "0303", 1.5), (2004, "A", "0303", 0.2), (2005, "A", "0303", 1.3)])
+    prods = ["0101", "0202", "0303"]
+    base = ln.panel_ventana(r, {"A"}, prods, 2000, 5).set_index("hs4")
+    assert base.E.to_dict() == {"0101": 1, "0303": 1}  # 0202 parte de 0,8 ≥ 0,5: fuera del panel
+    assert ln.panel_ventana(r, {"A"}, prods, 2000, 5, inicio_max=1.0).set_index("hs4").E["0202"] == 1  # RCA < 1 → ≥ 1
+    assert ln.panel_ventana(r, {"A"}, prods, 2000, 5, inicio_max=0.25).hs4.tolist() == ["0303"]  # 0101 parte de 0,3 ≥ 0,25
+    assert ln.panel_ventana(r, {"A"}, prods, 2000, 5, fin_min=1.5).set_index("hs4").E["0101"] == 0  # 1,4 < 1,5
+    dos = ln.panel_ventana(r, {"A"}, prods, 2000, 5, dos_de_tres=True).set_index("hs4")
+    assert dos.E["0303"] == 1 and dos.E["0101"] == 0  # 0303: 2003 y 2005 (2 de 2003-2005); 0101: solo 2005 (1 de 3)
+
+
 def test_paises_elegibles_exige_poblacion_y_exportaciones_y_deja_fuera_los_sin_dato():
     expo = pd.DataFrame({"anio": 2000, "iso3": ["A", "B", "C", "D"], "hs4": "0101",
                          "x": [2e6, 5e5, 3e6, 4e6]})

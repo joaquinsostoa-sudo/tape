@@ -79,10 +79,27 @@ Dos pruebas de que el resultado no depende de la forma del modelo. Mismo esquema
 
 **Conclusión de los controles:** el resultado nulo **resiste** a la no linealidad (XGBoost) y a quitar los efectos fijos (Mundlak): las capas, tal como están medidas, no mejoran la predicción fuera de muestra de la entrada por encima de la densidad y la propensión de país y producto.
 
+## Robustez de la definición de la entrada (2026-10-13)
+Se repitió el backtest con cinco definiciones alternativas (`src/modelos/robustez_entrada.py`) y se comparó `capas` contra `densidad_sola` en cada una. La definición base reproduce los resultados anteriores (control de consistencia).
+
+| Definición | Pruebas | Entradas | Tasa base | precision@20 por país: densidad sola → con capas | Diferencia con capas (IC 95 %) | Diferencia AUC-PR |
+|---|---|---|---|---|---|---|
+| **Base** (RCA_t < 0,5 → RCA_t+5 ≥ 1) | 2005, 2010, 2015 | 2.116 a 2.581 | 2,0 a 2,8 % | 0,088→0,091 / 0,085→0,082 / 0,075→0,074 | +0,003 / −0,003 / −0,001 (todos con 0 dentro) | 0,000 a +0,001 |
+| **h = 10** (2010→2020) | 2010 | 3.194 | 3,1 % | 0,097→0,094 | −0,003 (−0,010; +0,005) | +0,001 (+0,000; +0,002) |
+| **2 de 3 años** | 2005, 2010, 2015 | 1.453 a 1.780 | 1,4 a 1,9 % | 0,061→0,060 / 0,067→0,065 / 0,058→0,056 | −0,001 / −0,002 / −0,002 (todos con 0 dentro) | 0,000 a +0,001 |
+| **Parte de RCA < 0,25** | 2005, 2010, 2015 | 1.387 a 1.706 | 1,5 a 2,1 % | 0,065→0,064 / 0,063→0,063 / 0,057→0,060 | −0,001 / 0,000 / +0,003 (todos con 0 dentro) | 0,000 |
+| **Parte de RCA < 1** | 2005, 2010, 2015 | 4.403 a 4.942 | 3,8 a 4,8 % | 0,145→0,146 / 0,136→0,134 / 0,142→0,132 | +0,001 / −0,002 / **−0,010 (−0,018; −0,002)** | 0,000 a +0,001 |
+| **Llega a RCA ≥ 1,5** | 2005, 2010, 2015 | 1.242 a 1.522 | 1,2 a 1,7 % | 0,059→0,060 / 0,051→0,052 / 0,048→0,048 | +0,001 / 0,000 / 0,000 (todos con 0 dentro) | 0,000 |
+
+- **El resultado no depende de la definición de la entrada.** En las 16 combinaciones de definición y ventana, el modelo con capas no supera a la densidad sola en ninguna: las diferencias van de −0,010 a +0,003 en precision@20 y el intervalo siempre incluye el cero salvo un caso, donde las capas empeoran (parte de RCA < 1, 2015→2020).
+- **En AUC-PR las diferencias son 0,000 a +0,001.** La única con intervalo estrictamente positivo (h = 10: +0,001, IC +0,000 a +0,002) es de una milésima.
+- Con el horizonte de 10 años solo hay una prueba posible (2010→2020), entrenada con una sola ventana (2000).
+- **No se probó todavía la robustez de HS4 contra HS6 (D5):** requiere extraer el comercio a 6 dígitos de la base de Ever y asignar los requisitos por prefijo.
+
 ## Opciones para seguir (a decidir)
 1. **Revisar la medición de las capas** (los requisitos con la tecnología de EE. UU., el precio de la electricidad de 2014-2019, el LPI de percepción, y todas ellas muy correlacionadas con el desarrollo).
 2. **Aceptar que M1 es densidad + efectos fijos de país y producto**, y usar las dotaciones como **diagnóstico de brechas** (M3: comparar a Paraguay con los países que sí desarrollaron cada producto, capa por capa), sin que entren a la probabilidad. Habría que corregir la condición de paso del plan.
-3. **Probar otras definiciones de la entrada** (h = 10, 2 de 3 años, umbrales de RCA): ver si el resultado depende de esa definición (robustez de la tarea 1.11).
+3. ~~Probar otras definiciones de la entrada~~ (hecho, ver arriba: no cambia el resultado). Queda la robustez HS4 contra HS6.
 
 ## Cómo repetirlo
 ```bash

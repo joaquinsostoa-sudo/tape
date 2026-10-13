@@ -88,15 +88,25 @@ def presencia(rca: pd.DataFrame, t0: int, anios_ventana: int = 5, calendario: in
     return ok[["iso3", "hs4"]].drop_duplicates()
 
 
-def panel_ventana(rca: pd.DataFrame, paises: set[str], productos: list[str], t0: int, h: int = H) -> pd.DataFrame:
-    """Panel de entradas D7: todos los pares país × producto con RCA_t0 < 0,5, contando RCA = 0 (no exportaba)."""
+def panel_ventana(rca: pd.DataFrame, paises: set[str], productos: list[str], t0: int, h: int = H,
+                  inicio_max: float = RCA_ENTRADA_INICIO, fin_min: float = RCA_ENTRADA_FIN, dos_de_tres: bool = False) -> pd.DataFrame:
+    """Panel de entradas D7: todos los pares país × producto con RCA_t0 < `inicio_max` (0,5), contando RCA = 0.
+
+    Entrada principal: RCA_t0+h ≥ `fin_min` (1). Con `dos_de_tres` (robustez de D7): RCA ≥ `fin_min` en al menos 2 de los
+    3 años de calendario que terminan en t0 + h."""
     grilla = pd.MultiIndex.from_product([sorted(paises), productos], names=["iso3", "hs4"]).to_frame(index=False)
     r0 = rca[rca.anio == t0][["iso3", "hs4", "rca"]].rename(columns={"rca": "rca0"})
     r1 = rca[rca.anio == t0 + h][["iso3", "hs4", "rca"]].rename(columns={"rca": "rca1"})
     p = grilla.merge(r0, on=["iso3", "hs4"], how="left").merge(r1, on=["iso3", "hs4"], how="left")
     p[["rca0", "rca1"]] = p[["rca0", "rca1"]].fillna(0.0)
-    p = p[p.rca0 < RCA_ENTRADA_INICIO].copy()
-    p["E"] = (p.rca1 >= RCA_ENTRADA_FIN).astype(int)
+    p = p[p.rca0 < inicio_max].copy()
+    if dos_de_tres:
+        t1 = t0 + h
+        anios_ok = (rca[rca.anio.between(t1 - 2, t1) & (rca.rca >= fin_min)].groupby(["iso3", "hs4"]).size().rename("n_ok"))
+        p = p.merge(anios_ok, on=["iso3", "hs4"], how="left")
+        p["E"] = (p.n_ok.fillna(0) >= 2).astype(int)
+    else:
+        p["E"] = (p.rca1 >= fin_min).astype(int)
     p["anio"] = t0
     return p[["anio", "iso3", "hs4", "rca0", "E"]].reset_index(drop=True)
 
@@ -132,8 +142,10 @@ def sin_variacion(df: pd.DataFrame, y: str, grupos: list[str]) -> pd.DataFrame:
 
 
 def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, pob: pd.DataFrame,
-                    ventanas=VENTANAS, h: int = H) -> pd.DataFrame:
-    """Tabla del logit: una fila por país × producto × ventana, con d_z, interacciones y efectos fijos."""
+                    ventanas=VENTANAS, h: int = H, **entrada) -> pd.DataFrame:
+    """Tabla del logit: una fila por país × producto × ventana, con d_z, interacciones y efectos fijos.
+
+    `entrada` pasa a `panel_ventana` (inicio_max, fin_min, dos_de_tres) para las pruebas de robustez de la entrada."""
     rca = calcular_rca(expo)
     r = requisitos_estandarizados(req)
     productos = sorted(set(r.hs4) & set(rca.hs4))
@@ -142,7 +154,7 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
         paises = paises_elegibles(expo, pob, t0)
         rca_m = rca[rca.iso3.isin(paises)]  # φ y RCA: solo la muestra D8
         pres = presencia(rca_m, t0)
-        p = panel_ventana(rca_m, paises, productos, t0, h)
+        p = panel_ventana(rca_m, paises, productos, t0, h, **entrada)
         p = p.merge(densidad_df(pres.rename(columns={"iso3": "country", "hs4": "product"}),
                                 p[["iso3", "hs4"]].rename(columns={"iso3": "country", "hs4": "product"})
                                 ).rename(columns={"country": "iso3", "product": "hs4"}), on=["iso3", "hs4"], how="left")
