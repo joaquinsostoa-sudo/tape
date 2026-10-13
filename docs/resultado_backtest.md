@@ -96,8 +96,27 @@ Se repitió el backtest con cinco definiciones alternativas (`src/modelos/robust
 - Con el horizonte de 10 años solo hay una prueba posible (2010→2020), entrenada con una sola ventana (2000).
 - **No se probó todavía la robustez de HS4 contra HS6 (D5):** requiere extraer el comercio a 6 dígitos de la base de Ever y asignar los requisitos por prefijo.
 
+## Requisito revelado (paso 2 del plan, 2026-10-13)
+Se reemplazaron los requisitos de la tecnología de EE. UU. por el **requisito revelado** (`src/modelos/requisito_revelado.py`, `backtest_revelado.py`): para cada producto y capa, la mediana de la dotación de los países con presencia (D13, datos hasta t0, el propio país fuera de su referencia, al menos 5 productores), y el **faltante** = max(0, referencia − dotación del país). Cubre todos los productos de BACI (1.233 a 1.238 HS4, contra 1.094 con requisitos de NBER-CES), incluido agro y minería.
+
+**Especificación principal, declarada antes de correrla:** densidad + faltantes de energía, capital humano, capital físico y logística + faltante de ingreso (log PIB per cápita, control de desarrollo), con efectos fijos de país y producto. Hipótesis: los cuatro coeficientes de capas son negativos. Criterio de éxito: precision@20 por país mayor que la densidad sola, con intervalo del 95 % que excluya el cero en al menos dos de las tres pruebas.
+
+| Todos los productos | 2005→2010 | 2010→2015 | 2015→2020 |
+|---|---|---|---|
+| precision@20 por país, densidad sola → reveladas | 0,093 → 0,090 | 0,089 → 0,086 | 0,076 → 0,070 |
+| Diferencia (IC 95 %) | −0,003 (−0,012; +0,006) | −0,003 (−0,009; +0,003) | −0,006 (−0,013; +0,001) |
+| Diferencia AUC-PR | −0,000 (−0,003; +0,001) | −0,001 (−0,002; +0,000) | +0,000 (−0,001; +0,001) |
+| Solo productos con requisitos NBER: diferencia en precision@20 | −0,004 (−0,012; +0,003) | −0,005 (−0,010; +0,001) | −0,002 (−0,008; +0,002) |
+
+- **El criterio de éxito no se cumple:** en ninguna de las seis combinaciones (dos muestras por tres ventanas) las capas reveladas superan a la densidad sola; las diferencias son de −0,006 a −0,002 y todos los intervalos incluyen el cero.
+- **Las sensibilidades** (media, percentil 25, distancia absoluta; no cuentan para el criterio) tampoco: ninguna mejora de forma consistente; una sola queda claramente por debajo (percentil 25, 2010→2015, solo con requisitos: −0,010, IC −0,016 a −0,004).
+- **Signos dentro de la muestra, de acuerdo con la hipótesis en la mayoría:** en el entrenamiento de cada prueba, el faltante de energía, capital humano y capital físico tiene coeficiente negativo (entre −0,06 y −0,58). La logística lo tiene en las dos primeras (−0,60 y −0,23) y cambia a +0,01 en la última. El faltante de ingreso cambia de signo (+0,27, −0,10, −0,34). Que los signos sean los esperados dentro de la muestra y no mejoren la predicción fuera de ella es lo que ya se había visto con r·a.
+- **Frente al modelo de solo ingreso**, las capas aportan algo en dos casos (+0,008, IC +0,001 a +0,016 en 2005→2010, y +0,004, IC 0,000 a +0,009 en 2010→2015 con la muestra de requisitos), pero en esos casos el modelo de solo ingreso es **peor que la densidad sola**: agregar el ingreso empeora la predicción. No es evidencia de que las capas importen.
+
+**Por qué puede pasar esto (hipótesis, no probada).** Con efectos fijos de país y de producto, el producto ya incorpora «qué tipo de país lo hace» (su efecto aprendido de entradas pasadas) y el país, su nivel de dotaciones. Del faltante solo queda la parte no lineal del cruce (el «codo» del máximo con cero), que es poca información. La variante sin efectos fijos (Mundlak) deja los efectos principales libres, pero no se probó con el requisito revelado y **no estaba en la especificación declarada**.
+
 ## Opciones para seguir (a decidir)
-1. **Revisar la medición de las capas** (los requisitos con la tecnología de EE. UU., el precio de la electricidad de 2014-2019, el LPI de percepción, y todas ellas muy correlacionadas con el desarrollo).
+1. ~~Revisar la medición de los requisitos~~ (hecho con el requisito revelado, ver arriba: no mejora). Queda la medición de las dotaciones (el precio de la electricidad de 2014-2019, el LPI de percepción, todas muy correlacionadas con el desarrollo).
 2. **Aceptar que M1 es densidad + efectos fijos de país y producto**, y usar las dotaciones como **diagnóstico de brechas** (M3: comparar a Paraguay con los países que sí desarrollaron cada producto, capa por capa), sin que entren a la probabilidad. Habría que corregir la condición de paso del plan.
 3. ~~Probar otras definiciones de la entrada~~ (hecho, ver arriba: no cambia el resultado). Queda la robustez HS4 contra HS6.
 

@@ -98,9 +98,10 @@ def auc_pr_bootstrap(prueba: pd.DataFrame, a: np.ndarray, b: np.ndarray, reps: i
     return auc_pr(y, a) - auc_pr(y, b), float(np.quantile(dif, 0.025)), float(np.quantile(dif, 0.975))
 
 
-def evaluar_ventana(df: pd.DataFrame, t_prueba: int, capas: dict = CAPAS_PRINCIPALES, h: int = H, ventanas=VENTANAS) -> dict:
+def evaluar_ventana(df: pd.DataFrame, t_prueba: int, capas: dict = CAPAS_PRINCIPALES, h: int = H, ventanas=VENTANAS,
+                    columnas_capas: list[str] | None = None) -> dict:
     """Entrena con las ventanas previas, predice `t_prueba` y devuelve puntajes y tablas de la ventana."""
-    cols_capas = ["d_z", *(f"ra_{c}" for c in capas)]
+    cols_capas = ["d_z", *(columnas_capas if columnas_capas is not None else (f"ra_{c}" for c in capas))]
     previas = ventanas_previas(t_prueba, ventanas, h)
     base = df.dropna(subset=["densidad", *cols_capas[1:]])
     ent, pru = estandarizar_densidad(base[base.anio.isin(previas)], base[base.anio == t_prueba])

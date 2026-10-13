@@ -142,13 +142,15 @@ def sin_variacion(df: pd.DataFrame, y: str, grupos: list[str]) -> pd.DataFrame:
 
 
 def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, pob: pd.DataFrame,
-                    ventanas=VENTANAS, h: int = H, **entrada) -> pd.DataFrame:
+                    ventanas=VENTANAS, h: int = H, revelados: bool = False, solo_con_requisitos: bool = True, **entrada) -> pd.DataFrame:
     """Tabla del logit: una fila por país × producto × ventana, con d_z, interacciones y efectos fijos.
 
-    `entrada` pasa a `panel_ventana` (inicio_max, fin_min, dos_de_tres) para las pruebas de robustez de la entrada."""
+    `entrada` pasa a `panel_ventana` (inicio_max, fin_min, dos_de_tres) para las pruebas de robustez de la entrada.
+    Con `revelados` agrega los faltantes del requisito revelado (`requisito_revelado.py`, columnas `f_<capa>`); con
+    `solo_con_requisitos=False` incluye todos los productos (r_* queda vacío donde NBER-CES no tiene dato)."""
     rca = calcular_rca(expo)
     r = requisitos_estandarizados(req)
-    productos = sorted(set(r.hs4) & set(rca.hs4))
+    productos = sorted(set(r.hs4) & set(rca.hs4)) if solo_con_requisitos else sorted(set(rca.hs4))
     trozos = []
     for t0 in ventanas:
         paises = paises_elegibles(expo, pob, t0)
@@ -163,8 +165,13 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
         for capa, (_, col) in CAPAS.items():
             a[f"a_{capa}"] = z(d[col]).to_numpy()  # re-estandarizada entre los países de la muestra
         a["a_pib"] = z(np.log(d.pib_pc_ppa.where(d.pib_pc_ppa > 0))).to_numpy()  # control de desarrollo
-        trozos.append(p.merge(a, on="iso3", how="inner"))
-    df = pd.concat(trozos, ignore_index=True).merge(r, on="hs4", how="inner")
+        p = p.merge(a, on="iso3", how="inner")
+        if revelados:
+            from src.modelos.requisito_revelado import faltantes
+
+            p = p.merge(faltantes(pres, a, p[["iso3", "hs4"]]), on=["iso3", "hs4"], how="left")
+        trozos.append(p)
+    df = pd.concat(trozos, ignore_index=True).merge(r, on="hs4", how="inner" if solo_con_requisitos else "left")
     # los países sin alguna capa se descartan en cada especificación (`ajustar_especificacion`), según las capas que use
     df["d_z"] = z(df.densidad)
     for capa in CAPAS:
