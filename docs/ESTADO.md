@@ -3,7 +3,9 @@
 Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 129 pruebas automáticas que pasan (`uv run pytest`).
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 130 pruebas automáticas que pasan (`uv run pytest`).
+
+**Decisión D14 (2026-10-13):** la primera edición del LPI (2007) se arrastra hacia atrás para tener logística en 2000 y 2005 (marca `lpi_hacia_atras`); robustez con las ventanas de datos reales.
 
 **Decisión D13 (2026-10-13):** presencia para φ y densidad = RCA ≥ 1 en 2 de los 3 años de calendario que terminan en t.
 
@@ -32,7 +34,7 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - **Maquila:** informe agregado de agosto 2026.
 
 ## Qué falta
-**Decisiones abiertas:** D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3. **Pendiente de confirmar:** qué hacer con la capa de logística en las ventanas de 2000 y 2005 (el LPI empieza en 2007).
+**Decisiones abiertas:** D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3.
 
 **Hallazgos a resolver en la Fase 1:**
 - **Las capas de dotaciones están correlacionadas:** capital humano, crédito y logística entre sí (0,65 a 0,76); la energía (precio) es independiente. Decidir en la tarea 1.9 cómo tratarlo (capa por capa, control por PIB per cápita o componentes).

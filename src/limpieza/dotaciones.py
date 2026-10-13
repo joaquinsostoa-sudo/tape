@@ -92,18 +92,21 @@ def leer_pwt(ruta: Path = PWT) -> pd.DataFrame:
     return d.rename(columns={"countrycode": "iso3", "year": "anio"}).dropna(subset=["hc"])
 
 
-def arrastrar_ediciones(lpi: pd.DataFrame, anios=ANIOS) -> pd.DataFrame:
-    """Cada edición del LPI vale desde su año hasta la siguiente edición; nunca hacia atrás.
-    Devuelve (iso3, anio, lpi, lpi_edicion_anio)."""
+def arrastrar_ediciones(lpi: pd.DataFrame, anios=ANIOS, hacia_atras: bool = True) -> pd.DataFrame:
+    """Cada edición del LPI vale desde su año hasta la siguiente edición. Con `hacia_atras` (D14), la primera edición de
+    cada país vale también para los años anteriores. Devuelve (iso3, anio, lpi, lpi_edicion_anio, lpi_hacia_atras)."""
     salida = []
     for iso3, g in lpi.groupby("iso3"):
         g = g.sort_values("anio")
         base = pd.DataFrame({"anio": list(anios)}).merge(g.rename(columns={"anio": "edicion", "valor": "lpi"}),
                                                           left_on="anio", right_on="edicion", how="left")
         base[["lpi", "edicion"]] = base[["lpi", "edicion"]].ffill()
+        if hacia_atras:
+            base[["lpi", "edicion"]] = base[["lpi", "edicion"]].bfill()
+        base["lpi_hacia_atras"] = base.edicion.notna() & (base.anio < base.edicion)
         base["iso3"] = iso3
         salida.append(base.rename(columns={"edicion": "lpi_edicion_anio"}))
-    return pd.concat(salida, ignore_index=True)[["iso3", "anio", "lpi", "lpi_edicion_anio"]]
+    return pd.concat(salida, ignore_index=True)[["iso3", "anio", "lpi", "lpi_edicion_anio", "lpi_hacia_atras"]]
 
 
 def log_positivo(x: pd.Series) -> pd.Series:
@@ -135,6 +138,7 @@ def construir(paises: set[str] | None = None) -> pd.DataFrame:
     base = base.merge(pwt, on=["iso3", "anio"], how="left")
     lpi = base[["iso3", "anio", "lpi_edicion"]].dropna(subset=["lpi_edicion"]).rename(columns={"lpi_edicion": "valor"})
     base = base.drop(columns="lpi_edicion").merge(arrastrar_ediciones(lpi), on=["iso3", "anio"], how="left")
+    base["lpi_hacia_atras"] = base.lpi_hacia_atras.fillna(False).astype(bool)  # sin LPI: no es retroceso
     base["log_credito"] = log_positivo(base.credito_privado_pib)
     base["log_consumo_electrico"] = log_positivo(base.consumo_electrico_pc)
     base["precio_electricidad_kwh"] = base.iso3.map(precio_promedio(base))  # característica estable del país

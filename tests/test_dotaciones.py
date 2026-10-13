@@ -25,12 +25,20 @@ def test_estandarizar_por_anio_es_independiente_en_cada_anio():
     assert np.isnan(z.iloc[6])
 
 
-def test_arrastrar_ediciones_solo_hacia_adelante():
+def test_arrastrar_ediciones_solo_hacia_adelante_si_se_pide():
     lpi = pd.DataFrame({"iso3": ["AAA", "AAA"], "anio": [2010, 2014], "valor": [3.0, 4.0]})
-    out = d.arrastrar_ediciones(lpi, anios=range(2008, 2017)).set_index("anio")
+    out = d.arrastrar_ediciones(lpi, anios=range(2008, 2017), hacia_atras=False).set_index("anio")
     assert out.loc[2008:2009, "lpi"].isna().all()  # antes de la primera edición no se inventa nada
     assert (out.loc[2010:2013, "lpi"] == 3.0).all() and (out.loc[2010:2013, "lpi_edicion_anio"] == 2010).all()
     assert (out.loc[2014:2016, "lpi"] == 4.0).all() and (out.loc[2014:2016, "lpi_edicion_anio"] == 2014).all()
+
+
+def test_arrastrar_primera_edicion_hacia_atras_y_la_marca():
+    lpi = pd.DataFrame({"iso3": ["AAA", "AAA"], "anio": [2010, 2014], "valor": [3.0, 4.0]})
+    out = d.arrastrar_ediciones(lpi, anios=range(2008, 2017)).set_index("anio")
+    assert (out.loc[2008:2009, "lpi"] == 3.0).all() and out.loc[2008:2009, "lpi_hacia_atras"].all()
+    assert not out.loc[2010:2016, "lpi_hacia_atras"].any()  # desde la primera edición el dato es real
+    assert (out.loc[2010:2013, "lpi"] == 3.0).all() and (out.loc[2014:2016, "lpi"] == 4.0).all()
 
 
 def test_leer_wdi_descarta_agregados_y_valores_vacios(tmp_path):
@@ -65,7 +73,9 @@ def test_estandarizacion_y_cobertura(tabla):
         z = tabla[tabla.anio == 2015][f"z_{capa}"]
         assert z.mean() == pytest.approx(0.0, abs=1e-9) and z.std() == pytest.approx(1.0)
     assert tabla[tabla.anio == 2015].z_capital_humano.notna().sum() > 120
-    assert tabla[tabla.anio < 2007].lpi.isna().all()  # no hay LPI antes de su primera edición
+    antes = tabla[tabla.anio < 2007].dropna(subset=["lpi"])
+    assert antes.lpi_hacia_atras.all() and (antes.lpi_edicion_anio >= 2007).all()  # D14: todo LPI previo es retroceso
+    assert not tabla[tabla.anio >= 2010].query("lpi_edicion_anio == 2007").lpi_hacia_atras.any()  # y lo real no se marca
     assert tabla[tabla.anio > 2019].hc.isna().all()  # PWT 10.01 termina en 2019
     assert not set(tabla.iso3) & {"WLD", "EUU", "LCN"}  # sin agregados regionales
 

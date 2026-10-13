@@ -55,6 +55,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 - **D7**: entrada = definición del documento (un solo año: RCA_t < 0,5 y RCA_t+h ≥ 1); robustez: RCA ≥ 1 en 2 de los 3 años que terminan en t+h. El promedio móvil de 3 años se descartó como definición de la entrada (más rachas de un año).
 - **D8**: muestra = población ≥ 1 millón y exportaciones ≥ USD 1.000 millones en el año inicial (112 a 144 países, ≈ 97 % del comercio mundial); reportar el filtro.
 - **D13** (2026-10-13): presencia para φ y densidad = RCA ≥ 1 en al menos 2 de los 3 **años de calendario** que terminan en t (RCA depurado); la entrada principal (D7) sigue siendo de un solo año. Variante de robustez: presencia de un solo año.
+- **D14** (2026-10-13): la primera edición del LPI se arrastra hacia atrás para tener logística en las ventanas de 2000 y 2005 (marca `lpi_hacia_atras`); robustez: modelo solo con datos reales (ventanas 2010 y 2015).
 - **D6**: reexportaciones marcadas automáticamente (importaciones y exportaciones del mismo orden en BACI), con revisión posterior producto por producto y confirmación con la aduana.
 
 ## Datos y herramientas locales
