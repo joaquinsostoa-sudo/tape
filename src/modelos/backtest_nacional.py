@@ -128,7 +128,7 @@ def resumen_ventana(res: dict, t_prueba: int) -> list[dict]:
         if nombre in por_pais:
             for k in KS_PAIS:
                 fila[f"p_pais_{k}"] = float(por_pais[nombre][k].mean())
-        fila["brier"] = float(np.mean((y - s) ** 2)) if nombre in ("densidad_sola", "capas", "prior_producto") else np.nan
+        fila["brier"] = float(np.mean((y - s) ** 2)) if nombre not in ("azar", "densidad_cruda") else np.nan
         filas.append(fila)
     return filas
 
@@ -140,17 +140,17 @@ def calibracion_deciles(y: np.ndarray, s: np.ndarray) -> pd.DataFrame:
     return d.groupby("decil").agg(predicho=("s", "mean"), real=("y", "mean"), n=("y", "size")).reset_index()
 
 
-def comparar_con_densidad_sola(res: dict) -> list[dict]:
-    """Diferencias de `capas` y de `prior_producto` contra `densidad_sola`, con intervalo por remuestreo de países."""
+def comparar_con_densidad_sola(res: dict, modelos=("capas", "prior_producto"), base: str = "densidad_sola") -> list[dict]:
+    """Diferencias de cada modelo contra `base` (por defecto `densidad_sola`), con intervalo por remuestreo de países."""
     pru, p = res["prueba"], res["puntajes"]
     filas = []
-    for contra in ("capas", "prior_producto"):
+    for contra in modelos:
         for k in KS_PAIS:
-            a, b = precision_por_pais(pru, p[contra], k), precision_por_pais(pru, p["densidad_sola"], k)
+            a, b = precision_por_pais(pru, p[contra], k), precision_por_pais(pru, p[base], k)
             dif = (a - b).dropna().to_numpy()
             m, lo, hi = intervalo_bootstrap(dif)
             filas.append({"modelo": contra, "metrica": f"p_pais_{k}", "dif": m, "ic_inf": lo, "ic_sup": hi})
-        m, lo, hi = auc_pr_bootstrap(pru, p[contra], p["densidad_sola"])
+        m, lo, hi = auc_pr_bootstrap(pru, p[contra], p[base])
         filas.append({"modelo": contra, "metrica": "auc_pr", "dif": m, "ic_inf": lo, "ic_sup": hi})
     return filas
 

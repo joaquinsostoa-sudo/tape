@@ -49,14 +49,43 @@
 - Anacronismos aceptados que favorecerían a las capas en las pruebas de 2005 y 2010 (usan información posterior); aun así no ganan.
 - Con una sola ventana de entrenamiento (prueba 2005) los efectos fijos están poco estimados.
 
+## Controles: XGBoost y variante sin efectos fijos (2026-10-13)
+Dos pruebas de que el resultado no depende de la forma del modelo. Mismo esquema fuera de muestra, mismas filas.
+
+**1. XGBoost con SHAP (tarea 1.10, `src/modelos/xgb_control.py`).** Dos modelos con hiperparámetros fijados de antemano (300 árboles, profundidad 4, tasa 0,05; sin ajustar en la prueba): `xgb_densidad` (densidad + país y producto como categorías) y `xgb_capas` (más las dotaciones a_k y los requisitos r_k; los árboles pueden armar solos las interacciones y las no linealidades).
+
+| Diferencia `xgb_capas` − `xgb_densidad` | 2005→2010 | 2010→2015 | 2015→2020 |
+|---|---|---|---|
+| precision@20 por país | +0,005 (−0,003; +0,015) | **−0,010 (−0,020; −0,003)** | +0,006 (0,000; +0,014) |
+| AUC-PR | +0,001 (−0,002; +0,004) | 0,000 (−0,001; +0,002) | +0,001 (−0,000; +0,003) |
+
+- **Sin ganancia consistente:** una ventana a favor, una en contra y una neutra. XGBoost con país y producto rinde igual que el logit de densidad sola (precision@20 por país de 0,069 a 0,088).
+- **SHAP (prueba 2015, `docs/figuras/xgb_shap.png`):** el modelo se apoya en el producto (|SHAP| 0,66), el país (0,49) y la densidad (0,36). Las capas pesan entre 0,007 y 0,044 (la mayor, la logística del país, que además hace de identificador del país).
+- La precision@100 agrupada de XGBoost sube mucho en 2005 (0,17 a 0,20 contra 0,11 del logit), pero no en las otras ventanas (0,13 a 0,18): es volátil con tan pocas posiciones.
+
+**2. Sin efectos fijos, estilo Mundlak (D2 b, `src/modelos/mundlak.py`).** Se quitan los efectos de país y producto (que absorben las dotaciones y los requisitos por separado) y se los reemplaza por la densidad media del país y del producto en la ventana. Se agregan por pasos: `mundlak_efectos` (a_k y r_k por separado) y `mundlak_capas` (más las interacciones r·a).
+
+| Diferencia | 2005→2010 | 2010→2015 | 2015→2020 |
+|---|---|---|---|
+| `efectos` − `densidad` (precision@20) | **+0,010 (+0,003; +0,018)** | +0,001 (−0,006; +0,008) | −0,006 (−0,013; +0,001) |
+| `efectos` − `densidad` (AUC-PR) | +0,003 (0,000; +0,006) | +0,001 (−0,002; +0,003) | +0,001 (0,000; +0,003) |
+| `capas` − `efectos` (precision@20) | 0,000 (−0,006; +0,005) | +0,001 (−0,005; +0,007) | +0,004 (−0,001; +0,008) |
+| `densidad Mundlak` − `densidad sola con efectos fijos` (precision@20) | **−0,033** (−0,049; −0,019) | **−0,033** (−0,048; −0,018) | **−0,022** (−0,036; −0,008) |
+
+- **Las interacciones r·a no aportan nada** (tercera fila), con o sin efectos fijos.
+- **Los efectos principales de las capas dan una ganancia chica solo en 2005**, la ventana con más anacronismos a favor (energía de 2014-2019 y LPI de 2007 aplicados a 2005). En 2010 y 2015 no hay ganancia.
+- **Sin efectos fijos el modelo es mucho peor** (cuarta fila): la propensión histórica de cada país y de cada producto a entrar es información que la densidad media no recupera.
+- **La logística del país tiene coeficiente negativo en todas las ventanas** (−0,23 a −0,33 estandarizado): los países mejor dotados tienen menos entradas, probablemente un efecto de madurez o convergencia (los ricos ya tienen RCA alto en lo que pueden producir), no de complementariedad.
+
+**Conclusión de los controles:** el resultado nulo **resiste** a la no linealidad (XGBoost) y a quitar los efectos fijos (Mundlak): las capas, tal como están medidas, no mejoran la predicción fuera de muestra de la entrada por encima de la densidad y la propensión de país y producto.
+
 ## Opciones para seguir (a decidir)
-1. **XGBoost de control (tarea 1.10):** ver si una relación no lineal entre capas y entradas mejora la predicción. Si tampoco, la conclusión es robusta.
-2. **Capas sin efectos fijos de producto y país** (Mundlak, D2 b): los efectos fijos pueden estar absorbiendo lo que las capas aportan.
-3. **Revisar la medición de las capas** (por ejemplo, requisitos con la tecnología de otros países o intensidades por sector de cada país).
-4. **Aceptar que el modelo nacional (M1) es densidad + efectos fijos** y usar las dotaciones como **diagnóstico de brechas** (M3) y no como parte de la probabilidad. Habría que corregir la condición de paso del plan.
+1. **Revisar la medición de las capas** (los requisitos con la tecnología de EE. UU., el precio de la electricidad de 2014-2019, el LPI de percepción, y todas ellas muy correlacionadas con el desarrollo).
+2. **Aceptar que M1 es densidad + efectos fijos de país y producto**, y usar las dotaciones como **diagnóstico de brechas** (M3: comparar a Paraguay con los países que sí desarrollaron cada producto, capa por capa), sin que entren a la probabilidad. Habría que corregir la condición de paso del plan.
+3. **Probar otras definiciones de la entrada** (h = 10, 2 de 3 años, umbrales de RCA): ver si el resultado depende de esa definición (robustez de la tarea 1.11).
 
 ## Cómo repetirlo
 ```bash
 uv run python -m src.modelos.backtest_nacional
 ```
-Escribe `data/model/backtest_resultados.csv`, `backtest_resultados_diferencias.csv` y `backtest_resultados_calibracion.csv`.
+Escribe `data/model/backtest_resultados.csv`, `backtest_resultados_diferencias.csv` y `backtest_resultados_calibracion.csv`. Los controles: `uv run python -m src.modelos.xgb_control` y `uv run python -m src.modelos.mundlak`.
