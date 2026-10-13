@@ -7,6 +7,8 @@ regionales de WDI se descartan).
 Capas y transformaciones (por revisar, ver docs/dotaciones.md):
 - capital_humano = `hc` de PWT (índice basado en años de escolaridad y retornos); alternativas: matrícula terciaria y secundaria.
 - credito = log del crédito interno al sector privado (% PIB).
+- capital_fisico (alternativa, solo `z_capital_fisico`) = log del stock de capital real por trabajador de PWT (`rnna / emp`):
+  el par natural del requisito de capital (stock de capital real por trabajador de NBER-CES); correlación 0,92 con el PIB per cápita.
 - energia = menos el log del precio de la electricidad (centavos de USD por kWh, Doing Business 2016-2020), promediado
   2014-2019: precio bajo = mejor dotación, igual que en las demás capas (más es mejor). Es una característica estable
   del país: se aplica el mismo valor a todos los años (anacrónico para las ventanas anteriores a 2014; ver docs/dotaciones.md).
@@ -50,7 +52,8 @@ INDICADORES = {
 CAPAS = {  # capa -> columna base ya transformada
     "capital_humano": "hc", "credito": "log_credito", "energia": "menos_log_precio", "logistica": "lpi",
 }
-EXTRAS = {"consumo_electrico": "log_consumo_electrico", "hidro": "hidro"}  # alternativas de energía, solo con z
+EXTRAS = {"consumo_electrico": "log_consumo_electrico", "hidro": "hidro",  # alternativas de energía, solo con z
+          "capital_fisico": "log_capital_trabajador"}  # alternativa de capital: stock de capital por trabajador (PWT)
 ANIOS_PRECIO = range(2014, 2020)  # el precio de Doing Business existe solo en estos años
 
 
@@ -88,8 +91,9 @@ def leer_wdi(codigo: str, paises: set[str], carpeta: Path = WDI, nombres: dict[s
 
 
 def leer_pwt(ruta: Path = PWT) -> pd.DataFrame:
-    d = pd.read_excel(ruta, sheet_name="Data", usecols=["countrycode", "year", "hc"])
-    return d.rename(columns={"countrycode": "iso3", "year": "anio"}).dropna(subset=["hc"])
+    """PWT 10.01: capital humano `hc`, stock de capital real `rnna` (precios constantes de 2017) y empleo `emp` (millones)."""
+    d = pd.read_excel(ruta, sheet_name="Data", usecols=["countrycode", "year", "hc", "rnna", "emp"])
+    return d.rename(columns={"countrycode": "iso3", "year": "anio"}).dropna(subset=["hc", "rnna"], how="all")
 
 
 def arrastrar_ediciones(lpi: pd.DataFrame, anios=ANIOS, hacia_atras: bool = True) -> pd.DataFrame:
@@ -134,12 +138,13 @@ def construir(paises: set[str] | None = None) -> pd.DataFrame:
     for nombre, codigo in INDICADORES.items():
         w = leer_wdi(codigo, paises, nombres=nombres).rename(columns={"valor": nombre})
         base = base.merge(w, on=["iso3", "anio"], how="left")
-    pwt = leer_pwt().rename(columns={"hc": "hc"})
+    pwt = leer_pwt()
     base = base.merge(pwt, on=["iso3", "anio"], how="left")
     lpi = base[["iso3", "anio", "lpi_edicion"]].dropna(subset=["lpi_edicion"]).rename(columns={"lpi_edicion": "valor"})
     base = base.drop(columns="lpi_edicion").merge(arrastrar_ediciones(lpi), on=["iso3", "anio"], how="left")
     base["lpi_hacia_atras"] = base.lpi_hacia_atras.fillna(False).astype(bool)  # sin LPI: no es retroceso
     base["log_credito"] = log_positivo(base.credito_privado_pib)
+    base["log_capital_trabajador"] = log_positivo(base.rnna / base.emp)  # stock de capital real por trabajador
     base["log_consumo_electrico"] = log_positivo(base.consumo_electrico_pc)
     base["precio_electricidad_kwh"] = base.iso3.map(precio_promedio(base))  # característica estable del país
     base["menos_log_precio"] = -log_positivo(base.precio_electricidad_kwh)  # barato = mejor dotación

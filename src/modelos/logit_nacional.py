@@ -38,12 +38,15 @@ HS4_ENERGIA = "2716"
 MIN_EXPORT = 1_000_000  # miles de USD (BACI): 1.000 millones de USD
 MIN_POBLACION = 1_000_000
 RCA_ENTRADA_INICIO, RCA_ENTRADA_FIN = 0.5, 1.0
-CAPAS = {  # capa -> (columna de requisitos, columna de dotaciones)
+CAPAS_BASE = {  # capa -> (columna de requisitos, columna de dotaciones)
     "energia": ("energia", "z_energia"),
     "capital_humano": ("habilidades", "z_capital_humano"),
     "credito": ("capital", "z_credito"),
     "logistica": ("valor_peso", "z_logistica"),
 }
+# alternativa (D15): el requisito de capital (stock de capital real por trabajador) con su par natural, el stock de
+# capital por trabajador de PWT; comparte el requisito con el crédito
+CAPAS = {**CAPAS_BASE, "capital_fisico": ("capital", "z_capital_fisico")}
 
 
 def extraer_exportaciones(con, tabla: str = "ef.main.rca_matrix") -> pd.DataFrame:
@@ -110,6 +113,7 @@ def requisitos_estandarizados(req: pd.DataFrame) -> pd.DataFrame:
     out["r_energia"] = z(np.log(r.energia))
     out["r_capital_humano"] = z(r.habilidades)
     out["r_credito"] = z(np.log(r.capital))
+    out["r_capital_fisico"] = out.r_credito  # mismo requisito de capital, otra dotación
     out["r_logistica"] = z(-np.log(r.valor_peso_usd_kg))
     return out.reset_index(drop=True)
 
@@ -150,8 +154,7 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
         a["a_pib"] = z(np.log(d.pib_pc_ppa.where(d.pib_pc_ppa > 0))).to_numpy()  # control de desarrollo
         trozos.append(p.merge(a, on="iso3", how="inner"))
     df = pd.concat(trozos, ignore_index=True).merge(r, on="hs4", how="inner")
-    cols_a = [f"a_{c}" for c in CAPAS]
-    df = df.dropna(subset=cols_a)  # país sin alguna capa en ese año
+    # los países sin alguna capa se descartan en cada especificación (`ajustar_especificacion`), según las capas que use
     df["d_z"] = z(df.densidad)
     for capa in CAPAS:
         df[f"ra_{capa}"] = df[f"r_{capa}"] * df[f"a_{capa}"]
@@ -162,12 +165,21 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
     return df.reset_index(drop=True)
 
 
+_RA = {c: f"ra_{c}" for c in CAPAS}
+_BASE4 = [_RA[c] for c in CAPAS_BASE]
+_KFIS4 = [_RA[c] for c in ("energia", "capital_humano", "capital_fisico", "logistica")]
+_RPIB4 = [f"rpib_{c}" for c in ("energia", "capital_humano", "credito", "logistica")]  # rpib_credito = r_capital × PIB
 ESPECIFICACIONES = {
     "densidad_sola": ["d_z"],
-    "capas": ["d_z", *(f"ra_{c}" for c in CAPAS)],
-    "capas_e_interacciones": ["d_z", *(f"ra_{c}" for c in CAPAS), *(f"dra_{c}" for c in CAPAS)],
+    "capas": ["d_z", *_BASE4],
+    "capas_e_interacciones": ["d_z", *_BASE4, *(f"dra_{c}" for c in CAPAS_BASE)],
     # control por PIB per cápita (opción prevista en la tarea 1.9): separa «la capa» de «el desarrollo general»
-    "capas_con_control_pib": ["d_z", *(f"ra_{c}" for c in CAPAS), *(f"rpib_{c}" for c in CAPAS)],
+    "capas_con_control_pib": ["d_z", *_BASE4, *_RPIB4],
+    # D15: capital físico por trabajador (PWT) en lugar del crédito, o junto con él
+    "capas_capital_fisico": ["d_z", *_KFIS4],
+    "capas_capital_fisico_con_control_pib": ["d_z", *_KFIS4, *_RPIB4],
+    "cinco_capas": ["d_z", *_RA.values()],
+    "cinco_capas_con_control_pib": ["d_z", *_RA.values(), *_RPIB4],
 }
 
 

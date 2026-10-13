@@ -6,7 +6,7 @@
 - **Datos:** `rca_matrix` de la base de Ever (foto de lectura, HS6, con todas las exportaciones de BACI), agregada a HS4 y recalculada sin la energía de Itaipú/Yacyretá (HS4 2716). Se usaron exportaciones de 1995 a 2020.
 - **Modelo (D2 c):** `Pr(E=1) = Λ(α_ct + γ_pt + β d + Σ_k θ_k r_k a_k + Σ_k λ_k d r_k a_k)`. Efectos fijos de país-ventana y producto-ventana. Errores agrupados por país (`LogitEfectosFijos.errores_agrupados`).
 - **Entrada (D7):** `RCA_t0 < 0,5` y `RCA_t0+5 ≥ 1`, un solo año. Ventanas 2000, 2005, 2010 y 2015. **El panel incluye los productos que el país no exportaba (RCA = 0)**: son el 22 % de las filas, con una tasa de entrada de 1,2 % (contra 2,6 % en los que ya exportaban algo).
-- **Muestra (D8):** 112, 128, 141 y 144 países por ventana. **Se pierden países al exigir las cuatro capas**: quedan 61, 93, 114 y 119 (falta crédito en 46 de los 112 países de 2000, y capital humano en 12 a 18). Paraguay está en las cuatro ventanas.
+- **Muestra (D8):** 112, 128, 141 y 144 países por ventana. **Se pierden países al exigir las cuatro capas** (cada especificación descarta los países que no tienen las capas que usa): quedan 61, 93, 114 y 119 (falta crédito en 46 de los 112 países de 2000, y capital humano en 12 a 18). Paraguay está en las cuatro ventanas.
 - **Presencia (D13)** y densidad (D3): con la muestra D8 de cada ventana.
 - **Capas:** energía (intensidad energética × precio de la electricidad), capital humano (habilidades × `hc`), crédito (intensidad de capital × crédito/PIB) y logística (**menos** log valor/peso × LPI). r en logaritmo (salvo habilidades) y estandarizado; a re-estandarizado entre los países de la muestra.
 - **Se descartaron** las filas de países-ventana y productos-ventana sin ninguna entrada (28 % de las filas): no aportan a las pendientes y causan separación perfecta. Quedan 230.643 filas y 7.411 entradas, 126 países y 1.095 productos.
@@ -43,6 +43,23 @@ Se agregó, para cada capa, el requisito multiplicado por el log del PIB per cá
 - **El capital humano sí pierde fuerza** (de 0,091 a 0,042), y en 2000-2005 casi desaparece (0,003), mientras que habilidades × PIB per cápita pasa a ser significativa (0,122). Los datos no separan «capital humano» de «ser un país rico»: el error estándar casi se duplica.
 - **Energía:** la interacción con el PIB per cápita es positiva (0,054 a 0,077): los productos intensivos en energía entran más en países ricos; el precio de la electricidad no aporta aparte.
 - **Conclusión para la decisión (a) de la logística:** no se explica por desarrollo; sigue sin interpretación clara y no es robusta. Se decide con el backtest fuera de muestra (tarea 1.11), eligiendo el signo solo con las ventanas de entrenamiento.
+
+## Capital físico por trabajador en lugar del crédito (2026-10-13)
+Se agregó la capa `capital_fisico` (log del stock de capital real por trabajador de PWT, `rnna / emp`), el par natural del requisito de capital (stock de capital real por trabajador de NBER-CES), y se comparó con el crédito.
+
+| | Crédito (base) | Capital físico en lugar del crédito | Los dos |
+|---|---|---|---|
+| Países en 2000 / 2005 / 2010 / 2015 | 59 / 91 / 112 / 119 | **97 / 110 / 122 / 123** | 59 / 91 / 112 / 119 |
+| Filas / entradas | 230.643 / 7.411 | **296.435 / 9.315** | 230.643 / 7.411 |
+| Coeficiente de la capa de capital | 0,011 (p = 0,54) | 0,004 (p = 0,83) | crédito 0,004; capital físico 0,009 (p > 0,75) |
+| Capital humano (r·a) | 0,089 (p < 0,001) | 0,088 (p < 0,001) | 0,089 |
+| Logística (r·a) | −0,085 (p = 0,005) | −0,063 (p = 0,013) | −0,085 |
+| Capital humano con control por PIB per cápita | 0,042 (p = 0,18) | 0,054 (p = 0,044) | 0,042 |
+
+- **En la misma muestra no cambia nada:** con los 124 países que tienen todas las capas, la interacción de capital físico da 0,011 (p = 0,57), y las demás quedan igual. Ni el crédito ni el capital físico predicen entradas.
+- **La ganancia es de muestra:** 26 % más filas y 38 países más en 2000 (97 contra 59). Con esa muestra mayor, capital humano da lo mismo y la logística se debilita (−0,063).
+- **El capital físico es casi el PIB per cápita:** correlación 0,94 con el log del PIB per cápita (capital humano 0,81, logística 0,75, crédito 0,72). Con el control por PIB per cápita su error estándar se duplica (0,06).
+- **Conclusión:** la capa de capital, con cualquiera de las dos medidas, no aporta una señal propia. Elegir una u otra es sobre todo una decisión sobre el tamaño de la muestra (pendiente, D15).
 
 ## Limitaciones de esta versión
 - **No marca reexportaciones (D6):** hace falta el comercio bilateral (`baci_global`, no disponible en la foto). Afecta a Paraguay y a pocos centros comerciales.

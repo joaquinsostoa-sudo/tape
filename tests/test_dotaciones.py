@@ -66,6 +66,14 @@ def test_paraguay_coincide_con_las_fuentes(tabla):
     assert py.hc == pytest.approx(pwt[(pwt.iso3 == "PRY") & (pwt.anio == 2015)].hc.item())
     assert py.lpi_edicion_anio == 2014  # el LPI de 2015 es la edición de 2014 arrastrada
     assert 0 < py.pct_capital_humano < 1
+    fila = pwt[(pwt.iso3 == "PRY") & (pwt.anio == 2015)].iloc[0]
+    assert py.log_capital_trabajador == pytest.approx(np.log(fila.rnna / fila.emp))  # capital real por trabajador
+
+
+def test_capital_fisico_cubre_mas_paises_que_el_capital_humano_en_2000(tabla):
+    z = tabla[tabla.anio == 2000]
+    assert z.z_capital_fisico.notna().sum() > z.z_capital_humano.notna().sum()
+    assert z.z_capital_fisico.mean() == pytest.approx(0.0, abs=1e-9)
 
 
 def test_estandarizacion_y_cobertura(tabla):
