@@ -11,8 +11,8 @@ Pr(E=1) = Λ(α_ct + γ_pt + β d_cpt + Σ_k θ_k r_pk a_ckt + Σ_k λ_k d_cpt r
   que termina en t0 (D3: solo datos ≤ t0).
 - Sin energía (HS4 2716, Itaipú y Yacyretá). **No marca reexportaciones** (D6): hace falta importar el comercio bilateral;
   es una limitación de esta versión.
-- Capas (r_pk, a_ckt): energía (intensidad energética × menos log del precio), capital humano (habilidades × hc), crédito
-  (intensidad de capital × log crédito/PIB), logística (menos log valor/peso × LPI). r en logaritmo (energía, capital,
+- Capas (r_pk, a_ckt; D15): energía (intensidad energética × menos log del precio), capital humano (habilidades × hc), capital
+  físico (intensidad de capital × log del stock de capital por trabajador de PWT; el crédito/PIB queda como robustez), logística (menos log valor/peso × LPI). r en logaritmo (energía, capital,
   valor/peso) y estandarizado entre los productos con requisito; a re-estandarizado entre los países de la muestra.
 - Agricultura, minería y servicios no tienen requisitos (D4): quedan fuera de este modelo.
 
@@ -38,15 +38,14 @@ HS4_ENERGIA = "2716"
 MIN_EXPORT = 1_000_000  # miles de USD (BACI): 1.000 millones de USD
 MIN_POBLACION = 1_000_000
 RCA_ENTRADA_INICIO, RCA_ENTRADA_FIN = 0.5, 1.0
-CAPAS_BASE = {  # capa -> (columna de requisitos, columna de dotaciones)
+CAPAS_PRINCIPALES = {  # D15: capa -> (columna de requisitos, columna de dotaciones)
     "energia": ("energia", "z_energia"),
     "capital_humano": ("habilidades", "z_capital_humano"),
-    "credito": ("capital", "z_credito"),
+    "capital_fisico": ("capital", "z_capital_fisico"),  # stock de capital por trabajador (PWT), par del requisito de capital
     "logistica": ("valor_peso", "z_logistica"),
 }
-# alternativa (D15): el requisito de capital (stock de capital real por trabajador) con su par natural, el stock de
-# capital por trabajador de PWT; comparte el requisito con el crédito
-CAPAS = {**CAPAS_BASE, "capital_fisico": ("capital", "z_capital_fisico")}
+# robustez de D15: el crédito/PIB en lugar del capital físico (comparte el requisito de capital)
+CAPAS = {**CAPAS_PRINCIPALES, "credito": ("capital", "z_credito")}
 
 
 def extraer_exportaciones(con, tabla: str = "ef.main.rca_matrix") -> pd.DataFrame:
@@ -166,20 +165,20 @@ def construir_datos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, po
 
 
 _RA = {c: f"ra_{c}" for c in CAPAS}
-_BASE4 = [_RA[c] for c in CAPAS_BASE]
-_KFIS4 = [_RA[c] for c in ("energia", "capital_humano", "capital_fisico", "logistica")]
-_RPIB4 = [f"rpib_{c}" for c in ("energia", "capital_humano", "credito", "logistica")]  # rpib_credito = r_capital × PIB
+_PRINC4 = [_RA[c] for c in CAPAS_PRINCIPALES]
+_CRED4 = [_RA[c] for c in ("energia", "capital_humano", "credito", "logistica")]
+_RPIB_PRINC = [f"rpib_{c}" for c in CAPAS_PRINCIPALES]
+_RPIB_CRED = [f"rpib_{c}" for c in ("energia", "capital_humano", "credito", "logistica")]
 ESPECIFICACIONES = {
     "densidad_sola": ["d_z"],
-    "capas": ["d_z", *_BASE4],
-    "capas_e_interacciones": ["d_z", *_BASE4, *(f"dra_{c}" for c in CAPAS_BASE)],
+    "capas": ["d_z", *_PRINC4],
+    "capas_e_interacciones": ["d_z", *_PRINC4, *(f"dra_{c}" for c in CAPAS_PRINCIPALES)],
     # control por PIB per cápita (opción prevista en la tarea 1.9): separa «la capa» de «el desarrollo general»
-    "capas_con_control_pib": ["d_z", *_BASE4, *_RPIB4],
-    # D15: capital físico por trabajador (PWT) en lugar del crédito, o junto con él
-    "capas_capital_fisico": ["d_z", *_KFIS4],
-    "capas_capital_fisico_con_control_pib": ["d_z", *_KFIS4, *_RPIB4],
+    "capas_con_control_pib": ["d_z", *_PRINC4, *_RPIB_PRINC],
+    # robustez de D15: crédito en lugar del capital físico, y los dos juntos
+    "capas_con_credito": ["d_z", *_CRED4],
+    "capas_con_credito_y_control_pib": ["d_z", *_CRED4, *_RPIB_CRED],
     "cinco_capas": ["d_z", *_RA.values()],
-    "cinco_capas_con_control_pib": ["d_z", *_RA.values(), *_RPIB4],
 }
 
 

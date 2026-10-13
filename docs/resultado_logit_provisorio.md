@@ -6,21 +6,23 @@
 - **Datos:** `rca_matrix` de la base de Ever (foto de lectura, HS6, con todas las exportaciones de BACI), agregada a HS4 y recalculada sin la energía de Itaipú/Yacyretá (HS4 2716). Se usaron exportaciones de 1995 a 2020.
 - **Modelo (D2 c):** `Pr(E=1) = Λ(α_ct + γ_pt + β d + Σ_k θ_k r_k a_k + Σ_k λ_k d r_k a_k)`. Efectos fijos de país-ventana y producto-ventana. Errores agrupados por país (`LogitEfectosFijos.errores_agrupados`).
 - **Entrada (D7):** `RCA_t0 < 0,5` y `RCA_t0+5 ≥ 1`, un solo año. Ventanas 2000, 2005, 2010 y 2015. **El panel incluye los productos que el país no exportaba (RCA = 0)**: son el 22 % de las filas, con una tasa de entrada de 1,2 % (contra 2,6 % en los que ya exportaban algo).
-- **Muestra (D8):** 112, 128, 141 y 144 países por ventana. **Se pierden países al exigir las cuatro capas** (cada especificación descarta los países que no tienen las capas que usa): quedan 61, 93, 114 y 119 (falta crédito en 46 de los 112 países de 2000, y capital humano en 12 a 18). Paraguay está en las cuatro ventanas.
+- **Muestra (D8):** 112, 128, 141 y 144 países por ventana. **Se pierden países al exigir las cuatro capas** (cada especificación descarta los países que no tienen las capas que usa): con las capas vigentes (D15) quedan 97, 110, 122 y 123; con el crédito en lugar del capital físico, 59, 91, 112 y 119 (falta crédito en 46 de los 112 países de 2000, y capital humano en 12 a 18). Paraguay está en las cuatro ventanas.
 - **Presencia (D13)** y densidad (D3): con la muestra D8 de cada ventana.
-- **Capas:** energía (intensidad energética × precio de la electricidad), capital humano (habilidades × `hc`), crédito (intensidad de capital × crédito/PIB) y logística (**menos** log valor/peso × LPI). r en logaritmo (salvo habilidades) y estandarizado; a re-estandarizado entre los países de la muestra.
-- **Se descartaron** las filas de países-ventana y productos-ventana sin ninguna entrada (28 % de las filas): no aportan a las pendientes y causan separación perfecta. Quedan 230.643 filas y 7.411 entradas, 126 países y 1.095 productos.
+- **Capas:** energía (intensidad energética × precio de la electricidad), capital humano (habilidades × `hc`), **capital físico (intensidad de capital × log del stock de capital por trabajador de PWT; D15)** y logística (**menos** log valor/peso × LPI). r en logaritmo (salvo habilidades) y estandarizado; a re-estandarizado entre los países de la muestra.
+- **Se descartaron** las filas de países-ventana y productos-ventana sin ninguna entrada (28 % de las filas): no aportan a las pendientes y causan separación perfecta. Con las capas vigentes quedan 296.435 filas y 9.315 entradas, 128 países y 1.095 productos.
 
-## Resultados (todas las ventanas)
+## Resultados vigentes (D15, todas las ventanas)
 | Variable | Coeficiente | Error agrupado | p |
 |---|---|---|---|
-| Densidad (d) | 1,15 | 0,06 | <0,001 |
-| Energía (r·a) | 0,017 | 0,032 | 0,60 |
-| **Capital humano (r·a)** | **0,089** | 0,018 | <0,001 |
-| Crédito (r·a) | 0,011 | 0,018 | 0,54 |
-| **Logística (r·a)** | **−0,085** | 0,029 | 0,005 |
+| Densidad (d) | 1,09 | 0,06 | <0,001 |
+| Energía (r·a) | 0,003 | 0,030 | 0,91 |
+| **Capital humano (r·a)** | **0,088** | 0,016 | <0,001 |
+| Capital físico (r·a) | 0,004 | 0,019 | 0,83 |
+| **Logística (r·a)** | **−0,063** | 0,025 | 0,013 |
 
-Con la densidad sola, el coeficiente de densidad es 1,18 (0,06). Las interacciones con la densidad (λ) no son significativas (la de logística, +0,029, p = 0,059).
+296.435 filas, 9.315 entradas, 128 países. Con la densidad sola (363.333 filas), el coeficiente de densidad es 1,13 (0,05). **Exploratorio:** con las interacciones de la densidad (λ) aparecen la de capital físico (−0,047, p = 0,008) y la de logística (+0,030, p = 0,023); hay ocho términos más y ninguno se había anticipado, así que no se interpretan hasta el backtest.
+
+Las secciones siguientes se hicieron en orden y las primeras usan el **crédito** como par del requisito de capital (versión inicial, 230.643 filas); la comparación y la decisión D15 están en la sección de capital físico. En las submuestras con las capas vigentes: con solo 2010 y 2015 (datos reales de LPI), capital humano 0,091 (p < 0,001) y logística −0,043 (p = 0,14); con solo 2000 y 2005, capital humano 0,089 y logística −0,087 (p = 0,010). Con el control por PIB per cápita (todas las ventanas): capital humano 0,054 (p = 0,044), logística −0,080 (p = 0,030), capital físico −0,006 (p = 0,91).
 
 ## Lo que se ve
 1. **La densidad predice las entradas** en las cuatro ventanas (coeficiente 0,98 a 1,31), como se esperaba.
@@ -59,13 +61,13 @@ Se agregó la capa `capital_fisico` (log del stock de capital real por trabajado
 - **En la misma muestra no cambia nada:** con los 124 países que tienen todas las capas, la interacción de capital físico da 0,011 (p = 0,57), y las demás quedan igual. Ni el crédito ni el capital físico predicen entradas.
 - **La ganancia es de muestra:** 26 % más filas y 38 países más en 2000 (97 contra 59). Con esa muestra mayor, capital humano da lo mismo y la logística se debilita (−0,063).
 - **El capital físico es casi el PIB per cápita:** correlación 0,94 con el log del PIB per cápita (capital humano 0,81, logística 0,75, crédito 0,72). Con el control por PIB per cápita su error estándar se duplica (0,06).
-- **Conclusión:** la capa de capital, con cualquiera de las dos medidas, no aporta una señal propia. Elegir una u otra es sobre todo una decisión sobre el tamaño de la muestra (pendiente, D15).
+- **Conclusión:** la capa de capital, con cualquiera de las dos medidas, no aporta una señal propia. Elegir una u otra es sobre todo una decisión sobre el tamaño de la muestra. **D15 decidida el 2026-10-13: (a), capital físico en lugar del crédito**, que queda como robustez (`capas_con_credito`) y como indicador separado de brechas en la Fase 3.
 
 ## Limitaciones de esta versión
 - **No marca reexportaciones (D6):** hace falta el comercio bilateral (`baci_global`, no disponible en la foto). Afecta a Paraguay y a pocos centros comerciales.
 - **Base de Ever desactualizada** (foto de lectura): usa su `rca_matrix` sin depurar. Se recalculó el RCA sin la energía, pero sin las reexportaciones de Paraguay.
 - **Agricultura, minería y servicios quedan fuera** (143 de 1.242 productos HS4 sin requisitos, D4).
-- **Casos con capas faltantes** reducen la muestra de 2000 a 61 países; decidir cómo tratarlos (tarea 1.7).
+- **Casos con capas faltantes** reducen la muestra de 2000 a 97 países (con el crédito serían 59); decidir cómo tratarlos (tarea 1.7).
 - **Sin fuera de muestra** (D2 a): esto es solo la parte de los coeficientes. El backtest de la 1.11 va aparte.
 
 ## Cómo repetirlo
