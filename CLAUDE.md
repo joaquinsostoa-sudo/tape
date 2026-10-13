@@ -47,7 +47,7 @@ Una tarea acotada por vez con criterio de terminado. Si implica una decisión me
 - Se excluyen CONSUMO, VIVIENDA e Impuestos: no son actividades económicas.
 
 ## Decisiones abiertas (ver el plan)
-Agregación producto→sector (D1); predicción fuera de muestra con efectos fijos país-año (D2); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
+Agregación producto→sector (D1); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
 
 ## Decididas el 2026-10-12 (detalle en `docs/supuestos.md`)
 - **D3**: φ con ventana de 5 años que termina en t, solo con datos ≤ t.
@@ -55,6 +55,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 - **D7**: entrada = definición del documento (un solo año: RCA_t < 0,5 y RCA_t+h ≥ 1); robustez: RCA ≥ 1 en 2 de los 3 años que terminan en t+h. El promedio móvil de 3 años se descartó como definición de la entrada (más rachas de un año).
 - **D8**: muestra = población ≥ 1 millón y exportaciones ≥ USD 1.000 millones en el año inicial (112 a 144 países, ≈ 97 % del comercio mundial); reportar el filtro.
 - **D13** (2026-10-13): presencia para φ y densidad = RCA ≥ 1 en al menos 2 de los 3 **años de calendario** que terminan en t (RCA depurado); la entrada principal (D7) sigue siendo de un solo año. Variante de robustez: presencia de un solo año.
+- **D2** (2026-10-13): efectos fijos y fuera de muestra, por propósito. (c) Coeficientes θ_k y λ_k (tarea 1.9): la especificación del documento (país-año y producto-año), dentro de la muestra, con errores agrupados por país; las interacciones r·a se identifican aunque los efectos absorban las dotaciones y los requisitos solos. (a) Backtest (1.11): efectos de país y de producto constantes más un indicador por ventana, entrenando solo con ventanas cuyo resultado se conocía en t y prediciendo la siguiente. (b) Efectos de Mundlak solo para países excluidos y Paraguay.
 - **D14** (2026-10-13): la primera edición del LPI se arrastra hacia atrás para tener logística en las ventanas de 2000 y 2005 (marca `lpi_hacia_atras`); robustez: modelo solo con datos reales (ventanas 2010 y 2015).
 - **D6**: reexportaciones marcadas automáticamente (importaciones y exportaciones del mismo orden en BACI), con revisión posterior producto por producto y confirmación con la aduana.
 
@@ -67,7 +68,7 @@ Agregación producto→sector (D1); predicción fuera de muestra con efectos fij
 
 ## Hoja de ruta (estado)
 - **Fase 0 Fundamentos: CERRADA (2026-10-08).** Estructura, CLAUDE.md, fuentes de Fase 1 descargadas, taxonomía de 67 sectores TAPE (`docs/taxonomia.md`) y puente HS92 → CPC → CIIU → sector (`docs/puente_hs_sector.md`, `data/clean/puente_hs92_sector.csv`; biocombustibles y arneses por producto HS). También hay: PIB por 33 actividades y regional del BCP, equivalencias de las clasificaciones locales a CIIU, tabla CNAEP → sector, e industrias del mapa MIC por distrito y sector.
-- **Fase 1 Módulo nacional** ← *estamos aquí*: hechas la 1.5 (dotaciones, `docs/dotaciones.md`) y la 1.6 (requisitos, `docs/puente_requisitos.md`). Ever subió borradores de 1.2, 1.3, 1.4, 1.7 y 1.8 en `src/modelos/`, sin revisar contra D3, D5 y D6; van a pasar a `densidad_np.py` y `logit_disperso.py`. Decididas D3, D4, D6, D7 y D8; pendientes D1 y D2 (ver `docs/PLAN_fase0_fase1.md` y `docs/ESTADO.md`).
+- **Fase 1 Módulo nacional** ← *estamos aquí*: hechas la 1.5 (dotaciones, `docs/dotaciones.md`) y la 1.6 (requisitos, `docs/puente_requisitos.md`). Ever subió borradores de 1.2, 1.3, 1.4, 1.7 y 1.8 en `src/modelos/`, sin revisar contra D3, D5 y D6; van a pasar a `densidad_np.py` y `logit_disperso.py`. Decididas D2, D3, D4, D6, D7, D8, D13 y D14; pendiente D1 (ver `docs/PLAN_fase0_fase1.md` y `docs/ESTADO.md`).
 - Fase 1 Módulo nacional: descargas, depuración, RCA/φ/densidad, logit + XGBoost + backtest. Paso si el modelo con capas supera a la densidad sola en precision@k.
 - Fase 2 Territorial (capas MIC, tabla MIC→CIIU, MEC, modelo jerárquico). Fase 3 Brechas, valor, política (EPHC, cuentas, MIP, crédito, SIMEL, leyes). Fase 4 Interfaz (FastAPI + MapLibre sobre la app Vercel). Fase 5 Monitoreo y difusión.
 - Datos locales ya incorporados (2026-10-09; ver `docs/ESTADO.md` y `docs/COLABORACION.md`): BCP (PIB, regional, crédito), MIP, EPHC 2022-2025, censo agropecuario 2022, SIMEL, ANEAES, MEC (parcial) y siete capas del mapa MIC. Faltan títulos y carreras del MEC, Censo Económico 2011, materia prima, oferta-utilización del BCP, y maquila y 60/90 a nivel de proyecto (decidido no pedirlos). La Fase 1 usa solo datos internacionales.

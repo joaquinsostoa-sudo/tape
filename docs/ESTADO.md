@@ -5,6 +5,8 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 ## Hasta dónde llegamos
 **Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 130 pruebas automáticas que pasan (`uv run pytest`).
 
+**Decisión D2 (2026-10-13):** coeficientes con la especificación del documento (efectos país-año y producto-año, errores agrupados por país); backtest con efectos de país y producto constantes más indicador de ventana, prediciendo la ventana siguiente; Mundlak solo para países excluidos y Paraguay. Falta agregar errores estándar agrupados a `logit_disperso.py` y repetir el baseline fuera de muestra.
+
 **Decisión D14 (2026-10-13):** la primera edición del LPI (2007) se arrastra hacia atrás para tener logística en 2000 y 2005 (marca `lpi_hacia_atras`); robustez con las ventanas de datos reales.
 
 **Decisión D13 (2026-10-13):** presencia para φ y densidad = RCA ≥ 1 en 2 de los 3 años de calendario que terminan en t.
@@ -17,7 +19,7 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 | 1.5 Dotaciones por país | **Hecha** (`docs/dotaciones.md`): capital humano, crédito, energía (precio) y logística, 235 países × 1990-2024 |
 | 1.6 Requisitos por producto | **Hecha** (`docs/puente_requisitos.md`): energía, capital, habilidades y valor/peso para 1.242 productos HS4 |
 | 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever en `src/modelos/`**; baseline de densidad sola subido el 2026-10-12 (dentro de la muestra, sin D2). Revisión y cambios pedidos: `docs/NOTA_revision_modelos_Ever.md`. Van a pasar a las versiones livianas `densidad_np.py` y `logit_disperso.py` (ver `docs/optimizacion_modelos.md`) |
-| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1) |
+| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.11 espera D1) |
 
 **Fuentes internacionales descargadas** (`uv run python -m src.descargas.todas`): BACI (HS92, 1995-2024), Atlas de Complejidad, WDI (15 indicadores, incluidos el precio de la electricidad y la proporción hidroeléctrica), Penn World Table 10.01 (a mano), LPI, correspondencias de la ONU y WITS, límites administrativos, 10 tablas de SIMEL, **NBER-CES** (intensidades por industria de EE. UU.) y la **concordancia HS → NAICS** de Pierce y Schott. Ver `docs/verificacion_fuentes.md`.
 
@@ -34,7 +36,7 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - **Maquila:** informe agregado de agosto 2026.
 
 ## Qué falta
-**Decisiones abiertas:** D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3.
+**Decisiones abiertas:** D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3.
 
 **Hallazgos a resolver en la Fase 1:**
 - **Las capas de dotaciones están correlacionadas:** capital humano, crédito y logística entre sí (0,65 a 0,76); la energía (precio) es independiente. Decidir en la tarea 1.9 cómo tratarlo (capa por capa, control por PIB per cápita o componentes).

@@ -17,7 +17,7 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | 1.5 Dotaciones por país | **Hecha el 2026-10-12** (`docs/dotaciones.md`, `src/limpieza/dotaciones.py`) |
 | 1.6 Requisitos por producto | **Hecha el 2026-10-12** (`docs/puente_requisitos.md`, `src/puentes/requisitos.py`) |
 | 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever** en `src/modelos/` (`depurar`, `importaciones`, `presencia`, `densidad`, `panel`, `evaluacion`, `logit_densidad`, `backtest`), sin revisar contra D3, D5 y D6. Pasan a las versiones livianas `densidad_np.py` y `logit_disperso.py` (`docs/optimizacion_modelos.md`); falta recalcular el RCA después de depurar y aplicar la depuración a la presencia y la densidad |
-| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1). Decididas: D3, D4, D6, D7, D8 (2026-10-12), D13 y D14 (2026-10-13) (ver `docs/supuestos.md`); siguen abiertas D1 y D2 |
+| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.11 espera D1). Decididas: D3, D4, D6, D7, D8 (2026-10-12), D13 y D14 (2026-10-13) (ver `docs/supuestos.md`); D2 decidida el 2026-10-13; sigue abierta D1 |
 
 ---
 
@@ -96,7 +96,7 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 - **Produce**: `src/modelos/evaluacion.py` (precision@k, AUC-PR, calibración) y el logit con solo la densidad. Es el piso contra el que se compara todo.
 - **Verificación**: pruebas de cada métrica con casos hechos a mano; curva de calibración y precision@k para k = 10, 20, 50.
 
-### 1.9 Logit con capas y efectos fijos **[DECISIÓN D2]**
+### 1.9 Logit con capas y efectos fijos **[D2 decidida: especificación del documento, errores agrupados por país]**
 - **Produce**: `src/modelos/logit_nacional.py`, `data/model/logit_coeficientes.csv`, `outputs/` con tabla de θ_k y λ_k con errores agrupados por país.
 - **Verificación**: signos y magnitudes con sentido económico; tú interpretas los coeficientes (es lo que revisa el equipo en esta fase).
 
@@ -117,7 +117,7 @@ Mi recomendación va primero en cada una.
 | # | Decisión | Opciones | Recomendación |
 |---|---|---|---|
 | **D1** | Pasar de producto a sector TAPE | (a) estimar por producto y agregar la probabilidad del sector como media ponderada por exportación mundial, con máximo y conteo como respaldo; (b) agregar a sector antes de estimar; (c) usar 1−Π(1−p) | (a) conserva el detalle; (b) pierde resolución |
-| **D2** | Efectos fijos y predicción fuera de muestra: los efectos fijos país-año y producto-año no existen para una ventana futura ni para un país excluido | (a) FE de país y de producto constantes más dummies de ventana, y la especificación del documento solo como robustez dentro de muestra; (b) efectos aleatorios correlacionados (Mundlak), que permiten predecir países excluidos; (c) la especificación del documento tal cual, sin predecir fuera de muestra | (a) para el backtest; (b) para países excluidos |
+| **D2** | Efectos fijos y predicción fuera de muestra: los efectos fijos país-año y producto-año no existen para una ventana futura ni para un país excluido | (a) FE de país y de producto constantes más dummies de ventana, y la especificación del documento solo como robustez dentro de muestra; (b) efectos aleatorios correlacionados (Mundlak), que permiten predecir países excluidos; (c) la especificación del documento tal cual, sin predecir fuera de muestra | (a) para el backtest; (b) para países excluidos | **DECIDIDA el 2026-10-13: (c) para coeficientes (1.9), (a) para el backtest (1.11) y (b) solo para países excluidos y Paraguay.** Ver `docs/supuestos.md` |
 | **D3** | Cómo calcular φ sin fuga | (a) ventana de 5 años que termina en t; (b) todo el período ≤ t acumulado | (a) |
 | **D4** | Fuente de intensidades `r_pk` y de costo de energía: ninguna de las fuentes de tu lista las trae | Intensidades: (a) NBER-CES (EE. UU., manufactura, energía/capital/trabajadores calificados) con el puente NAICS→HS del Census; (b) OCDE/EU KLEMS; (c) UNIDO INDSTAT. Energía: precio de electricidad industrial (IEA, de pago) o proxies WDI (consumo y acceso) | Intensidades (a); energía con proxy WDI al inicio, dejando el precio real como mejora. Aviso: el costo de energía es la capa más débil con datos públicos |
 | **D5** | Revisión HS y nivel | (a) HS92 a HS4 para estimar y HS6 para robustez y puente a CIIU; (b) HS6 en todo | (a), como en el documento técnico |
