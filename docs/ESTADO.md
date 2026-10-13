@@ -5,7 +5,7 @@ Actualizado: 2026-10-12. Para ponerse al día: leer este archivo, luego `CLAUDE.
 ## Hasta dónde llegamos
 **Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 125 pruebas automáticas que pasan (`uv run pytest`).
 
-**Decisiones tomadas el 2026-10-12** (detalle en `docs/supuestos.md`): D3 (proximidad con ventana de 5 años que termina en t; la distancia del Atlas solo como control), D4 (intensidades con NBER-CES, puente NAICS → HS de Pierce y Schott, energía con el **precio de la electricidad** de Doing Business) y D6 (reexportaciones marcadas por regla automática, a revisar después con la aduana). Siguen abiertas D1, D2, D7, D8 y D10.
+**Decisiones tomadas el 2026-10-12** (detalle en `docs/supuestos.md`): D3 (proximidad con ventana de 5 años que termina en t; la distancia del Atlas solo como control), D4 (intensidades con NBER-CES, puente NAICS → HS de Pierce y Schott, energía con el **precio de la electricidad** de Doing Business) D6 (reexportaciones marcadas por regla automática, a revisar después con la aduana), **D7** (entrada de un solo año como principal y «2 de 3 años» como robustez; el promedio móvil de 3 años se descartó) y **D8** (población ≥ 1 millón y exportaciones ≥ USD 1.000 millones: 112 a 144 países, ≈ 97 % del comercio). Siguen abiertas D1, D2 y D10.
 
 **Tareas de la Fase 1:**
 | Tarea | Estado |
@@ -30,12 +30,12 @@ Actualizado: 2026-10-12. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - **Maquila:** informe agregado de agosto 2026.
 
 ## Qué falta
-**Decisiones abiertas:** D7 (entradas sostenidas) y D8 (muestra de países) para el panel de entradas; D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3.
+**Decisiones abiertas:** D2 (efectos fijos) para el logit; D1 (producto → sector) para el informe; D10 (umbral ε) para la Fase 3. **Pendiente de confirmar:** la presencia que se usa para la proximidad y la densidad (hoy, promedio móvil de 3 años ≥ 1 en algún año de la ventana) y qué hacer con la capa de logística en las ventanas de 2000 y 2005 (el LPI empieza en 2007).
 
 **Hallazgos a resolver en la Fase 1:**
 - **Las capas de dotaciones están correlacionadas:** capital humano, crédito y logística entre sí (0,65 a 0,76); la energía (precio) es independiente. Decidir en la tarea 1.9 cómo tratarlo (capa por capa, control por PIB per cápita o componentes).
 - **Agricultura, minería y servicios no tienen requisitos** (NBER-CES es solo manufactura; 13 % del valor mundial, incluida la soja): decidir cómo tratarlos en el modelo (tarea 1.7) y en el módulo territorial (Fase 2).
-- **Código de `src/modelos/`** (ver `docs/optimizacion_modelos.md`): `depurar.py` quita la energía y las reexportaciones pero no recalcula el RCA, y la depuración no llega a la densidad; las constantes de D8 de `panel.py` no se aplican; hay rutas fijas de Windows (`C:\ever\...`) y dos copias de la base DuckDB.
+- **Código de `src/modelos/`** (ver `docs/optimizacion_modelos.md`): `depurar.py` quita la energía y las reexportaciones pero no recalcula el RCA, y la depuración no llega a la densidad; las constantes de D8 de `panel.py` no se aplican (y D7 fija la entrada de un solo año como definición principal); hay rutas fijas de Windows (`C:\ever\...`) y dos copias de la base DuckDB.
 - **Precio de la electricidad:** solo existe para 2014-2019 y se aplica a todos los años; en la robustez, repetir el modelo con las ventanas desde 2015.
 
 **Datos nacionales por conseguir:**
@@ -52,8 +52,8 @@ Actualizado: 2026-10-12. Para ponerse al día: leer este archivo, luego `CLAUDE.
 ## Quién hace qué
 | Persona | Tarea en curso | Rama |
 |---|---|---|
-| Joaquín | Datos nacionales pendientes; decisiones D7 y D8 | — |
-| Ever | Modelos de `src/modelos/`: pasar a `densidad_np.py` y `logit_disperso.py`, recalcular el RCA después de depurar, aplicar la depuración a la presencia y la densidad, y sacar las rutas fijas | — |
+| Joaquín | Datos nacionales pendientes | — |
+| Ever | Modelos de `src/modelos/`: pasar a `densidad_np.py` y `logit_disperso.py`, recalcular el RCA después de depurar, aplicar la depuración a la presencia y la densidad, aplicar D7 y D8 en el panel (entrada de un solo año y variante «2 de 3 años»; filtro de países) y sacar las rutas fijas | — |
 | Claude Code | Hechas: 1.5, 1.6 y las versiones livianas. Siguiente: revisar los borradores de Ever contra D3, D5 y D6 cuando él los suba | — |
 
 Una tarea por rama (`fase1/1-1-limpieza-baci`), con pruebas y lint en verde antes de cada commit. Los archivos de `src/modelos/` existentes los modifica solo quien trabaja ese módulo.

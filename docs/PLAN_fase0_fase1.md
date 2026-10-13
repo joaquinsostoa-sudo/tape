@@ -17,7 +17,7 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | 1.5 Dotaciones por país | **Hecha el 2026-10-12** (`docs/dotaciones.md`, `src/limpieza/dotaciones.py`) |
 | 1.6 Requisitos por producto | **Hecha el 2026-10-12** (`docs/puente_requisitos.md`, `src/puentes/requisitos.py`) |
 | 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever** en `src/modelos/` (`depurar`, `importaciones`, `presencia`, `densidad`, `panel`, `evaluacion`, `logit_densidad`, `backtest`), sin revisar contra D3, D5 y D6. Pasan a las versiones livianas `densidad_np.py` y `logit_disperso.py` (`docs/optimizacion_modelos.md`); falta recalcular el RCA después de depurar y aplicar la depuración a la presencia y la densidad |
-| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1). Decididas el 2026-10-12: D3, D4 y D6 (ver `docs/supuestos.md`); siguen abiertas D1, D2, D7 y D8 |
+| 1.1, 1.9, 1.10, 1.11 | Pendientes (1.9 espera D2; 1.11 espera D1). Decididas el 2026-10-12: D3, D4, D6, D7 y D8 (ver `docs/supuestos.md`); siguen abiertas D1 y D2 |
 
 ---
 
@@ -122,8 +122,8 @@ Mi recomendación va primero en cada una.
 | **D4** | Fuente de intensidades `r_pk` y de costo de energía: ninguna de las fuentes de tu lista las trae | Intensidades: (a) NBER-CES (EE. UU., manufactura, energía/capital/trabajadores calificados) con el puente NAICS→HS del Census; (b) OCDE/EU KLEMS; (c) UNIDO INDSTAT. Energía: precio de electricidad industrial (IEA, de pago) o proxies WDI (consumo y acceso) | Intensidades (a); energía con proxy WDI al inicio, dejando el precio real como mejora. Aviso: el costo de energía es la capa más débil con datos públicos |
 | **D5** | Revisión HS y nivel | (a) HS92 a HS4 para estimar y HS6 para robustez y puente a CIIU; (b) HS6 en todo | (a), como en el documento técnico |
 | **D6** | Marcar reexportaciones | (a) marcar productos cuyas importaciones y exportaciones de Paraguay son del mismo orden (usando importaciones de BACI) y confirmar luego con la aduana DNIT; (b) lista manual de productos | (a) |
-| **D7** | Entradas sostenidas | (a) RCA con promedio móvil de 3 años en t y t+h, y variante exigiendo RCA≥1 en dos de tres años; (b) solo la definición del documento | (a) |
-| **D8** | Muestra de países | (a) excluir países con menos de 1 millón de habitantes o exportaciones muy bajas; (b) los ~180 sin filtro | (a), con el filtro reportado en el informe |
+| **D7** | Entradas sostenidas | (a) RCA con promedio móvil de 3 años en t y t+h, y variante exigiendo RCA≥1 en dos de tres años; (b) solo la definición del documento | **DECIDIDA el 2026-10-12:** definición del documento (un solo año) como principal y «2 de 3 años» como robustez; el promedio móvil se descartó (medido: deja pasar más rachas de un año). Ver `docs/supuestos.md` |
+| **D8** | Muestra de países | (a) excluir países con menos de 1 millón de habitantes o exportaciones muy bajas; (b) los ~180 sin filtro | **DECIDIDA el 2026-10-12:** (a), con población ≥ 1 millón y exportaciones ≥ USD 1.000 millones (112 a 144 países, ≈ 97 % del comercio); filtro reportado en el informe |
 | **D9** | Taxonomía de sectores | (a) base CIIU Rev.4 con la manufactura y la agroindustria desagregadas; (b) base subsectores MIC | (a) porque el MIC aún no llegó. Pregunta aparte: tu lista de 5 clasificaciones agregadas puede no anidar; lo verificamos cuando lleguen los clasificadores |
 | **D10** | Umbral ε de las reglas de política (se necesita en Fase 3, no ahora) | Fijo (p. ej., 5 puntos de probabilidad) o relativo | Dejar abierto hasta tener ΔP |
 
