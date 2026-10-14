@@ -16,7 +16,7 @@ Pr(E=1) = Λ(α_ct + γ_pt + β d_cpt + Σ_k θ_k r_pk a_ckt + Σ_k λ_k d_cpt r
   valor/peso) y estandarizado entre los productos con requisito; a re-estandarizado entre los países de la muestra.
 - Agricultura, minería y servicios no tienen requisitos (D4): quedan fuera de este modelo.
 
-Uso: uv run python -m src.modelos.logit_nacional --expo RUTA.parquet  (o --db BASE.duckdb para extraerlas)
+Uso: uv run python -m src.modelos.logit_nacional [--expo RUTA.parquet]  (las exportaciones HS4 las arma `src.limpieza.baci`)
 """
 from __future__ import annotations
 
@@ -46,18 +46,6 @@ CAPAS_PRINCIPALES = {  # D15: capa -> (columna de requisitos, columna de dotacio
 }
 # robustez de D15: el crédito/PIB en lugar del capital físico (comparte el requisito de capital)
 CAPAS = {**CAPAS_PRINCIPALES, "credito": ("capital", "z_credito")}
-
-
-def extraer_exportaciones(con, tabla: str = "ef.main.rca_matrix") -> pd.DataFrame:
-    """Exportaciones por país (código BACI), año y producto HS4, desde una tabla con year, country, product, x_ik."""
-    return con.execute(f"""SELECT year AS anio, country AS codigo_baci, substr(product, 1, 4) AS hs4, SUM(x_ik) AS x
-                           FROM {tabla} GROUP BY 1, 2, 3""").df()
-
-
-def a_iso3(expo: pd.DataFrame, puente: pd.DataFrame) -> pd.DataFrame:
-    """Reemplaza el código numérico de BACI por ISO3 (los códigos sin ISO3 se descartan)."""
-    e = expo.merge(puente[["codigo_baci", "iso3"]], on="codigo_baci", how="inner")
-    return e.groupby(["anio", "iso3", "hs4"], as_index=False).x.sum()
 
 
 def calcular_rca(expo: pd.DataFrame) -> pd.DataFrame:
@@ -213,22 +201,12 @@ def ajustar_especificacion(df: pd.DataFrame, columnas: list[str]) -> tuple[pd.Da
 
 def main(argv: list[str] | None = None) -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--expo", help="parquet con anio, iso3, hs4, x (si no existe y hay --db, se extrae)")
-    ap.add_argument("--db", help="base DuckDB (ruta o URL) con rca_matrix, para extraer las exportaciones HS4")
+    ap.add_argument("--expo", help="parquet con anio, iso3, hs4, x (por defecto data/model/exportaciones_hs4.parquet, que arma src.limpieza.baci)")
     ap.add_argument("--salida", default=str(MODELO / "logit_coeficientes.csv"))
     args = ap.parse_args(argv)
     ruta = Path(args.expo or MODELO / "exportaciones_hs4.parquet")
     if not ruta.exists():
-        if not args.db:
-            raise SystemExit(f"falta {ruta}: dar --db para extraerlo")
-        import duckdb
-
-        con = duckdb.connect()
-        if args.db.startswith("http"):
-            con.execute("LOAD httpfs")
-        con.execute(f"ATTACH '{args.db}' AS ef (READ_ONLY)")
-        puente = pd.read_csv(CLEAN / "puente_paises_baci.csv")
-        a_iso3(extraer_exportaciones(con), puente).to_parquet(ruta, index=False)
+        raise SystemExit(f"falta {ruta}: correr `uv run python -m src.limpieza.baci` (arma las exportaciones HS4 desde el zip de BACI)")
     expo = pd.read_parquet(ruta)
     dot = pd.read_parquet(CLEAN / "dotaciones.parquet")
     req = pd.read_csv(CLEAN / "requisitos_producto_hs4.csv", dtype={"hs4": str})

@@ -14,6 +14,7 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | 0.4 Taxonomía de sectores TAPE | Hecha: 67 sectores (`docs/taxonomia.md`) |
 | 0.5 Puente HS → CIIU → sector | Hecha (`docs/puente_hs_sector.md`) |
 | **Fase 0** | **Cerrada el 2026-10-08.** Condición de paso cumplida |
+| 1.1 Limpieza de BACI | **Hecha el 2026-10-14** (`docs/baci_limpieza.md`, `src/limpieza/baci.py`): exportaciones e importaciones HS6 desde el zip; la tabla HS4 coincide con la anterior; falta la referencia oficial de Paraguay |
 | 1.5 Dotaciones por país | **Hecha el 2026-10-12** (`docs/dotaciones.md`, `src/limpieza/dotaciones.py`) |
 | 1.6 Requisitos por producto | **Hecha el 2026-10-12** (`docs/puente_requisitos.md`, `src/puentes/requisitos.py`) |
 | 1.2, 1.3, 1.4, 1.7, 1.8 | **Borradores de Ever** en `src/modelos/` (`depurar`, `importaciones`, `presencia`, `densidad`, `panel`, `evaluacion`, `logit_densidad`, `backtest`), sin revisar contra D3, D5 y D6. Pasan a las versiones livianas `densidad_np.py` y `logit_disperso.py` (`docs/optimizacion_modelos.md`); falta recalcular el RCA después de depurar y aplicar la depuración a la presencia y la densidad |
