@@ -29,6 +29,8 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 
 **Ficha de brechas, prototipo (2026-10-13):** `docs/ficha_brechas_prototipo.md` (arneses HS 8544 y etanol HS 2207): percentil de Paraguay en cada dotación frente a los productores, a los de ingreso parecido y a los productos vecinos; arneses entró con brechas de capital humano y capital por trabajador (la entrada vino por maquila), etanol casi sin brechas. Descriptivo, no predictivo.
 
+**Mapa de brechas de compatibilidad (2026-10-14):** `docs/mapa_brechas.md`. Índice de brechas de todos los productos contra todos los productores y los de ingreso similar, con ámbito alternativo de cercanos no exportados. No agrega a la densidad (AUC) y la regla de tolerancia estricta con reservas rechaza el 95 % de lo que Paraguay ya exporta; pendiente decidir cómo tratar las reservas.
+
 **Cuadro de bloques × dotaciones (2026-10-13):** `docs/resultado_bloques.md` y `docs/figuras/bloques_dotaciones_2015.png`: los recursos se asocian con sus bloques (tierra y agua con primarios agropecuarios; petróleo y gas con minerales y energía), capital humano, capital por trabajador y logística con manufactura pesada y media tecnología (pero también el ingreso); Paraguay: ventaja enorme en primarios agropecuarios, tercil alto en tierra, agua y electricidad barata.
 
 **Clasificación de productos (2026-10-13):** `src/puentes/clasificacion_lall.py` lleva la clasificación tecnológica de Lall (2000) a HS4 con confianza por fila (`docs/clasificacion_lall.md`): seis bloques para cruzar con las dotaciones.
