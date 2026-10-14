@@ -34,6 +34,7 @@ Se descomprime en la raíz y deja cada archivo en `data/raw/<fuente>/`. No inclu
 | Carpeta `data/raw/` | Archivos | Origen |
 |---|---|---|
 | `pwt/` | `pwt1001.xlsx` (Penn World Table 10.01) | GGDC, descarga manual |
+| `usgs_mcs/` | `696a75d5d4be0228872d3bf8.csv` (reservas y producción mundiales de minerales, MCS 2026; Windows-1252) | USGS, descarga manual |
 | `bcp_cuentas_nacionales/` | `PIB_33_actividades_desde_1991.xlsx`, `Tabla_correspondencia_CNAEP1.0_CIIU4.pdf`, `SCN_Paraguay_Anio_Base_2014.pdf` | BCP |
 | `bcp_cuentas_regionales/` | `Anexo_Estadistico_CRA.xlsx`, `Metodologia_CRA.pdf` | BCP |
 | `bcp_credito/` | `Boletin_Bancos_Ago26.xlsm` (33 MB; datos en un modelo Power Pivot que solo lee Excel) y `Creditos_bcp_sector_082026.xlsx` (serie mensual por sector 2020-2026, extraída con Excel) | BCP, Superintendencia de Bancos |

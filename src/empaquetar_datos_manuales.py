@@ -13,7 +13,7 @@ RAIZ = Path(__file__).resolve().parents[1]
 RAW = RAIZ / "data" / "raw"
 DESTINO = RAIZ.parent / "TAPE_datos_manuales.zip"
 MANUALES = ["aneaes", "bcp_credito", "bcp_cuentas_nacionales", "bcp_cuentas_regionales", "censo_agropecuario",
-            "ephc", "mec_escuelas", "mic_mapa", "mic_maquila", "mip_cepal_oit", "pwt"]
+            "ephc", "mec_escuelas", "mic_mapa", "mic_maquila", "mip_cepal_oit", "pwt", "usgs_mcs"]
 EXCLUIR_NOMBRES = {"README.md", "MANIFEST.json"}
 EXCLUIR_EXTENSIONES = {".part", ".txt"}
 EXCLUIR_CARPETAS = {"2022_sitio_previo"}
