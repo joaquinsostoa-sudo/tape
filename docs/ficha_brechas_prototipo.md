@@ -1,7 +1,7 @@
 # Ficha de brechas de Paraguay: prototipo con arneses y etanol (2026-10-13)
 
 **Prototipo descriptivo.** Código: `src/modelos/ficha_brechas.py` (cálculo) y `src/figuras/ficha_brechas.py` (figura); figuras: `docs/figuras/ficha_brechas_8544.png` (arneses) y `ficha_brechas_2207.png` (etanol);
-tablas: `data/model/ficha_brechas_8544.csv` y `ficha_brechas_2207.csv` (2010 y 2015). **Actualizado el 2026-10-14 con PWT 11.0** (capital humano, capital por trabajador y salario) y la capa «mano de obra barata». Pedido de Joaquín: mostrar qué le falta a Paraguay, dotación por dotación, para producir un producto.
+tablas: `data/model/ficha_brechas_8544.csv` y `ficha_brechas_2207.csv` (2010 y 2015). **Actualizado el 2026-10-14 con PWT 11.0** (capital humano, capital por trabajador y salario) y la capa «mano de obra barata». **Actualizado el 2026-10-14 con PWT 11.0** (capital humano, capital por trabajador y salario) y la capa «mano de obra barata». Pedido de Joaquín: mostrar qué le falta a Paraguay, dotación por dotación, para producir un producto.
 
 ## Qué calcula
 Para un producto HS4 y un año, el percentil de Paraguay en cada dotación entre los países D8 (0 = el menos dotado, 100 = el más dotado) frente al percentil mediano de:
@@ -21,11 +21,13 @@ Paraguay pasó de exportaciones casi nulas (USD 0,05 millones en 2000) a USD 350
 | Logística (LPI) | 48 → 64 | **falta 14** / similar / **falta 12** | **falta 16** / similar / **falta 20** |
 | Electricidad barata | 91 → 52 | sobra 38 / sobra 33 / sobra 43 | sobra 39 / sobra 30 / sobra 38 |
 | Mano de obra barata | 63 → 46 | sobra 16 / similar / sobra 20 | sobra 17 / similar / sobra 24 |
+| Impuesto bajo a las utilidades | 74 → 59 | sobra 19 / sobra 12 / sobra 17 | sobra 16 / sobra 10 / sobra 17 |
 | Tierra cultivable | 94 → 60 | sobra 37 / sobra 39 / sobra 41 | sobra 34 / sobra 33 / sobra 38 |
 | Agua dulce | 83 → 50 | sobra 36 / sobra 50 / sobra 34 | sobra 33 / sobra 48 / sobra 34 |
 
 - **La brecha ya existía antes de la entrada (2010) y es parecida en 2015**: Paraguay entró en arneses con menos capital humano y menos capital por trabajador que los productores típicos. La brecha de logística desaparece al compararse con productores de ingreso parecido.
 - **La mano de obra de Paraguay no es más cara que la del productor típico** (percentil 63 en mano de obra barata contra 46 de los productores): con la remuneración media por trabajador de toda la economía, el salario no explica la brecha. Sí hay productores más baratos (Nicaragua, Honduras), y esta medida es un promedio de toda la economía, no de la manufactura.
+- **Impuesto sobre las utilidades (v0, tasa general de Doing Business):** Paraguay (9,6 %) es más barato que el productor típico (percentil 74 contra 59: «sobra 16»). Es solo la tasa general: no incluye el régimen de maquila (1 %) de Paraguay ni los regímenes exportadores de Nicaragua, Honduras, Marruecos o Túnez, así que **la ventaja de Paraguay frente a los productores está sobreestimada** hasta que se codifiquen esos regímenes (v1).
 - **Lo que explica la entrada sigue sin estar en las dotaciones**: el ensamblaje de arneses es intensivo en mano de obra y entró con el régimen de maquila; el régimen fiscal es la variable que falta (pendiente).
 
 ## Etanol (HS 2207; el biodiesel no se separa a 4 dígitos en HS92)
@@ -38,6 +40,7 @@ Paraguay pasó de 0 en 2012 a USD 24 millones en 2014 y USD 195 millones en 2022
 | Logística (LPI) | 48 → 53 | similar / similar / **falta 15** | similar / similar / **falta 15** |
 | Electricidad barata | 91 → 44 | sobra 50 / sobra 49 / sobra 45 | sobra 47 / sobra 40 / sobra 45 |
 | Mano de obra barata | 63 → 54 | sobra 17 / similar / sobra 22 | similar / similar / sobra 21 |
+| Impuesto bajo a las utilidades | 74 → 43 | sobra 24 / sobra 21 / sobra 24 | sobra 32 / sobra 36 / sobra 24 |
 | Tierra cultivable | 94 → 52 | sobra 39 / sobra 54 / sobra 40 | sobra 41 / sobra 56 / sobra 39 |
 | Agua dulce | 83 → 44 | sobra 36 / sobra 25 / sobra 36 | sobra 39 / sobra 30 / sobra 36 |
 

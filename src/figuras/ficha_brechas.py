@@ -19,10 +19,10 @@ from src.figuras.bloques_infografia import AZUL, GRIS, NARANJA, TINTA, Lienzo
 from src.modelos.ficha_brechas import PRODUCTOS, ficha, trayectoria
 from src.modelos.logit_nacional import CLEAN, MODELO, RAIZ, calcular_rca
 
-W, H = 14.5, 12.4
+W, H = 14.5, 12.9
 NOMBRES = {"8544": "Arneses y cables aislados (HS 8544)", "2207": "Etanol (HS 2207)"}
 NOTAS = {
-    "8544": "Los arneses son ensamblaje intensivo en mano de obra y entraron con el régimen de maquila: ni los salarios ni el régimen están en las dotaciones. "
+    "8544": "Los arneses son ensamblaje intensivo en mano de obra y entraron con el régimen de maquila (1 % sobre lo facturado), que no está en las capas: el impuesto que se muestra es la tasa general. "
             "HS 8544 reúne los arneses (HS 854430) con otros cables aislados.",
     "2207": "El biodiesel no se puede separar a 4 dígitos (HS92), así que la ficha solo cubre el etanol (HS 2207). "
             "La tierra y el agua son recursos de las materias primas (caña, maíz); entre los países que producen etanol no son un requisito.",
@@ -78,7 +78,7 @@ def dibujar(hs4: str, anio: int, expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.
         f"productos que todavía no tiene. Referencias: {f['n_productores']} productores, {f['n_peers']} de ingreso parecido\n"
         f"y {f['n_vecinos']} productos vecinos. Confianza: {f['confianza']}.", fontsize=9.4, color=GRIS, va="center", linespacing=1.5)
     # C. brechas
-    top_c, alto_c = top_a - alto_a - 0.25, 6.55
+    top_c, alto_c = top_a - alto_a - 0.25, 7.05
     L.caja(0.35, top_c - alto_c, W - 0.7, alto_c)
     L.t(0.6, top_c - 0.18, "Posición de Paraguay frente a quienes producen (percentil entre los países: 0 = el menos dotado, 100 = el más dotado)", fontsize=12.5, fontweight="bold", va="top")
     x0, ancho, y_top, fila_h = 3.55, 6.0, top_c - 1.8, 0.46

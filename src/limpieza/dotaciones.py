@@ -50,14 +50,15 @@ INDICADORES = {
     "acceso_electricidad": "EG.ELC.ACCS.ZS", "lpi_edicion": "LP.LPI.OVRL.XQ",
     "poblacion": "SP.POP.TOTL", "pib_pc_ppa": "NY.GDP.PCAP.PP.KD",
     "hidro": "EG.ELC.HYRO.ZS", "precio_electricidad_db": "IC.ELC.PRI.KH.DB1619",
-    "tierra_cultivable_pc": "AG.LND.ARBL.HA.PC", "agua_pc": "ER.H2O.INTR.PC",
+    "tierra_cultivable_pc": "AG.LND.ARBL.HA.PC", "agua_pc": "ER.H2O.INTR.PC", "impuesto_utilidades": "PAY.TAX.PRFT.CP.ZS",
 }
 CAPAS = {  # capa -> columna base ya transformada
     "capital_humano": "hc", "credito": "log_credito", "energia": "menos_log_precio", "logistica": "lpi",
 }
 EXTRAS = {"consumo_electrico": "log_consumo_electrico", "hidro": "hidro",  # alternativas de energía, solo con z
           "capital_fisico": "log_capital_trabajador",
-          "tierra": "log_tierra", "agua": "log_agua", "trabajo_barato": "menos_log_salario"}  # recurso natural: tierra cultivable por persona (para bienes basados en tierra)  # alternativa de capital: stock de capital por trabajador (PWT)
+          "tierra": "log_tierra", "agua": "log_agua", "trabajo_barato": "menos_log_salario", "impuesto_bajo": "menos_impuesto_utilidades"}  # recurso natural: tierra cultivable por persona (para bienes basados en tierra)  # alternativa de capital: stock de capital por trabajador (PWT)
+ULTIMO_ANIO_IMPUESTO = 2019  # Doing Business se discontinuó en 2021: el impuesto sobre utilidades existe para 2005-2019
 ANIOS_PRECIO = range(2014, 2020)  # el precio de Doing Business existe solo en estos años
 
 
@@ -159,6 +160,11 @@ def construir(paises: set[str] | None = None) -> pd.DataFrame:
     base["log_agua"] = log_positivo(base.agua_pc)  # m3 de recursos hídricos internos renovables por persona
     base["log_tierra"] = log_positivo(base.tierra_cultivable_pc)  # hectáreas de tierra cultivable por persona
     base["log_capital_trabajador"] = log_positivo(base.rnna / base.emp)  # stock de capital real por trabajador
+    ultimo = base[base.anio == ULTIMO_ANIO_IMPUESTO].set_index("iso3").impuesto_utilidades
+    sin_dato = base.impuesto_utilidades.isna() & (base.anio > ULTIMO_ANIO_IMPUESTO)
+    base["impuesto_arrastrado"] = sin_dato & base.iso3.map(ultimo).notna()  # tras 2019 se arrastra el último dato de Doing Business (discontinuado)
+    base.loc[sin_dato, "impuesto_utilidades"] = base.loc[sin_dato, "iso3"].map(ultimo)
+    base["menos_impuesto_utilidades"] = -base.impuesto_utilidades  # impuesto bajo = más favorable (como la electricidad barata)
     base["salario_usd"] = salario_usd(base)  # USD corrientes de mercado por trabajador
     base["menos_log_salario"] = -log_positivo(base.salario_usd)  # mano de obra barata = más dotación (como el precio de la electricidad)
     base["log_consumo_electrico"] = log_positivo(base.consumo_electrico_pc)

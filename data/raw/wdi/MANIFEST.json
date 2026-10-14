@@ -94,5 +94,11 @@
   "fecha_utc": "2026-10-14",
   "bytes": 2680570,
   "sha256": "aa830dba96eec8e6c311895674f767f3ec41b6b03af947969acad5288c413050"
+ },
+ "wdi_PAY.TAX.PRFT.CP.ZS_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/PAY.TAX.PRFT.CP.ZS?format=json&per_page=20000&date=1990:2025&page=1&source=1",
+  "fecha_utc": "2026-10-14",
+  "bytes": 885434,
+  "sha256": "94b5b98ea022ff43f3ff812db8dbba98266d1088b805b60b5356c6443f2c077b"
  }
 }

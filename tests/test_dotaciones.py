@@ -141,3 +141,11 @@ def test_salario_de_paraguay_es_razonable_y_la_mano_de_obra_barata_es_su_inverso
     py = tabla[(tabla.iso3 == "PRY") & (tabla.anio == 2015)].iloc[0]
     assert 3_000 < py.salario_usd < 12_000 and py.menos_log_salario == pytest.approx(-np.log(py.salario_usd))
     assert tabla[tabla.anio == 2015].menos_log_salario.notna().sum() > 120
+
+
+def test_impuesto_sobre_utilidades_de_paraguay_y_arrastre_posterior_a_2019(tabla):
+    py = tabla[tabla.iso3 == "PRY"].set_index("anio")
+    assert py.loc[2015, "impuesto_utilidades"] == pytest.approx(9.6, abs=0.5) and py.loc[2015, "menos_impuesto_utilidades"] == pytest.approx(-py.loc[2015, "impuesto_utilidades"])
+    assert not py.loc[2019, "impuesto_arrastrado"] and py.loc[2022, "impuesto_arrastrado"]  # después de 2019 se arrastra el último dato
+    assert py.loc[2022, "impuesto_utilidades"] == py.loc[2019, "impuesto_utilidades"]
+    assert tabla[tabla.anio == 2015].impuesto_utilidades.notna().sum() > 150

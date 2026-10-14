@@ -23,7 +23,7 @@ from src.modelos.logit_nacional import CLEAN, MODELO, calcular_rca, paises_elegi
 PAIS = "PRY"
 CAPAS = {  # columna de dotaciones -> nombre
     "hc": "Capital humano", "log_capital_trabajador": "Capital por trabajador", "lpi": "Logística (LPI)", "menos_log_precio": "Electricidad barata",
-    "menos_log_salario": "Mano de obra barata", "log_tierra": "Tierra cultivable", "log_agua": "Agua dulce", "pib_pc_ppa": "PIB per cápita (referencia)",
+    "menos_log_salario": "Mano de obra barata", "menos_impuesto_utilidades": "Impuesto bajo a las utilidades", "log_tierra": "Tierra cultivable", "log_agua": "Agua dulce", "pib_pc_ppa": "PIB per cápita (referencia)",
 }
 MIN_PRODUCTORES = 5
 VECINOS = 15
