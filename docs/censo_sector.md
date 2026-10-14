@@ -19,11 +19,11 @@ El censo usa una **adaptación nacional de la CIIU Rev.4**: la mayoría de los g
 | 209 | otros productos químicos n.c.p. | grupo 202 | 2021, 2022, 2023, 2029 con peso igual, `baja` |
 
 ## Cobertura en manufactura (21.134 unidades, divisiones 10 a 33)
-| Confianza | Unidades | % |
-|---|---|---|
-| alta | 78,2 % | |
-| baja | 21,2 % | |
-| media | 0,6 % | |
+| Confianza | % de las unidades manufactureras |
+|---|---|
+| alta | 78,2 |
+| baja | 21,2 |
+| media | 0,6 |
 
 Lo que concentra la confianza baja: **109 (1.375 unidades)**, el residual de 2 dígitos de alimentos (10: 1.004), de minerales no metálicos (23: 992) y los otros minerales no metálicos (239: 756), más químicos (209: 215; 20: 129). Es el 21 % de la manufactura donde el reparto es neutro y puede estar lejos de la realidad: por ejemplo, en 109 y 10 lo esperable es que dominen las panaderías, y en 239 las olerías, pero el censo no lo dice.
 
