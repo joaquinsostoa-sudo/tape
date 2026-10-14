@@ -96,7 +96,7 @@ def main() -> None:
     fig.text(0.01, 0.005, "Ventaja = RCA del bloque ≥ 1. Bloques: clasificación tecnológica de Lall (2000) llevada a HS4. Azul: más países con ventaja entre los más dotados; naranja: menos. "
              "Descriptivo, sin causalidad.", fontsize=7.8, color="#444444")
     fig.tight_layout(rect=(0, 0.02, 0.9, base - 0.008))
-    destino = RAIZ / "docs" / "figuras" / "bloques_dotaciones_2015.png"
+    destino = RAIZ / "docs" / "figuras" / "bloques_dotaciones_2015_detalle.png"
     destino.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destino, dpi=140)
     print(destino)

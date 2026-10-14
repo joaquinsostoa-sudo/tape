@@ -1,6 +1,6 @@
 # Bloques de productos × dotaciones (2015)
 
-**Descriptivo, sin controles de causalidad.** Código: `src/modelos/bloques_dotaciones.py`; figura: `docs/figuras/bloques_dotaciones_2015.png`; tabla completa: `data/model/bloques_dotaciones_2015.csv`;
+**Descriptivo, sin controles de causalidad.** Código: `src/modelos/bloques_dotaciones.py`; infografía: `docs/figuras/bloques_dotaciones_2015.png` (`src/figuras/bloques_infografia.py`: cómo se arma una celda con un ejemplo visual, guía de colores, tabla con los casos clave numerados, tercio de Paraguay y PIB de referencia); versión técnica con los dos paneles, incluida la comparación dentro de cada nivel de ingreso: `docs/figuras/bloques_dotaciones_2015_detalle.png` (`src/figuras/bloques_dotaciones.py`); tabla completa: `data/model/bloques_dotaciones_2015.csv`;
 países y terciles: `data/model/bloques_paises_2015.csv`. Pedido de Joaquín: resumir con un cuadro lo que explican las dotaciones.
 
 ## Cómo se hizo
