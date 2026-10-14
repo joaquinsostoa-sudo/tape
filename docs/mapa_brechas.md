@@ -31,3 +31,6 @@ Descriptivo: no prueba que cerrar una brecha lleve a producir.
 
 ## Pendiente de decisión
 Cómo entran las reservas: (A) fuera del índice general y solo como filtro de viabilidad para los bloques de recursos (minerales y energía, primarios); (B) dentro, con regla de grado (posición relativa frente a la distribución de los pares que ya producen) en vez de «ninguna fuera de tolerancia»; (C) 8 dotaciones y marcar aparte los productos de recursos naturales sin reservas.
+
+## Segunda versión: relevancia revelada, límite duro y exceso (`src/modelos/mapa_limites.py`)
+Declarada en `docs/supuestos.md` antes de correr (2026-10-14). Resultado: control de sensatez cumplido (78 % de las exportaciones actuales de Paraguay compatibles; 195 de 277 cercanos compatibles; 18 con límite duro). El déficit ponderado no mejora la densidad (AUC 0,887 contra 0,891). **La hipótesis del exceso no se cumple**: el coeficiente es positivo (+0,17; tierra sola +0,69), el contrario del declarado. Pendiente: reservas del mineral específico de cada producto.
