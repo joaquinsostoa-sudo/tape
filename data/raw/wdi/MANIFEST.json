@@ -88,5 +88,11 @@
   "fecha_utc": "2026-10-13",
   "bytes": 1049697,
   "sha256": "381a528da16dc74aa4654a62f31edaf6ac9998df9b4ac6578e5b5476226d1962"
+ },
+ "wdi_ER.H2O.INTR.PC_p1.json": {
+  "url": "https://api.worldbank.org/v2/country/all/indicator/ER.H2O.INTR.PC?format=json&per_page=20000&date=1990:2025&page=1",
+  "fecha_utc": "2026-10-14",
+  "bytes": 2680570,
+  "sha256": "aa830dba96eec8e6c311895674f767f3ec41b6b03af947969acad5288c413050"
  }
 }

@@ -48,12 +48,14 @@ INDICADORES = {
     "acceso_electricidad": "EG.ELC.ACCS.ZS", "lpi_edicion": "LP.LPI.OVRL.XQ",
     "poblacion": "SP.POP.TOTL", "pib_pc_ppa": "NY.GDP.PCAP.PP.KD",
     "hidro": "EG.ELC.HYRO.ZS", "precio_electricidad_db": "IC.ELC.PRI.KH.DB1619",
+    "tierra_cultivable_pc": "AG.LND.ARBL.HA.PC",
 }
 CAPAS = {  # capa -> columna base ya transformada
     "capital_humano": "hc", "credito": "log_credito", "energia": "menos_log_precio", "logistica": "lpi",
 }
 EXTRAS = {"consumo_electrico": "log_consumo_electrico", "hidro": "hidro",  # alternativas de energía, solo con z
-          "capital_fisico": "log_capital_trabajador"}  # alternativa de capital: stock de capital por trabajador (PWT)
+          "capital_fisico": "log_capital_trabajador",
+          "tierra": "log_tierra"}  # recurso natural: tierra cultivable por persona (para bienes basados en tierra)  # alternativa de capital: stock de capital por trabajador (PWT)
 ANIOS_PRECIO = range(2014, 2020)  # el precio de Doing Business existe solo en estos años
 
 
@@ -144,6 +146,7 @@ def construir(paises: set[str] | None = None) -> pd.DataFrame:
     base = base.drop(columns="lpi_edicion").merge(arrastrar_ediciones(lpi), on=["iso3", "anio"], how="left")
     base["lpi_hacia_atras"] = base.lpi_hacia_atras.fillna(False).astype(bool)  # sin LPI: no es retroceso
     base["log_credito"] = log_positivo(base.credito_privado_pib)
+    base["log_tierra"] = log_positivo(base.tierra_cultivable_pc)  # hectáreas de tierra cultivable por persona
     base["log_capital_trabajador"] = log_positivo(base.rnna / base.emp)  # stock de capital real por trabajador
     base["log_consumo_electrico"] = log_positivo(base.consumo_electrico_pc)
     base["precio_electricidad_kwh"] = base.iso3.map(precio_promedio(base))  # característica estable del país
