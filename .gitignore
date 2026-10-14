@@ -65,3 +65,4 @@ db/
 duckdb_temp/ 
 !data/clean/puente_paises_baci.csv
 !data/clean/poblacion_pais.csv
+!data/clean/clasificacion_lall_hs4.csv

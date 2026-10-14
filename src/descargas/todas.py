@@ -2,6 +2,7 @@
 from . import (
     atlas,
     baci,
+    clasificaciones,
     concordancias,
     hs_naics,
     limites_admin,
@@ -12,7 +13,7 @@ from . import (
     wdi,
 )
 
-PASOS = [("concordancias", concordancias), ("limites_admin", limites_admin), ("nberces", nberces), ("hs_naics", hs_naics), ("wdi", wdi), ("reservas", reservas), ("pwt", pwt),
+PASOS = [("concordancias", concordancias), ("limites_admin", limites_admin), ("nberces", nberces), ("hs_naics", hs_naics), ("wdi", wdi), ("reservas", reservas), ("clasificaciones", clasificaciones), ("pwt", pwt),
          ("simel", simel), ("atlas", atlas), ("baci", baci)]
 
 

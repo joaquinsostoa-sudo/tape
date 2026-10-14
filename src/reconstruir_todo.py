@@ -35,6 +35,7 @@ PASOS = [
     "src.puentes.salud_distrito",
     "src.puentes.hs_sector",
     "src.puentes.requisitos",
+    "src.puentes.clasificacion_lall",
     "src.puentes.doc_taxonomia",
 ]
 
