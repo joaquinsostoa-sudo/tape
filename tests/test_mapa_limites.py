@@ -74,3 +74,10 @@ def test_posicion_especifica_usa_el_mineral_del_producto_y_deja_vacio_el_resto()
     pct3, share = ml.pct_especifico(pct, ["a", "b", "c"], ["2603", "0101"], min_, k=1)
     assert share[:, 0].tolist() == [0.0, 0.1, 0.5] and np.isnan(share[:, 1]).all()
     assert pct3[2, 0, 1] == 100.0 and np.isnan(pct3[:, 1, 1]).all() and pct3[0, 0, 0] == 10.0
+
+
+def test_estado_marca_sin_dato_de_reservas_solo_si_no_hay_limite_duro():
+    import pandas as pd
+
+    tabla = pd.DataFrame({"hs4": ["2602", "2602", "0801", "0801"], "n_limites_duros": [0, 1, 0, 0], "compatible": [True, False, True, False]})
+    assert ml.estado(tabla).tolist() == ["sin dato confiable de reservas", "límite duro", "compatible", "déficit alto"]

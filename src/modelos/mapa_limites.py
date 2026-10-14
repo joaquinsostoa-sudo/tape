@@ -46,6 +46,8 @@ REL_BAJA = 0.2
 PCT_LIMITE = 10
 CAPA_MINERAL = "riqueza_mineral"  # en la variante específica, la reserva del mineral propio del producto
 PROP_PRODUCTORES_AUSENCIA = 0.75
+# Productos que dependen de una reserva mineral que el USGS no permite afirmar ausente: los 18 de `MINERALES` y el resto de los minerales (capítulo 26 del HS: uranio, circonio...), que el USGS no cubre
+SIN_DATO_RESERVAS = set(MINERALES)
 ANIO = 2019
 
 
@@ -170,6 +172,12 @@ def limite_ausencia(share: np.ndarray, m: np.ndarray, i: int, minimo: int = MINI
     return out
 
 
+def estado(tabla: pd.DataFrame) -> pd.Series:
+    """Estado de cada producto: «límite duro»; «sin dato confiable de reservas» (depende de una reserva mineral que el USGS no permite afirmar ausente y no tiene límite duro); «compatible»; «déficit alto»."""
+    sin_dato = (tabla.hs4.isin(SIN_DATO_RESERVAS) | tabla.hs4.str.startswith("26")) & (tabla.n_limites_duros == 0)
+    return pd.Series(np.select([tabla.n_limites_duros > 0, sin_dato, tabla.compatible], ["límite duro", "sin dato confiable de reservas", "compatible"], "déficit alto"), index=tabla.index)
+
+
 def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: pd.DataFrame, anio: int = ANIO, pais: str = PAIS, minerales: pd.DataFrame | None = None) -> dict:
     """Todo el análisis para `pais` en `anio`."""
     dot = dotaciones_del_anio(dot, pob, puente, anio)
@@ -203,6 +211,7 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     tabla["limite_ausencia_mineral"] = ausencia
     tabla["limite_duro"] = [", ".join(CAPAS[capas[j]] for j in np.flatnonzero(f)) for f in duro]
     tabla["compatible"] = (tabla.n_limites_duros == 0) & (tabla.deficit_ponderado <= tol)
+    tabla["estado"] = estado(tabla)
     r = rca[(rca.anio == anio) & (rca.iso3 == pais)].set_index("hs4").rca
     tabla["rca"] = tabla.hs4.map(r).fillna(0.0)
     no_exporta = (~tabla.presencia) & (tabla.rca < 0.5)
@@ -242,6 +251,8 @@ def main(argv: list[str] | None = None) -> None:
     print(f"Cercanos no exportados: {len(q)}; compatibles {int(q.compatible.sum())}; con límite duro {int((q.n_limites_duros > 0).sum())}; sin límite pero con déficit alto {int(((q.n_limites_duros == 0) & ~q.compatible).sum())}")
     sufijo = "_especifico" if a.especifico else ""
     mi = t[t.hs4.isin(set(MINERALES))]
+    print("\nEstado de los cercanos no exportados:\n" + q.estado.value_counts().to_string())
+    print("\nEstado de las exportaciones actuales:\n" + p.estado.value_counts().to_string())
     print(f"\nProductos minerales ({len(mi)}): con límite duro {int((mi.n_limites_duros > 0).sum())}, por ausencia de reservas {int(mi.limite_ausencia_mineral.sum())}; exportaciones actuales de {a.pais} marcadas: {int((t.presencia & (t.n_limites_duros > 0)).sum())}")
     print(mi[mi.hs4.isin(["2602", "2606", "2603", "2510", "2528"])][["hs4", "limite_duro", "compatible"]].to_string(index=False))
     t.to_csv(MODELO / f"mapa_limites{sufijo}_{a.pais}_{a.anio}.csv", index=False)

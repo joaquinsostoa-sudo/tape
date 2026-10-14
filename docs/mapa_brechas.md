@@ -34,3 +34,4 @@ Cómo entran las reservas: (A) fuera del índice general y solo como filtro de v
 
 ## Segunda versión: relevancia revelada, límite duro y exceso (`src/modelos/mapa_limites.py`)
 Declarada en `docs/supuestos.md` antes de correr (2026-10-14). Resultado: control de sensatez cumplido (78 % de las exportaciones actuales de Paraguay compatibles; 195 de 277 cercanos compatibles; 18 con límite duro). El déficit ponderado no mejora la densidad (AUC 0,887 contra 0,891). **La hipótesis del exceso no se cumple**: el coeficiente es positivo (+0,17; tierra sola +0,69), el contrario del declarado. Pendiente: reservas del mineral específico de cada producto.
+Estado final de cada producto (`estado` en `mapa_limites_especifico_PRY_2019.csv`): compatible, déficit alto, límite duro o sin dato confiable de reservas. Figura: `docs/figuras/mapa_limites_PRY_2019.png`. Alerta abierta: seda y semillas oleaginosas quedan con límite duro por el carbón (correlación entre dotaciones).
