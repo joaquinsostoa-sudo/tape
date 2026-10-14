@@ -62,6 +62,7 @@ Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.
 - Cultivos y ganadería del censo agropecuario por distrito, si existe otro tomo.
 - Informes de maquila y de la Ley de Inversiones: última capa, complementos.
 - Leyes y normas (BACN y Gaceta), ILOSTAT, licencias de SIMEL, del visor del MIC y de BACI/Atlas.
+- **Para la próxima versión de la ficha de brechas (acordado el 2026-10-13, para más adelante):** (1) **salario** como capa explícita (costo de la mano de obra, por ejemplo de la manufactura, de ILOSTAT u otra fuente): es el equivalente del precio de la electricidad y probablemente decida arneses y manufactura liviana; (2) **régimen de inversión y fiscal** (maquila, zonas francas, Ley de Inversiones, incentivos) como una variable institucional, no como dotación: indicador por país y año de qué regímenes existen y para qué actividades. El régimen de maquila se trata como un instrumento de política (saltos largos, IED), no como una capacidad del territorio.
 
 **Trabajo de datos pendiente:** reconciliar los 247 distritos de los límites de 2012 con los 263 del Censo 2022; definir carrera → CINE-F → sector cuando lleguen los títulos.
 
