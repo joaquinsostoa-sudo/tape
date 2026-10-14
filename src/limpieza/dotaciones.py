@@ -34,7 +34,9 @@ import pandas as pd
 
 RAIZ = Path(__file__).resolve().parents[2]
 WDI = RAIZ / "data" / "raw" / "wdi"
-PWT = RAIZ / "data" / "raw" / "pwt" / "pwt1001.xlsx"
+PWT_11 = RAIZ / "data" / "raw" / "pwt" / "pwt110.xlsx"  # PWT 11.0 (2026-10-14): 1950-2023
+PWT_1001 = RAIZ / "data" / "raw" / "pwt" / "pwt1001.xlsx"  # PWT 10.01: hasta 2019
+PWT = PWT_11 if PWT_11.exists() else PWT_1001
 BACI_ZIP = RAIZ / "data" / "raw" / "baci" / "BACI_HS92_V202601.zip"
 BACI_CSV_PAISES = RAIZ / "data" / "raw" / "baci" / "country_codes_V202601.csv"
 SALIDA = RAIZ / "data" / "clean" / "dotaciones.parquet"
@@ -55,7 +57,7 @@ CAPAS = {  # capa -> columna base ya transformada
 }
 EXTRAS = {"consumo_electrico": "log_consumo_electrico", "hidro": "hidro",  # alternativas de energía, solo con z
           "capital_fisico": "log_capital_trabajador",
-          "tierra": "log_tierra", "agua": "log_agua"}  # recurso natural: tierra cultivable por persona (para bienes basados en tierra)  # alternativa de capital: stock de capital por trabajador (PWT)
+          "tierra": "log_tierra", "agua": "log_agua", "trabajo_barato": "menos_log_salario"}  # recurso natural: tierra cultivable por persona (para bienes basados en tierra)  # alternativa de capital: stock de capital por trabajador (PWT)
 ANIOS_PRECIO = range(2014, 2020)  # el precio de Doing Business existe solo en estos años
 
 
@@ -93,9 +95,17 @@ def leer_wdi(codigo: str, paises: set[str], carpeta: Path = WDI, nombres: dict[s
 
 
 def leer_pwt(ruta: Path = PWT) -> pd.DataFrame:
-    """PWT 10.01: capital humano `hc`, stock de capital real `rnna` (precios constantes de 2017) y empleo `emp` (millones)."""
-    d = pd.read_excel(ruta, sheet_name="Data", usecols=["countrycode", "year", "hc", "rnna", "emp"])
-    return d.rename(columns={"countrycode": "iso3", "year": "anio"}).dropna(subset=["hc", "rnna"], how="all")
+    """PWT: capital humano `hc`, stock de capital real `rnna` (precios constantes) y empleo `emp` (millones), más la participación del trabajo `labsh`, el PIB de
+    producción a PPA corrientes `cgdpo` y el nivel de precios `pl_gdpo` (EE. UU. = 1) para el salario medio en USD corrientes de mercado."""
+    d = pd.read_excel(ruta, sheet_name="Data", usecols=["countrycode", "year", "hc", "rnna", "emp", "labsh", "cgdpo", "pl_gdpo"])
+    return d.rename(columns={"countrycode": "iso3", "year": "anio"}).dropna(subset=["hc", "rnna", "labsh"], how="all")
+
+
+def salario_usd(pwt: pd.DataFrame) -> pd.Series:
+    """Remuneración media del trabajo por trabajador, en USD corrientes de mercado por año: participación del trabajo × PIB en USD corrientes / empleo.
+    Es un promedio de toda la economía (incluye los ingresos laborales imputados de los independientes), no el salario de la manufactura."""
+    pib_usd = pwt.cgdpo * pwt.pl_gdpo  # millones de USD corrientes de mercado
+    return pwt.labsh * pib_usd / pwt.emp  # millones de USD / millones de trabajadores = USD por trabajador
 
 
 def arrastrar_ediciones(lpi: pd.DataFrame, anios=ANIOS, hacia_atras: bool = True) -> pd.DataFrame:
@@ -149,6 +159,8 @@ def construir(paises: set[str] | None = None) -> pd.DataFrame:
     base["log_agua"] = log_positivo(base.agua_pc)  # m3 de recursos hídricos internos renovables por persona
     base["log_tierra"] = log_positivo(base.tierra_cultivable_pc)  # hectáreas de tierra cultivable por persona
     base["log_capital_trabajador"] = log_positivo(base.rnna / base.emp)  # stock de capital real por trabajador
+    base["salario_usd"] = salario_usd(base)  # USD corrientes de mercado por trabajador
+    base["menos_log_salario"] = -log_positivo(base.salario_usd)  # mano de obra barata = más dotación (como el precio de la electricidad)
     base["log_consumo_electrico"] = log_positivo(base.consumo_electrico_pc)
     base["precio_electricidad_kwh"] = base.iso3.map(precio_promedio(base))  # característica estable del país
     base["menos_log_precio"] = -log_positivo(base.precio_electricidad_kwh)  # barato = mejor dotación

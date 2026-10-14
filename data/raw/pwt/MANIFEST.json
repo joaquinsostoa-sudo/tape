@@ -4,5 +4,11 @@
   "fecha_utc": "2026-10-08",
   "bytes": 6555857,
   "sha256": "6685d2bfd1aecae9ddd033767d565d94b56e6411f62d78222165bbcfa5a15809"
+ },
+ "pwt110.xlsx": {
+  "url": "https://www.rug.nl/ggdc/productivity/pwt/ (descarga manual, PWT 11.0)",
+  "fecha_utc": "2026-10-14",
+  "bytes": 5839841,
+  "sha256": "7b337e94f39dfe304bc459e433f8ce0624496c812707ae0c924888f5142b3ab3"
  }
 }

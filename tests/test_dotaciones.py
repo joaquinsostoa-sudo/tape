@@ -84,7 +84,7 @@ def test_estandarizacion_y_cobertura(tabla):
     antes = tabla[tabla.anio < 2007].dropna(subset=["lpi"])
     assert antes.lpi_hacia_atras.all() and (antes.lpi_edicion_anio >= 2007).all()  # D14: todo LPI previo es retroceso
     assert not tabla[tabla.anio >= 2010].query("lpi_edicion_anio == 2007").lpi_hacia_atras.any()  # y lo real no se marca
-    assert tabla[tabla.anio > 2019].hc.isna().all()  # PWT 10.01 termina en 2019
+    assert tabla[tabla.anio > 2023].hc.isna().all()  # PWT 11.0 termina en 2023
     assert not set(tabla.iso3) & {"WLD", "EUU", "LCN"}  # sin agregados regionales
 
 
@@ -130,3 +130,14 @@ def test_capas_correlacionadas_salvo_la_energia(tabla):
     otras = c.loc[["z_capital_humano", "z_credito", "z_logistica"], ["z_capital_humano", "z_credito", "z_logistica"]]
     assert (otras.to_numpy()[np.triu_indices(3, 1)] > 0.5).all()  # advertencia de colinealidad entre estas tres
     assert c.loc["z_energia", ["z_capital_humano", "z_credito", "z_logistica"]].abs().max() < 0.3  # el precio es independiente
+
+
+def test_salario_medio_en_usd_a_mano():
+    pwt = pd.DataFrame({"labsh": [0.5], "cgdpo": [2000.0], "pl_gdpo": [0.4], "emp": [10.0]})  # PIB de mercado = 800 millones de USD; 10 millones de trabajadores
+    assert d.salario_usd(pwt).iloc[0] == pytest.approx(0.5 * 800 / 10 * 1.0)  # 40 USD por trabajador (millones sobre millones)
+
+
+def test_salario_de_paraguay_es_razonable_y_la_mano_de_obra_barata_es_su_inverso(tabla):
+    py = tabla[(tabla.iso3 == "PRY") & (tabla.anio == 2015)].iloc[0]
+    assert 3_000 < py.salario_usd < 12_000 and py.menos_log_salario == pytest.approx(-np.log(py.salario_usd))
+    assert tabla[tabla.anio == 2015].menos_log_salario.notna().sum() > 120
