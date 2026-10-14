@@ -56,12 +56,13 @@ CASOS = [  # (número, celdas (bloque, dotación), trazo, mensaje)
 class Lienzo:
     """Figura con utilidades para ubicar textos y formas en pulgadas desde la esquina inferior izquierda."""
 
-    def __init__(self) -> None:
-        self.fig = plt.figure(figsize=(W, H), facecolor="white")
+    def __init__(self, w: float = W, h: float = H) -> None:
+        self.w, self.h = w, h
+        self.fig = plt.figure(figsize=(w, h), facecolor="white")
 
     def t(self, x: float, y: float, s: str, **kw):
         kw.setdefault("color", TINTA)
-        return self.fig.text(x / W, y / H, s, **kw)
+        return self.fig.text(x / self.w, y / self.h, s, **kw)
 
     def caja(self, x: float, y: float, w: float, h: float, fc="#f6f6f6", ec="#d0d0d0", lw=1.0, r=0.1):
         self.fig.add_artist(FancyBboxPatch((x, y), w, h, boxstyle=f"round,pad=0,rounding_size={r}", fc=fc, ec=ec, lw=lw, transform=self.fig.dpi_scale_trans))
@@ -70,10 +71,10 @@ class Lienzo:
         self.fig.add_artist(Circle((x, y), r, transform=self.fig.dpi_scale_trans, **kw))
 
     def linea(self, x0: float, y0: float, x1: float, y1: float, color="#999999", lw=1.2):
-        self.fig.add_artist(plt.Line2D([x0 / W, x1 / W], [y0 / H, y1 / H], color=color, lw=lw, transform=self.fig.transFigure))
+        self.fig.add_artist(plt.Line2D([x0 / self.w, x1 / self.w], [y0 / self.h, y1 / self.h], color=color, lw=lw, transform=self.fig.transFigure))
 
     def ejes(self, x: float, y: float, w: float, h: float):
-        return self.fig.add_axes([x / W, y / H, w / W, h / H])
+        return self.fig.add_axes([x / self.w, y / self.h, w / self.w, h / self.h])
 
 
 def seccion_ejemplo(L: Lienzo, tabla: pd.DataFrame, top: float, alto: float) -> None:
