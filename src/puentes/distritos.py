@@ -217,8 +217,9 @@ def main() -> None:
     p12.to_csv(SALIDA_2012, index=False, encoding="utf-8")
     p22.to_csv(SALIDA_2022, index=False, encoding="utf-8")
     sin = set(c11.distrito.map(normalizar)) - set(p12.unidad_2011.map(normalizar))
-    print(f"2012: {p12.groupby(["departamento", "id_2012"]).ngroups} polígonos ({len(p12)} filas); {p12.relacion.value_counts().to_dict()}; confianza {p12.confianza.value_counts().to_dict()}; padre {p12.fuente_padre.value_counts().to_dict()}")
-    print(f"2022: {p22.groupby(["departamento", "distrito_2022"]).ngroups} ciudades ({len(p22)} filas); {p22.relacion.value_counts().to_dict()}; confianza {p22.confianza.value_counts().to_dict()}; padre {p22.fuente_padre.value_counts().to_dict()}")
+    n12, n22 = p12.groupby(['departamento', 'id_2012']).ngroups, p22.groupby(['departamento', 'distrito_2022']).ngroups
+    print(f"2012: {n12} polígonos ({len(p12)} filas); {p12.relacion.value_counts().to_dict()}; confianza {p12.confianza.value_counts().to_dict()}; padre {p12.fuente_padre.value_counts().to_dict()}")
+    print(f"2022: {n22} ciudades ({len(p22)} filas); {p22.relacion.value_counts().to_dict()}; confianza {p22.confianza.value_counts().to_dict()}; padre {p22.fuente_padre.value_counts().to_dict()}")
     print("los pesos suman 1 por distrito:", bool(((p12.groupby(["departamento", "id_2012"]).peso.sum() - 1).abs() < 1e-9).all() and ((p22.groupby(["departamento", "distrito_2022"]).peso.sum() - 1).abs() < 1e-9).all()))
     print(f"distritos de 2011 sin ningún polígono de 2012: {len(sin)} {sorted(sin)}")
 
