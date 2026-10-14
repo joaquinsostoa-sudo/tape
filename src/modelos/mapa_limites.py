@@ -39,22 +39,26 @@ from src.modelos.mapa_brechas import (
     posiciones,
     referencias,
 )
+from src.modelos.recursos import MINERALES, USGS, participacion_reservas
 
 REL_ALTA = 0.5
 REL_BAJA = 0.2
 PCT_LIMITE = 10
+CAPA_MINERAL = "riqueza_mineral"  # en la variante específica, la reserva del mineral propio del producto
+PROP_PRODUCTORES_AUSENCIA = 0.75
 ANIO = 2019
 
 
 def relevancia(pct: np.ndarray, m: np.ndarray, minimo: int = MINIMO) -> tuple[np.ndarray, np.ndarray]:
     """Relevancia (productos × dotaciones) = |2·AUC − 1| y signo (+1 / −1) de la posición para separar productores de no productores; vacía con menos de `minimo` productores o sin no productores."""
-    n_p, k = m.shape[1], pct.shape[1]
+    n_p, k = m.shape[1], pct.shape[-1]
     rel, signo = np.full((n_p, k), np.nan), np.ones((n_p, k))
     for p in range(n_p):
         y = m[:, p] == 1
+        base = pct if pct.ndim == 2 else pct[:, p, :]
         for j in range(k):
-            ok = ~np.isnan(pct[:, j])
-            a, yy = pct[ok, j], y[ok]
+            ok = ~np.isnan(base[:, j])
+            a, yy = base[ok, j], y[ok]
             n1, n0 = int(yy.sum()), int((~yy).sum())
             if n1 < minimo or n0 == 0:
                 continue
@@ -72,16 +76,18 @@ def limites_duros(pct_pais: np.ndarray, pct: np.ndarray, m: np.ndarray, i: int, 
         s = s[s != i]
         if len(s) < minimo:
             continue
+        base = pct if pct.ndim == 2 else pct[:, p, :]
+        propio = pct_pais if pct_pais.ndim == 1 else pct_pais[p]
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", category=RuntimeWarning)
-            q = np.nanpercentile(pct[s], PCT_LIMITE, axis=0)
-        out[p] = (rel[p] >= REL_ALTA) & (signo[p] > 0) & (pct_pais < q)
+            q = np.nanpercentile(base[s], PCT_LIMITE, axis=0)
+        out[p] = (rel[p] >= REL_ALTA) & (signo[p] > 0) & (propio < q)
     return out
 
 
 def exceso_indice(pct: np.ndarray, ref: np.ndarray, rel: np.ndarray) -> np.ndarray:
     """Índice de exceso (países × productos): promedio de max(0, posición − referencia) en las dotaciones irrelevantes con dato; vacío si no hay ninguna."""
-    ex = np.maximum(0.0, pct[:, None, :] - ref)
+    ex = np.maximum(0.0, (pct[:, None, :] if pct.ndim == 2 else pct) - ref)
     ex = np.where((rel < REL_BAJA)[None, :, :], ex, np.nan)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", category=RuntimeWarning)
@@ -136,7 +142,35 @@ def validar(m: np.ndarray, dens: np.ndarray, deficit: np.ndarray, paises: list[s
     return pd.DataFrame(filas)
 
 
-def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: pd.DataFrame, anio: int = ANIO, pais: str = PAIS) -> dict:
+def pct_especifico(pct: np.ndarray, paises: list[str], productos: list[str], minerales: pd.DataFrame, k: int) -> tuple[np.ndarray, np.ndarray]:
+    """Posiciones (países × productos × dotaciones) donde la capa `k` es, para los productos de `MINERALES`, el percentil de la participación del país en las reservas de SU mineral
+    (ausente = 0) y vacía en los demás productos; las otras capas se repiten. Devuelve también la participación (países × productos; vacía fuera de los minerales)."""
+    pct3 = np.repeat(pct[:, None, :], len(productos), axis=1).copy()
+    share = np.full((len(paises), len(productos)), np.nan)
+    pct3[:, :, k] = np.nan
+    tabla = minerales.pivot_table(index="iso3", columns="commodity", values="share", aggfunc="sum").reindex(paises).fillna(0.0)
+    for p, hs4 in enumerate(productos):
+        mineral = MINERALES.get(hs4)
+        if mineral is None or mineral not in tabla.columns:
+            continue
+        share[:, p] = tabla[mineral].to_numpy()
+        pct3[:, p, k] = pd.Series(share[:, p]).rank(pct=True).to_numpy() * 100
+    return pct3, share
+
+
+def limite_ausencia(share: np.ndarray, m: np.ndarray, i: int, minimo: int = MINIMO, prop: float = PROP_PRODUCTORES_AUSENCIA) -> np.ndarray:
+    """Productos (booleano) donde el país `i` no tiene reservas del mineral y al menos `prop` de los productores (sin él) sí."""
+    out = np.zeros(share.shape[1], bool)
+    for p in range(share.shape[1]):
+        if np.isnan(share[i, p]) or share[i, p] > 0:
+            continue
+        s = np.flatnonzero(m[:, p])
+        s = s[s != i]
+        out[p] = len(s) >= minimo and float((share[s, p] > 0).mean()) >= prop
+    return out
+
+
+def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: pd.DataFrame, anio: int = ANIO, pais: str = PAIS, minerales: pd.DataFrame | None = None) -> dict:
     """Todo el análisis para `pais` en `anio`."""
     dot = dotaciones_del_anio(dot, pob, puente, anio)
     muestra = paises_elegibles(expo, pob, anio)
@@ -146,6 +180,9 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     paises, productos = [str(p) for p in paises], [str(p) for p in productos]
     dens = densidad(m, proximidad(m))
     pct = posiciones(dot, paises, anio).to_numpy(np.float32)
+    share = None
+    if minerales is not None:  # variante: reserva del mineral específico de cada producto
+        pct, share = pct_especifico(pct, paises, productos, minerales, list(CAPAS).index(CAPA_MINERAL))
     pib = dot[dot.iso3.isin(paises)].set_index("iso3").reindex(paises).pib_pc_ppa
     grupo = terciles(pib).reindex(paises).map({"bajo": 0, "medio": 1, "alto": 2}).fillna(-1).to_numpy(int)
     ref = referencias(pct, m, grupo)["todos"]
@@ -155,10 +192,15 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     deficit = deficit_ponderado(gap, rel, signo)
     i = paises.index(pais)
     duro = limites_duros(pct[i], pct, m, i, rel, signo)
+    ausencia = np.zeros(len(productos), bool)
+    if share is not None:
+        ausencia = limite_ausencia(share, m, i)
+        duro[:, list(CAPAS).index(CAPA_MINERAL)] |= ausencia
     misma = (grupo == grupo[i])[:, None] & (m == 1)
     tol = max(float(np.nanpercentile(deficit[misma], 75)), PISO_TOLERANCIA)
     capas = list(CAPAS)
     tabla = pd.DataFrame({"hs4": productos, "presencia": m[i].astype(bool), "densidad": dens[i], "deficit_ponderado": deficit[i], "exceso": exc[i], "n_limites_duros": duro.sum(axis=1)})
+    tabla["limite_ausencia_mineral"] = ausencia
     tabla["limite_duro"] = [", ".join(CAPAS[capas[j]] for j in np.flatnonzero(f)) for f in duro]
     tabla["compatible"] = (tabla.n_limites_duros == 0) & (tabla.deficit_ponderado <= tol)
     r = rca[(rca.anio == anio) & (rca.iso3 == pais)].set_index("hs4").rca
@@ -169,7 +211,8 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     relev = pd.DataFrame({"dotacion": [CAPAS[c] for c in capas], "productos_relevantes": (rel >= REL_ALTA).sum(axis=0), "productos_irrelevantes": (rel < REL_BAJA).sum(axis=0),
                           "rel_mediana": np.nanmedian(rel, axis=0), "pct_signo_positivo": 100 * (signo > 0).mean(axis=0)})
     k_tierra = capas.index("log_tierra")
-    exc_tierra = np.where((rel[:, k_tierra] < REL_BAJA)[None, :], np.maximum(0.0, pct[:, k_tierra][:, None] - ref[:, :, k_tierra]), np.nan)
+    pk = pct[:, k_tierra][:, None] if pct.ndim == 2 else pct[:, :, k_tierra]
+    exc_tierra = np.where((rel[:, k_tierra] < REL_BAJA)[None, :], np.maximum(0.0, pk - ref[:, :, k_tierra]), np.nan)
     return {"tabla": tabla, "relevancia": relev, "tolerancia": tol, "corte": float(corte), "paises": len(paises), "productos": len(productos),
             "prueba": probar_exceso(m, dens, exc, paises, productos), "prueba_tierra": probar_exceso(m, dens, exc, paises, productos, extra=exc_tierra),
             "validacion": validar(m, dens, deficit, paises)}
@@ -180,8 +223,14 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--expo", default=str(MODELO / "exportaciones_hs4.parquet"))
     ap.add_argument("--anio", type=int, default=ANIO)
     ap.add_argument("--pais", default=PAIS)
+    ap.add_argument("--especifico", action="store_true", help="reserva del mineral específico de cada producto en lugar de la riqueza mineral total")
     a = ap.parse_args(argv)
-    r = construir(pd.read_parquet(a.expo), pd.read_parquet(CLEAN / "dotaciones.parquet"), pd.read_csv(CLEAN / "poblacion_pais.csv"), pd.read_csv(CLEAN / "puente_paises_baci.csv"), a.anio, a.pais)
+    puente = pd.read_csv(CLEAN / "puente_paises_baci.csv")
+    minerales = None
+    if a.especifico:
+        usgs = participacion_reservas(pd.read_csv(USGS, low_memory=False, encoding="cp1252"), puente)
+        minerales = usgs[usgs.commodity.isin(set(MINERALES.values()))]
+    r = construir(pd.read_parquet(a.expo), pd.read_parquet(CLEAN / "dotaciones.parquet"), pd.read_csv(CLEAN / "poblacion_pais.csv"), puente, a.anio, a.pais, minerales)
     t = r["tabla"]
     print(f"{a.pais} {a.anio}: {r['paises']} países, {r['productos']} productos; tolerancia del déficit ponderado: {r['tolerancia']:.1f}")
     print("\nRelevancia revelada por dotación:\n" + r["relevancia"].round(2).to_string(index=False))
@@ -191,8 +240,12 @@ def main(argv: list[str] | None = None) -> None:
     p, q = t[t.presencia], t[t.cercano_no_exportado]
     print(f"\nControl de sensatez: {100 * p.compatible.mean():.0f} % de las exportaciones actuales de {a.pais} son compatibles ({int(p.compatible.sum())} de {len(p)}); con límite duro: {int((p.n_limites_duros > 0).sum())}")
     print(f"Cercanos no exportados: {len(q)}; compatibles {int(q.compatible.sum())}; con límite duro {int((q.n_limites_duros > 0).sum())}; sin límite pero con déficit alto {int(((q.n_limites_duros == 0) & ~q.compatible).sum())}")
-    t.to_csv(MODELO / f"mapa_limites_{a.pais}_{a.anio}.csv", index=False)
-    r["relevancia"].to_csv(MODELO / f"mapa_limites_relevancia_{a.anio}.csv", index=False)
+    sufijo = "_especifico" if a.especifico else ""
+    mi = t[t.hs4.isin(set(MINERALES))]
+    print(f"\nProductos minerales ({len(mi)}): con límite duro {int((mi.n_limites_duros > 0).sum())}, por ausencia de reservas {int(mi.limite_ausencia_mineral.sum())}; exportaciones actuales de {a.pais} marcadas: {int((t.presencia & (t.n_limites_duros > 0)).sum())}")
+    print(mi[mi.hs4.isin(["2602", "2606", "2603", "2510", "2528"])][["hs4", "limite_duro", "compatible"]].to_string(index=False))
+    t.to_csv(MODELO / f"mapa_limites{sufijo}_{a.pais}_{a.anio}.csv", index=False)
+    r["relevancia"].to_csv(MODELO / f"mapa_limites_relevancia{sufijo}_{a.anio}.csv", index=False)
 
 
 if __name__ == "__main__":

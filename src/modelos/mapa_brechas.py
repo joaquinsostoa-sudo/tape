@@ -60,7 +60,7 @@ def referencias(pct: np.ndarray, m: np.ndarray, grupo: np.ndarray, minimo: int =
 
     `pct`: percentiles (países × dotaciones); `m`: presencia (países × productos, 0/1); `grupo`: tercio de ingreso de cada país (0, 1, 2)."""
     n_c, n_p = m.shape
-    k = pct.shape[1]
+    k = pct.shape[-1]
     ref_t = np.full((n_c, n_p, k), np.nan, np.float32)
     ref_g = np.full((n_c, n_p, k), np.nan, np.float32)
     n_t = np.zeros((n_c, n_p), np.int16)
@@ -69,22 +69,23 @@ def referencias(pct: np.ndarray, m: np.ndarray, grupo: np.ndarray, minimo: int =
         s = np.flatnonzero(m[:, p])
         if len(s) == 0:
             continue
-        ref_t[:, p, :], n_t[:, p] = _mediana(pct[s]), len(s)
+        base = pct if pct.ndim == 2 else pct[:, p, :]  # con 3 dimensiones, la posición depende del producto
+        ref_t[:, p, :], n_t[:, p] = _mediana(base[s]), len(s)
         for c in s:  # el propio país sale de su referencia
             otros = s[s != c]
             if len(otros):
-                ref_t[c, p, :], n_t[c, p] = _mediana(pct[otros]), len(otros)
+                ref_t[c, p, :], n_t[c, p] = _mediana(base[otros]), len(otros)
             else:
                 ref_t[c, p, :], n_t[c, p] = np.nan, 0
         for g in np.unique(grupo):
             filas = np.flatnonzero(grupo == g)
             sg = s[grupo[s] == g]
             if len(sg):
-                ref_g[filas, p, :], n_g[filas, p] = _mediana(pct[sg]), len(sg)
+                ref_g[filas, p, :], n_g[filas, p] = _mediana(base[sg]), len(sg)
             for c in sg:
                 otros = sg[sg != c]
                 if len(otros):
-                    ref_g[c, p, :], n_g[c, p] = _mediana(pct[otros]), len(otros)
+                    ref_g[c, p, :], n_g[c, p] = _mediana(base[otros]), len(otros)
                 else:
                     ref_g[c, p, :], n_g[c, p] = np.nan, 0
     ref_t[n_t < minimo] = np.nan
@@ -95,7 +96,7 @@ def referencias(pct: np.ndarray, m: np.ndarray, grupo: np.ndarray, minimo: int =
 
 def brechas(pct: np.ndarray, ref: np.ndarray) -> np.ndarray:
     """Brecha (países × productos × dotaciones) = max(0, referencia − posición); vacía donde falta la referencia o el dato del país."""
-    return np.maximum(0.0, ref - pct[:, None, :])
+    return np.maximum(0.0, ref - (pct[:, None, :] if pct.ndim == 2 else pct))
 
 
 def indice(gap: np.ndarray, min_capas: int = MIN_CAPAS) -> np.ndarray:

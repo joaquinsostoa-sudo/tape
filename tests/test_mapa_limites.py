@@ -51,3 +51,26 @@ def test_deficit_ponderado_a_mano():
     signo = np.array([[1.0, 1.0]])
     assert ml.deficit_ponderado(gap, rel, signo)[0, 0] == pytest.approx((40 + 2.5) / 1.25)
     assert ml.deficit_ponderado(gap, rel, -signo)[0, 0] == 0.0  # sin dotaciones con signo +, nada pesa
+
+
+def test_ausencia_de_reservas_marca_limite_solo_si_casi_todos_los_productores_las_tienen():
+    share = np.array([[0.0], [0.0], [0.3], [0.2], [0.1], [0.4], [0.0]])
+    m = np.zeros((7, 1), dtype=int)
+    m[[2, 3, 4, 5], 0] = 1
+    assert ml.limite_ausencia(share, m, 0, minimo=3)[0]  # los 4 productores tienen reservas
+    m[6, 0] = 1
+    assert ml.limite_ausencia(share, m, 0, minimo=3)[0]  # 4 de 5 = 80 % sigue marcando
+    m[1, 0] = 1
+    assert not ml.limite_ausencia(share, m, 0, minimo=3)[0]  # 4 de 6 = 67 % ya no
+    share[0, 0] = 0.1
+    assert not ml.limite_ausencia(share, m, 0, minimo=3)[0]  # con reservas no hay límite por ausencia
+
+
+def test_posicion_especifica_usa_el_mineral_del_producto_y_deja_vacio_el_resto():
+    import pandas as pd
+
+    pct = np.array([[10.0, 20.0], [30.0, 40.0], [50.0, 60.0]])
+    min_ = pd.DataFrame({"commodity": ["Copper", "Copper"], "iso3": ["b", "c"], "share": [0.1, 0.5]})
+    pct3, share = ml.pct_especifico(pct, ["a", "b", "c"], ["2603", "0101"], min_, k=1)
+    assert share[:, 0].tolist() == [0.0, 0.1, 0.5] and np.isnan(share[:, 1]).all()
+    assert pct3[2, 0, 1] == 100.0 and np.isnan(pct3[:, 1, 1]).all() and pct3[0, 0, 0] == 10.0
