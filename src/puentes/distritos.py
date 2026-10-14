@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import linear_sum_assignment
 
+from .distritos_leyes import CONFIRMADOS, CORREGIDOS
 from .taxonomia_tape import RAIZ
 
 CENSO_2011 = RAIZ / "data" / "clean" / "censo2011_distrito_rama.csv"
@@ -161,6 +162,44 @@ def construir_2022(ciudades: pd.DataFrame, p12: pd.DataFrame, pol) -> pd.DataFra
     return pd.DataFrame(filas)
 
 
+def referencia(p12: pd.DataFrame, p22: pd.DataFrame) -> pd.DataFrame:
+    """Nombres de distrito (de 2012 y de 2022, sin fragmentos ni filas sin unidad) con su unidad de 2011 inferida: sirve para ubicar los padres que cita la ley (San Alfredo solo existe en 2022)."""
+    a = p12[p12.relacion != "fragmento"].rename(columns={"distrito_2012": "nombre"})[["departamento", "nombre", "unidad_2011"]]
+    b = p22[p22.unidad_2011 != ""].rename(columns={"distrito_2022": "nombre"})[["departamento", "nombre", "unidad_2011"]]
+    return pd.concat([a, b], ignore_index=True)
+
+
+def _unidad_de(nombre: str, dep: str, ref: pd.DataFrame) -> str:
+    """Unidad de 2011 del distrito `nombre` del departamento `dep`: la del nombre más parecido en `ref` (si es un distrito nuevo, su propio padre)."""
+    d = ref[ref.departamento == dep]
+    s = [similitud(nombre, x) for x in d.nombre]
+    mejor = int(np.argmax(s))
+    if s[mejor] < 0.85:
+        raise ValueError(f"no se encontró el distrito '{nombre}' en {dep} (mejor: {d.nombre.iloc[mejor]}, {s[mejor]:.2f})")
+    return d.unidad_2011.iloc[mejor]
+
+
+def aplicar_leyes(df: pd.DataFrame, ref: pd.DataFrame, columna: str) -> pd.DataFrame:
+    """Reemplaza el padre inferido por el de la ley en los distritos de `distritos_leyes`; agrega `peso`, `padres_legales`, `ley` y `fuente_padre`.
+
+    Un distrito con varios padres se reparte en partes iguales entre las unidades de 2011 distintas (peso 1/n, confianza media); con una sola unidad queda con peso 1 y confianza alta."""
+    leyes = {(dep, llave(n)): (n, padres, ley, "corregido") for n, (dep, padres, ley) in CORREGIDOS.items()}
+    leyes |= {(dep, llave(n)): (n, padres, ley, "confirmado") for n, (dep, padres, ley) in CONFIRMADOS.items()}
+    filas = []
+    for r in df.to_dict("records"):
+        base = {**r, "peso": 1.0, "padres_legales": "", "ley": "", "fuente_padre": "nombre" if r["relacion"] == "igual" else "inferido"}
+        clave = (departamento(r["departamento"]), llave(r[columna]))
+        if r["relacion"] == "igual" or clave not in leyes:
+            filas.append(base)
+            continue
+        _, padres, ley, estado = leyes[clave]
+        unidades = list(dict.fromkeys(_unidad_de(x, clave[0], ref) for x in padres))
+        for u in unidades:
+            filas.append({**base, "unidad_2011": u, "peso": 1.0 / len(unidades), "padres_legales": "; ".join(padres), "ley": ley, "fuente_padre": "ley",
+                          "confianza": "alta" if len(unidades) == 1 else "media", "nota": f"{estado}: {ley}; origen {', '.join(padres)}" + ("" if len(unidades) == 1 else " (partes iguales: el polígono legal no está)")})
+    return pd.DataFrame(filas)
+
+
 def main() -> None:
     import sys
 
@@ -168,14 +207,19 @@ def main() -> None:
     c11 = pd.read_csv(CENSO_2011, keep_default_na=False)[["departamento", "distrito"]].drop_duplicates()
     pol = poligonos_2012().reset_index(drop=True)
     p12 = construir_2012(c11, pol)
-    p12.to_csv(SALIDA_2012, index=False, encoding="utf-8")
+    p12_inferido = p12.copy()
     pol["departamento"] = pol.departamento.map(departamento)
     ciudades = pd.read_csv(CIUDADES_2022)
-    p22 = construir_2022(ciudades, p12, pol)
+    p22_inferido = construir_2022(ciudades, p12_inferido, pol)
+    ref = referencia(p12_inferido, p22_inferido)
+    p12 = aplicar_leyes(p12_inferido, ref, "distrito_2012")
+    p22 = aplicar_leyes(p22_inferido, ref, "distrito_2022")
+    p12.to_csv(SALIDA_2012, index=False, encoding="utf-8")
     p22.to_csv(SALIDA_2022, index=False, encoding="utf-8")
     sin = set(c11.distrito.map(normalizar)) - set(p12.unidad_2011.map(normalizar))
-    print(f"2012: {len(p12)} polígonos; {p12.relacion.value_counts().to_dict()}; confianza {p12.confianza.value_counts().to_dict()}")
-    print(f"2022: {len(p22)} ciudades; {p22.relacion.value_counts().to_dict()}; confianza {p22.confianza.value_counts().to_dict()}")
+    print(f"2012: {p12.groupby(["departamento", "id_2012"]).ngroups} polígonos ({len(p12)} filas); {p12.relacion.value_counts().to_dict()}; confianza {p12.confianza.value_counts().to_dict()}; padre {p12.fuente_padre.value_counts().to_dict()}")
+    print(f"2022: {p22.groupby(["departamento", "distrito_2022"]).ngroups} ciudades ({len(p22)} filas); {p22.relacion.value_counts().to_dict()}; confianza {p22.confianza.value_counts().to_dict()}; padre {p22.fuente_padre.value_counts().to_dict()}")
+    print("los pesos suman 1 por distrito:", bool(((p12.groupby(["departamento", "id_2012"]).peso.sum() - 1).abs() < 1e-9).all() and ((p22.groupby(["departamento", "distrito_2022"]).peso.sum() - 1).abs() < 1e-9).all()))
     print(f"distritos de 2011 sin ningún polígono de 2012: {len(sin)} {sorted(sin)}")
 
 

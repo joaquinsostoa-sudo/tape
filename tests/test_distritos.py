@@ -59,3 +59,42 @@ def test_cada_distrito_del_censo_tiene_exactamente_un_poligono_igual_y_todo_pol�
     iguales = p[p.relacion == "igual"].groupby(["departamento", "unidad_2011"]).size()
     assert len(iguales) == len(c) and (iguales == 1).all()
     assert (p.unidad_2011 != "").all()
+
+
+def _ref():
+    return pd.DataFrame({"departamento": ["CANINDEYU"] * 4, "nombre": ["Curuguaty", "Corpus Christi", "Ybyrarobana", "Nueva Esperanza"],
+                         "unidad_2011": ["Curuguaty", "Corpus Christi", "Corpus Christi", "Nueva Esperanza"]})
+
+
+def test_aplicar_leyes_reparte_en_partes_iguales_y_resuelve_padres_que_son_nuevos():
+    df = pd.DataFrame({"departamento": ["CANINDEYU"], "distrito_2022": ["LAUREL"], "unidad_2011": ["Nueva Esperanza"], "relacion": ["nuevo_desde_padre"], "similitud": [0.0],
+                       "confianza": ["baja"], "nota": ["x"]})
+    r = d.aplicar_leyes(df, _ref(), "distrito_2022")
+    # Laurel: Ybyrarobaná (nuevo, cuyo padre inferido es Corpus Christi) y Nueva Esperanza
+    assert sorted(r.unidad_2011) == ["Corpus Christi", "Nueva Esperanza"] and r.peso.sum() == pytest.approx(1.0) and set(r.fuente_padre) == {"ley"} and set(r.confianza) == {"media"}
+
+
+def test_aplicar_leyes_deja_igual_lo_que_no_esta_en_la_lista_y_los_iguales():
+    df = pd.DataFrame({"departamento": ["CANINDEYU", "CANINDEYU"], "distrito_2022": ["Curuguaty", "Yasy Kañy"], "unidad_2011": ["Curuguaty", "Yasy Cañy"], "relacion": ["igual", "nuevo_desde_padre"],
+                       "similitud": [1.0, 0.0], "confianza": ["alta", "baja"], "nota": ["", "inferido"]})
+    r = d.aplicar_leyes(df, _ref(), "distrito_2022")
+    assert len(r) == 2 and r.peso.tolist() == [1.0, 1.0] and r.fuente_padre.tolist() == ["nombre", "inferido"] and r.confianza.tolist() == ["alta", "baja"]
+
+
+def test_unidad_de_falla_si_el_padre_de_la_ley_no_existe():
+    with pytest.raises(ValueError, match="no se encontró"):
+        d._unidad_de("Inexistente", "CANINDEYU", _ref())
+
+
+def test_las_listas_de_leyes_no_se_pisan_y_traen_ley_y_padres():
+    from src.puentes.distritos_leyes import CONFIRMADOS, CORREGIDOS
+
+    assert not set(CORREGIDOS) & set(CONFIRMADOS) and len(CORREGIDOS) == 9 and len(CONFIRMADOS) == 11
+    assert all(padres and ley for _, padres, ley in {**CORREGIDOS, **CONFIRMADOS}.values())
+
+
+@pytest.mark.skipif(not d.SALIDA_2022.exists(), reason="falta correr src.puentes.distritos")
+def test_los_pesos_suman_uno_por_distrito_y_los_de_ley_traen_la_ley():
+    q = pd.read_csv(d.SALIDA_2022, keep_default_na=False)
+    assert ((q.groupby(["departamento", "distrito_2022"]).peso.sum() - 1).abs() < 1e-9).all()
+    assert (q[q.fuente_padre == "ley"].ley != "").all() and (q[q.fuente_padre == "ley"].padres_legales != "").all()
