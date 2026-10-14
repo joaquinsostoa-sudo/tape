@@ -156,14 +156,10 @@ def comparar_con_densidad_sola(res: dict, modelos=("capas", "prior_producto"), b
     return filas
 
 
-def main(argv: list[str] | None = None) -> None:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--expo", default=str(MODELO / "exportaciones_hs4.parquet"))
-    ap.add_argument("--salida", default=str(MODELO / "backtest_resultados.csv"))
-    args = ap.parse_args(argv)
-    expo = pd.read_parquet(Path(args.expo))
+def correr(expo: pd.DataFrame, req: pd.DataFrame, salida: str) -> None:
+    """Backtest completo con las exportaciones `expo` (anio, iso3, hs4, x; `hs4` puede llevar códigos de 6 dígitos) y los requisitos `req` (columna hs4 del mismo nivel); escribe `salida` y sus archivos hermanos."""
+    args = argparse.Namespace(salida=salida)
     dot = pd.read_parquet(CLEAN / "dotaciones.parquet")
-    req = pd.read_csv(CLEAN / "requisitos_producto_hs4.csv", dtype={"hs4": str})
     pob = pd.read_csv(CLEAN / "poblacion_pais.csv")
     df = construir_datos(expo, dot, req, pob)
     assert set(ESPECIFICACIONES["capas"]) <= set(df.columns)
@@ -186,6 +182,14 @@ def main(argv: list[str] | None = None) -> None:
     pd.DataFrame(resumen).to_csv(args.salida, index=False)
     pd.concat(difs).to_csv(str(args.salida).replace(".csv", "_diferencias.csv"), index=False)
     print(f"\n-> {args.salida}")
+
+
+def main(argv: list[str] | None = None) -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--expo", default=str(MODELO / "exportaciones_hs4.parquet"))
+    ap.add_argument("--salida", default=str(MODELO / "backtest_resultados.csv"))
+    args = ap.parse_args(argv)
+    correr(pd.read_parquet(Path(args.expo)), pd.read_csv(CLEAN / "requisitos_producto_hs4.csv", dtype={"hs4": str}), args.salida)
 
 
 if __name__ == "__main__":
