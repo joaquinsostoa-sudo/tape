@@ -14,3 +14,6 @@ Archivos esperados: establecimientos por actividad CIIU y distrito (tabulados o 
 - No modificar, renombrar columnas ni resguardar versiones editadas: `data/raw` es solo lectura.
 - Al copiar archivos, completar `fecha de descarga` y `versión` en `data/fuentes.csv`.
 - Los archivos pesados están ignorados por git (solo se versionan los README).
+
+Datos del censo 2011: se recopilan sector farmaceutico de varios distritos.
+
