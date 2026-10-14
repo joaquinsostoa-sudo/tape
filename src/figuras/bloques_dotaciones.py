@@ -59,17 +59,43 @@ def dibujar(ax, tabla: pd.DataFrame, valor: str, titulo: str, marcar: bool, para
         s.set_visible(False)
 
 
+EXPLICACION = [  # (texto, negrita)
+    ("Qué responde este cuadro", True),
+    ("¿Los países mejor dotados de un recurso o de una capacidad (tierra, reservas, capital humano, logística…) tienen ventaja comparativa con más frecuencia en ciertos tipos de productos?", False),
+    ("Sirve para ver qué dotaciones acompañan a cada bloque de productos. Es descriptivo: muestra asociaciones, no causas.", False),
+    ("Cómo se lee", True),
+    ("• Cada fila es un bloque de productos (clasificación tecnológica de Lall); cada columna, una dotación. Se ordenan los 144 países por esa dotación y se comparan el tercio con más y el tercio con menos.", False),
+    ("• El número de cada celda es la diferencia, en puntos porcentuales, entre el % de países con ventaja (RCA ≥ 1 en el bloque) del tercio más dotado y del menos dotado. Ejemplo: tierra cultivable × primarios", False),
+    ("   agropecuarios = +40: el 81 % de los países con más tierra tiene ventaja en ese bloque, contra el 42 % de los que tienen menos tierra (no es un aumento del 40 %, es una diferencia de 40 puntos).", False),
+    ("• Azul: más países con ventaja entre los más dotados. Naranja: menos (puede reflejar especialización en otro bloque o el nivel de ingreso). Gris: casi sin diferencia. •: diferencia poco probable por azar (p < 0,05).", False),
+    ("• PRY: tercil en que está Paraguay. La última columna del primer panel es el PIB per cápita mediano de los países con ventaja en el bloque. El segundo panel repite la comparación dentro de un mismo nivel de ingreso", False),
+    ("   (países por encima y por debajo de la mediana de la dotación), para separar la dotación del desarrollo; tiene pocos países por celda y es más ruidoso.", False),
+]
+
+
+def caja_explicativa(fig, y_sup: float = 0.975, paso: float = 0.0118) -> float:
+    """Recuadro con la pregunta que responde el cuadro y cómo se lee; devuelve el borde inferior en coordenadas de la figura."""
+    from matplotlib.patches import Rectangle
+
+    alto = paso * (len(EXPLICACION) + 0.8)
+    fig.add_artist(Rectangle((0.008, y_sup - alto), 0.984, alto, transform=fig.transFigure, facecolor="#f4f4f4", edgecolor="#cccccc", linewidth=0.8))
+    for i, (texto, negrita) in enumerate(EXPLICACION):
+        fig.text(0.016, y_sup - paso * (i + 0.9), texto, fontsize=9 if negrita else 8.6, fontweight="bold" if negrita else "normal", va="top", color="#222222")
+    return y_sup - alto
+
+
 def main() -> None:
     tabla = pd.read_csv(MODELO / "bloques_dotaciones_2015.csv")
     pry = pd.read_csv(MODELO / "bloques_paises_2015.csv", index_col=0).loc["PRY"]
     pib = pd.read_csv(MODELO / "bloques_pib_2015.csv").set_index("bloque").pib_mediano_con
-    fig, axes = plt.subplots(2, 1, figsize=(14.5, 9.4))
+    fig, axes = plt.subplots(2, 1, figsize=(14.5, 12.2))
     dibujar(axes[0], tabla, "dif_alto_bajo", "Sin controles: puntos porcentuales de diferencia entre el tercil alto y el bajo de cada dotación (• = p < 0,05)", True, pry, pib)
     dibujar(axes[1], tabla, "dif_dentro_de_ingreso", "Dentro de terciles de ingreso: diferencia entre países por encima y por debajo de la mediana de la dotación", False, None)
-    fig.suptitle("¿Qué proporción de países tiene ventaja comparativa en cada bloque de productos, según su dotación? (2015, 144 países)", fontsize=11.5, x=0.01, ha="left", y=0.995)
+    fig.suptitle("¿Qué proporción de países tiene ventaja comparativa en cada bloque de productos, según su dotación? (2015, 144 países)", fontsize=11.5, x=0.01, ha="left", y=0.997)
+    base = caja_explicativa(fig, 0.982)
     fig.text(0.01, 0.005, "Ventaja = RCA del bloque ≥ 1. Bloques: clasificación tecnológica de Lall (2000) llevada a HS4. Azul: más países con ventaja entre los más dotados; naranja: menos. "
              "Descriptivo, sin causalidad.", fontsize=7.8, color="#444444")
-    fig.tight_layout(rect=(0, 0.02, 0.9, 0.97))
+    fig.tight_layout(rect=(0, 0.02, 0.9, base - 0.008))
     destino = RAIZ / "docs" / "figuras" / "bloques_dotaciones_2015.png"
     destino.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destino, dpi=140)
