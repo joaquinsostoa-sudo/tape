@@ -92,3 +92,5 @@ uv run pytest
 Para regenerar el zip: `uv run python -m src.empaquetar_datos_manuales`.
 
 **Prototipo de la herramienta, Paraguay 2019 (2026-10-14, rama `develop`):** `src/herramienta/` (`exportar_pry.py` arma el JSON con coordenadas del espacio producto, estado, capacidades y productores por producto; `plantilla.html` y `construir_pagina.py` generan la página). Mapa de 1.239 productos coloreado por estado, lista filtrable y ficha por producto. Publicada como artefacto privado: https://claude.ai/artifact/LgLsQUrZ9gAMS4JHnSg4qV. Descriptivo: la ficha dice «brecha respecto de los productores», no probabilidad. Pendiente: nombres en español, otros países y años, comparación contra Costa Rica.
+
+**Censo Económico 2011 por distrito (2026-10-14):** el Cuadro 1 sirve (224.242 unidades, 799.153 ocupados, 234 distritos, sumas exactas); limpio en `data/clean/censo2011_*.csv` (`docs/censo_2011.md`). Falta la equivalencia de distritos (solo nombres) y una tabla Censo → sector TAPE porque los códigos de 3 dígitos de alimentos, bebidas y químicos no son la CIIU Rev.4 internacional.
