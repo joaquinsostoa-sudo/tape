@@ -126,6 +126,23 @@ Se reemplazaron los requisitos de la tecnología de EE. UU. por el **requisito r
 
 **Por qué puede pasar esto (hipótesis, no probada).** Con efectos fijos de país y de producto, el producto ya incorpora «qué tipo de país lo hace» (su efecto aprendido de entradas pasadas) y el país, su nivel de dotaciones. Del faltante solo queda la parte no lineal del cruce (el «codo» del máximo con cero), que es poca información. La variante sin efectos fijos (Mundlak) deja los efectos principales libres, pero no se probó con el requisito revelado y **no estaba en la especificación declarada**.
 
+## Paso 3: entradas a nivel de sector TAPE (2026-10-13)
+Especificación y criterios registrados antes de correrla (commit `b2c9472`). Unidad: sector TAPE con el puente HS92 → sector de la Fase 0 tal cual (D1 abierta); el 100 % del comercio sin energía queda mapeado a 50 sectores. Misma maquinaria que en HS4 (RCA, presencia D13, densidad, entrada D7, faltantes revelados, esquema fuera de muestra). `src/modelos/backtest_sector.py`.
+
+| Sectores | 2005→2010 | 2010→2015 | 2015→2020 |
+|---|---|---|---|
+| Países / filas / **entradas** | 110 / 2.975 / **78** | 122 / 3.303 / **96** | 123 / 3.374 / **67** |
+| precision@5 por país: densidad sola → reveladas | 0,133 → 0,133 | 0,098 → 0,109 | 0,111 → 0,119 |
+| **Diferencia `reveladas` − `densidad_sola` (IC 95 %)** | +0,000 (−0,013; +0,013) | **+0,011 (0,000; +0,028)** | **+0,009 (0,000; +0,021)** |
+| Diferencia AUC-PR | −0,001 (−0,010; +0,005) | +0,002 (−0,000; +0,005) | +0,002 (−0,003; +0,009) |
+| Sin efectos fijos, (i) aporte de las capas, p@5 | −0,013 (−0,040; +0,009) | −0,014 (−0,039; +0,011) | −0,009 (−0,030; +0,013) |
+| Sin efectos fijos, (ii) frente a `densidad_sola`, p@5 | −0,022 (−0,069; +0,027) | +0,021 (−0,021; +0,056) | −0,009 (−0,060; +0,034) |
+
+- **El criterio declarado no se cumple.** Exigía que el intervalo del 95 % excluyera el cero en al menos dos de las tres ventanas. En 2010 y 2015 la diferencia es positiva (+0,011 y +0,009) pero el límite inferior es **exactamente 0,000**: el intervalo toca el cero y no lo excluye; en 2005 la diferencia es 0. En AUC-PR todos los intervalos incluyen el cero. Las dos pruebas sin efectos fijos tampoco se cumplen.
+- **Es el resultado menos desfavorable hasta ahora, pero no concluyente.** La dirección es positiva en dos de tres ventanas, que es lo que se esperaría si las capas importaran un poco, y no se había visto en HS4 (donde las diferencias eran de signo mixto y negativas). Pero el poder estadístico es muy bajo: **67 a 96 entradas por ventana** en unos 110 a 123 países. La precision@5 por país toma valores en múltiplos de 0,2, así que el intervalo del remuestreo se pega al cero (la mayoría de los países no cambian de posición).
+- **Los coeficientes son inestables** (por ejemplo, capital físico de −0,12 a −0,90 y logística de −0,24 a +0,60 entre ventanas), con 5 parámetros de capas y más de 160 efectos fijos sobre menos de 100 entradas.
+- **No se reinterpretó el criterio para declarar un éxito:** el criterio se fijó antes de correr y no se cumple. Se informa la dirección positiva como indicio débil, a confirmar con más datos.
+
 ## Opciones para seguir (a decidir)
 1. ~~Revisar la medición de los requisitos~~ (hecho con el requisito revelado, ver arriba: no mejora). Queda la medición de las dotaciones (el precio de la electricidad de 2014-2019, el LPI de percepción, todas muy correlacionadas con el desarrollo).
 2. **Aceptar que M1 es densidad + efectos fijos de país y producto**, y usar las dotaciones como **diagnóstico de brechas** (M3: comparar a Paraguay con los países que sí desarrollaron cada producto, capa por capa), sin que entren a la probabilidad. Habría que corregir la condición de paso del plan.
