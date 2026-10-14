@@ -1,0 +1,20 @@
+[
+  { "id": "asuncion",         "name": "Asunción",         "eci": 0.42, "population": 525252,  "top_sectors": [{"name":"Servicios financieros","lq":2.4},{"name":"Comercio","lq":1.8}], "capabilities": {"densidad":0.72,"capital_humano":0.65,"logistica":0.58,"energia":0.81}, "gaps": [{"severity":"alta","text":"Falta de laboratorios certificados"}], "opportunities": [{"product":"Autopartes de precisión","probability":0.18}] },
+  { "id": "central",          "name": "Central",          "eci": 0.31, "population": 2000000, "top_sectors": [{"name":"Manufactura","lq":1.6}], "capabilities": {"densidad":0.61,"capital_humano":0.55,"logistica":0.72,"energia":0.68}, "gaps": [{"severity":"media","text":"Congestión logística"}], "opportunities": [{"product":"Alimentos procesados","probability":0.22}] },
+  { "id": "alto_parana",      "name": "Alto Paraná",      "eci": 0.35, "population": 800000,  "top_sectors": [{"name":"Agroindustria","lq":2.1}], "capabilities": {"densidad":0.68,"capital_humano":0.48,"logistica":0.75,"energia":0.74}, "gaps": [{"severity":"alta","text":"Escasez de técnicos CNC"}], "opportunities": [{"product":"Autopartes","probability":0.24}] },
+  { "id": "itapua",           "name": "Itapúa",           "eci": 0.22, "population": 550000,  "top_sectors": [{"name":"Agricultura","lq":1.9}], "capabilities": {"densidad":0.42,"capital_humano":0.38,"logistica":0.52,"energia":0.61}, "gaps": [], "opportunities": [] },
+  { "id": "caaguazu",         "name": "Caaguazú",         "eci": 0.18, "population": 550000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "san_pedro",        "name": "San Pedro",        "eci": 0.10, "population": 450000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "concepcion",       "name": "Concepción",       "eci": 0.12, "population": 250000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "cordillera",       "name": "Cordillera",       "eci": 0.15, "population": 300000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "guaira",           "name": "Guairá",           "eci": 0.14, "population": 200000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "caazapa",          "name": "Caazapá",          "eci": 0.11, "population": 180000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "misiones",         "name": "Misiones",         "eci": 0.13, "population": 130000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "paraguari",        "name": "Paraguarí",        "eci": 0.14, "population": 250000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "neembucu",         "name": "Ñeembucú",         "eci": 0.09, "population": 90000,   "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "amambay",          "name": "Amambay",          "eci": 0.16, "population": 180000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "canindeyu",        "name": "Canindeyú",        "eci": 0.12, "population": 220000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "presidente_hayes", "name": "Presidente Hayes", "eci": 0.11, "population": 130000,  "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "boqueron",         "name": "Boquerón",         "eci": 0.08, "population": 70000,   "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] },
+  { "id": "alto_paraguay",    "name": "Alto Paraguay",    "eci": 0.07, "population": 18000,   "top_sectors": [], "capabilities": {}, "gaps": [], "opportunities": [] }
+]
