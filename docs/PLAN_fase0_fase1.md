@@ -14,6 +14,7 @@ Cada tarea es acotada, tiene un criterio de terminado y cierra con resumen + tab
 | 0.4 Taxonomía de sectores TAPE | Hecha: 67 sectores (`docs/taxonomia.md`) |
 | 0.5 Puente HS → CIIU → sector | Hecha (`docs/puente_hs_sector.md`) |
 | **Fase 0** | **Cerrada el 2026-10-08.** Condición de paso cumplida |
+| **Fase 1** | **Informe armado el 2026-10-14** (`docs/informe_fase1.md`): lista para cerrar en lo analítico; la condición de paso del plan (capas superan a la densidad) no se cumple y se resuelve por D16; quedan pendientes externos (aduana, referencia oficial de exportaciones) y la consolidación del código de Ever |
 | 1.1 Limpieza de BACI | **Hecha el 2026-10-14** (`docs/baci_limpieza.md`, `src/limpieza/baci.py`): exportaciones e importaciones HS6 desde el zip; la tabla HS4 coincide con la anterior; falta la referencia oficial de Paraguay |
 | 1.2 Depuración del comercio (D6) | **Implementada el 2026-10-14** (`docs/depuracion_d6.md`, `src/limpieza/depuracion.py`): marca de reexportaciones y energía sin borrar nada; la regla declarada marca 38 % del comercio mundial (también EE. UU. y Alemania); **alcance decidido: marca aplicada a Paraguay, Hong Kong, Singapur, Países Bajos y Bélgica**; falta revisar la lista con la aduana |
 | 1.5 Dotaciones por país | **Hecha el 2026-10-12** (`docs/dotaciones.md`, `src/limpieza/dotaciones.py`) |
