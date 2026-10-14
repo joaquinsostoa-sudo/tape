@@ -81,3 +81,10 @@ def test_estado_marca_sin_dato_de_reservas_solo_si_no_hay_limite_duro():
 
     tabla = pd.DataFrame({"hs4": ["2602", "2602", "0801", "0801"], "n_limites_duros": [0, 1, 0, 0], "compatible": [True, False, True, False]})
     assert ml.estado(tabla).tolist() == ["sin dato confiable de reservas", "límite duro", "compatible", "déficit alto"]
+
+
+def test_reservas_de_energia_solo_en_los_productos_que_son_ese_recurso():
+    pct = np.ones((2, 3, 2))
+    out = ml.solo_recurso_propio(pct, ["2701", "1206", "2709"], ["l_carbon", "x"], {"l_carbon": {"2701"}})
+    assert out[0, 0, 0] == 1.0 and np.isnan(out[:, 1:, 0]).all()  # el carbón solo cuenta para el 2701
+    assert (out[:, :, 1] == 1.0).all() and (pct == 1.0).all()  # otras capas intactas y el original no se modifica

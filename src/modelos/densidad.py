@@ -3,9 +3,10 @@ Proximidad (φ) por ventana y densidad (D3).
 Versión con debug paso a paso.
 """
 
-import duckdb
 import sys
 import traceback
+
+import duckdb
 
 DB_PATH = r"C:\ever\tape\db\econofold.duckdb"
 VENTANAS = [(1995, 1999), (2000, 2004), (2005, 2009), (2010, 2014),
@@ -112,7 +113,7 @@ def main():
         try:
             calcular_phi(con, ini, fin)
             calcular_densidad(con, ini, fin)
-        except Exception as e:
+        except Exception:
             print(f"  ERROR en ventana {ini}-{fin}:")
             traceback.print_exc()
 

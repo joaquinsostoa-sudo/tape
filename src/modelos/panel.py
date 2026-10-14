@@ -16,6 +16,7 @@ Uso:
 
 import argparse
 from pathlib import Path
+
 import duckdb
 
 HORIZONTES = [5, 10]

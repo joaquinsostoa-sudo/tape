@@ -8,9 +8,10 @@ Uso:
 """
 
 import argparse
+
 import duckdb
 
-from src.modelos.evaluacion import precision_at_k, auc_pr
+from src.modelos.evaluacion import auc_pr, precision_at_k
 from src.modelos.logit_disperso import LogitEfectosFijos
 
 VENTANAS = [

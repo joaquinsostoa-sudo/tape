@@ -8,9 +8,6 @@ Uso:
 """
 
 import duckdb
-import numpy as np
-import pandas as pd
-import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
 DB_PATH = r"C:\ever\complejidad\econofold.duckdb"

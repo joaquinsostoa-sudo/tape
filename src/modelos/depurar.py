@@ -12,6 +12,7 @@ Uso:
 """
 
 import argparse
+
 import duckdb
 
 HS_ITAIPU = "271600"

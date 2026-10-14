@@ -47,6 +47,7 @@ PCT_LIMITE = 10
 CAPA_MINERAL = "riqueza_mineral"  # en la variante específica, la reserva del mineral propio del producto
 PROP_PRODUCTORES_AUSENCIA = 0.75
 # Productos que dependen de una reserva mineral que el USGS no permite afirmar ausente: los 18 de `MINERALES` y el resto de los minerales (capítulo 26 del HS: uranio, circonio...), que el USGS no cubre
+RECURSO_DEL_PRODUCTO = {"l_petroleo": {"2709", "2710"}, "l_gas": {"2711"}, "l_carbon": {"2701", "2702", "2704"}}  # reservas de energía: solo para los productos que son ese recurso
 SIN_DATO_RESERVAS = set(MINERALES)
 ANIO = 2019
 
@@ -160,6 +161,14 @@ def pct_especifico(pct: np.ndarray, paises: list[str], productos: list[str], min
     return pct3, share
 
 
+def solo_recurso_propio(pct: np.ndarray, productos: list[str], capas: list[str], recursos: dict[str, set[str]] = RECURSO_DEL_PRODUCTO) -> np.ndarray:
+    """Copia de `pct` (países × productos × dotaciones) con las capas de `recursos` vacías en los productos que no son ese recurso."""
+    out = pct.copy()
+    for capa, hs4s in recursos.items():
+        out[:, [p for p, h in enumerate(productos) if h not in hs4s], capas.index(capa)] = np.nan
+    return out
+
+
 def limite_ausencia(share: np.ndarray, m: np.ndarray, i: int, minimo: int = MINIMO, prop: float = PROP_PRODUCTORES_AUSENCIA) -> np.ndarray:
     """Productos (booleano) donde el país `i` no tiene reservas del mineral y al menos `prop` de los productores (sin él) sí."""
     out = np.zeros(share.shape[1], bool)
@@ -191,6 +200,7 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     share = None
     if minerales is not None:  # variante: reserva del mineral específico de cada producto
         pct, share = pct_especifico(pct, paises, productos, minerales, list(CAPAS).index(CAPA_MINERAL))
+        pct = solo_recurso_propio(pct, productos, list(CAPAS))
     pib = dot[dot.iso3.isin(paises)].set_index("iso3").reindex(paises).pib_pc_ppa
     grupo = terciles(pib).reindex(paises).map({"bajo": 0, "medio": 1, "alto": 2}).fillna(-1).to_numpy(int)
     ref = referencias(pct, m, grupo)["todos"]

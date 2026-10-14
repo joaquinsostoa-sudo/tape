@@ -24,6 +24,7 @@ Uso:
 """
 
 import argparse
+
 import duckdb
 
 VENTANAS = [(1995, 1999), (2000, 2004), (2005, 2009),
@@ -74,7 +75,7 @@ def main() -> None:
     ).fetchone()[0]
     print(f"  Pares (country, product, year) con persistencia: {n_persist:,}")
 
-    print(f"\n=== 2. Presencia por ventana (al menos un anio t en la ventana) ===")
+    print("\n=== 2. Presencia por ventana (al menos un anio t en la ventana) ===")
     for ini, fin in VENTANAS:
         tabla = f"presencia_{ini}_{fin}"
         con.execute(f"""

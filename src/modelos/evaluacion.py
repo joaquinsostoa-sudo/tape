@@ -5,7 +5,8 @@ Uso:
     from src.modelos.evaluacion import precision_at_k, auc_pr, calibracion
 """
 
-from typing import Sequence
+from collections.abc import Sequence
+
 import numpy as np
 from sklearn.metrics import average_precision_score, roc_auc_score
 
@@ -14,8 +15,7 @@ def precision_at_k(y_true: Sequence[int], y_score: Sequence[float], k: int = 20)
     """Fracción de positivos en los k con mayor score."""
     y_true = np.asarray(y_true)
     y_score = np.asarray(y_score)
-    if k > len(y_score):
-        k = len(y_score)
+    k = min(k, len(y_score))
     idx = np.argsort(y_score)[::-1][:k]
     return float(y_true[idx].mean())
 
