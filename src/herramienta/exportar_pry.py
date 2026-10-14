@@ -17,6 +17,7 @@ from src.figuras.mapa_limites import nombres
 from src.modelos.logit_nacional import CLEAN, MODELO, RAIZ
 from src.modelos.mapa_brechas import CAPAS
 from src.modelos.mapa_limites import ANIO, MINERALES, PAIS, USGS, construir, participacion_reservas
+from src.modelos.oportunidades import eci_pais, escalera, leer_atlas
 
 SALIDA = MODELO / f"herramienta_{PAIS}_{ANIO}.json"
 VECINOS = 4
@@ -78,6 +79,9 @@ def exportar() -> dict:
     rca = z["rca"][z["rca"].iso3.isin(paises)]
     capas = list(CAPAS)
     exporta = np.flatnonzero(z["m"][i] == 1)
+    atlas = leer_atlas(PAIS, ANIO).set_index("hs4")  # PCI y COG del Atlas (2019, el mismo año de la herramienta)
+    esc = escalera(z["phi"], productos, [productos[j] for j in exporta], atlas.pci, k=4)
+    esc_por_origen = {o: g for o, g in esc.groupby("origen")}
     prods = []
     for p, h in enumerate(productos):
         fila = t.iloc[p]
@@ -90,8 +94,11 @@ def exportar() -> dict:
             "np": len(prod_p), "px": _r(xy[p, 0], 4), "py": _r(xy[p, 1], 4),
             "cap": [[_r(z["pct"][i, p, j] if z["pct"].ndim == 3 else z["pct"][i, j]), _r(z["ref"][i, p, j]), _r(z["gap"][i, p, j]), _r(z["rel"][p, j], 2), int(z["signo"][p, j]), bool(z["duro"][p, j])] for j in range(len(capas))],
             "prod": [[x.iso3, _r(x.rca, 1), _r(pib.get(x.iso3, np.nan), 0)] for x in top.itertuples()],
-            "vec": [[productos[q], str(nom.get(productos[q], productos[q])), _r(z["phi"][p, q], 2)] for q in vec]})
-    meta = {"pais": PAIS, "anio": ANIO, "paises": r["paises"], "productos": r["productos"], "tolerancia": _r(r["tolerancia"]), "capas": [CAPAS[c] for c in capas],
+            "vec": [[productos[q], str(nom.get(productos[q], productos[q])), _r(z["phi"][p, q], 2)] for q in vec],
+            "pci": _r(atlas.pci.get(h, np.nan), 2), "cog": _r(atlas.cog.get(h, np.nan), 2),
+            "up": [[r_.destino, str(nom.get(r_.destino, r_.destino)), _r(r_.phi, 2), _r(r_.pci_destino, 2)] for r_ in esc_por_origen[h].itertuples()] if h in esc_por_origen else []})
+    e = eci_pais(PAIS)
+    meta = {"eci": _r(e[e.anio == ANIO].eci.iloc[0], 2), "pci_canasta": _r(float(atlas.pci.reindex([productos[j] for j in exporta]).mean()), 2), "pais": PAIS, "anio": ANIO, "paises": r["paises"], "productos": r["productos"], "tolerancia": _r(r["tolerancia"]), "capas": [CAPAS[c] for c in capas],
             "auc_densidad": _r(float(r["validacion"].iloc[0].auc_promedio_paises), 3), "auc_con_deficit": _r(float(r["validacion"].iloc[3].auc_promedio_paises), 3)}
     return {"meta": meta, "productos": prods}
 
