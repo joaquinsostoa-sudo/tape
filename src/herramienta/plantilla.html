@@ -1,0 +1,288 @@
+<meta charset="utf-8">
+<title>Mapa de productos de Paraguay</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Atlas técnico: papel gris frío, tinta azul-petróleo; el color solo codifica el estado del producto. Mapa a la izquierda, lista debajo, ficha fija a la derecha. */
+:root {
+  --bg: #eef1f3; --surf: #ffffff; --ink: #14232b; --mut: #5b6d76; --line: #d5dce0; --acc: #0b6b6f; --acc-bg: #e1f0f0;
+  --exporta: #1f3a5f; --compatible: #2a8f6a; --deficit: #c98d12; --limite: #c0392b; --sindato: #7f8c95; --lejano: #c3cdd2;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171b; --surf: #162228; --ink: #e5edf1; --mut: #93a5ae; --line: #2a3a43; --acc: #5cc4c8; --acc-bg: #173a3d;
+    --exporta: #8fb4e8; --compatible: #4cc196; --deficit: #e2b24a; --limite: #ef6b5b; --sindato: #8d9aa3; --lejano: #3b4b54; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171b; --surf: #162228; --ink: #e5edf1; --mut: #93a5ae; --line: #2a3a43; --acc: #5cc4c8; --acc-bg: #173a3d;
+  --exporta: #8fb4e8; --compatible: #4cc196; --deficit: #e2b24a; --limite: #ef6b5b; --sindato: #8d9aa3; --lejano: #3b4b54; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px; line-height: 1.45; padding-inline: 16px; padding-block: 18px 40px; }
+.pagina { max-width: 1320px; margin: 0 auto; }
+h1 { font-size: 24px; line-height: 1.15; margin: 0 0 4px; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--mut); margin: 0 0 10px; font-weight: 600; }
+.sub { color: var(--mut); margin: 0 0 14px; max-width: 78ch; }
+.aviso { background: var(--acc-bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; margin-bottom: 14px; font-size: 13px; max-width: 100ch; }
+.mono, td.num, .num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px; border: 1px solid var(--line); background: var(--surf); border-radius: 999px; font: inherit; font-size: 13px; color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="false"] { opacity: 0.45; }
+.chip:focus-visible, button:focus-visible, input:focus-visible, th button:focus-visible, tr:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+.grid { display: grid; gap: 14px; grid-template-columns: minmax(0, 1.55fr) minmax(340px, 1fr); grid-template-areas: "mapa ficha" "lista ficha"; align-items: start; }
+.card { background: var(--surf); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; }
+#c-mapa { grid-area: mapa; } #c-lista { grid-area: lista; } #c-ficha { grid-area: ficha; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
+.lienzo { position: relative; height: 560px; border-radius: 6px; background: var(--bg); overflow: hidden; touch-action: none; }
+canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+canvas.arrastra { cursor: grabbing; }
+.zoom { position: absolute; right: 8px; top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.zoom button { width: 30px; height: 30px; border: 1px solid var(--line); background: var(--surf); color: var(--ink); border-radius: 5px; font-size: 16px; cursor: pointer; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); padding: 4px 8px; border-radius: 4px; font-size: 12px; max-width: 240px; z-index: 3; }
+.pie-mapa { color: var(--mut); font-size: 12px; margin-top: 8px; }
+.buscar { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.buscar input { flex: 1 1 200px; min-width: 0; padding: 7px 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 6px; font: inherit; }
+.tabla { overflow-x: auto; max-height: 460px; overflow-y: auto; border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th { position: sticky; top: 0; background: var(--surf); text-align: left; padding: 0; border-bottom: 1px solid var(--line); z-index: 1; }
+th button { all: unset; box-sizing: border-box; width: 100%; padding: 7px 9px; cursor: pointer; font-weight: 600; font-size: 12px; color: var(--mut); white-space: nowrap; }
+th.der button { text-align: right; }
+td { padding: 6px 9px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+td.num { text-align: right; white-space: nowrap; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--acc-bg); }
+tbody tr[aria-selected="true"] { background: var(--acc-bg); box-shadow: inset 3px 0 0 var(--acc); }
+.hs { color: var(--mut); font-family: var(--f-mono); font-size: 12px; margin-right: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 500; border: 1px solid var(--line); white-space: nowrap; }
+.mas { margin-top: 8px; }
+.mas button, .btn { border: 1px solid var(--line); background: var(--surf); color: var(--ink); padding: 6px 12px; border-radius: 6px; font: inherit; cursor: pointer; }
+.f-titulo { font-size: 20px; line-height: 1.2; margin: 0 0 4px; text-wrap: balance; }
+.f-meta { color: var(--mut); font-size: 12.5px; margin-bottom: 10px; }
+.f-estado { border-left: 4px solid var(--lejano); padding: 8px 12px; background: var(--bg); border-radius: 0 6px 6px 0; margin: 10px 0 14px; font-size: 13px; }
+.cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.cifra { background: var(--bg); border-radius: 6px; padding: 8px 10px; min-width: 0; }
+.cifra b { display: block; font-family: var(--f-mono); font-size: 17px; font-weight: 500; }
+.cifra span { color: var(--mut); font-size: 11.5px; }
+.cap { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.cap-cab { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; align-items: baseline; flex-wrap: wrap; }
+.cap-cab .n { font-weight: 600; }
+.cap-cab .tag { font-size: 11px; color: var(--mut); }
+.cap-cab .tag.limite { color: var(--limite); font-weight: 600; }
+.pista { position: relative; height: 14px; background: var(--bg); border-radius: 7px; margin: 5px 0 3px; border: 1px solid var(--line); }
+.brecha { position: absolute; top: 3px; height: 6px; background: var(--deficit); opacity: 0.55; border-radius: 3px; }
+.brecha.dura { background: var(--limite); opacity: 0.75; }
+.m-pais { position: absolute; top: -1px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--exporta); border: 2px solid var(--surf); }
+.m-ref { position: absolute; top: -3px; width: 3px; height: 18px; margin-left: -1.5px; background: var(--ink); border-radius: 1px; }
+.cap-pie { font-size: 11.5px; color: var(--mut); display: flex; gap: 12px; flex-wrap: wrap; }
+.leyenda { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--mut); margin: 4px 0 6px; }
+.leyenda i { display: inline-block; vertical-align: middle; margin-right: 5px; }
+.lg-p { width: 11px; height: 11px; border-radius: 50%; background: var(--exporta); }
+.lg-r { width: 3px; height: 13px; background: var(--ink); }
+.lg-b { width: 16px; height: 6px; background: var(--deficit); opacity: 0.6; border-radius: 3px; }
+.sec { margin-top: 16px; }
+ul.l { list-style: none; margin: 0; padding: 0; }
+ul.l li { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+ul.l button { all: unset; cursor: pointer; color: var(--acc); text-align: left; }
+ul.l button:hover { text-decoration: underline; }
+.nota { color: var(--mut); font-size: 12px; margin-top: 14px; }
+.vacio { color: var(--mut); padding: 24px 6px; }
+@media (max-width: 980px) {
+  .grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mapa" "ficha" "lista"; }
+  #c-ficha { position: static; max-height: none; }
+  .lienzo { height: 420px; }
+}
+@media (prefers-reduced-motion: no-preference) { .brecha, .m-pais, .m-ref { transition: left 0.25s, width 0.25s; } }
+</style>
+
+<div class="pagina">
+  <h1>Mapa de productos de Paraguay</h1>
+  <p class="sub">Qué exporta Paraguay hoy, qué productos le quedan cerca y qué le falta para llegar a cada uno. Cada punto es un producto (HS4, 1.239 en total). Los productos que se exportan juntos aparecen próximos entre sí.</p>
+  <div class="aviso"><strong>Cómo leerlo.</strong> La brecha compara a Paraguay con los países que ya producen cada bien. Describe la distancia respecto de ellos; no es una probabilidad de que Paraguay lo logre: en la prueba hecha, el índice de brechas no mejora la predicción respecto de la cercanía (densidad) sola.</div>
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por estado"></div>
+  <div class="grid">
+    <section class="card" id="c-mapa" aria-label="Mapa de productos">
+      <h2>Espacio de productos</h2>
+      <div class="lienzo" id="lienzo"><canvas id="cv" role="img" aria-label="Mapa de productos; usá la lista para elegir un producto con el teclado"></canvas>
+        <div class="zoom"><button id="z-mas" aria-label="Acercar">+</button><button id="z-menos" aria-label="Alejar">−</button><button id="z-ini" aria-label="Restablecer vista">⟲</button></div>
+        <div class="tip" id="tip" hidden></div></div>
+      <div class="pie-mapa">Tamaño = valor del comercio mundial del producto en 2019. Arrastrá para mover, rueda para acercar. Hacé clic en un punto para ver su ficha.</div>
+    </section>
+    <section class="card" id="c-lista" aria-label="Lista de productos">
+      <h2>Lista de productos</h2>
+      <div class="buscar"><input id="q" type="search" placeholder="Buscar por nombre o código HS4" aria-label="Buscar producto"></div>
+      <div class="tabla"><table><thead><tr id="cab"></tr></thead><tbody id="cuerpo"></tbody></table></div>
+      <div class="mas" id="mas"></div>
+    </section>
+    <aside class="card" id="c-ficha" aria-live="polite" aria-label="Ficha del producto"></aside>
+  </div>
+  <p class="nota" id="fuente"></p>
+</div>
+
+<script type="application/json" id="datos">__DATOS__</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById("datos").textContent);
+  var P = D.productos, M = D.meta;
+  var CATS = [["exporta", "Ya exporta", "--exporta"], ["compatible", "Cercano, compatible", "--compatible"], ["deficit", "Cercano, déficit alto", "--deficit"],
+              ["limite", "Límite duro", "--limite"], ["sindato", "Sin dato de reservas", "--sindato"], ["lejano", "Lejano", "--lejano"]];
+  var NOM = {}; CATS.forEach(function (c) { NOM[c[0]] = c[1]; });
+  var BLOQUES = { primarios_agropecuarios: "Primarios agropecuarios", manufacturas_agropecuarias: "Manufacturas agropecuarias", minerales_y_energia: "Minerales y energía",
+    manufacturas_de_minerales: "Manufacturas de minerales", manufactura_liviana: "Manufactura liviana", manufactura_pesada_media_tec: "Manufactura pesada y media tecnología",
+    manufactura_alta_tec: "Alta tecnología", sin_clasificar: "Sin clasificar" };
+  var ESTADO = { "compatible": "compatible", "déficit alto": "deficit", "límite duro": "limite", "sin dato confiable de reservas": "sindato" };
+  P.forEach(function (p, k) { p.k = k; p.cat = p.x ? "exporta" : (p.c ? ESTADO[p.e] : "lejano"); p.low = (p.n + " " + p.h).toLowerCase(); });
+  var noExp = P.filter(function (p) { return !p.x; }).sort(function (a, b) { return b.d - a.d; });
+  noExp.forEach(function (p, i) { p.rank = i + 1; });
+  var activo = {}; CATS.forEach(function (c) { activo[c[0]] = true; });
+  var sel = null, orden = { col: "d", dir: -1 }, limite = 80, busca = "";
+  var fmt = function (x, d) { return x == null ? "—" : x.toLocaleString("es", { minimumFractionDigits: d, maximumFractionDigits: d }); };
+  var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
+  function el(t, c, h) { var e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function pill(cat) { var c = CATS.filter(function (x) { return x[0] === cat; })[0]; return '<span class="pill"><span class="dot" style="background:var(' + c[2] + ')"></span>' + c[1] + "</span>"; }
+
+  /* chips */
+  var chips = document.getElementById("chips");
+  CATS.forEach(function (c) {
+    var n = P.filter(function (p) { return p.cat === c[0]; }).length;
+    var b = el("button", "chip", '<span class="dot" style="background:var(' + c[2] + ')"></span>' + c[1] + ' <span class="num">' + n + "</span>");
+    b.type = "button"; b.setAttribute("aria-pressed", "true");
+    b.onclick = function () { activo[c[0]] = !activo[c[0]]; b.setAttribute("aria-pressed", String(activo[c[0]])); limite = 80; lista(); dibujar(); };
+    chips.appendChild(b);
+  });
+
+  /* mapa */
+  var cv = document.getElementById("cv"), ctx = cv.getContext("2d"), lienzo = document.getElementById("lienzo"), tip = document.getElementById("tip");
+  var W = 0, H = 0, dpr = 1, vista = { s: 1, x: 0, y: 0 }, base = { s: 1, x: 0, y: 0 }, pant = [];
+  var xs = P.map(function (p) { return p.px; }).sort(function (a, b) { return a - b; }), ys = P.map(function (p) { return p.py; }).sort(function (a, b) { return a - b; });
+  var q = function (a, f) { return a[Math.floor(f * (a.length - 1))]; };
+  var caja = { x0: q(xs, 0.02), x1: q(xs, 0.98), y0: q(ys, 0.02), y1: q(ys, 0.98) };
+  function ajustar() {
+    dpr = window.devicePixelRatio || 1; W = lienzo.clientWidth; H = lienzo.clientHeight; cv.width = W * dpr; cv.height = H * dpr;
+    var s = Math.min(W / (caja.x1 - caja.x0), H / (caja.y1 - caja.y0)) * 0.92;
+    base = { s: s, x: W / 2 - s * (caja.x0 + caja.x1) / 2, y: H / 2 - s * (caja.y0 + caja.y1) / 2 };
+    vista = { s: base.s, x: base.x, y: base.y };
+  }
+  function pos(p) { return [vista.x + vista.s * p.px, vista.y + vista.s * p.py]; }
+  function radio(p) { return Math.max(2.2, Math.min(11, Math.sqrt(p.v || 0) / 3.2)) * Math.min(1.8, Math.max(0.8, Math.sqrt(vista.s / base.s))); }
+  function dibujar() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+    var col = {}; CATS.forEach(function (c) { col[c[0]] = css(c[2]); });
+    var orden2 = ["lejano", "sindato", "limite", "deficit", "compatible", "exporta"]; pant = [];
+    orden2.forEach(function (cat) {
+      if (!activo[cat]) return;
+      ctx.fillStyle = col[cat]; ctx.globalAlpha = cat === "lejano" ? 0.8 : 0.92;
+      P.forEach(function (p) {
+        if (p.cat !== cat) return; var xy = pos(p), r = radio(p);
+        if (xy[0] < -10 || xy[0] > W + 10 || xy[1] < -10 || xy[1] > H + 10) return;
+        ctx.beginPath(); ctx.arc(xy[0], xy[1], r, 0, 6.2832); ctx.fill(); pant.push([xy[0], xy[1], r, p]);
+      });
+    });
+    ctx.globalAlpha = 1;
+    if (sel) {
+      var a = pos(sel); ctx.strokeStyle = css("--acc"); ctx.lineWidth = 1.2; ctx.globalAlpha = 0.7;
+      sel.vec.forEach(function (v) { var o = P.filter(function (p) { return p.h === v[0]; })[0]; if (!o) return; var b = pos(o); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); });
+      ctx.globalAlpha = 1; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.arc(a[0], a[1], radio(sel) + 4, 0, 6.2832); ctx.stroke();
+      ctx.fillStyle = css("--ink"); ctx.font = "600 12px " + css("--f-body"); var t = sel.n.length > 38 ? sel.n.slice(0, 36) + "…" : sel.n, w = ctx.measureText(t).width;
+      ctx.fillStyle = css("--surf"); ctx.fillRect(a[0] + 10, a[1] - 22, w + 10, 20); ctx.fillStyle = css("--ink"); ctx.fillText(t, a[0] + 15, a[1] - 8);
+    }
+  }
+  function cerca(mx, my) {
+    var mejor = null, d2 = 1e9; pant.forEach(function (e) { var d = (e[0] - mx) * (e[0] - mx) + (e[1] - my) * (e[1] - my), tol = Math.max(e[2] + 4, 8); if (d < tol * tol && d < d2) { d2 = d; mejor = e[3]; } });
+    return mejor;
+  }
+  var arrastre = null, movio = false;
+  cv.addEventListener("pointerdown", function (e) { arrastre = { x: e.clientX, y: e.clientY, vx: vista.x, vy: vista.y }; movio = false; cv.setPointerCapture(e.pointerId); cv.classList.add("arrastra"); });
+  cv.addEventListener("pointermove", function (e) {
+    var r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+    if (arrastre) { var dx = e.clientX - arrastre.x, dy = e.clientY - arrastre.y; if (Math.abs(dx) + Math.abs(dy) > 3) movio = true; vista.x = arrastre.vx + dx; vista.y = arrastre.vy + dy; dibujar(); tip.hidden = true; return; }
+    var p = cerca(mx, my); if (p) { tip.hidden = false; tip.textContent = p.n + " · HS " + p.h; tip.style.left = Math.min(mx + 12, W - 200) + "px"; tip.style.top = (my + 12) + "px"; } else tip.hidden = true;
+  });
+  cv.addEventListener("pointerup", function (e) {
+    var r = cv.getBoundingClientRect(); cv.classList.remove("arrastra");
+    if (arrastre && !movio) { var p = cerca(e.clientX - r.left, e.clientY - r.top); if (p) elegir(p, false); }
+    arrastre = null;
+  });
+  cv.addEventListener("pointerleave", function () { tip.hidden = true; });
+  function zoom(f, cx, cy) { var s = Math.max(base.s * 0.8, Math.min(base.s * 14, vista.s * f)), k = s / vista.s; vista.x = cx - (cx - vista.x) * k; vista.y = cy - (cy - vista.y) * k; vista.s = s; dibujar(); }
+  cv.addEventListener("wheel", function (e) { e.preventDefault(); var r = cv.getBoundingClientRect(); zoom(e.deltaY < 0 ? 1.2 : 1 / 1.2, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+  document.getElementById("z-mas").onclick = function () { zoom(1.4, W / 2, H / 2); };
+  document.getElementById("z-menos").onclick = function () { zoom(1 / 1.4, W / 2, H / 2); };
+  document.getElementById("z-ini").onclick = function () { vista = { s: base.s, x: base.x, y: base.y }; dibujar(); };
+
+  /* lista */
+  var COLS = [["n", "Producto", false], ["cat", "Estado", false], ["d", "Densidad", true], ["df", "Déficit", true], ["v", "Comercio mundial (M USD)", true]];
+  var cab = document.getElementById("cab");
+  COLS.forEach(function (c) {
+    var th = el("th", c[2] ? "der" : ""), b = el("button", "", c[1] + ' <span aria-hidden="true" class="fl"></span>'); b.type = "button"; b.dataset.col = c[0];
+    b.onclick = function () { if (orden.col === c[0]) orden.dir *= -1; else { orden.col = c[0]; orden.dir = c[2] ? -1 : 1; } lista(); }; th.appendChild(b); cab.appendChild(th);
+  });
+  document.getElementById("q").addEventListener("input", function (e) { busca = e.target.value.trim().toLowerCase(); limite = 80; lista(); });
+  function lista() {
+    var f = P.filter(function (p) { return activo[p.cat] && (!busca || p.low.indexOf(busca) >= 0); });
+    f.sort(function (a, b) { var x = a[orden.col], y = b[orden.col]; if (x == null) return 1; if (y == null) return -1; return (typeof x === "string" ? x.localeCompare(y, "es") : x - y) * orden.dir; });
+    Array.prototype.forEach.call(cab.querySelectorAll("button"), function (b) { b.querySelector(".fl").textContent = b.dataset.col === orden.col ? (orden.dir < 0 ? "▼" : "▲") : ""; });
+    var cuerpo = document.getElementById("cuerpo"); cuerpo.innerHTML = "";
+    f.slice(0, limite).forEach(function (p) {
+      var tr = el("tr", "", '<td><span class="hs">' + p.h + "</span>" + esc(p.n) + "</td><td>" + pill(p.cat) + '</td><td class="num">' + fmt(p.d, 3) + '</td><td class="num">' + fmt(p.df, 1) + '</td><td class="num">' + fmt(p.v, 0) + "</td>");
+      tr.tabIndex = 0; tr.dataset.h = p.h; tr.setAttribute("aria-selected", String(sel === p));
+      tr.onclick = function () { elegir(p, true); }; tr.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); elegir(p, true); } };
+      cuerpo.appendChild(tr);
+    });
+    if (!f.length) cuerpo.appendChild(el("tr", "", '<td colspan="5" class="vacio">Ningún producto con esos filtros.</td>'));
+    var mas = document.getElementById("mas"); mas.innerHTML = "";
+    if (f.length > limite) { var b = el("button", "btn", "Mostrar más (" + (f.length - limite) + " restantes)"); b.type = "button"; b.onclick = function () { limite += 120; lista(); }; mas.appendChild(b); }
+  }
+
+  /* ficha */
+  var ficha = document.getElementById("c-ficha");
+  function relTxt(r) { return r == null ? "sin dato" : (r >= 0.5 ? "relevancia alta" : (r >= 0.2 ? "relevancia media" : "relevancia baja")); }
+  function texto(p) {
+    var tol = fmt(M.tolerancia, 1), limites = p.cap.map(function (c, j) { return c[5] ? M.capas[j] : null; }).filter(Boolean);
+    if (p.cat === "exporta") return ["var(--exporta)", "Paraguay ya exporta este producto con presencia sostenida (ventaja comparativa revelada en 2 de los 3 últimos años). Su déficit ponderado de " + fmt(p.df, 1) + " puntos muestra cuánto se parece Paraguay a los demás productores en dotaciones."];
+    if (limites.length) return ["var(--limite)", "Límite duro: Paraguay está muy por debajo de casi todos los productores en " + limites.join(", ").toLowerCase() + ". Es la dotación que más pesa para este producto; sin ella el resto de las brechas importa poco."];
+    if (p.e === "sin dato confiable de reservas") return ["var(--sindato)", "Depende de una reserva mineral que la fuente (USGS) no permite afirmar que Paraguay no tenga. No se lo clasifica como compatible hasta tener un dato de reservas confiable."];
+    if (p.e === "compatible") return ["var(--compatible)", "Sin límite duro. Su déficit ponderado (" + fmt(p.df, 1) + ") está dentro de la tolerancia que muestran los países que ya lo producen (" + tol + ")." + (p.c ? "" : " Es un producto lejano: poca conexión con lo que Paraguay exporta hoy.")];
+    return ["var(--deficit)", "Sin límite duro, pero su déficit ponderado (" + fmt(p.df, 1) + ") supera la tolerancia de los países que ya lo producen (" + tol + ")."];
+  }
+  function mostrar(p) {
+    if (!p) { ficha.innerHTML = '<h2>Ficha del producto</h2><p class="vacio">Elegí un producto en el mapa o en la lista para ver sus capacidades, sus productores y los productos vecinos que Paraguay ya exporta.</p>'; return; }
+    var t = texto(p), h = '<h2>Ficha del producto</h2><h3 class="f-titulo">' + esc(p.n) + '</h3><div class="f-meta"><span class="mono">HS4 ' + p.h + "</span> · " + (BLOQUES[p.b] || p.b) + " · " + pill(p.cat) + "</div>";
+    h += '<div class="f-estado" style="border-left-color:' + t[0] + '">' + t[1] + "</div>";
+    h += '<div class="cifras"><div class="cifra"><b>' + fmt(p.d, 3) + "</b><span>Densidad" + (p.x ? "" : " (puesto " + p.rank + " de " + noExp.length + " no exportados)") + '</span></div>' +
+      '<div class="cifra"><b>' + fmt(p.df, 1) + "</b><span>Déficit ponderado (tolerancia " + fmt(M.tolerancia, 1) + ')</span></div>' +
+      '<div class="cifra"><b>' + p.np + "</b><span>Países productores en la muestra de " + M.paises + '</span></div>' +
+      '<div class="cifra"><b>' + fmt(p.v, 0) + "</b><span>Comercio mundial, M USD " + M.anio + "</span></div></div>";
+    h += '<h2>Capacidades frente a los productores</h2><div class="leyenda"><span><i class="lg-p"></i>Paraguay</span><span><i class="lg-r"></i>Mediana de los productores</span><span><i class="lg-b"></i>Brecha</span></div>';
+    var filas = p.cap.map(function (c, j) { return { j: j, c: c }; }), aplica = filas.filter(function (f) { return f.c[0] != null && f.c[1] != null; }), no = filas.filter(function (f) { return !(f.c[0] != null && f.c[1] != null); });
+    aplica.sort(function (a, b) { return (b.c[2] || 0) - (a.c[2] || 0); });
+    aplica.forEach(function (f) {
+      var c = f.c, a = Math.min(c[0], c[1]), w = Math.abs(c[1] - c[0]);
+      h += '<div class="cap"><div class="cap-cab"><span class="n">' + M.capas[f.j] + '</span><span class="tag' + (c[5] ? " limite" : "") + '">' + (c[5] ? "LÍMITE DURO · " : "") + relTxt(c[3]) + "</span></div>" +
+        '<div class="pista"><div class="brecha' + (c[5] ? " dura" : "") + '" style="left:' + (c[2] > 0 ? a : c[0]) + "%;width:" + (c[2] > 0 ? w : 0) + '%"></div><div class="m-ref" style="left:' + c[1] + '%"></div><div class="m-pais" style="left:' + c[0] + '%"></div></div>' +
+        '<div class="cap-pie num"><span>Paraguay: percentil ' + fmt(c[0], 0) + "</span><span>Productores: " + fmt(c[1], 0) + "</span><span>Brecha: " + fmt(c[2], 0) + "</span></div></div>";
+    });
+    if (no.length) h += '<p class="nota">No aplican a este producto: ' + no.map(function (f) { return M.capas[f.j].toLowerCase(); }).join(", ") + ". Las reservas de energía y de minerales solo cuentan para los productos que son ese recurso.</p>";
+    h += '<div class="sec"><h2>Principales productores (2019)</h2><ul class="l">' + p.prod.map(function (x) { return "<li><span>" + x[0] + '</span><span class="num">RCA ' + fmt(x[1], 1) + " · PIB pc " + (x[2] == null ? "—" : "USD " + fmt(x[2], 0)) + "</span></li>"; }).join("") + "</ul></div>";
+    h += '<div class="sec"><h2>Productos vecinos que Paraguay ya exporta</h2><ul class="l">' + p.vec.map(function (v) { return '<li><button type="button" data-h="' + v[0] + '">' + esc(v[1]) + '</button><span class="num">proximidad ' + fmt(v[2], 2) + "</span></li>"; }).join("") + "</ul></div>";
+    h += '<p class="nota">Percentiles entre los ' + M.paises + " países de la muestra (población ≥ 1 millón y exportaciones ≥ USD 1.000 millones). Los nombres vienen de la clasificación HS en inglés.</p>";
+    ficha.innerHTML = h;
+    Array.prototype.forEach.call(ficha.querySelectorAll("button[data-h]"), function (b) { b.onclick = function () { elegir(P.filter(function (x) { return x.h === b.dataset.h; })[0], false); }; });
+  }
+  function elegir(p, desdeLista) {
+    sel = p; mostrar(p); dibujar();
+    Array.prototype.forEach.call(document.querySelectorAll("#cuerpo tr"), function (tr) { tr.setAttribute("aria-selected", String(tr.dataset.h === p.h)); });
+    ficha.scrollTop = 0;
+    if (desdeLista && window.matchMedia("(max-width: 980px)").matches) ficha.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.getElementById("fuente").innerHTML = "Datos: exportaciones BACI (HS92, " + M.anio + ", sin la energía binacional); dotaciones de PWT 11.0, Banco Mundial (WDI), Doing Business, LPI, USGS y Our World in Data; cálculos del proyecto TAPE (LabDE). Densidad calculada solo con datos hasta " + M.anio + ". Validación: AUC de la densidad " + fmt(M.auc_densidad, 3) + "; con el déficit agregado " + fmt(M.auc_con_deficit, 3) + ".";
+  window.addEventListener("resize", function () { ajustar(); dibujar(); });
+  new MutationObserver(dibujar).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", dibujar); } catch (e) {}
+  ajustar(); lista();
+  var ini = P.filter(function (p) { return p.cat === "compatible" && !p.x; }).sort(function (a, b) { return b.d - a.d; })[0] || P[0];
+  elegir(ini, false); dibujar();
+})();
+</script>

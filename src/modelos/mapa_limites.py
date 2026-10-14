@@ -195,7 +195,8 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     pres = presencia(rca[rca.iso3.isin(muestra)], anio)
     m, paises, productos = matriz_presencia(pres.rename(columns={"iso3": "country", "hs4": "product"}))
     paises, productos = [str(p) for p in paises], [str(p) for p in productos]
-    dens = densidad(m, proximidad(m))
+    phi = proximidad(m)
+    dens = densidad(m, phi)
     pct = posiciones(dot, paises, anio).to_numpy(np.float32)
     share = None
     if minerales is not None:  # variante: reserva del mineral específico de cada producto
@@ -234,7 +235,9 @@ def construir(expo: pd.DataFrame, dot: pd.DataFrame, pob: pd.DataFrame, puente: 
     exc_tierra = np.where((rel[:, k_tierra] < REL_BAJA)[None, :], np.maximum(0.0, pk - ref[:, :, k_tierra]), np.nan)
     return {"tabla": tabla, "relevancia": relev, "tolerancia": tol, "corte": float(corte), "paises": len(paises), "productos": len(productos),
             "prueba": probar_exceso(m, dens, exc, paises, productos), "prueba_tierra": probar_exceso(m, dens, exc, paises, productos, extra=exc_tierra),
-            "validacion": validar(m, dens, deficit, paises)}
+            "validacion": validar(m, dens, deficit, paises),
+            "interno": {"m": m, "paises": paises, "productos": productos, "phi": phi, "pct": pct, "ref": ref, "gap": gap, "rel": rel, "signo": signo, "dens": dens, "i": i, "duro": duro,
+                        "grupo": grupo, "rca": rca[rca.anio == anio]}}
 
 
 def main(argv: list[str] | None = None) -> None:

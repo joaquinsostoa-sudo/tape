@@ -16,11 +16,11 @@ COLORES = {"compatible": "#2a7f62", "déficit alto": "#d08c1f", "límite duro": 
 SALIDA = RAIZ / "docs" / "figuras" / "mapa_limites_PRY_2019.png"
 
 
-def nombres() -> pd.Series:
+def nombres(largo: int = 28, completo: bool = False) -> pd.Series:
     b = pd.read_csv(CLEAN / "puente_hs92_sector.csv", dtype=str)
     b["hs4"] = b.hs92.str[:4]
     b["v"] = pd.to_numeric(b.valor_mundial, errors="coerce").fillna(0)
-    return b.sort_values("v", ascending=False).drop_duplicates("hs4").set_index("hs4").descripcion.str.split(":").str[0].str.slice(0, 28)
+    return b.sort_values("v", ascending=False).drop_duplicates("hs4").set_index("hs4").descripcion.pipe(lambda s: s if completo else s.str.split(":").str[0]).str.slice(0, largo)
 
 
 def main() -> None:

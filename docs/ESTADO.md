@@ -90,3 +90,5 @@ uv run python -m src.reconstruir_todo    # tablas limpias, puentes, requisitos y
 uv run pytest
 ```
 Para regenerar el zip: `uv run python -m src.empaquetar_datos_manuales`.
+
+**Prototipo de la herramienta, Paraguay 2019 (2026-10-14, rama `develop`):** `src/herramienta/` (`exportar_pry.py` arma el JSON con coordenadas del espacio producto, estado, capacidades y productores por producto; `plantilla.html` y `construir_pagina.py` generan la página). Mapa de 1.239 productos coloreado por estado, lista filtrable y ficha por producto. Publicada como artefacto privado: https://claude.ai/artifact/LgLsQUrZ9gAMS4JHnSg4qV. Descriptivo: la ficha dice «brecha respecto de los productores», no probabilidad. Pendiente: nombres en español, otros países y años, comparación contra Costa Rica.
