@@ -29,6 +29,25 @@ países y terciles: `data/model/bloques_paises_2015.csv`. Pedido de Joaquín: re
 - **Electricidad barata:** se asocia con minerales y energía (+36), y **negativamente** con la manufactura pesada (−17): los países con electricidad barata (hidro, petróleo) son los de recursos, no los de manufactura.
 - **Segundo panel, con cuidado:** algunos signos cambian respecto del primero (capital humano y primarios agropecuarios pasa de −21 a +24; capital por trabajador con manufactura liviana de 0 a +36). Con unos 14 países por celda, esas diferencias no deben leerse como resultados.
 
+## Referencia de ingreso: qué países tienen ventaja en cada bloque
+PIB per cápita (USD de 2021, PPA) de los países de la muestra con dato de ingreso, según tengan o no ventaja (RCA ≥ 1) en el bloque. Es la última columna de la figura. Hay un poco menos de países que en el cuadro (los que no tienen dato de PIB quedan fuera).
+
+| Bloque | Países con ventaja | PIB per cápita mediano **con** ventaja | PIB per cápita mediano **sin** ventaja |
+|---|---|---|---|
+| Primarios agropecuarios | 85 | **13.330** | 32.497 |
+| Minerales y energía | 64 | 13.928 | 18.248 |
+| Manufacturas agropecuarias | 70 | 20.040 | 13.516 |
+| Manufacturas de minerales | 38 | 14.911 | 14.937 |
+| Manufactura liviana | 48 | 14.919 | 14.937 |
+| Manufactura pesada y tecnología media | 34 | **37.897** | 13.113 |
+| Manufactura de alta tecnología | 17 | **36.353** | 14.323 |
+
+- **Referencia:** Paraguay tiene 14.426; la mediana de toda la muestra es 14.937.
+- **Los primarios agropecuarios son de países de ingreso medio-bajo** (mediana 13.330, contra 32.497 de los que no tienen ventaja): los países ricos casi no los tienen como ventaja.
+- **La manufactura pesada y de tecnología alta es de países ricos** (36.000 a 38.000, casi tres veces la mediana de los que no tienen ventaja).
+- **La manufactura liviana y las manufacturas de minerales tienen el mismo ingreso mediano con y sin ventaja** (14.900 en ambos): no se asocian con un nivel de ingreso, lo que concuerda con que no tengan un patrón claro de dotaciones.
+- **Paraguay** está en el ingreso típico de los países con ventaja en primarios y en manufacturas livianas.
+
 ## Paraguay (2015)
 - **RCA por bloque:** primarios agropecuarios **13,0** (tercero del mundo), manufacturas agropecuarias 1,65 (con ventaja); liviana 0,47; pesada y tec. media 0,15; manufacturas de minerales 0,20; minerales y energía 0,11; alta tecnología 0,02.
 - **Terciles:** **alto** en tierra cultivable, agua dulce y electricidad barata; **bajo** en reservas de petróleo, gas, carbón y minerales; **medio** en capital humano, capital por trabajador, logística y PIB per cápita.

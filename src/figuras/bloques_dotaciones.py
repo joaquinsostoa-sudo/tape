@@ -31,7 +31,7 @@ ETIQUETAS_DOT = {
 COLOR_POS, COLOR_NEG, NEUTRO = "#1f5f99", "#b5541c", "#eeeeee"
 
 
-def dibujar(ax, tabla: pd.DataFrame, valor: str, titulo: str, marcar: bool, paraguay: pd.Series | None) -> None:
+def dibujar(ax, tabla: pd.DataFrame, valor: str, titulo: str, marcar: bool, paraguay: pd.Series | None, pib: pd.Series | None = None) -> None:
     m = tabla.pivot(index="bloque", columns="dotacion", values=valor).reindex(index=BLOQUES, columns=list(DOTACIONES))
     p = tabla.pivot(index="bloque", columns="dotacion", values="p_fisher").reindex(index=BLOQUES, columns=list(DOTACIONES))
     cmap = LinearSegmentedColormap.from_list("div", [COLOR_NEG, NEUTRO, COLOR_POS])
@@ -45,6 +45,11 @@ def dibujar(ax, tabla: pd.DataFrame, valor: str, titulo: str, marcar: bool, para
             ax.text(j, i, f"{v:+.0f}" + ("•" if marcar and p.iat[i, j] < 0.05 else ""), ha="center", va="center", fontsize=8.5,
                     color="white" if abs(v) > 35 else "#222222")
     ax.set_yticks(range(len(BLOQUES)), [ETIQUETAS_BLOQUES[b] for b in BLOQUES], fontsize=9)
+    if pib is not None:  # referencia de ingreso: PIB per cápita mediano de los países con ventaja en el bloque
+        x = len(DOTACIONES) - 0.35
+        ax.text(x, -1.05, "PIB per cápita mediano\nde los países con ventaja\n(USD 2021 PPA, miles)", fontsize=8, ha="left", va="center", clip_on=False)
+        for i, b in enumerate(BLOQUES):
+            ax.text(x, i, f"{pib[b] / 1000:.1f}", fontsize=9.5, fontweight="bold", ha="left", va="center", clip_on=False, color="#222222")
     etiquetas = [ETIQUETAS_DOT[c] + (f"\nPRY: {paraguay[f'tercil_{c}']}" if paraguay is not None else "") for c in DOTACIONES]
     ax.set_xticks(range(len(DOTACIONES)), etiquetas, fontsize=8)
     ax.xaxis.tick_top()
@@ -57,13 +62,14 @@ def dibujar(ax, tabla: pd.DataFrame, valor: str, titulo: str, marcar: bool, para
 def main() -> None:
     tabla = pd.read_csv(MODELO / "bloques_dotaciones_2015.csv")
     pry = pd.read_csv(MODELO / "bloques_paises_2015.csv", index_col=0).loc["PRY"]
-    fig, axes = plt.subplots(2, 1, figsize=(12.5, 9.2))
-    dibujar(axes[0], tabla, "dif_alto_bajo", "Sin controles: puntos porcentuales de diferencia entre el tercil alto y el bajo de cada dotación (• = p < 0,05)", True, pry)
+    pib = pd.read_csv(MODELO / "bloques_pib_2015.csv").set_index("bloque").pib_mediano_con
+    fig, axes = plt.subplots(2, 1, figsize=(14.5, 9.4))
+    dibujar(axes[0], tabla, "dif_alto_bajo", "Sin controles: puntos porcentuales de diferencia entre el tercil alto y el bajo de cada dotación (• = p < 0,05)", True, pry, pib)
     dibujar(axes[1], tabla, "dif_dentro_de_ingreso", "Dentro de terciles de ingreso: diferencia entre países por encima y por debajo de la mediana de la dotación", False, None)
     fig.suptitle("¿Qué proporción de países tiene ventaja comparativa en cada bloque de productos, según su dotación? (2015, 144 países)", fontsize=11.5, x=0.01, ha="left", y=0.995)
     fig.text(0.01, 0.005, "Ventaja = RCA del bloque ≥ 1. Bloques: clasificación tecnológica de Lall (2000) llevada a HS4. Azul: más países con ventaja entre los más dotados; naranja: menos. "
              "Descriptivo, sin causalidad.", fontsize=7.8, color="#444444")
-    fig.tight_layout(rect=(0, 0.02, 1, 0.97))
+    fig.tight_layout(rect=(0, 0.02, 0.9, 0.97))
     destino = RAIZ / "docs" / "figuras" / "bloques_dotaciones_2015.png"
     destino.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destino, dpi=140)

@@ -36,3 +36,10 @@ def test_diferencia_dentro_de_ingreso_desaparece_cuando_el_ingreso_lo_explica_to
     r = bd.dif_dentro_de_ingreso(ventaja, d, "x").set_index("bloque").loc["manufactura_alta_tec"]
     assert r.dif_sin_control == pytest.approx(100 * 4 / 6)  # sin control: 4 de 6 países por encima de la mediana frente a 0 de 6 por debajo
     assert abs(r.dif_dentro_de_ingreso) < 1e-9  # dentro de cada tercil de ingreso ya no hay diferencia
+
+
+def test_pib_de_los_paises_con_ventaja_en_cada_bloque():
+    ventaja = pd.DataFrame({"iso3": list("abcd"), "bloque": "manufactura_alta_tec", "ventaja": [True, True, False, False]})
+    dot = pd.DataFrame({"iso3": list("abcd"), "pib_pc_ppa": [40.0, 60.0, 10.0, 20.0]})
+    r = bd.pib_por_bloque(ventaja, dot).set_index("bloque").loc["manufactura_alta_tec"]
+    assert r.paises_con_ventaja == 2 and r.pib_mediano_con == 50 and r.pib_medio_con == 50 and r.pib_mediano_sin == 15

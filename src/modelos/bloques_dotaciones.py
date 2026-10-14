@@ -90,6 +90,20 @@ def dif_dentro_de_ingreso(ventaja: pd.DataFrame, dot: pd.DataFrame, col: str) ->
     return pd.DataFrame(filas)
 
 
+def pib_por_bloque(ventaja: pd.DataFrame, dot: pd.DataFrame) -> pd.DataFrame:
+    """Referencia de ingreso: PIB per cápita (PPA) mediano y medio de los países con ventaja en cada bloque, y mediano de los que no la tienen."""
+    g = ventaja.merge(dot[["iso3", "pib_pc_ppa"]], on="iso3").dropna(subset=["pib_pc_ppa"])
+    filas = []
+    for b in BLOQUES:
+        x = g[g.bloque == b]
+        if x.empty:
+            continue
+        con, sin = x[x.ventaja].pib_pc_ppa, x[~x.ventaja].pib_pc_ppa
+        filas.append({"bloque": b, "paises_con_ventaja": len(con), "pib_mediano_con": con.median(), "pib_medio_con": con.mean(),
+                      "pib_mediano_sin": sin.median() if len(sin) else np.nan})
+    return pd.DataFrame(filas)
+
+
 def dotaciones_del_anio(dot: pd.DataFrame, pob: pd.DataFrame, puente: pd.DataFrame, anio: int) -> pd.DataFrame:
     """Una fila por país con todas las dotaciones del año; la riqueza mineral es la suma de las participaciones en las reservas mundiales de los 18 minerales (ausente = 0)."""
     d = dot[dot.anio == anio].merge(reservas_energia(pob).query("anio == @anio"), on=["iso3", "anio"], how="left")
@@ -127,6 +141,10 @@ def main(argv: list[str] | None = None) -> None:
     control = pd.concat([dif_dentro_de_ingreso(ventaja, d, c) for c in DOTACIONES if c != "pib_pc_ppa"])
     tabla = tabla.merge(control, on=["dotacion", "bloque"], how="left")
     tabla.to_csv(MODELO / f"bloques_dotaciones_{args.anio}.csv", index=False)
+    pib = pib_por_bloque(ventaja, d)
+    pib.to_csv(MODELO / f"bloques_pib_{args.anio}.csv", index=False)
+    print(pib.round(0).to_string(index=False))
+    print("PIB per cápita de Paraguay:", round(float(d[d.iso3 == "PRY"].pib_pc_ppa.iloc[0])))
     paises = ventaja.pivot(index="iso3", columns="bloque", values="rca").round(2)
     for c in DOTACIONES:
         paises[f"tercil_{c}"] = terciles(d.set_index("iso3")[c])
