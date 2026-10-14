@@ -15,7 +15,7 @@ Confianza: alta si la similitud es ≥ 0,9, media entre 0,7 y 0,9, baja si el pa
 | | Filas | igual | nuevo desde padre | otros |
 |---|---|---|---|---|
 | 2012 | 248 polígonos | 234 | 12 | 2 fragmentos de San Juan del Paraná (< 1 km²) |
-| 2022 | 263 ciudades | 234 | 28 | 1 sin correspondencia (María Antonia, Paraguarí: su punto cae fuera de los límites) |
+| 2022 | 263 ciudades | 234 | 28 (incluye los 12 de 2012) | 1 sin correspondencia (María Antonia, Paraguarí: su punto cae fuera de los límites) |
 
 Los **234 distritos del censo tienen exactamente un polígono de 2012** (comprobado en un test). 222 filas de 2012 y 222 de 2022 son de confianza alta.
 
@@ -25,6 +25,6 @@ Con el puente, las **17.080 industrias del MIC** quedan asignadas a una unidad d
 ## Hallazgos y límites
 - **«Bella Vista» es un solo objeto de dos partes en los límites de 2012** (Amambay e Itapúa): se separó por departamento. No era un distrito faltante en el censo; faltaba la segunda parte.
 - Dos polígonos de San Juan del Paraná son fragmentos de 0,24 y 0,15 km²: se tratan como parte del distrito principal.
-- **Padres de los distritos nuevos por frontera, no por historia legal.** El criterio de la frontera más larga puede equivocarse (por ejemplo, Liberación → General Resquín, Yabebyry → Ayolas, Villa Franca → San Juan Bautista de Ñeembucú, Dr. Raúl Peña → Naranjal). Las leyes de creación de distritos darían el padre exacto: el equipo debe validar las 12 + 28 filas `baja`.
+- **Padres de los distritos nuevos por frontera, no por historia legal.** El criterio de la frontera más larga puede equivocarse (por ejemplo, Liberación → General Resquín, Yabebyry → Ayolas, Villa Franca → San Juan Bautista de Ñeembucú, Dr. Raúl Peña → Naranjal). Las leyes de creación de distritos darían el padre exacto: el equipo debe validar los **28 distritos nuevos distintos** (12 de ellos ya figuran como polígonos en 2012, con el padre por frontera; los otros 16 solo existen en 2022, con el padre por el punto) y la ciudad sin unidad (María Antonia). Los 12 de 2012 también están entre los 28 de 2022: no se suman.
 - María Antonia (Paraguarí) queda sin unidad; ya había un problema de coordenadas con ella en el mapa MIC.
 - Los distritos creados entre 2010 y 2012 que no estaban en el censo se agregan a su padre: pierden resolución, pero el backtest se hace en la unidad de 2011.
