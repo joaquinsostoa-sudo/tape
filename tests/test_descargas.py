@@ -29,7 +29,7 @@ def test_todas_incluye_cada_modulo_de_descarga():
     """Cada módulo de src/descargas con un main() de descarga debe estar en todas.py (la guía lo promete)."""
     from src.descargas import todas
 
-    esperados = {"concordancias", "limites_admin", "nberces", "hs_naics", "wdi", "pwt", "simel", "atlas", "baci"}
+    esperados = {"concordancias", "limites_admin", "nberces", "hs_naics", "wdi", "reservas", "pwt", "simel", "atlas", "baci"}
     assert {nombre for nombre, _ in todas.PASOS} == esperados
 
 

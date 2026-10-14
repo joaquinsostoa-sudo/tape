@@ -1,0 +1,20 @@
+{
+ "petroleo_reservas_probadas.csv": {
+  "url": "https://ourworldindata.org/grapher/oil-proved-reserves.csv?v=1&csvType=full&useColumnShortNames=true",
+  "fecha_utc": "2026-10-14",
+  "bytes": 220392,
+  "sha256": "f71be4bea0488c956521bfe3ec49bac7a1f7d63ab5ec668c5b68b6599d0ab182"
+ },
+ "gas_reservas_probadas.csv": {
+  "url": "https://ourworldindata.org/grapher/natural-gas-proved-reserves.csv?v=1&csvType=full&useColumnShortNames=true",
+  "fecha_utc": "2026-10-14",
+  "bytes": 235839,
+  "sha256": "744db4ee9fb8c3d6c8662f90f0349ac862cecd3fbba10140b52f8d1f26760048"
+ },
+ "carbon_reservas_probadas.csv": {
+  "url": "https://ourworldindata.org/grapher/coal-proved-reserves.csv?v=1&csvType=full&useColumnShortNames=true",
+  "fecha_utc": "2026-10-14",
+  "bytes": 91447,
+  "sha256": "e03b376aa2339d61419a55a4f2350efe19dec87a9a2e3face4faebc99743458c"
+ }
+}
