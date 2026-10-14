@@ -3,7 +3,7 @@
 Fuente: INE; archivo `49d4bCEN2011_DIST_CUADRO_1.xlsx` en `data/raw/censo_2011/` (descargado a mano el 2026-10-14). Limpieza: `src/limpieza/censo_2011.py` → `data/clean/censo2011_distrito_rama.csv` (nivel distrito) y `censo2011_departamento_rama.csv`.
 
 ## Veredicto: sirve para el backtest territorial
-Trae lo que pedimos: **unidades económicas y personal ocupado (por sexo) por distrito y rama CIIU**, además de remuneraciones, gastos por compras e ingresos por suministro (miles de guaraníes). Totales nacionales: **224.242 unidades económicas y 799.153 ocupados**; 234 distritos.
+Trae lo que pedimos: **unidades económicas y personal ocupado (por sexo) por distrito y rama CIIU**, además de remuneraciones, gastos por compras e ingresos por suministro (miles de guaraníes). Totales nacionales: **224.242 unidades económicas y 799.153 ocupados**; 238 distritos (cuatro de ellos, Dr. Bottrell, Yabebyry, Villa Franca y Tte. Esteban Martínez, vienen solo con su total y se registran como residual implícito).
 
 Las sumas cuadran exactamente en todos los niveles (ramas = sector, ramas = distrito, distritos = departamento, departamentos = total nacional); está verificado en `verificar` y en un test.
 
@@ -15,7 +15,7 @@ Las sumas cuadran exactamente en todos los niveles (ramas = sector, ramas = dist
 - Asunción es departamento y distrito a la vez; en la salida por distrito figura como «ASUNCIÓN».
 
 ## Manufactura (lo comparable con el mapa MIC 2026)
-21.134 unidades y 119.314 ocupados en las divisiones 10-33, en 160 de los 234 distritos; 147 distritos con al menos 5 unidades y 102 con al menos 20. Asunción (3.008), Ciudad del Este (1.315), San Lorenzo (1.220), Luque (1.219) y Capiatá (903) encabezan. Mayores ramas: confección (141, 2.324), muebles (310, 2.082), productos metálicos (251, 1.597), otros alimenticios (109, 1.375).
+21.134 unidades y 119.314 ocupados en las divisiones 10-33, en 160 de los 238 distritos; 147 distritos con al menos 5 unidades y 102 con al menos 20. Asunción (3.008), Ciudad del Este (1.315), San Lorenzo (1.220), Luque (1.219) y Capiatá (903) encabezan. Mayores ramas: confección (141, 2.324), muebles (310, 2.082), productos metálicos (251, 1.597), otros alimenticios (109, 1.375).
 
 ## Problemas a resolver antes de usarlo en el modelo
 1. **Sin código de distrito: solo nombres.** Hay que cruzarlos con los 247 distritos de los límites DGEEC 2012 y los 263 del Censo 2022 (ya había un pendiente de reconciliación). Los distritos creados después de 2010 no existen aquí.

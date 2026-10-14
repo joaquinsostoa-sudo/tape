@@ -43,3 +43,17 @@ def test_el_archivo_real_suma_exacto_en_todos_los_niveles():
     assert nacional["ue"] == 224242 and nacional["po"] == pytest.approx(799153)
     assert all(v == 0 for v in c.verificar(ramas, totales, nacional).values())
     assert ramas[ramas.distrito.isna()].ue.sum() == 224242
+
+
+def test_distrito_que_solo_trae_su_total_queda_como_residual_implicito(tmp_path):
+    n = None
+    filas = [[n] * 9, ["TOTAL", n, 20, 40, 24, 16, 4, 8, 12], ["CENTRAL", n, 20, 40, 24, 16, 4, 8, 12],
+             ["Comercio", n, 20, 40, 24, 16, 4, 8, 12], ["47", "Comercio al por menor", 20, 40, 24, 16, 4, 8, 12],
+             ["Luque", n, 12, 25, 15, 10, 2, 5, 8], ["Comercio", n, 12, 25, 15, 10, 2, 5, 8], ["47", "Comercio al por menor", 12, 25, 15, 10, 2, 5, 8],
+             ["Limpio", n, 8, 15, 9, 6, 2, 3, 4]]  # solo el total
+    ruta = tmp_path / "c.xlsx"
+    pd.DataFrame(filas).to_excel(ruta, header=False, index=False)
+    ramas, totales, nacional = c.leer(ruta)
+    limpio = ramas[ramas.distrito == "Limpio"]
+    assert len(limpio) == 1 and limpio.ue.iloc[0] == 8 and limpio.sector.iloc[0] == "Mixto" and "implícito" in limpio.rama.iloc[0]
+    assert all(v == 0 for v in c.verificar(ramas, totales, nacional).values())

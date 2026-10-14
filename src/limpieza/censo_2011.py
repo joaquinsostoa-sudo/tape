@@ -45,12 +45,19 @@ def completar(ramas: pd.DataFrame, totales: pd.DataFrame) -> pd.DataFrame:
     tot = totales[totales.sector.notna()].fillna({"distrito": ""}).set_index(claves)[cols]
     falta = (tot - suma.reindex(tot.index).fillna(0.0))
     falta = falta[falta.ue > 0].reset_index()
-    if falta.empty:
-        return ramas
     falta["distrito"] = falta.distrito.replace("", None)
     falta["ciiu"], falta["sector_inferido"] = "", False
     falta["rama"] = "Otras actividades de " + falta.sector.str.lower() + " (implícito)"
-    return pd.concat([ramas, falta[ramas.columns]], ignore_index=True)
+    out = pd.concat([ramas, falta[ramas.columns]], ignore_index=True) if len(falta) else ramas
+    # distritos que el censo lista solo con su total, sin sectores ni ramas (p. ej. Dr. Bottrell, Yabebyry, Villa Franca, Tte. Esteban Martínez)
+    bloques = totales[totales.sector.isna() & totales.distrito.notna()]
+    con_detalle = set(zip(out.departamento, out.distrito, strict=True))
+    solo_total = bloques[[(d, s) not in con_detalle for d, s in zip(bloques.departamento, bloques.distrito, strict=True)]].copy()
+    if len(solo_total):
+        solo_total["sector"], solo_total["sector_inferido"] = "Mixto", True
+        solo_total["ciiu"], solo_total["rama"] = "", "Otras actividades (implícito: el distrito solo trae su total)"
+        out = pd.concat([out, solo_total[out.columns]], ignore_index=True)
+    return out
 
 
 def leer(ruta=ENTRADA) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
@@ -62,7 +69,7 @@ def leer(ruta=ENTRADA) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     nacional: dict = {}
     for r in crudo.itertuples(index=False):
         a = "" if pd.isna(r.a) else str(r.a).strip()
-        if pd.isna(r.ue):
+        if pd.isna(r.ue) or isinstance(r.ue, str):  # vacías o el encabezado de columnas («Unidades económicas»)
             continue
         num = r._asdict()
         datos = {k: num[k] for k in COLS[2:]}
