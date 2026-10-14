@@ -47,7 +47,7 @@ Una tarea acotada por vez con criterio de terminado. Si implica una decisión me
 - Se excluyen CONSUMO, VIVIENDA e Impuestos: no son actividades económicas.
 
 ## Decisiones abiertas (ver el plan)
-Agregación producto→sector (D1); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
+Agregación producto→sector: **D1 decidida (2026-10-14)**, media ponderada por comercio mundial con máximo y conteo (`docs/candidatos_sector.md`); anidamiento de las clasificaciones agregadas (comprobado: no anidan del todo, ver `docs/`); fórmula de ε (D10).
 
 ## Decididas el 2026-10-12 (detalle en `docs/supuestos.md`)
 - **D3**: φ con ventana de 5 años que termina en t, solo con datos ≤ t.
