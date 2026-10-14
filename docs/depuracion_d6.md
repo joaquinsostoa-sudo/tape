@@ -37,23 +37,23 @@ medicamentos 3004 (518 M USD exportados y 1.249 importados), derivados del petr�
 
 **Para revisar producto por producto y confirmar con la aduana:** al menos cigarrillos, alimento para mascotas, vidrio, PET y panificados, donde Paraguay también produce (la marca puede ser un falso positivo), y los agroquímicos y medicamentos, donde las importaciones son varias veces las exportaciones (reexportación probable a los vecinos). **Los arneses (HS 8544.30) no se marcan** (importaciones del 1 % de las exportaciones): la maquila transforma componentes de otros códigos HS, no los reexporta; esta regla no la captura.
 
+## Decisión del equipo (2026-10-14): alcance (a)
+La marca se calcula para todos los países (columnas informativas) pero **solo se aplica** (`reexportacion_aplicada`, la que usa el «RCA depurado») a **Paraguay y a una lista explícita de centros de reexportación: Hong Kong, Singapur, Países Bajos y Bélgica** (`PAISES_DEPURADOS` en `depuracion.py`). El resto de los países usa exportaciones brutas, porque en ellos la razón M/X marca comercio intraindustrial genuino.
+Efecto sobre `exportaciones_hs4_depurado.parquet`: solo cambian esos cinco países; se excluye el 93 % de las exportaciones de Hong Kong, el 69 % de Singapur y de Países Bajos, el 68 % de Bélgica y el 4,6 % de Paraguay (con la energía, que los modelos ya excluían); los demás quedan idénticos.
+
 ## Robustez del modelo (criterio declarado)
-Backtest nacional repetido con `exportaciones_hs4_depurado.parquet` (`data/model/backtest_resultados_d6.csv`):
+Backtest nacional repetido con `exportaciones_hs4_depurado.parquet` (`data/model/backtest_resultados_d6.csv`). Criterio declarado: la conclusión «las capas no mejoran a la densidad» se mantiene si los intervalos de la diferencia capas − densidad sola en precision@20 por país incluyen el cero en las tres ventanas y la precision@20 de la densidad sola cambia menos de 0,01.
 
-| Prueba | Densidad sola p@20 (antes → ahora) | Capas − densidad, p@20 por país (IC 95 %) |
+| Prueba | Densidad sola p@20 (antes → alcance a) | Capas − densidad, p@20 por país (IC 95 %) |
 |---|---|---|
-| 2005→2010 | 0,088 → 0,101 | −0,001 (−0,008; +0,005) |
-| 2010→2015 | 0,085 → 0,115 | −0,002 (−0,009; +0,004) |
-| 2015→2020 | 0,075 → 0,094 | −0,000 (−0,006; +0,005) |
+| 2005→2010 | 0,088 → 0,092 (+0,004) | −0,002 (−0,007; +0,003) |
+| 2010→2015 | 0,085 → 0,087 (+0,002) | −0,006 (−0,014; +0,000) |
+| 2015→2020 | 0,075 → 0,073 (−0,002) | +0,001 (−0,004; +0,007) |
 
-- **Se mantiene la conclusión central:** los intervalos de la diferencia capas − densidad siguen incluyendo el cero en las tres ventanas y el AUC-PR de las capas es igual al de la densidad (0,082 contra 0,081, 0,090 contra 0,088, 0,080 contra 0,080).
-- **La segunda condición declarada no se cumple en valor absoluto:** la precision@20 de la densidad sola sube 0,013, 0,030 y 0,019 (el criterio pedía menos de 0,01). Hay que leerlo con cuidado: la muestra cambia (más entradas: 3.395 contra 2.581 en 2005 y tasa base de 3,4 % contra 2,8 %, porque quitar flujos marcados baja el RCA y genera más entradas posteriores). **El «lift» sobre la tasa base es el mismo** (3,0 contra 3,1 veces en 2005), así que la capacidad de ordenar no cambia, pero no se redefine el criterio: se informa el cambio.
+**Criterio cumplido:** los intervalos incluyen el cero (en 2010 el límite superior es 0,000: el modelo con capas queda, si algo, apenas peor) y la densidad cambia menos de 0,01 en las tres ventanas. La conclusión central (D16) no depende de la depuración elegida.
 
-## Decisión pendiente (alcance de la marca)
-La regla debe seguir siendo una marca (no borra), pero **para qué datos se usa como «RCA depurado»** cambia mucho el resultado en las economías grandes. Opciones:
-- **(a)** Usar la marca solo para Paraguay (y, si se quiere, una lista explícita de centros de reexportación como Hong Kong, Singapur, Países Bajos y Bélgica); el resto con exportaciones brutas. Es lo que D6 buscaba: corregir la visión de Paraguay.
-- **(b)** Aplicarla a todos con un umbral mucho más estricto (por ejemplo M ≥ 1,0 · X sigue marcando 21 % del mundo: no alcanza solo).
-- **(c)** Usar exportaciones netas (X − M, mínimo cero) para todos los países.
-- **(d)** Mantenerla como marca informativa y no depurar el RCA del modelo nacional (los resultados con y sin depuración llevan a la misma conclusión).
+**Para contraste, la depuración aplicada a todos los países** (descartada): la conclusión sobre las capas también se mantiene, pero la precision@20 de la densidad sube 0,013, 0,030 y 0,019 (no cumple el criterio de 0,01) con otra muestra (tasa base de 3,4 % en lugar de 2,8 %): es el efecto de sacar de golpe el 38 % del comercio mundial, por eso se acotó el alcance.
 
-Recomiendo (a): resuelve el caso de Paraguay sin distorsionar a las economías que producen lo que exportan. Falta decidirlo y revisar la lista de productos marcados con la aduana.
+## Pendiente
+- Revisar con la aduana la lista de productos marcados para Paraguay (sobre todo los que Paraguay también produce).
+- Los modelos siguen usando por defecto `exportaciones_hs4.parquet` (brutas); para el «RCA depurado» de D13 se pasa `--expo data/model/exportaciones_hs4_depurado.parquet`. La definición final de qué tabla es la principal en el informe de la Fase 1 queda para esa tarea.

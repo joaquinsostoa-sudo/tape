@@ -34,7 +34,7 @@ def test_hs4_depurado_suma_solo_lo_no_marcado_y_descarta_paises_sin_iso3(tmp_pat
     r, pu = _datos(tmp_path)
     d.depurar(r["expo"], r["impo"], pu, r["salida"], r["hs4"])
     h = pd.read_parquet(r["hs4"]).set_index("hs4").x
-    assert "8517" not in h.index  # el HS6 marcado no entra
+    assert "8517" not in h.index  # el HS6 marcado de un país del alcance no entra
     assert h["1201"] == 5000.0 and h["2716"] == 2000.0 and h["0101"] == 450.0  # 010110 (50) + 010190 (400); la energía queda (los modelos la excluyen del RCA)
     assert (pd.read_parquet(r["hs4"]).iso3 == "PRY").all()
 
@@ -54,3 +54,16 @@ def test_resumenes_cuentan_lo_marcado(tmp_path):
     assert t["total"] == 8450.0 and t["energia"] == 2000.0 and t["reexportado_sin_energia"] == 1000.0 and top.hs6.tolist() == ["120100", "271600"]
     p = d.proporcion_por_pais(con, 2019, minimo=1.0)
     assert p.iloc[0].iso3 == "PRY" and p.iloc[0].prop_05 == pytest.approx(1000.0 / 6450.0)
+
+
+def test_la_marca_se_aplica_solo_a_los_paises_del_alcance(tmp_path):
+    r, pu = _datos(tmp_path)
+    pd.DataFrame({"codigo_baci": [600, 700], "iso3": ["PRY", "DEU"]}).to_csv(pu, index=False)
+    pd.DataFrame({"anio": [2019, 2019], "codigo_baci": [700, 600], "hs6": ["870323", "851712"], "valor_miles_usd": [1000.0, 1000.0], "toneladas": [1.0, 1.0]}).to_parquet(r["expo"])
+    pd.DataFrame({"anio": [2019, 2019], "codigo_baci": [700, 600], "hs6": ["870323", "851712"], "valor_miles_usd": [900.0, 600.0], "toneladas": [1.0, 1.0]}).to_parquet(r["impo"])
+    con = d.depurar(r["expo"], r["impo"], pu, r["salida"], r["hs4"], paises=("PRY",))
+    t = con.execute("SELECT iso3, reexportacion, reexportacion_aplicada FROM depurado ORDER BY iso3").df()
+    assert t.reexportacion.tolist() == [True, True]  # la marca informativa es para todos
+    assert t.reexportacion_aplicada.tolist() == [False, True]  # la aplicada, solo Paraguay
+    h = pd.read_parquet(r["hs4"]).set_index("iso3").hs4
+    assert h.to_dict() == {"DEU": "8703"}  # Alemania conserva su exportación bruta; la de Paraguay (marcada) no entra
