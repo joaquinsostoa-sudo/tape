@@ -17,7 +17,7 @@ from src.figuras.mapa_limites import nombres
 from src.modelos.logit_nacional import CLEAN, MODELO, RAIZ
 from src.modelos.mapa_brechas import CAPAS
 from src.modelos.mapa_limites import ANIO, MINERALES, PAIS, USGS, construir, participacion_reservas
-from src.modelos.oportunidades import eci_pais, escalera, leer_atlas
+from src.modelos.oportunidades import eci_pais, escalera, leer_atlas, salto_relativo
 
 SALIDA = MODELO / f"herramienta_{PAIS}_{ANIO}.json"
 VECINOS = 4
@@ -82,6 +82,8 @@ def exportar() -> dict:
     atlas = leer_atlas(PAIS, ANIO).set_index("hs4")  # PCI y COG del Atlas (2019, el mismo año de la herramienta)
     esc = escalera(z["phi"], productos, [productos[j] for j in exporta], atlas.pci, k=4)
     esc_por_origen = {o: g for o, g in esc.groupby("origen")}
+    presentes = [productos[j] for j in exporta]
+    sal = salto_relativo(z["phi"], productos, presentes, atlas.pci, [h for h in productos if h not in set(presentes)]).set_index("hs4")
     prods = []
     for p, h in enumerate(productos):
         fila = t.iloc[p]
@@ -94,7 +96,8 @@ def exportar() -> dict:
             "np": len(prod_p), "px": _r(xy[p, 0], 4), "py": _r(xy[p, 1], 4),
             "cap": [[_r(z["pct"][i, p, j] if z["pct"].ndim == 3 else z["pct"][i, j]), _r(z["ref"][i, p, j]), _r(z["gap"][i, p, j]), _r(z["rel"][p, j], 2), int(z["signo"][p, j]), bool(z["duro"][p, j])] for j in range(len(capas))],
             "prod": [[x.iso3, _r(x.rca, 1), _r(pib.get(x.iso3, np.nan), 0)] for x in top.itertuples()],
-            "vec": [[productos[q], str(nom.get(productos[q], productos[q])), _r(z["phi"][p, q], 2)] for q in vec],
+            "vec": [[productos[q], str(nom.get(productos[q], productos[q])), _r(z["phi"][p, q], 2), _r(atlas.pci.get(productos[q], np.nan), 2)] for q in vec],
+            "pref": _r(sal.pci_ref.get(h, np.nan), 2), "salto": _r(sal.salto.get(h, np.nan), 2),
             "pci": _r(atlas.pci.get(h, np.nan), 2), "cog": _r(atlas.cog.get(h, np.nan), 2),
             "up": [[r_.destino, str(nom.get(r_.destino, r_.destino)), _r(r_.phi, 2), _r(r_.pci_destino, 2)] for r_ in esc_por_origen[h].itertuples()] if h in esc_por_origen else []})
     e = eci_pais(PAIS)

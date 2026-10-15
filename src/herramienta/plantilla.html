@@ -255,7 +255,8 @@ ul.l button:hover { text-decoration: underline; }
       '<div class="cifra"><b>' + p.np + "</b><span>Países productores en la muestra de " + M.paises + '</span></div>' +
       '<div class="cifra"><b>' + fmt(p.v, 0) + "</b><span>Comercio mundial, M USD " + M.anio + '</span></div>' +
       '<div class="cifra"><b>' + fmt(p.pci, 2) + "</b><span>Complejidad (PCI; la canasta de Paraguay promedia " + fmt(M.pci_canasta, 2) + ')</span></div>' +
-      '<div class="cifra"><b>' + fmt(p.cog, 2) + "</b><span>Ganancia de complejidad (COG, Atlas)</span></div></div>";
+      '<div class="cifra"><b>' + fmt(p.cog, 2) + "</b><span>Ganancia de complejidad (COG, Atlas)</span></div>" +
+      (p.salto == null ? "" : '<div class="cifra"><b>' + (p.salto > 0 ? "+" : "") + fmt(p.salto, 2) + "</b><span>Salto de complejidad frente a lo que Paraguay ya hace cerca (referencia PCI " + fmt(p.pref, 2) + ")</span></div>") + "</div>";
     h += '<h2>Capacidades frente a los productores</h2><div class="leyenda"><span><i class="lg-p"></i>Paraguay</span><span><i class="lg-r"></i>Mediana de los productores</span><span><i class="lg-b"></i>Brecha</span></div>';
     var filas = p.cap.map(function (c, j) { return { j: j, c: c }; }), aplica = filas.filter(function (f) { return f.c[0] != null && f.c[1] != null; }), no = filas.filter(function (f) { return !(f.c[0] != null && f.c[1] != null); });
     aplica.sort(function (a, b) { return (b.c[2] || 0) - (a.c[2] || 0); });
@@ -268,7 +269,7 @@ ul.l button:hover { text-decoration: underline; }
     if (no.length) h += '<p class="nota">No aplican a este producto: ' + no.map(function (f) { return M.capas[f.j].toLowerCase(); }).join(", ") + ". Las reservas de energía y de minerales solo cuentan para los productos que son ese recurso.</p>";
     h += '<div class="sec"><h2>Principales productores (2019)</h2><ul class="l">' + p.prod.map(function (x) { return "<li><span>" + x[0] + '</span><span class="num">RCA ' + fmt(x[1], 1) + " · PIB pc " + (x[2] == null ? "—" : "USD " + fmt(x[2], 0)) + "</span></li>"; }).join("") + "</ul></div>";
     if (p.up && p.up.length) h += '<div class="sec"><h2>Escalera: productos más complejos que este habilita</h2><ul class="l">' + p.up.map(function (v) { return '<li><button type="button" data-h="' + v[0] + '">' + esc(v[1]) + '</button><span class="num">PCI ' + fmt(v[3], 2) + " · proximidad " + fmt(v[2], 2) + "</span></li>"; }).join("") + "</ul></div>";
-    h += '<div class="sec"><h2>Productos vecinos que Paraguay ya exporta</h2><ul class="l">' + p.vec.map(function (v) { return '<li><button type="button" data-h="' + v[0] + '">' + esc(v[1]) + '</button><span class="num">proximidad ' + fmt(v[2], 2) + "</span></li>"; }).join("") + "</ul></div>";
+    h += '<div class="sec"><h2>Productos vecinos que Paraguay ya exporta</h2><ul class="l">' + p.vec.map(function (v) { return '<li><button type="button" data-h="' + v[0] + '">' + esc(v[1]) + '</button><span class="num">PCI ' + fmt(v[3], 2) + " · proximidad " + fmt(v[2], 2) + "</span></li>"; }).join("") + "</ul></div>";
     h += '<p class="nota">Percentiles entre los ' + M.paises + " países de la muestra (población ≥ 1 millón y exportaciones ≥ USD 1.000 millones). Los nombres vienen de la clasificación HS en inglés. Complejidad: Atlas de Complejidad Económica (ECI de Paraguay " + fmt(M.eci, 2) + " en " + M.anio + "); una mayor complejidad es una asociación, no una promesa de mejora.</p>";
     ficha.innerHTML = h;
     Array.prototype.forEach.call(ficha.querySelectorAll("button[data-h]"), function (b) { b.onclick = function () { elegir(P.filter(function (x) { return x.h === b.dataset.h; })[0], false); }; });
