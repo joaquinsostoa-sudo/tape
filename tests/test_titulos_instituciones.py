@@ -164,3 +164,74 @@ def test_sensibilidad_conserva_el_total_y_reparte_parejo():
     s = ti.sensibilidad(p, w).set_index("departamento")
     assert s["principal"].sum() == 100 and s["parejo"].sum() == 100
     assert s.loc["ASUNCION", "diferencia"] == -50 and s.loc["ITAPUA", "diferencia"] == 50
+
+
+def _distritos_sedes():
+    filas = [
+        ("ASUNCION", ti.llave("Asunción"), "Asunción", "x"),
+        ("ITAPUA", ti.llave("Encarnación"), "Encarnación", "x"),
+        ("MISIONES", ti.llave("Santa Rosa"), "Santa Rosa", "x"),
+        ("CANINDEYU", ti.llave("Santa Rosa del Aguaray"), "Santa Rosa del Aguaray", "x"),
+        ("SAN PEDRO", ti.llave("San Pedro"), "San Pedro", "x"),
+        ("CAAGUAZU", ti.llave("Caaguazú"), "Caaguazú", "x"),
+        ("AMAMBAY", ti.llave("Santa Rosa"), "Santa Rosa", "x"),
+    ]
+    return pd.DataFrame(filas, columns=["dep", "clave", "distrito", "unidad_2011"])
+
+
+def test_resolver_sede_de_aneaes():
+    d = _distritos_sedes()
+    assert ti.resolver_sede("Asunción - Sede España", d) == ("ASUNCION", ti.llave("Asunción"))
+    assert ti.resolver_sede("Santa Rosa Misiones", d) == ("MISIONES", ti.llave("Santa Rosa"))   # el departamento al final desambigua
+    assert ti.resolver_sede("Santa Rosa", d) is None                                           # repetido en dos departamentos: no se adivina
+    assert ti.resolver_sede("San Pedro del Ycamandyyú", d) == ("SAN PEDRO", ti.llave("San Pedro"))
+    for no_lugar in ("No aplica", "Central", "Unidad Formadora Hospital de Clínicas"):
+        assert ti.resolver_sede(no_lugar, d) is None
+
+
+def test_aneaes_suma_sedes_pero_solo_desempata_y_nunca_da_confianza_alta(tmp_path):
+    d = _distritos_sedes()
+    ruta = tmp_path / "aneaes.parquet"
+    pd.DataFrame({
+        "institucion": ["UNIVERSIDAD ALFA", "UNIVERSIDAD ALFA", "UNIVERSIDAD ALFA", "UNIVERSIDAD BETA"],
+        "sede": ["Encarnación", "Encarnación", "Asunción", "Caaguazú"], "programa_id": [1, 2, 3, 4],
+    }).to_parquet(ruta)
+    an, sin = ti.leer_aneaes(d, ruta)
+    assert len(sin) == 0 and set(an["fuente"]) == {"aneaes"}
+    assert an[an["base"] == "UNIVERSIDAD ALFA"]["peso_fila"].max() < 1  # nunca supera una fila del MEC
+    p, _ = ti.construir(_conteos([("UNIVERSIDAD ALFA", 100), ("UNIVERSIDAD BETA", 40)]), an, d)
+    f = p.set_index("nom")
+    assert f.loc["UNIVERSIDAD ALFA", "distrito_principal"] == "Encarnación" and f.loc["UNIVERSIDAD ALFA", "confianza"] == "baja"
+    assert f.loc["UNIVERSIDAD BETA", "confianza"] == "media" and f.loc["UNIVERSIDAD BETA", "fuentes_campus"] == "aneaes"
+
+
+def test_la_web_solo_completa_lo_que_no_se_ubico(tmp_path):
+    d = _distritos_sedes()
+    ruta = tmp_path / "web.csv"
+    pd.DataFrame({"nom": ["UNIVERSIDAD GAMMA", "UNIVERSIDAD DELTA"],
+                  "sedes": ["ITAPUA/ENCARNACION;ASUNCION/ASUNCION", "ITAPUA/ENCARNACION"],
+                  "url": ["u1", "u2"], "fecha": ["2026-10-15"] * 2, "nota": ["", ""]}).to_csv(ruta, index=False)
+    web = ti.leer_web(d, ruta)
+    campus = _campus([("UNIVERSIDAD DELTA", "ASUNCION", "ASUNCION")])
+    p, _ = ti.construir(_conteos([("UNIVERSIDAD GAMMA", 10), ("UNIVERSIDAD DELTA", 5)]), campus, d, web)
+    f = p.set_index("nom")
+    assert f.loc["UNIVERSIDAD GAMMA", "metodo_ubicacion"] == "web" and f.loc["UNIVERSIDAD GAMMA", "confianza"] == "baja"
+    assert f.loc["UNIVERSIDAD GAMMA", "distrito_principal"] == "Encarnación"        # la sede central va primero
+    assert f.loc["UNIVERSIDAD DELTA", "metodo_ubicacion"] != "web"                  # ya estaba en el listado: la web no lo pisa
+    assert f.loc["UNIVERSIDAD DELTA", "distrito_principal"] == "Asunción"
+
+
+def test_cruce_validado_por_el_equipo_completa_un_candidato(tmp_path):
+    campus = _campus([("INSTITUTO SUPERIOR SANTA CLARA", "ITAPUA", "ENCARNACION")])
+    conteos = _conteos([("INSTITUTO SUPERIOR SANTA CLARA DE ASIS NORTE", 80)])
+    d = _distritos()
+    sin, _ = ti.construir(conteos, campus, d)
+    assert sin.iloc[0]["confianza"] == ""                        # sin validación queda sin ubicar
+    r = tmp_path / "v.csv"
+    pd.DataFrame({"nom": ["INSTITUTO SUPERIOR SANTA CLARA DE ASIS NORTE", "OTRA"], "base_mec": ["INSTITUTO SUPERIOR SANTA CLARA", "X"],
+                  "validado": ["si", "no"]}).to_csv(r, index=False)
+    v = ti.leer_validadas(r)
+    assert list(v) == ["INSTITUTO SUPERIOR SANTA CLARA DE ASIS NORTE"]
+    con, _ = ti.construir(conteos, campus, d, None, v)
+    f = con.iloc[0]
+    assert f["metodo_cruce"] == "validado" and f["confianza"] == "media" and f["distrito_principal"] == "Encarnación"

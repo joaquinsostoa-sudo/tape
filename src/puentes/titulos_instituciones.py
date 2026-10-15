@@ -30,6 +30,9 @@ TITULOS_ZIP = RAIZ / "data" / "raw" / "mec_titulos" / "registros_titulos.csv.zip
 INSTITUCIONES = RAIZ / "data" / "raw" / "mec_escuelas" / "instituciones_20261015.csv"
 PUENTE_DISTRITOS = RAIZ / "data" / "clean" / "puente_distritos_2022.csv"
 CONTEOS = RAIZ / "data" / "clean" / "titulos_conteos.parquet"
+ANEAES = RAIZ / "data" / "clean" / "aneaes_programas.parquet"
+WEB = RAIZ / "data" / "clean" / "ubicaciones_web_instituciones.csv"
+VALIDACION = RAIZ / "data" / "clean" / "validacion_instituciones.csv"
 SALIDA = RAIZ / "data" / "clean" / "puente_titulos_institucion.csv"
 SALIDA_PESOS = RAIZ / "data" / "clean" / "titulos_institucion_distrito.csv"
 DESDE, HASTA = 2013, 2025
@@ -49,6 +52,8 @@ ALIAS_DISTRITOS = {  # nombres del listado del MEC que no se parecen al de la ta
     ("CORDILLERA", normalizar("1º DE MARZO")): "PRIMERO DE MARZO",
 }
 UMBRAL_DISTRITO = 0.6
+PESO_ANEAES = 1e-4  # los programas acreditados solo desempatan la sede principal: nunca superan una fila entera del MEC
+ALIAS_SEDES = {"SAN PEDRO DEL YCAMANDYYU": ("SAN PEDRO", "SAN PEDRO")}
 VACIAS = {"DE", "DEL", "LA", "EL", "LOS", "LAS", "Y", "PARA", "EN", "E"}
 MARCAS_LUGAR = {"CAMPUS", "UNIVERSITARIO", "SEDE", "SUBSEDE", "FILIAL", "UNIDAD", "ACADEMICA", "EXTENSION", "REGIONAL",
                "DISTRITO", "DEPARTAMENTO", "DPTO"}
@@ -121,7 +126,7 @@ def leer_campus(ruta: Path = INSTITUCIONES, anio: str = ANIO_CAMPUS) -> pd.DataF
     df["base"] = [partir(n)[0] for n in df["nombre_institucion"]]
     df["dep"] = [departamento(n) for n in df["nombre_departamento"]]
     df["clave"] = [llave(n) for n in df["nombre_distrito"]]
-    return df
+    return df.assign(peso_fila=1.0, fuente="mec")
 
 
 def leer_distritos(ruta: Path = PUENTE_DISTRITOS) -> pd.DataFrame:
@@ -134,6 +139,68 @@ def leer_distritos(ruta: Path = PUENTE_DISTRITOS) -> pd.DataFrame:
                 filas.append((departamento(r["departamento"]), llave(r[col]),
                               r["distrito_2022"] if isinstance(r["distrito_2022"], str) else r[col], r["unidad_2011"]))
     return pd.DataFrame(filas, columns=["dep", "clave", "distrito", "unidad_2011"]).drop_duplicates(["dep", "clave"])
+
+
+def resolver_sede(sede: str, distritos: pd.DataFrame) -> tuple[str, str] | None:
+    """Lleva la sede de ANEAES a (departamento, clave de distrito). None si no es un distrito único (departamento solo, «No aplica», hospitales)."""
+    n = normalizar(re.split(r"\s+[-–—]\s+", str(sede), maxsplit=1)[0])
+    if not n or n == "NO APLICA" or n.startswith("UNIDAD"):
+        return None
+    if n in ALIAS_SEDES:
+        return (ALIAS_SEDES[n][0], llave(ALIAS_SEDES[n][1]))
+    for dep in sorted(set(distritos["dep"]), key=len, reverse=True):  # «Santa Rosa Misiones»: el departamento al final desambigua
+        if n.endswith(" " + dep):
+            c = distritos[(distritos["dep"] == dep) & (distritos["clave"] == llave(n[: -len(dep)].strip()))]
+            if len(c) == 1:
+                return (dep, c.iloc[0]["clave"])
+    c = distritos[distritos["clave"] == llave(n)]
+    return (c.iloc[0]["dep"], c.iloc[0]["clave"]) if len(c) == 1 else None
+
+
+def leer_aneaes(distritos: pd.DataFrame, ruta: Path = ANEAES) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Sedes de los programas acreditados por ANEAES, con el mismo formato que el listado del MEC. Devuelve (sedes, no resueltas)."""
+    d = pd.read_parquet(ruta)
+    g = d.groupby(["institucion", "sede"]).size().rename("programas").reset_index()
+    res = [resolver_sede(s, distritos) for s in g["sede"]]
+    g["ok"] = [r is not None for r in res]
+    ok = g[g["ok"]].copy()
+    ok["dep"] = [r[0] for r in res if r is not None]
+    ok["clave"] = [r[1] for r in res if r is not None]
+    ok["base"] = [partir(n)[0] for n in ok["institucion"]]
+    ok["nombre_distrito"] = ok["sede"]
+    ok["nombre_institucion"] = ok["institucion"]
+    ok = ok.groupby(["nombre_institucion", "base", "dep", "clave", "nombre_distrito"], as_index=False)["programas"].sum()
+    ok = ok.assign(peso_fila=ok["programas"] * PESO_ANEAES, fuente="aneaes").drop(columns="programas")
+    return ok, g[~g["ok"]][["institucion", "sede", "programas"]]
+
+
+def leer_web(distritos: pd.DataFrame, ruta: Path = WEB) -> dict[str, list[tuple[str, str]]]:
+    """Ubicaciones buscadas en la web: {nombre normalizado: [(dep, clave), ...]} con la sede central primero."""
+    if not Path(ruta).exists():
+        return {}
+    w = pd.read_csv(ruta, dtype=str).fillna("")
+    conocidas = set(zip(distritos["dep"], distritos["clave"], strict=True))
+    out: dict[str, list[tuple[str, str]]] = {}
+    for r in w.itertuples():
+        sedes = []
+        for s in str(r.sedes).split(";"):
+            if "/" in s:
+                dep, dist = s.split("/", 1)
+                k = (departamento(dep), llave(dist))
+                if k in conocidas:
+                    sedes.append(k)
+        if sedes:
+            out[normalizar(r.nom)] = sedes
+    return out
+
+
+def leer_validadas(ruta: Path = VALIDACION) -> dict[str, str]:
+    """Cruces validados por el equipo: {nombre normalizado del registro: nombre de la institución del MEC o ANEAES} (solo validado = si)."""
+    if not Path(ruta).exists():
+        return {}
+    v = pd.read_csv(ruta, dtype=str).fillna("")
+    v = v[v["validado"].str.strip().str.lower().isin(["si", "sí"])]
+    return {normalizar(n): b for n, b in zip(v["nom"], v["base_mec"], strict=True) if b}
 
 
 def ajustar_distritos(campus: pd.DataFrame, distritos: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -209,8 +276,14 @@ def sede_principal(filas: pd.Series, dep_nombre: dict[tuple[str, str], str]) -> 
     return (capital[0] if capital else min(top)), True
 
 
-def construir(conteos: pd.DataFrame, campus: pd.DataFrame, distritos: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+def construir(conteos: pd.DataFrame, campus: pd.DataFrame, distritos: pd.DataFrame,
+              web: dict[str, list[tuple[str, str]]] | None = None,
+              validadas: dict[str, str] | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Una fila por institución del registro (nombre normalizado) y los pesos por distrito en los escenarios principal y parejo."""
+    web = web or {}
+    validadas = validadas or {}
+    if "peso_fila" not in campus:
+        campus = campus.assign(peso_fila=1.0, fuente="mec")
     reg = conteos.assign(nom=[normalizar(x) for x in conteos["institucion"]])
     por_nom = reg.groupby("nom").agg(titulos=("titulos", "sum"), institucion=("institucion", "first"),
                                      institucion_ids=("institucion_id", lambda s: "|".join(sorted(set(s))))).reset_index()
@@ -219,7 +292,8 @@ def construir(conteos: pd.DataFrame, campus: pd.DataFrame, distritos: pd.DataFra
     for b in campus["base"].unique():
         base_canonica[b] = grupos.setdefault(palabras(b), b)  # nombres del MEC con las mismas palabras son la misma institución
     campus = campus.assign(base=campus["base"].map(base_canonica))
-    filas_mec = campus.groupby(["base", "dep", "clave"]).size()
+    filas_mec = campus.groupby(["base", "dep", "clave"])["peso_fila"].sum()
+    fuentes = campus.groupby("base")["fuente"].agg(lambda s: "+".join(sorted(set(s)))).to_dict()
     bases_mec = {b: palabras(b) for b in filas_mec.index.get_level_values(0).unique()}
     nombre_dist = {(r.dep, r.clave): r.distrito for r in distritos.itertuples()}
     unidad = {(r.dep, r.clave): r.unidad_2011 for r in distritos.itertuples()}
@@ -227,6 +301,8 @@ def construir(conteos: pd.DataFrame, campus: pd.DataFrame, distritos: pd.DataFra
     for r in por_nom.itertuples():
         base, lugar = partir(r.institucion)
         metodo, base_mec, sim, candidato = cruzar_base(base, bases_mec)
+        if r.nom in validadas and validadas[r.nom] in bases_mec and metodo in ("revisar", "sin_cruce"):
+            metodo, base_mec, sim, candidato = "validado", validadas[r.nom], max(sim, 0.0), None
         campus_filas = filas_mec[base_mec] if base_mec else pd.Series(dtype=int)
         claves = {(d, c): v for (d, c), v in campus_filas.items()}
         res = resolver_lugar(lugar, {d for d, _ in claves}, distritos, set(claves)) if lugar else None
@@ -251,7 +327,8 @@ def construir(conteos: pd.DataFrame, campus: pd.DataFrame, distritos: pd.DataFra
                 nota = "el sufijo del nombre no es un lugar reconocible (facultad u otro)"
             if len(claves) == 1:
                 asig = asig_par = [(next(iter(claves)), 1.0)]
-                conf, met = ("alta" if metodo == "exacto" else "media"), f"{metodo}_una_sede"
+                alta = metodo == "exacto" and "mec" in fuentes.get(base_mec, "")  # solo ANEAES muestra programas acreditados: nunca alta
+                conf, met = ("alta" if alta else "media"), f"{metodo}_una_sede"
             else:
                 k, emp = sede_principal(pd.Series(claves), nombre_dist)
                 asig = [(k, 1.0)]
@@ -259,15 +336,23 @@ def construir(conteos: pd.DataFrame, campus: pd.DataFrame, distritos: pd.DataFra
                 conf, met, revisar = "baja", f"{metodo}_sede_principal", emp
                 if emp:
                     nota = (nota + "; " if nota else "") + "empate de filas entre distritos"
+        elif r.nom in web:
+            sedes = web[r.nom]
+            asig = [(sedes[0], 1.0)]
+            asig_par = [(k, 1 / len(sedes)) for k in sedes]
+            conf, met = ("media" if len(sedes) == 1 else "baja"), "web"
+            claves = dict.fromkeys(sedes, 1.0)
         else:
             conf, met = "", "sin_cruce" if metodo != "revisar" else "candidato_a_revisar"
         filas.append({
             "nom": r.nom, "institucion": r.institucion, "institucion_ids": r.institucion_ids, "titulos": r.titulos,
-            "metodo_cruce": metodo, "metodo_ubicacion": met, "similitud": round(sim, 3), "base_mec": base_mec or "",
-            "candidato": candidato or "", "lugar_en_nombre": lugar, "n_distritos_campus": len({c for c in claves}),
+            "metodo_cruce": metodo, "metodo_ubicacion": met, "similitud": round(sim, 3), "base_mec": base_mec or "", "fuentes_campus": fuentes.get(base_mec, "") if base_mec else ("web" if r.nom in web else ""),
+            "candidato": candidato or "",
+            "distritos_candidato": "; ".join(sorted(nombre_dist.get(k, k[1]) for k in filas_mec[candidato].index)) if candidato else "",
+            "lugar_en_nombre": lugar, "n_distritos_campus": len({c for c in claves}),
             "distrito_principal": nombre_dist.get(asig[0][0], asig[0][0][1]) if asig else "",
             "departamento": asig[0][0][0] if asig else "", "unidad_2011": unidad.get(asig[0][0], "") if asig else "",
-            "confianza": conf, "revisar": revisar or met in ("candidato_a_revisar", "sin_cruce") or (metodo == "similitud" and sim < UMBRAL_SEGURO), "nota": nota,
+            "confianza": conf, "revisar": revisar or met in ("candidato_a_revisar", "sin_cruce") or (metodo == "similitud" and sim < UMBRAL_SEGURO) or fuentes.get(base_mec, "") == "aneaes", "nota": nota,
         })
         for esc, lista in (("principal", asig), ("parejo", asig_par)):
             for (dep, clave), w in lista:
@@ -301,11 +386,19 @@ def main() -> None:
     campus = leer_campus()
     distritos = leer_distritos()
     campus, ajustes = ajustar_distritos(campus, distritos)
-    puente, pesos = construir(conteos, campus, distritos)
+    aneaes, aneaes_sin = leer_aneaes(distritos)
+    campus = pd.concat([campus, aneaes], ignore_index=True)
+    aneaes_sin.to_csv(RAIZ / "data" / "clean" / "titulos_aneaes_sedes_sin_distrito.csv", index=False, encoding="utf-8")
+    puente, pesos = construir(conteos, campus, distritos, leer_web(distritos), leer_validadas())
+    if not VALIDACION.exists():  # planilla para el equipo; si ya existe no se pisa
+        plan = puente[puente["metodo_ubicacion"] == "candidato_a_revisar"].sort_values("titulos", ascending=False)
+        plan = plan[["nom", "institucion", "titulos", "candidato", "similitud", "distritos_candidato"]].rename(columns={"candidato": "base_mec"})
+        plan.assign(validado="", por="", fecha="", nota="").to_csv(VALIDACION, index=False, encoding="utf-8")
     puente.sort_values("titulos", ascending=False).to_csv(SALIDA, index=False, encoding="utf-8")
     pesos.to_csv(SALIDA_PESOS, index=False, encoding="utf-8")
     sin_distrito = campus[~campus.set_index(["dep", "clave"]).index.isin(distritos.set_index(["dep", "clave"]).index)]
     ajustes.to_csv(RAIZ / "data" / "clean" / "titulos_ajustes_distritos.csv", index=False, encoding="utf-8")
+    print(f"ANEAES: {len(aneaes)} sedes con distrito; sin distrito (listadas en titulos_aneaes_sedes_sin_distrito.csv): {len(aneaes_sin)}")
     print("distritos del MEC emparejados por similitud o alias:")
     print(ajustes.to_string(index=False))
     print(f"títulos {int(conteos['titulos'].sum()):,} | instituciones (nombre normalizado) {len(puente)}")
