@@ -66,7 +66,7 @@ Agregación producto→sector: **D1 decidida (2026-10-14)**, media ponderada por
 - Mapa MIC: el visor Zoho (https://mapaprodpy.mic.gov.py/) se puede leer con el navegador integrado; no ofrece descarga. Se interceptan las respuestas de sus gráficos (técnica y capas extraídas en `data/raw/mic_mapa/README.md`; limpieza en `src/limpieza/mic_*.py`).
 - Datos manuales: `TAPE_datos_manuales.zip` (Drive); se arma con `uv run python -m src.empaquetar_datos_manuales`. Los tests que dependen de datos faltantes se saltan.
 - Descargas: `uv run python -m src.descargas.todas` (idempotente; manifiesto en `data/raw/<fuente>/MANIFEST.json`).
-- Registro de títulos del MEC: contiene nombre y documento de personas; usar solo agregados (carrera, institución, mes) y no guardar datos personales.
+- Registro de títulos del MEC (D17, 2026-10-15): público (CC BY 4.0) pero contiene nombre y documento de personas; se guarda completo solo en `data/raw/mec_titulos/` (sin versionar ni empaquetar) y el análisis usa únicamente conteos (carrera, institución, año, mes); nunca llevar nombres ni documentos a `data/clean` ni a documentos.
 
 ## Hoja de ruta (estado)
 - **Fase 0 Fundamentos: CERRADA (2026-10-08).** Estructura, CLAUDE.md, fuentes de Fase 1 descargadas, taxonomía de 67 sectores TAPE (`docs/taxonomia.md`) y puente HS92 → CPC → CIIU → sector (`docs/puente_hs_sector.md`, `data/clean/puente_hs92_sector.csv`; biocombustibles y arneses por producto HS). También hay: PIB por 33 actividades y regional del BCP, equivalencias de las clasificaciones locales a CIIU, tabla CNAEP → sector, e industrias del mapa MIC por distrito y sector.

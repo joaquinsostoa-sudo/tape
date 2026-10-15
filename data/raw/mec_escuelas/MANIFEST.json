@@ -10,5 +10,29 @@
   "fecha_utc": "2026-10-09",
   "bytes": 49956,
   "sha256": "b5f10c7b6519067b297d82663d4e8239e56215a655523d57169b869b204fb163"
+ },
+ "instituciones_20261015.csv": {
+  "url": "https://datos.mec.gov.py/data/instituciones",
+  "fecha_utc": "2026-10-15",
+  "bytes": 20376739,
+  "sha256": "e6daa8f9510787b58f01b6eaa5617077b0e9363f30b57c08df5539fc621a288f"
+ },
+ "establecimientos_2023_15102026_1549.xlsx": {
+  "url": "https://datos.mec.gov.py/data/establecimientos",
+  "fecha_utc": "2026-10-15",
+  "bytes": 964675,
+  "sha256": "2510368a818090bf9a87179a90d9726f58e553d81743c94e26a437a2dff47309"
+ },
+ "establecimientos_2022_15102026_1551.xlsx": {
+  "url": "https://datos.mec.gov.py/data/establecimientos",
+  "fecha_utc": "2026-10-15",
+  "bytes": 991254,
+  "sha256": "8db0a3e0eb32d89e53d268804fb231f428534bdc4ec16442aae70efab6821d84"
+ },
+ "matriculaciones_departamentos_distritos_20261015.csv": {
+  "url": "https://datos.mec.gov.py/data/matriculaciones",
+  "fecha_utc": "2026-10-15",
+  "bytes": 52558,
+  "sha256": "d21606627742741e27b3a8aafb216cec6d24288d8578f7fe7130442f2b379751"
  }
 }
