@@ -50,6 +50,7 @@ ABREVIATURAS = {
 ALIAS_DISTRITOS = {  # nombres del listado del MEC que no se parecen al de la tabla de distritos
     ("BOQUERON", "FERNHEIM"): "FILADELFIA",  # la colonia Fernheim tiene su centro en Filadelfia
     ("CORDILLERA", normalizar("1º DE MARZO")): "PRIMERO DE MARZO",
+    ("CONCEPCION", "VALLEMI"): "SAN LAZARO",  # Vallemí es la localidad principal del distrito de San Lázaro, no un distrito aparte
 }
 UMBRAL_DISTRITO = 0.6
 PESO_ANEAES = 1e-4  # los programas acreditados solo desempatan la sede principal: nunca superan una fila entera del MEC
