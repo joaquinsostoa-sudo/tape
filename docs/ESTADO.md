@@ -110,3 +110,5 @@ Para regenerar el zip: `uv run python -m src.empaquetar_datos_manuales`.
 **D1 decidida y primera lista de sectores candidatos (2026-10-14):** `docs/candidatos_sector.md` (media ponderada por comercio mundial, máximo y conteo en el top 100; corte 2024; las puntuaciones ordenan, no son probabilidades). Para cerrar la Fase 1 falta el informe (`docs/informe_fase1.md`), con la sección explicativa de la densidad (Hidalgo y Hausmann) que pidió el equipo, y dos pendientes externos: la revisión de la aduana y la referencia oficial de exportaciones de Paraguay.
 
 **Informe de la Fase 1 (2026-10-14):** `docs/informe_fase1.md`. Resume resultados, decisiones D1 a D16, limitaciones, pendientes y cómo reproducir; incluye la explicación de la densidad. La Fase 1 queda lista para cerrar en lo analítico, a confirmación del equipo.
+
+**Herramienta v3 (2026-10-14):** mapa con tres modos (estado, cercanos y complejos, cercanos que suben), vecinos del producto elegido con su cercanía y complejidad relativa, glosario sin tecnicismos y resumen «en palabras simples» en cada ficha. Año 2019.

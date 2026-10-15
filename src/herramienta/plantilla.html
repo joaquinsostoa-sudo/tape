@@ -5,18 +5,18 @@
 /* Atlas técnico: papel gris frío, tinta azul-petróleo; el color solo codifica el estado del producto. Mapa a la izquierda, lista debajo, ficha fija a la derecha. */
 :root {
   --bg: #eef1f3; --surf: #ffffff; --ink: #14232b; --mut: #5b6d76; --line: #d5dce0; --acc: #0b6b6f; --acc-bg: #e1f0f0;
-  --exporta: #1f3a5f; --compatible: #2a8f6a; --deficit: #c98d12; --limite: #c0392b; --sindato: #7f8c95; --lejano: #c3cdd2;
+  --exporta: #1f3a5f; --compatible: #2a8f6a; --deficit: #c98d12; --limite: #c0392b; --sindato: #7f8c95; --lejano: #c3cdd2; --lc: #3a6ea5;
   --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0e171b; --surf: #162228; --ink: #e5edf1; --mut: #93a5ae; --line: #2a3a43; --acc: #5cc4c8; --acc-bg: #173a3d;
-    --exporta: #8fb4e8; --compatible: #4cc196; --deficit: #e2b24a; --limite: #ef6b5b; --sindato: #8d9aa3; --lejano: #3b4b54; color-scheme: dark;
+    --exporta: #8fb4e8; --compatible: #4cc196; --deficit: #e2b24a; --limite: #ef6b5b; --sindato: #8d9aa3; --lejano: #3b4b54; --lc: #6fa2d8; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0e171b; --surf: #162228; --ink: #e5edf1; --mut: #93a5ae; --line: #2a3a43; --acc: #5cc4c8; --acc-bg: #173a3d;
-  --exporta: #8fb4e8; --compatible: #4cc196; --deficit: #e2b24a; --limite: #ef6b5b; --sindato: #8d9aa3; --lejano: #3b4b54; color-scheme: dark;
+  --exporta: #8fb4e8; --compatible: #4cc196; --deficit: #e2b24a; --limite: #ef6b5b; --sindato: #8d9aa3; --lejano: #3b4b54; --lc: #6fa2d8; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 14px; line-height: 1.45; padding-inline: 16px; padding-block: 18px 40px; }
@@ -87,6 +87,42 @@ ul.l button { all: unset; cursor: pointer; color: var(--acc); text-align: left; 
 ul.l button:hover { text-decoration: underline; }
 .nota { color: var(--mut); font-size: 12px; margin-top: 14px; }
 .vacio { color: var(--mut); padding: 24px 6px; }
+
+.modos { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; align-items: center; }
+.modos .lbl { font-size: 12px; color: var(--mut); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+.modo { border: 1px solid var(--line); background: var(--surf); color: var(--ink); padding: 6px 13px; border-radius: 6px; font: inherit; font-weight: 600; font-size: 13px; cursor: pointer; }
+.modo[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.ayuda-modo { color: var(--mut); font-size: 13px; margin: 0 0 10px; max-width: 100ch; }
+.prueba { font-size: 13px; margin: 0 0 12px; color: var(--mut); }
+.prueba button { all: unset; cursor: pointer; color: var(--acc); font-weight: 600; margin-right: 10px; }
+.prueba button:hover { text-decoration: underline; }
+details.glosario { background: var(--surf); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; max-width: 110ch; }
+details.glosario summary { cursor: pointer; font-weight: 600; }
+details.glosario dl { margin: 10px 0 0; display: grid; grid-template-columns: minmax(130px, 200px) 1fr; gap: 8px 16px; }
+details.glosario dt { font-weight: 600; }
+details.glosario dd { margin: 0; color: var(--mut); }
+.simple { background: var(--acc-bg); border-radius: 8px; padding: 10px 14px; margin: 10px 0 12px; }
+.simple h4 { margin: 0 0 6px; font-size: 13px; }
+.simple ul { margin: 0; padding-left: 18px; }
+.simple li { margin: 3px 0; }
+.barra-c { position: relative; height: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; margin: 4px 0 2px; }
+.barra-c i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 6px; background: var(--lc); opacity: 0.8; }
+.barra-c b { position: absolute; top: -3px; width: 3px; height: 16px; margin-left: -1.5px; background: var(--ink); border-radius: 1px; }
+.fila-c { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.fila-c .t { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; flex-wrap: wrap; }
+.fila-c .t b { font-weight: 600; }
+.fila-c .e { color: var(--mut); font-size: 12px; }
+ul.nb { list-style: none; margin: 0; padding: 0; }
+ul.nb li { padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+ul.nb .l1 { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+ul.nb button { all: unset; cursor: pointer; color: var(--acc); text-align: left; }
+ul.nb button:hover { text-decoration: underline; }
+ul.nb .l2 { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 3px; font-size: 12px; color: var(--mut); }
+.mini { display: inline-block; width: 70px; height: 7px; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; position: relative; }
+.mini i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--acc); border-radius: 4px; }
+.tag-c { font-size: 11px; border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; color: var(--mut); white-space: nowrap; }
+.rel { font-weight: 600; }
+@media (max-width: 980px) { details.glosario dl { grid-template-columns: 1fr; } }
 @media (max-width: 980px) {
   .grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mapa" "ficha" "lista"; }
   #c-ficha { position: static; max-height: none; }
@@ -97,16 +133,29 @@ ul.l button:hover { text-decoration: underline; }
 
 <div class="pagina">
   <h1>Mapa de productos de Paraguay</h1>
-  <p class="sub">Qué exporta Paraguay hoy, qué productos le quedan cerca y qué le falta para llegar a cada uno. Cada punto es un producto (HS4, 1.239 en total). Los productos que se exportan juntos aparecen próximos entre sí.</p>
-  <div class="aviso"><strong>Cómo leerlo.</strong> La brecha compara a Paraguay con los países que ya producen cada bien. Describe la distancia respecto de ellos; no es una probabilidad de que Paraguay lo logre: en la prueba hecha, el índice de brechas no mejora la predicción respecto de la cercanía (densidad) sola.</div>
-  <div class="chips" id="chips" role="group" aria-label="Filtrar por estado"></div>
+  <p class="sub">Qué exporta Paraguay hoy, qué productos le quedan cerca y si esos productos son más complejos que lo que ya hace. Cada punto es un producto (1.239 en total). Los productos que se exportan juntos aparecen próximos entre sí. <strong>Elegí uno para ver a qué otros productos lleva:</strong> qué tan cerca están y qué tan complejos son.</p>
+  <p class="prueba">Probá con: <button type="button" data-h="1201">Soja</button><button type="button" data-h="0202">Carne bovina</button><button type="button" data-h="8544">Arneses</button><button type="button" data-h="2207">Etanol</button><button type="button" data-h="1701">Azúcar</button></p>
+  <details class="glosario"><summary>¿Cómo leer esta herramienta? (explicación sin tecnicismos)</summary>
+    <dl>
+      <dt>Cercanía</dt><dd>Qué tan parecido es un producto a lo que Paraguay ya sabe hacer. Si los países que exportan lo que Paraguay exporta suelen exportar también ese producto, está cerca. Es lo que mejor predice qué producto viene después.</dd>
+      <dt>Complejidad</dt><dd>Qué tan difícil es de fabricar. Un producto es complejo si lo hacen pocos países y esos países son muy diversificados (maquinaria, químicos); las materias primas y los alimentos básicos son simples. Se muestra como baja, media o alta frente a todos los productos del mundo.</dd>
+      <dt>Peldaño (cercano que sube)</dt><dd>Un producto más complejo que lo que Paraguay ya exporta cerca de él. No tiene que ser complejo en términos absolutos: es un paso hacia arriba desde donde está Paraguay.</dd>
+      <dt>Ganancia de complejidad</dt><dd>Cuánto acerca un producto a otros productos complejos que Paraguay todavía no hace: una «puerta» hacia más complejidad.</dd>
+      <dt>Brecha</dt><dd>Cuánto le falta a Paraguay en una dotación (capital humano, logística, energía...) frente a los países que ya producen ese bien.</dd>
+      <dt>Límite duro</dt><dd>Falta el recurso principal que tienen casi todos los que lo producen (por ejemplo carbón o petróleo): un obstáculo difícil de superar.</dd>
+      <dt>Advertencia</dt><dd>Todo esto describe asociaciones, no promesas. Que un producto esté cerca y sea más complejo no garantiza que Paraguay pueda o deba producirlo; la cercanía es una puntuación para ordenar, no una probabilidad.</dd>
+    </dl>
+  </details>
+  <div class="modos" id="modos" role="group" aria-label="Ver el mapa por"><span class="lbl">Ver el mapa por</span></div>
+  <p class="ayuda-modo" id="ayuda-modo"></p>
+  <div class="chips" id="chips" role="group" aria-label="Filtrar por categoría"></div>
   <div class="grid">
     <section class="card" id="c-mapa" aria-label="Mapa de productos">
       <h2>Espacio de productos</h2>
       <div class="lienzo" id="lienzo"><canvas id="cv" role="img" aria-label="Mapa de productos; usá la lista para elegir un producto con el teclado"></canvas>
         <div class="zoom"><button id="z-mas" aria-label="Acercar">+</button><button id="z-menos" aria-label="Alejar">−</button><button id="z-ini" aria-label="Restablecer vista">⟲</button></div>
         <div class="tip" id="tip" hidden></div></div>
-      <div class="pie-mapa">Tamaño = valor del comercio mundial del producto en 2019. Arrastrá para mover, rueda para acercar. Hacé clic en un punto para ver su ficha.</div>
+      <div class="pie-mapa">Tamaño = valor del comercio mundial del producto en 2019. Arrastrá para mover, rueda para acercar. Hacé clic en un punto para ver su ficha.<span id="pie-sel"></span></div>
     </section>
     <section class="card" id="c-lista" aria-label="Lista de productos">
       <h2>Lista de productos</h2>
@@ -124,33 +173,74 @@ ul.l button:hover { text-decoration: underline; }
 (function () {
   var D = JSON.parse(document.getElementById("datos").textContent);
   var P = D.productos, M = D.meta;
-  var CATS = [["exporta", "Ya exporta", "--exporta"], ["compatible", "Cercano, compatible", "--compatible"], ["deficit", "Cercano, déficit alto", "--deficit"],
-              ["limite", "Límite duro", "--limite"], ["sindato", "Sin dato de reservas", "--sindato"], ["lejano", "Lejano", "--lejano"]];
-  var NOM = {}; CATS.forEach(function (c) { NOM[c[0]] = c[1]; });
+  var EXP = ["exporta", "Ya exporta", "--exporta"], SD = ["sd", "Sin dato", "--sindato"];
+  var MODOS = [
+    { id: "estado", nombre: "Estado y brechas", cats: [EXP, ["compatible", "Cercano, compatible", "--compatible"], ["deficit", "Cercano, déficit alto", "--deficit"], ["limite", "Límite duro", "--limite"], ["sindato", "Sin dato de reservas", "--sindato"], ["lejano", "Lejano", "--lejano"]],
+      ayuda: "Color = estado del producto frente a las capacidades de Paraguay: si está cerca de lo que ya exporta y si le faltan dotaciones." },
+    { id: "complejo", nombre: "Cercanos y complejos", cats: [EXP, ["cc", "Cercano y complejo", "--compatible"], ["cs", "Cercano y simple", "--deficit"], ["lc", "Lejano y complejo", "--lc"], ["ls", "Lejano y simple", "--lejano"], SD],
+      ayuda: "Cercano = entre el 25 % de los productos que más se parecen a lo que Paraguay ya hace (según el modelo). Complejo = más complejo que el producto promedio del mundo. Lo verde es lo que más conviene mirar: cerca y valioso." },
+    { id: "peldano", nombre: "Cercanos que suben (peldaño)", cats: [EXP, ["cu", "Cercano y sube", "--compatible"], ["cn", "Cercano y no sube", "--deficit"], ["lu", "Lejano y sube", "--lc"], ["ln", "Lejano y no sube", "--lejano"], SD],
+      ayuda: "Sube = es más complejo que los productos que Paraguay ya exporta y están más cerca de él: un paso hacia arriba desde lo que ya sabe hacer, aunque en términos absolutos no sea un producto complejo." }
+  ];
+  var QI = { "cercano y complejo": "cc", "cercano y simple": "cs", "lejano y complejo": "lc", "lejano y simple": "ls" };
+  var QR = { "cercano y sube": "cu", "cercano y no sube": "cn", "lejano y sube": "lu", "lejano y no sube": "ln" };
+  var modo = MODOS[1], CATS = modo.cats, NOM = {};
+  MODOS.forEach(function (m) { m.cats.forEach(function (c) { NOM[c[0]] = c[1]; }); });
   var BLOQUES = { primarios_agropecuarios: "Primarios agropecuarios", manufacturas_agropecuarias: "Manufacturas agropecuarias", minerales_y_energia: "Minerales y energía",
     manufacturas_de_minerales: "Manufacturas de minerales", manufactura_liviana: "Manufactura liviana", manufactura_pesada_media_tec: "Manufactura pesada y media tecnología",
     manufactura_alta_tec: "Alta tecnología", sin_clasificar: "Sin clasificar" };
   var ESTADO = { "compatible": "compatible", "déficit alto": "deficit", "límite duro": "limite", "sin dato confiable de reservas": "sindato" };
-  P.forEach(function (p, k) { p.k = k; p.cat = p.x ? "exporta" : (p.c ? ESTADO[p.e] : "lejano"); p.low = (p.n + " " + p.h).toLowerCase(); });
+  var IDX = {};
+  P.forEach(function (p, k) { p.k = k; p.low = (p.n + " " + p.h).toLowerCase(); IDX[p.h] = p; });
+  function catDe(p, id) {
+    if (p.x) return "exporta";
+    if (id === "estado") return p.c ? ESTADO[p.e] : "lejano";
+    return (id === "complejo" ? QI[p.qi] : QR[p.qr]) || "sd";
+  }
+  var puV = P.filter(function (p) { return p.pu != null; }).map(function (p) { return p.pu; }).sort(function (a, b) { return a - b; });
+  var Q75 = puV[Math.floor(0.75 * (puV.length - 1))], Q50 = puV[Math.floor(0.5 * (puV.length - 1))];
+  var pciV = P.filter(function (p) { return p.pci != null; }).map(function (p) { return p.pci; }).sort(function (a, b) { return a - b; });
+  var PC_CANASTA = 100 * pciV.filter(function (v) { return v < M.pci_canasta; }).length / pciV.length;
+  function palCompl(pc) { return pc == null ? "sin dato" : (pc >= 67 ? "alta" : (pc >= 33 ? "media" : "baja")); }
+  function palAbre(cp) { return cp == null ? "sin dato" : (cp >= 67 ? "mucho" : (cp >= 33 ? "algo" : "poco")); }
+  function palCerca(p) { return p.pu == null ? (p.x ? "ya lo exporta" : "sin dato") : (p.pu >= Q75 ? "alta" : (p.pu >= Q50 ? "media" : "baja")); }
+  function palPhi(f) { return f >= 0.55 ? "muy cerca" : (f >= 0.4 ? "cerca" : "algo cerca"); }
+  function relDe(o, d) { if (o == null || d == null) return null; var x = d - o; return x >= 0.25 ? ["▲ más complejo", "--compatible", x] : (x <= -0.25 ? ["▼ más simple", "--deficit", x] : ["● parecido", "--sindato", x]); }
   var noExp = P.filter(function (p) { return !p.x; }).sort(function (a, b) { return b.d - a.d; });
   noExp.forEach(function (p, i) { p.rank = i + 1; });
-  var activo = {}; CATS.forEach(function (c) { activo[c[0]] = true; });
-  var sel = null, orden = { col: "d", dir: -1 }, limite = 80, busca = "";
+  var activo = {};
+  var sel = null, orden = { col: "pu", dir: -1 }, limite = 80, busca = "";
   var fmt = function (x, d) { if (x == null) return "—"; if (Math.abs(x) < 0.5 * Math.pow(10, -d)) x = 0; return x.toLocaleString("es", { minimumFractionDigits: d, maximumFractionDigits: d }); };
   var css = function (v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); };
   function el(t, c, h) { var e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function pill(cat) { var c = CATS.filter(function (x) { return x[0] === cat; })[0]; return '<span class="pill"><span class="dot" style="background:var(' + c[2] + ')"></span>' + c[1] + "</span>"; }
+  function pill(cat) { var c = CATS.filter(function (x) { return x[0] === cat; })[0] || SD; return '<span class="pill"><span class="dot" style="background:var(' + c[2] + ')"></span>' + c[1] + "</span>"; }
 
-  /* chips */
-  var chips = document.getElementById("chips");
-  CATS.forEach(function (c) {
-    var n = P.filter(function (p) { return p.cat === c[0]; }).length;
-    var b = el("button", "chip", '<span class="dot" style="background:var(' + c[2] + ')"></span>' + c[1] + ' <span class="num">' + n + "</span>");
-    b.type = "button"; b.setAttribute("aria-pressed", "true");
-    b.onclick = function () { activo[c[0]] = !activo[c[0]]; b.setAttribute("aria-pressed", String(activo[c[0]])); limite = 80; lista(); dibujar(); };
-    chips.appendChild(b);
+  /* modos y chips */
+  var chips = document.getElementById("chips"), cajaModos = document.getElementById("modos");
+  MODOS.forEach(function (m) {
+    var b = el("button", "modo", esc(m.nombre)); b.type = "button"; b.dataset.id = m.id; b.setAttribute("aria-pressed", String(m === modo));
+    b.onclick = function () { setModo(m); }; cajaModos.appendChild(b);
   });
+  function construirChips() {
+    chips.innerHTML = "";
+    CATS.forEach(function (c) {
+      var n = P.filter(function (p) { return p.cat === c[0]; }).length;
+      var b = el("button", "chip", '<span class="dot" style="background:var(' + c[2] + ')"></span>' + c[1] + ' <span class="num">' + n + "</span>");
+      b.type = "button"; b.setAttribute("aria-pressed", String(activo[c[0]]));
+      b.onclick = function () { activo[c[0]] = !activo[c[0]]; b.setAttribute("aria-pressed", String(activo[c[0]])); limite = 80; lista(); dibujar(); };
+      chips.appendChild(b);
+    });
+  }
+  function setModo(m) {
+    modo = m; CATS = m.cats; activo = {};
+    P.forEach(function (p) { p.cat = catDe(p, m.id); });
+    CATS.forEach(function (c) { activo[c[0]] = true; });
+    Array.prototype.forEach.call(cajaModos.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.dataset.id === m.id)); });
+    document.getElementById("ayuda-modo").textContent = m.ayuda;
+    construirChips(); limite = 80; if (typeof lista === "function" && cuerpoListo) lista(); if (cuerpoListo) dibujar();
+  }
+  var cuerpoListo = false;
 
   /* mapa */
   var cv = document.getElementById("cv"), ctx = cv.getContext("2d"), lienzo = document.getElementById("lienzo"), tip = document.getElementById("tip");
@@ -169,10 +259,10 @@ ul.l button:hover { text-decoration: underline; }
   function dibujar() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
     var col = {}; CATS.forEach(function (c) { col[c[0]] = css(c[2]); });
-    var orden2 = ["lejano", "sindato", "limite", "deficit", "compatible", "exporta"]; pant = [];
+    var orden2 = CATS.map(function (c) { return c[0]; }).reverse(); orden2.splice(orden2.indexOf("exporta"), 1); orden2.push("exporta"); pant = [];
     orden2.forEach(function (cat) {
       if (!activo[cat]) return;
-      ctx.fillStyle = col[cat]; ctx.globalAlpha = cat === "lejano" ? 0.8 : 0.92;
+      ctx.fillStyle = col[cat]; ctx.globalAlpha = (cat === "lejano" || cat === "ls" || cat === "ln") ? 0.75 : 0.92;
       P.forEach(function (p) {
         if (p.cat !== cat) return; var xy = pos(p), r = radio(p);
         if (xy[0] < -10 || xy[0] > W + 10 || xy[1] < -10 || xy[1] > H + 10) return;
@@ -180,12 +270,24 @@ ul.l button:hover { text-decoration: underline; }
       });
     });
     ctx.globalAlpha = 1;
+    var pie = document.getElementById("pie-sel"); pie.textContent = "";
     if (sel) {
-      var a = pos(sel); ctx.strokeStyle = css("--acc"); ctx.lineWidth = 1.2; ctx.globalAlpha = 0.7;
-      sel.vec.forEach(function (v) { var o = P.filter(function (p) { return p.h === v[0]; })[0]; if (!o) return; var b = pos(o); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); });
-      ctx.globalAlpha = 1; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.arc(a[0], a[1], radio(sel) + 4, 0, 6.2832); ctx.stroke();
-      ctx.fillStyle = css("--ink"); ctx.font = "600 12px " + css("--f-body"); var t = sel.n.length > 38 ? sel.n.slice(0, 36) + "…" : sel.n, w = ctx.measureText(t).width;
-      ctx.fillStyle = css("--surf"); ctx.fillRect(a[0] + 10, a[1] - 22, w + 10, 20); ctx.fillStyle = css("--ink"); ctx.fillText(t, a[0] + 15, a[1] - 8);
+      var a = pos(sel), etiquetas = [];
+      (sel.nb || []).forEach(function (v, k) {
+        var o = IDX[v[0]]; if (!o) return; var b = pos(o), rel = relDe(sel.pci, o.pci), c = rel ? css(rel[1]) : css("--mut");
+        ctx.strokeStyle = c; ctx.globalAlpha = 0.75; ctx.lineWidth = 0.8 + 6 * v[1]; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        ctx.globalAlpha = 1; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.arc(b[0], b[1], radio(o) + 3.5, 0, 6.2832); ctx.stroke();
+        if (k < 5) etiquetas.push([b, o]);
+      });
+      ctx.globalAlpha = 1; ctx.strokeStyle = css("--ink"); ctx.lineWidth = 2.6; ctx.beginPath(); ctx.arc(a[0], a[1], radio(sel) + 4, 0, 6.2832); ctx.stroke();
+      ctx.font = "600 12px " + css("--f-body");
+      var rot = function (xy, txt, fuerte) {
+        var t = txt.length > 34 ? txt.slice(0, 32) + "…" : txt, w = ctx.measureText(t).width;
+        ctx.fillStyle = css("--surf"); ctx.globalAlpha = 0.9; ctx.fillRect(xy[0] + 8, xy[1] - 20, w + 10, 18); ctx.globalAlpha = 1; ctx.fillStyle = fuerte ? css("--ink") : css("--mut"); ctx.fillText(t, xy[0] + 13, xy[1] - 7);
+      };
+      etiquetas.forEach(function (e) { rot(e[0], e[1].n, false); });
+      rot(a, sel.n, true);
+      pie.textContent = " Las líneas unen el producto elegido con sus 10 más cercanos (más gruesa = más cerca); el anillo es verde si el vecino es más complejo, gris si es parecido y ámbar si es más simple.";
     }
   }
   function cerca(mx, my) {
@@ -212,7 +314,7 @@ ul.l button:hover { text-decoration: underline; }
   document.getElementById("z-ini").onclick = function () { vista = { s: base.s, x: base.x, y: base.y }; dibujar(); };
 
   /* lista */
-  var COLS = [["n", "Producto", false], ["cat", "Estado", false], ["d", "Densidad", true], ["df", "Déficit", true], ["v", "Comercio mundial (M USD)", true]];
+  var COLS = [["n", "Producto", false], ["cat", "Categoría", false], ["pu", "Cercanía", true], ["pc", "Complejidad", true], ["df", "Brecha", true], ["v", "Comercio mundial (M USD)", true]];
   var cab = document.getElementById("cab");
   COLS.forEach(function (c) {
     var th = el("th", c[2] ? "der" : ""), b = el("button", "", c[1] + ' <span aria-hidden="true" class="fl"></span>'); b.type = "button"; b.dataset.col = c[0];
@@ -225,15 +327,17 @@ ul.l button:hover { text-decoration: underline; }
     Array.prototype.forEach.call(cab.querySelectorAll("button"), function (b) { b.querySelector(".fl").textContent = b.dataset.col === orden.col ? (orden.dir < 0 ? "▼" : "▲") : ""; });
     var cuerpo = document.getElementById("cuerpo"); cuerpo.innerHTML = "";
     f.slice(0, limite).forEach(function (p) {
-      var tr = el("tr", "", '<td><span class="hs">' + p.h + "</span>" + esc(p.n) + "</td><td>" + pill(p.cat) + '</td><td class="num">' + fmt(p.d, 3) + '</td><td class="num">' + fmt(p.df, 1) + '</td><td class="num">' + fmt(p.v, 0) + "</td>");
+      var tr = el("tr", "", '<td><span class="hs">' + p.h + "</span>" + esc(p.n) + "</td><td>" + pill(p.cat) + '</td><td title="Puntuación del modelo: ' + fmt(p.pu, 4) + '">' + palCerca(p) + '</td><td title="PCI ' + fmt(p.pci, 2) + '">' + palCompl(p.pc) +
+        '</td><td class="num" title="Déficit ponderado frente a los productores">' + fmt(p.df, 1) + '</td><td class="num">' + fmt(p.v, 0) + "</td>");
       tr.tabIndex = 0; tr.dataset.h = p.h; tr.setAttribute("aria-selected", String(sel === p));
       tr.onclick = function () { elegir(p, true); }; tr.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); elegir(p, true); } };
       cuerpo.appendChild(tr);
     });
-    if (!f.length) cuerpo.appendChild(el("tr", "", '<td colspan="5" class="vacio">Ningún producto con esos filtros.</td>'));
+    if (!f.length) cuerpo.appendChild(el("tr", "", '<td colspan="6" class="vacio">Ningún producto con esos filtros.</td>'));
     var mas = document.getElementById("mas"); mas.innerHTML = "";
     if (f.length > limite) { var b = el("button", "btn", "Mostrar más (" + (f.length - limite) + " restantes)"); b.type = "button"; b.onclick = function () { limite += 120; lista(); }; mas.appendChild(b); }
   }
+  cuerpoListo = true;
 
   /* ficha */
   var ficha = document.getElementById("c-ficha");
@@ -246,18 +350,46 @@ ul.l button:hover { text-decoration: underline; }
     if (p.e === "compatible") return ["var(--compatible)", "Sin límite duro. Su déficit ponderado (" + fmt(p.df, 1) + ") está dentro de la tolerancia que muestran los países que ya lo producen (" + tol + ")." + (p.c ? "" : " Es un producto lejano: poca conexión con lo que Paraguay exporta hoy.")];
     return ["var(--deficit)", "Sin límite duro, pero su déficit ponderado (" + fmt(p.df, 1) + ") supera la tolerancia de los países que ya lo producen (" + tol + ")."];
   }
+  function resumenSimple(p) {
+    var s = [], pct = p.pc == null ? null : fmt(p.pc, 0);
+    if (p.x) {
+      s.push("Paraguay <b>ya exporta</b> este producto con ventaja.");
+      if (p.pc != null) s.push("Es de complejidad <b>" + palCompl(p.pc) + "</b>: más complejo que el " + pct + " % de los productos del mundo.");
+      var sube = (p.nb || []).filter(function (v) { var o = IDX[v[0]], r = o && relDe(p.pci, o.pci); return r && r[2] >= 0.25; }).length;
+      s.push(sube ? "Entre sus 10 productos más cercanos, <b>" + sube + " son más complejos</b>: son los pasos que este producto acerca (ver abajo)." : "Ninguno de sus 10 productos más cercanos es claramente más complejo: desde acá no hay un paso obvio hacia arriba.");
+    } else {
+      if (p.pu != null) s.push("Cercanía a lo que Paraguay ya hace: <b>" + palCerca(p) + "</b>" + (palCerca(p) === "alta" ? " (entre el 25 % de los productos que más se parecen a lo que ya exporta)." : "."));
+      if (p.pc != null) s.push("Complejidad del producto: <b>" + palCompl(p.pc) + "</b> (más complejo que el " + pct + " % de los productos del mundo; lo que Paraguay exporta hoy promedia " + fmt(PC_CANASTA, 0) + " %).");
+      if (p.salto != null) s.push(p.salto > 0 ? "<b>Es un paso hacia arriba:</b> más complejo que lo que Paraguay ya exporta cerca de él." : "<b>No es un paso hacia arriba:</b> es parecido o más simple que lo que Paraguay ya exporta cerca de él.");
+      if (p.cp != null) s.push("Lo que abre: llegar a este producto acerca <b>" + palAbre(p.cp) + "</b> a otros productos complejos.");
+    }
+    return s;
+  }
+  function filaCompl(titulo, valor, texto, ayuda, marca) {
+    return '<div class="fila-c"><div class="t"><b>' + titulo + "</b><span>" + texto + '</span></div><div class="barra-c"><i style="width:' + (valor == null ? 0 : valor) + '%"></i>' + (marca == null ? "" : '<b style="left:' + marca + '%" title="Promedio de lo que Paraguay exporta"></b>') + '</div><div class="e">' + ayuda + "</div></div>";
+  }
   function mostrar(p) {
-    if (!p) { ficha.innerHTML = '<h2>Ficha del producto</h2><p class="vacio">Elegí un producto en el mapa o en la lista para ver sus capacidades, sus productores y los productos vecinos que Paraguay ya exporta.</p>'; return; }
+    if (!p) { ficha.innerHTML = '<h2>Ficha del producto</h2><p class="vacio">Elegí un producto en el mapa o en la lista para ver qué tan cerca está de lo que Paraguay ya hace, qué tan complejo es y a qué otros productos lleva.</p>'; return; }
     var t = texto(p), h = '<h2>Ficha del producto</h2><h3 class="f-titulo">' + esc(p.n) + '</h3><div class="f-meta"><span class="mono">HS4 ' + p.h + "</span> · " + (BLOQUES[p.b] || p.b) + " · " + pill(p.cat) + "</div>";
-    h += '<div class="f-estado" style="border-left-color:' + t[0] + '">' + t[1] + "</div>";
+    h += '<div class="simple"><h4>En palabras simples</h4><ul>' + resumenSimple(p).map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul></div>";
+    h += '<div class="f-estado" style="border-left-color:' + t[0] + '"><b>Capacidades:</b> ' + t[1] + "</div>";
     h += '<div class="cifras"><div class="cifra"><b>' + fmt(p.d, 3) + "</b><span>Densidad" + (p.x ? "" : " (puesto " + p.rank + " de " + noExp.length + " no exportados)") + '</span></div>' +
       '<div class="cifra"><b>' + fmt(p.df, 1) + "</b><span>Déficit ponderado (tolerancia " + fmt(M.tolerancia, 1) + ')</span></div>' +
       '<div class="cifra"><b>' + p.np + "</b><span>Países productores en la muestra de " + M.paises + '</span></div>' +
-      '<div class="cifra"><b>' + fmt(p.v, 0) + "</b><span>Comercio mundial, M USD " + M.anio + '</span></div>' +
-      '<div class="cifra"><b>' + fmt(p.pci, 2) + "</b><span>Complejidad (PCI; la canasta de Paraguay promedia " + fmt(M.pci_canasta, 2) + ')</span></div>' +
-      '<div class="cifra"><b>' + fmt(p.cog, 2) + "</b><span>Ganancia de complejidad (COG, Atlas)</span></div>" +
-      (p.salto == null ? "" : '<div class="cifra"><b>' + (p.salto > 0 ? "+" : "") + fmt(p.salto, 2) + "</b><span>Salto de complejidad frente a lo que Paraguay ya hace cerca (referencia PCI " + fmt(p.pref, 2) + ")</span></div>") + "</div>";
-    h += '<h2>Capacidades frente a los productores</h2><div class="leyenda"><span><i class="lg-p"></i>Paraguay</span><span><i class="lg-r"></i>Mediana de los productores</span><span><i class="lg-b"></i>Brecha</span></div>';
+      '<div class="cifra"><b>' + fmt(p.v, 0) + "</b><span>Comercio mundial, M USD " + M.anio + "</span></div></div>";
+    if (p.pc != null) {
+      h += "<h2>Complejidad</h2>" + filaCompl("Complejidad del producto", p.pc, palCompl(p.pc) + " (" + fmt(p.pc, 0) + " de 100)",
+        "Más complejo que el " + fmt(p.pc, 0) + " % de los productos del mundo (PCI " + fmt(p.pci, 2) + "). La raya negra marca el promedio de lo que Paraguay exporta hoy.", PC_CANASTA) +
+        filaCompl("Lo que abre (ganancia de complejidad)", p.cp, palAbre(p.cp) + " (" + fmt(p.cp, 0) + " de 100)", "Cuánto acerca este producto a otros productos complejos que Paraguay todavía no hace (COG " + fmt(p.cog, 2) + ").", null);
+      if (p.salto != null) h += '<div class="fila-c"><div class="t"><b>Frente a lo que Paraguay ya hace cerca</b><span class="rel" style="color:var(' + (p.salto > 0 ? "--compatible" : "--deficit") + ')">' + (p.salto > 0 ? "▲ sube " : "▼ no sube ") + (p.salto > 0 ? "+" : "") + fmt(p.salto, 2) + '</span></div><div class="e">' +
+        (p.salto > 0 ? "Más complejo que el promedio de los 5 productos que Paraguay ya exporta y están más cerca de él (PCI de referencia " + fmt(p.pref, 2) + "): un peldaño más arriba." : "Parecido o más simple que lo que Paraguay ya exporta cerca de él (PCI de referencia " + fmt(p.pref, 2) + ").") + "</div></div>";
+    }
+    h += '<div class="sec"><h2>Desde este producto se puede llegar a</h2><p class="nota" style="margin-top:0">Los 10 productos más cercanos: qué tan cerca están y qué tan complejos son frente a este.</p><ul class="nb">' + (p.nb || []).map(function (v) {
+      var o = IDX[v[0]]; if (!o) return ""; var r = relDe(p.pci, o.pci);
+      return '<li><div class="l1"><button type="button" data-h="' + v[0] + '">' + esc(o.n) + '</button>' + (v[2] ? '<span class="tag-c">ya lo exporta</span>' : '<span class="tag-c">todavía no</span>') + '</div><div class="l2"><span class="mini"><i style="width:' + Math.min(100, v[1] / 0.8 * 100) + '%"></i></span><span>' + palPhi(v[1]) + '</span>' +
+        (r ? '<span class="rel" style="color:var(' + r[1] + ')">' + r[0] + " (" + (r[2] > 0 ? "+" : "") + fmt(r[2], 2) + ")</span>" : "") + "</div></li>";
+    }).join("") + "</ul></div>";
+    h += '<h2 style="margin-top:18px">Capacidades frente a los productores</h2><div class="leyenda"><span><i class="lg-p"></i>Paraguay</span><span><i class="lg-r"></i>Mediana de los productores</span><span><i class="lg-b"></i>Brecha</span></div>';
     var filas = p.cap.map(function (c, j) { return { j: j, c: c }; }), aplica = filas.filter(function (f) { return f.c[0] != null && f.c[1] != null; }), no = filas.filter(function (f) { return !(f.c[0] != null && f.c[1] != null); });
     aplica.sort(function (a, b) { return (b.c[2] || 0) - (a.c[2] || 0); });
     aplica.forEach(function (f) {
@@ -268,25 +400,28 @@ ul.l button:hover { text-decoration: underline; }
     });
     if (no.length) h += '<p class="nota">No aplican a este producto: ' + no.map(function (f) { return M.capas[f.j].toLowerCase(); }).join(", ") + ". Las reservas de energía y de minerales solo cuentan para los productos que son ese recurso.</p>";
     h += '<div class="sec"><h2>Principales productores (2019)</h2><ul class="l">' + p.prod.map(function (x) { return "<li><span>" + x[0] + '</span><span class="num">RCA ' + fmt(x[1], 1) + " · PIB pc " + (x[2] == null ? "—" : "USD " + fmt(x[2], 0)) + "</span></li>"; }).join("") + "</ul></div>";
-    if (p.up && p.up.length) h += '<div class="sec"><h2>Escalera: productos más complejos que este habilita</h2><ul class="l">' + p.up.map(function (v) { return '<li><button type="button" data-h="' + v[0] + '">' + esc(v[1]) + '</button><span class="num">PCI ' + fmt(v[3], 2) + " · proximidad " + fmt(v[2], 2) + "</span></li>"; }).join("") + "</ul></div>";
-    h += '<div class="sec"><h2>Productos vecinos que Paraguay ya exporta</h2><ul class="l">' + p.vec.map(function (v) { return '<li><button type="button" data-h="' + v[0] + '">' + esc(v[1]) + '</button><span class="num">PCI ' + fmt(v[3], 2) + " · proximidad " + fmt(v[2], 2) + "</span></li>"; }).join("") + "</ul></div>";
     h += '<p class="nota">Percentiles entre los ' + M.paises + " países de la muestra (población ≥ 1 millón y exportaciones ≥ USD 1.000 millones). Los nombres vienen de la clasificación HS en inglés. Complejidad: Atlas de Complejidad Económica (ECI de Paraguay " + fmt(M.eci, 2) + " en " + M.anio + "); una mayor complejidad es una asociación, no una promesa de mejora.</p>";
     ficha.innerHTML = h;
-    Array.prototype.forEach.call(ficha.querySelectorAll("button[data-h]"), function (b) { b.onclick = function () { elegir(P.filter(function (x) { return x.h === b.dataset.h; })[0], false); }; });
+    Array.prototype.forEach.call(ficha.querySelectorAll("button[data-h]"), function (b) { b.onclick = function () { elegir(IDX[b.dataset.h], false); }; });
+  }
+  function centrar(p) {  // acerca la vista al producto elegido para que se vean sus vecinos
+    var s = Math.max(vista.s, base.s * 2.2); vista.s = s; vista.x = W / 2 - s * p.px; vista.y = H / 2 - s * p.py;
   }
   function elegir(p, desdeLista) {
-    sel = p; mostrar(p); dibujar();
+    if (!p) return;
+    sel = p; mostrar(p); centrar(p); dibujar();
     Array.prototype.forEach.call(document.querySelectorAll("#cuerpo tr"), function (tr) { tr.setAttribute("aria-selected", String(tr.dataset.h === p.h)); });
     ficha.scrollTop = 0;
     if (desdeLista && window.matchMedia("(max-width: 980px)").matches) ficha.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+  Array.prototype.forEach.call(document.querySelectorAll(".prueba button"), function (b) { b.onclick = function () { elegir(IDX[b.dataset.h], false); }; });
 
   document.getElementById("fuente").innerHTML = "Datos: exportaciones BACI (HS92, " + M.anio + ", sin la energía binacional); dotaciones de PWT 11.0, Banco Mundial (WDI), Doing Business, LPI, USGS y Our World in Data; cálculos del proyecto TAPE (LabDE). Densidad calculada solo con datos hasta " + M.anio + ". Validación: AUC de la densidad " + fmt(M.auc_densidad, 3) + "; con el déficit agregado " + fmt(M.auc_con_deficit, 3) + ".";
-  window.addEventListener("resize", function () { ajustar(); dibujar(); });
+  window.addEventListener("resize", function () { ajustar(); if (sel) centrar(sel); dibujar(); });
   new MutationObserver(dibujar).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", dibujar); } catch (e) {}
-  ajustar(); lista();
-  var ini = P.filter(function (p) { return p.cat === "compatible" && !p.x; }).sort(function (a, b) { return b.d - a.d; })[0] || P[0];
+  ajustar(); setModo(MODOS[1]);
+  var ini = IDX["8544"] || P[0];  // arneses: un producto que Paraguay ya exporta y del que salen vecinos más complejos
   elegir(ini, false); dibujar();
 })();
 </script>

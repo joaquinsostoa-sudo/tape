@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from src.modelos import backtest_nacional as bt
-from src.modelos.logit_nacional import CLEAN, MODELO, VENTANAS, construir_datos
+from src.modelos.logit_nacional import CLEAN, MODELO, VENTANAS, H, construir_datos
 
 TOP = 100
 PAIS = "PRY"
@@ -55,9 +55,14 @@ def agregar_sector(cand: pd.DataFrame, pesos: pd.DataFrame, valor: pd.Series, to
     return pd.DataFrame(filas).sort_values("puntaje_medio", ascending=False, na_position="last").reset_index(drop=True)
 
 
+def ventanas_conocidas(corte: int, ventanas=VENTANAS, h: int = H) -> tuple[int, ...]:
+    """Ventanas de entrenamiento cuyo resultado (t0 + h) ya se conocía en el año de corte: sin esto, un corte antiguo vería el futuro."""
+    return tuple(v for v in ventanas if v + h <= corte)
+
+
 def puntuar_candidatos(expo: pd.DataFrame, dot: pd.DataFrame, req: pd.DataFrame, pob: pd.DataFrame, pais: str = PAIS, corte: int = CORTE) -> pd.DataFrame:
     """Puntuación (probabilidad del logit con densidad y efectos fijos, sin calibrar) de los candidatos del país en `corte`, y si el producto ya está presente."""
-    ent = construir_datos(expo, dot, req, pob, ventanas=VENTANAS, solo_con_requisitos=False)  # todos los productos: la densidad no necesita requisitos
+    ent = construir_datos(expo, dot, req, pob, ventanas=ventanas_conocidas(corte), solo_con_requisitos=False)  # todos los productos: la densidad no necesita requisitos
     pru = construir_datos(expo, dot, req, pob, ventanas=(corte,), h=0, solo_con_requisitos=False)  # h = 0: solo importa la grilla de candidatos y la densidad; E no se usa
     pru = pru[pru.iso3 == pais].assign(anio=max(VENTANAS))  # ventana desconocida: se reutiliza una conocida, que no cambia el orden dentro del país
     ent, pru = bt.estandarizar_densidad(ent.dropna(subset=["densidad"]), pru.dropna(subset=["densidad"]))

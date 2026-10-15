@@ -35,3 +35,9 @@ def test_sector_sin_candidatos_queda_vacio_y_al_final():
     cand = pd.DataFrame({"hs4": ["0101", "0201"], "puntaje": [0.0, 0.2], "presente": [True, False]})
     s = cs.agregar_sector(cand, pesos, pd.Series({"0101": 10.0, "0201": 10.0}))
     assert s.sector_id.tolist() == ["B", "A"] and np.isnan(s.iloc[1].puntaje_medio) and s.iloc[1].n_en_top == 0
+
+
+def test_ventanas_conocidas_no_ve_el_futuro():
+    assert cs.ventanas_conocidas(2024) == (2000, 2005, 2010, 2015)
+    assert cs.ventanas_conocidas(2019) == (2000, 2005, 2010)  # la ventana 2015 termina en 2020: todavía no se conoce
+    assert cs.ventanas_conocidas(2004) == ()
