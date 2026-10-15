@@ -1,9 +1,17 @@
 # Estado del proyecto TAPE
 
-Actualizado: 2026-10-13. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
+Actualizado: 2026-10-14. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está en marcha.** Hay 132 pruebas automáticas que pasan (`uv run pytest`).
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está cerrada preliminarmente (2026-10-14); sigue la Fase 2 (territorial).** Hay 259 pruebas automáticas que pasan (`uv run pytest`). Resumen de resultados, decisiones y pendientes: `docs/informe_fase1.md`. Las secciones siguientes de este archivo son el diario de trabajo en orden cronológico (lo más viejo arriba).
+
+**Para empezar la próxima sesión (Fase 2):**
+1. Leer `docs/informe_fase1.md` (secciones 1, 5, 8 y 10) y `CLAUDE.md`. Resultado central: la densidad predice y las capas no la mejoran (D16: las capas son diagnóstico).
+2. Insumos listos: 17.080 industrias del mapa MIC 2026 por distrito y sector (`docs/mic_especifico.md`), Censo Económico 2011 por distrito (`docs/censo_2011.md`), equivalencia de distritos con padres confirmados por ley en 20 de 24 casos (`docs/distritos.md`), tabla Censo → sector TAPE (`docs/censo_sector.md`).
+3. Primer paso propuesto: matrices de presencia por distrito 2010 y 2026 y declaración previa de las hipótesis del backtest territorial hacia atrás (nivel de grupo como principal, sector con reparto neutro como detalle).
+4. **Pendientes de validación del equipo** (no bloquean): los 4 distritos nuevos sin ley (Ybyrarobana, Karapa'í, Itacuá, Boquerón) y María Antonia; la carpintería del MIC (19 % de las industrias, repartida 60/40 entre carpintería de obra y muebles) y la cola de 802 actividades del puente MIC; las filas de baja confianza del puente del censo (109, 10, 23, 239); la lista de reexportaciones de Paraguay con la aduana; la referencia oficial de exportaciones (BCP o DNA) en `data/raw/`; títulos y carreras del MEC (previsto para el 2026-11-02).
+5. **Decisiones abiertas:** si se excluyen del listado de candidatos las categorías residuales (desechos, chatarras, «n.e.s.»); D10 (ε, Fase 3); consolidar los borradores de Ever; replicar la diferencia de AUC-PR de +0,0006 a HS6; la versión dinámica (error-correction) y el régimen fiscal v1 y v2 quedan como mejoras.
+6. Herramienta de Paraguay 2019 (artefacto privado, v4): https://claude.ai/artifact/LgLsQUrZ9gAMS4JHnSg4qV; se regenera con `src.herramienta.exportar_pry` y `construir_pagina`.
 
 **Decisión D2 (2026-10-13):** coeficientes con la especificación del documento (efectos país-año y producto-año, errores agrupados por país); backtest con efectos de país y producto constantes más indicador de ventana, prediciendo la ventana siguiente; Mundlak solo para países excluidos y Paraguay. Los errores estándar agrupados ya están en `logit_disperso.py` (`errores_agrupados`); falta repetir el baseline fuera de muestra.
 

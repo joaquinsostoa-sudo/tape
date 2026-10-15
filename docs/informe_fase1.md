@@ -1,6 +1,6 @@
 # Informe de la Fase 1: módulo nacional de TAPE
 
-Fecha: 2026-10-14. Proyecto TAPE (Territorio, Actividades y Potencial Económico), LabDE. Autores del trabajo: Joaquín Sostoa y Everoli (borradores de modelos), con Claude. Todo es **asociación, no causalidad**, con la incertidumbre que se indica en cada resultado. Los documentos de detalle están enlazados en cada sección; las hipótesis y los criterios se declararon en `docs/supuestos.md` antes de correr cada prueba.
+Fecha: 2026-10-14. **Estado: cierre preliminar** (a confirmar por el equipo; los pendientes de la sección 8 no lo bloquean). Proyecto TAPE (Territorio, Actividades y Potencial Económico), LabDE. Autores del trabajo: Joaquín Sostoa y Everoli (borradores de modelos), con Claude. Todo es **asociación, no causalidad**, con la incertidumbre que se indica en cada resultado. Los documentos de detalle están enlazados en cada sección; las hipótesis y los criterios se declararon en `docs/supuestos.md` antes de correr cada prueba.
 
 ## 1. Resumen
 **Pregunta de la Fase 1:** ¿qué actividades puede añadir Paraguay a lo que ya exporta, y las capacidades del país (capital humano, energía, capital, logística y otras) mejoran esa predicción?
