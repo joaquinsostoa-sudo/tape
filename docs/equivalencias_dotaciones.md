@@ -23,7 +23,7 @@ Para cada capa, el bien (producto o sector) ya tiene un **requisito** calculado 
 ## Lo que esto implica
 - **Energía y logística son las más sólidas** y las más útiles como diagnóstico (límite duro: un distrito sin potencia disponible cerca no puede alojar una industria que consume mucha energía).
 - **Capital físico y crédito no tienen equivalente territorial**; quedan como indicadores nacionales o por departamento, y se informa que no se pueden diagnosticar por distrito.
-- **La potencia disponible es estable en número de distritos (69 a 71) pero cambia en cantidad**: 1.705 MW en 2026, 1.963 en 2028 y 1.424 en 2033. En 2026 los mayores son Asunción (323 MW), Lambaré (214), Valenzuela (137), Ciudad del Este (104) y Villeta (81). **Los años 2025, 2029 y 2030 traen una sola de las dos redes**, así que conviene medir con 2026 (o promediar 2026 a 2028) y no con un año suelto. En la red de 220 kV y 66 kV, 77 de las 104 subestaciones tienen potencia disponible cero en 2025 y 37 tienen alguna en 2026.
+- **La potencia disponible es estable en número de distritos (69 a 71) pero cambia en cantidad**: 1.705 MW en 2026, 1.963 en 2028 y 1.424 en 2033. En 2026 los mayores son Asunción (323 MW), Lambaré (214), Valenzuela (137), Ciudad del Este (104) y Villeta (81). **Los años 2025, 2029 y 2030 traen una sola de las dos redes**, así que conviene medir con 2026 (o promediar 2026 a 2028) y no con un año suelto. En la red de 220 kV y 66 kV, 77 de las 103 subestaciones con dato tienen potencia disponible cero en 2025 y 37 tienen alguna en 2026.
 
 ## Qué falta decidir
 1. Qué capas construir y en qué orden.
