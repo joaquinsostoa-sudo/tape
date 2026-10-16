@@ -77,9 +77,10 @@ def umbrales(d: pd.DataFrame, referencia: str = "productores") -> dict[str, floa
             "n_productores": float(len(prod)), "referencia": "productores (percentil 10)" if usar else ("mediana de todos los distritos" if referencia == "mediana" else "mediana (menos de 10 productores)")}
 
 
-def diagnostico(d: pd.DataFrame, exige: bool, referencia: str = "productores") -> pd.DataFrame:
-    """Categoría de cada distrito frente al umbral (D31), orden por el mínimo de las dos partes (solo la base si la industria no exige), brecha en graduados y cercanía al umbral."""
-    u = umbrales(d, referencia)
+def diagnostico(d: pd.DataFrame, exige: bool, referencia: str = "productores", umbrales_dados: dict[str, float | str] | None = None) -> pd.DataFrame:
+    """Categoría de cada distrito frente al umbral (D31), orden por el mínimo de las dos partes (solo la base si la industria no exige), brecha en graduados y cercanía al umbral.
+    Con `umbrales_dados` (claves base, especifico, pool y referencia) se usan esos umbrales en vez de calcularlos (matcheo de un bien nuevo, D32)."""
+    u = umbrales_dados if umbrales_dados is not None else umbrales(d, referencia)
     b_ok = d["p_base"] >= u["base"]
     e_ok = d["p_especifico"] >= u["especifico"]
     if exige:
