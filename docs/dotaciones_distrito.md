@@ -3,6 +3,8 @@
 Fecha: 2026-10-16. Código: `src/puentes/dotaciones_distrito.py` y `src/puentes/exigencia_capas.py` (6 pruebas en `tests/test_dotaciones_distrito.py`). Reglas declaradas antes de construir: D33 en `docs/supuestos.md`.
 Salidas (en `data/clean/`): `dotaciones_distrito.csv` (una fila por distrito) y `exigencia_capas_sector.csv` (el requisito de cada sector por capa). Inventario previo: `docs/equivalencias_dotaciones.md`.
 
+> **Estado (2026-10-16): el índice de recursos es PRELIMINAR y no se usa para diagnosticar** hasta conseguir el rendimiento y el uso del suelo (decisión de Joaquín). Energía y logística no tienen esa marca.
+
 ## En palabras simples
 Tres capas nuevas por distrito, además del capital humano, medidas como en D30 (lo que hay cerca también cuenta, con un peso que baja con la distancia: escalas de 15, 30 —la principal— y 60 km):
 - **Energía:** cuánta potencia eléctrica disponible hay en las subestaciones cercanas (promedio 2026-2028) y qué tan lejos está la subestación de 220 o 500 kV más cercana.
