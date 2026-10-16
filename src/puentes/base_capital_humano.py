@@ -35,11 +35,11 @@ RADIO_TIERRA_KM = 6371.0088
 
 
 def distritos_base(ruta: Path = CIUDADES) -> pd.DataFrame:
-    """Los 263 distritos del Censo 2022 (ciudades del mapa MIC) con su clave: dep, clave, departamento, distrito, poblacion, lat, lon, dep_codigo."""
+    """Los 263 distritos del Censo 2022 (ciudades del mapa MIC) con su clave: dep, clave, departamento, distrito, poblacion, pea, lat, lon, dep_codigo."""
     c = pd.read_csv(ruta)
     return pd.DataFrame({
         "dep": [departamento(x) for x in c["departamento"]], "clave": [llave(x) for x in c["ciudad"]], "departamento": c["departamento"],
-        "distrito": c["ciudad"], "dep_codigo": c["dep_codigo"], "poblacion": c["poblacion_2022"], "lat": c["lat"], "lon": c["lon"],
+        "distrito": c["ciudad"], "dep_codigo": c["dep_codigo"], "poblacion": c["poblacion_2022"], "pea": c["pea"], "lat": c["lat"], "lon": c["lon"],
     })
 
 
