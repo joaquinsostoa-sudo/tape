@@ -40,7 +40,7 @@ Sin dato del NBER, y por lo tanto **sin clasificar**: S44 (reparación e instala
 
 ## Límites importantes
 1. **Los sectores de un mismo campo reciben la misma cifra.** Los 11 sectores de alimentos (S09 a S19) tienen todos 4.496 títulos disponibles y los de ingeniería industrial reparten sobre los 36 sectores de manufactura. El cruce llega al campo de estudio y no distingue un frigorífico de una lechería. Para esos sectores la medida describe el campo, no el sector.
-2. **Farmacéutica (S31) concentra 20.769 títulos** porque farmacia y bioquímica se asignaron a S31 y S65 (salud). Casi todos esos graduados trabajan en farmacias y laboratorios clínicos, no en la industria. **Sobrestima** la disponibilidad para la industria farmacéutica. Es una asignación del campo que el equipo debería revisar.
+2. **Farmacéutica (S31) concentra 20.769 títulos** porque farmacia y bioquímica se asignaron a S31 y a salud (S65). Es un **pool potencial reconvertible**, no personal ya preparado para la industria: casi todos trabajan hoy en farmacias y laboratorios, y 10.247 de esos títulos son de técnico (sobre todo técnico superior en farmacia). Joaquín decidió dejarlo así (D29) porque es más fácil reconvertirlos a industria que a un abogado; la cifra mide disponibilidad potencial y no formación directa.
 3. **10 sectores están a menos de 0,03 del corte** (S10, S11, S12, S17, S18, S22, S25, S32, S37, S38): su clasificación cambiaría con una diferencia mínima. Varios sectores tienen el dato de muy pocos productos (S16 azúcar 1; S13 panificados 1; S27, S18, S20 con 2): confianza baja. Quedan marcados `cerca_del_corte` y con la confianza.
 4. **«No es de producción» no equivale a tener título:** incluye administrativos y vendedores. Es tecnología de EE. UU. de 2012 a 2018 y cubre solo manufactura.
 5. **Un título mide egresados**, no ocupación. Es un flujo 2013-2025 sin año base 2010.
@@ -56,6 +56,6 @@ La capa «capital humano específico: técnicos por sector y distrito» de `docs
 
 ## Qué falta
 1. **Que el equipo valide** `puente_carrera_sector.csv`, empezando por las 128 carreras que concentran el 80 % de los títulos, y decida sobre farmacia y bioquímica (límite 2).
-2. La **base de secundaria completa por distrito** (la otra mitad del capital humano): hace falta el nivel educativo por distrito del Censo 2022, que no está en nuestras tablas.
+2. La **base de capital humano por distrito** (escolaridad, red de salud y carreras transversales) ya está en `docs/base_capital_humano.md`; la escolaridad es una estimación hasta conseguir el nivel educativo del Censo 2022 por distrito.
 3. La **oferta actual por sede** con el Registro Nacional de Carreras del MEC (no se bajó todavía).
-4. **Salud como indicador aparte:** sigue pendiente tu decisión.
+4. **Salud:** decidido (D29): la red de salud forma parte de la base de capital humano, medida como distancia al establecimiento más cercano.
