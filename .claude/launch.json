@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tapeapp",
+      "runtimeExecutable": "C:/PROGRA~1/nodejs/npm.cmd",
+      "runtimeArgs": ["--prefix", "web/tapeapp", "run", "dev", "--", "--host", "127.0.0.1"],
+      "port": 5173
+    }
+  ]
+}
