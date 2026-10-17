@@ -3,7 +3,7 @@
 Actualizado: 2026-10-16. Para ponerse al día: leer este archivo, luego `CLAUDE.md` (resumen técnico y reglas), `docs/PLAN_fase0_fase1.md` (plan, decisiones y estado por tarea) y `docs/COLABORACION.md` (cómo trabajar de a dos). Un resumen para repartir el trabajo está en `docs/TAPE_pasos_siguientes.pdf` (y `.docx`).
 
 ## Hasta dónde llegamos
-**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está cerrada preliminarmente (2026-10-14); sigue la Fase 2 (territorial).** Hay 336 pruebas automáticas que pasan (`uv run pytest`). Resumen de resultados, decisiones y pendientes: `docs/informe_fase1.md`. Las secciones siguientes de este archivo son el diario de trabajo en orden cronológico (lo más viejo arriba).
+**Fase 0 (fundamentos) cerrada. La Fase 1 (módulo nacional) está cerrada preliminarmente (2026-10-14); sigue la Fase 2 (territorial).** Hay 342 pruebas automáticas que pasan (`uv run pytest`). Resumen de resultados, decisiones y pendientes: `docs/informe_fase1.md`. Las secciones siguientes de este archivo son el diario de trabajo en orden cronológico (lo más viejo arriba).
 
 **Estado de la Fase 2 (2026-10-16), para retomar:**
 1. Leer `docs/informe_fase1.md`, `CLAUDE.md`, `docs/supuestos_fase2.md` (declaración previa de Ever, decisiones D19-D26, renumeradas) y las últimas filas de `docs/supuestos.md` (D17, D18, Vallemí, D27 final, D28).
