@@ -1,7 +1,7 @@
 """¿Qué sectores de manufactura exigen formación específica? (D28).
 
 Requisito de habilidades del NBER-CES (proporción de trabajadores que no son de producción, 2012-2018) por producto HS4 (`requisitos_producto_hs4.csv`), llevado a
-sector TAPE con los pesos de D1 (media ponderada por el comercio mundial de cada HS4). Un sector exige formación específica si su valor es ≥ 0,28 (la mediana de los
+sector TAPE con los pesos de D1 (media ponderada por el comercio mundial de cada HS4; D37 corrigió el código, que no multiplicaba por el valor mundial). Un sector exige formación específica si su valor es ≥ 0,28 (la mediana de los
 productos con dato). Solo manufactura (S09 a S44): el NBER no cubre agro, minería ni servicios; esos sectores quedan sin clasificar en exigencia y no se imputan.
 
 Salida: `data/clean/exigencia_formacion_sector.csv`. Uso: uv run python -m src.puentes.exigencia_sector
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from ..modelos.candidatos_sector import pesos_producto_sector
+from ..modelos.candidatos_sector import pesos_comercio
 from .taxonomia_tape import RAIZ
 
 REQUISITOS = RAIZ / "data" / "clean" / "requisitos_producto_hs4.csv"
@@ -32,7 +32,7 @@ def confianza(productos: int) -> str:
 def exigencia_por_sector(req: pd.DataFrame, pesos: pd.DataFrame, taxonomia: pd.DataFrame, corte: float = CORTE) -> pd.DataFrame:
     """Una fila por sector TAPE con el requisito medio de habilidades, cuántos productos tienen dato y si exige formación específica.
 
-    `req` trae hs4 y habilidades; `pesos` trae hs4, sector_id y w (fracción del valor mundial del HS4 asignada al sector).
+    `req` trae hs4 y habilidades; `pesos` trae hs4, sector_id y w (D37: fracción del HS4 asignada al sector por el valor mundial del HS4).
     """
     x = pesos.merge(req.dropna(subset=["habilidades"])[["hs4", "habilidades"]], on="hs4")
     x = x[x["sector_id"].isin(MANUFACTURA) & (x["w"] > 0)]
@@ -58,7 +58,7 @@ def main() -> None:
     for c in ("peso", "valor_mundial"):
         pu[c] = pd.to_numeric(pu[c], errors="coerce")
     req = pd.read_csv(REQUISITOS, dtype={"hs4": str})
-    out = exigencia_por_sector(req, pesos_producto_sector(pu), pd.read_csv(TAXONOMIA))
+    out = exigencia_por_sector(req, pesos_comercio(pu), pd.read_csv(TAXONOMIA))
     out.to_csv(SALIDA, index=False, encoding="utf-8")
     d = out[out["sector_id"].isin(MANUFACTURA)]
     print(f"mediana de los productos: {req['habilidades'].median():.3f} | corte {CORTE}")

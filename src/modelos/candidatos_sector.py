@@ -34,6 +34,18 @@ def pesos_producto_sector(puente: pd.DataFrame) -> pd.DataFrame:
     return num.dropna(subset=["w"])[["hs4", "sector_id", "w"]]
 
 
+def valor_mundial_hs4(puente: pd.DataFrame) -> pd.Series:
+    """Valor mundial de cada HS4 según el puente HS92 → sector (suma de los HS92 distintos del HS4)."""
+    p = puente.drop_duplicates("hs92").assign(v=lambda d: pd.to_numeric(d.valor_mundial, errors="coerce").fillna(0.0), hs4=lambda d: d.hs92.str[:4])
+    return p.groupby("hs4").v.sum()
+
+
+def pesos_comercio(puente: pd.DataFrame) -> pd.DataFrame:
+    """Pesos de D1 para promediar un requisito del producto en el sector (D37): `w` = fracción del HS4 asignada al sector por el valor mundial del HS4. Mismas columnas que `pesos_producto_sector`."""
+    w = pesos_producto_sector(puente)
+    return w.assign(w=w.w * w.hs4.map(valor_mundial_hs4(puente)).fillna(0.0))
+
+
 def agregar_sector(cand: pd.DataFrame, pesos: pd.DataFrame, valor: pd.Series, top: int = TOP) -> pd.DataFrame:
     """Por sector: media ponderada, máximo, conteo en el top, producto líder y cuántos candidatos y productos tiene. `cand` trae hs4, puntaje y presente (bool); `valor` = comercio mundial por HS4."""
     c = cand.assign(valor=cand.hs4.map(valor).fillna(0.0))

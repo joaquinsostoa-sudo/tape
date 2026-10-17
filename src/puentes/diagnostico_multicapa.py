@@ -19,7 +19,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from ..modelos.candidatos_sector import pesos_producto_sector
+from ..modelos.candidatos_sector import pesos_producto_sector, valor_mundial_hs4
 from . import base_capital_humano as bc
 from .taxonomia_tape import RAIZ
 
@@ -112,7 +112,7 @@ def cargar() -> dict:
     pu = pd.read_csv(C / "puente_hs92_sector.csv", dtype={"hs92": str})
     for c in ("peso", "valor_mundial"):
         pu[c] = pd.to_numeric(pu[c], errors="coerce")
-    valor = pu.drop_duplicates("hs92").assign(hs4=lambda d: d["hs92"].str[:4]).groupby("hs4")["valor_mundial"].sum()
+    valor = valor_mundial_hs4(pu)
     oport = pd.read_csv(M / "oportunidades_PRY_2024.csv", dtype={"hs4": str})
     compl = pci_cog_sector(oport, pesos_producto_sector(pu), valor)
     return {"prox": prox, "dot": dot, "ind": ind, "grad": grad, "exig": exig, "complejidad": compl}

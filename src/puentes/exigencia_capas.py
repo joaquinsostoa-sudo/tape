@@ -1,6 +1,6 @@
 """¿Qué sectores exigen cada capa? Requisitos del bien por capa (D33), además de la formación específica (D28).
 
-Nivel sector, media ponderada por el comercio mundial de cada producto como en D1 (`candidatos_sector.pesos_producto_sector`):
+Nivel sector, media ponderada por el comercio mundial de cada producto como en D1 (`candidatos_sector.pesos_comercio`; D37 corrigió el código, que no multiplicaba por el valor mundial):
 - **Energía**: intensidad energética (costo de energía / valor de envíos, NBER-CES). Exige si es ≥ la mediana de los productos con dato. Solo manufactura (el NBER no cubre agro, minería ni servicios).
 - **Logística**: valor por kilo (BACI), en escala logarítmica. Un bien de bajo valor por kilo es pesado y depende más de la logística: exige si está por debajo de la mediana de los productos.
 - **Recursos**: exige si el sector es agropecuario (S01 a S07) o de primera transformación (S09 a S21, S23 y S24). Lista elegida por Claude, ajustable.
@@ -15,7 +15,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from ..modelos.candidatos_sector import pesos_producto_sector
+from ..modelos.candidatos_sector import pesos_comercio
 from .exigencia_sector import MANUFACTURA, confianza
 from .taxonomia_tape import RAIZ
 
@@ -69,7 +69,7 @@ def main() -> None:
     for c in ("peso", "valor_mundial"):
         pu[c] = pd.to_numeric(pu[c], errors="coerce")
     req = pd.read_csv(C / "requisitos_producto_hs4.csv", dtype={"hs4": str})
-    o = exigencia_capas(req, pesos_producto_sector(pu), pd.read_csv(C / "taxonomia_sectores_tape.csv"))
+    o = exigencia_capas(req, pesos_comercio(pu), pd.read_csv(C / "taxonomia_sectores_tape.csv"))
     ex = pd.read_csv(C / "exigencia_formacion_sector.csv", dtype=str).fillna("")[["sector_id", "habilidades", "exige_formacion"]]
     o = o.merge(ex.rename(columns={"habilidades": "habilidades_nber"}), on="sector_id", how="left")
     o.to_csv(SALIDA, index=False, encoding="utf-8")

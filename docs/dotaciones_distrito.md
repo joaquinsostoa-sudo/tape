@@ -1,6 +1,6 @@
 # Dotaciones por distrito: energía, logística y recursos
 
-Fecha: 2026-10-16 (actualizado el 2026-10-17 con D35). Código: `src/puentes/dotaciones_distrito.py` y `src/puentes/exigencia_capas.py` (8 pruebas en `tests/test_dotaciones_distrito.py`). Reglas declaradas antes de construir: D33 y D35 en `docs/supuestos.md`.
+Fecha: 2026-10-16 (actualizado el 2026-10-17 con D35 y D37: los requisitos por sector se ponderan por el comercio mundial). Código: `src/puentes/dotaciones_distrito.py` y `src/puentes/exigencia_capas.py` (8 pruebas en `tests/test_dotaciones_distrito.py`). Reglas declaradas antes de construir: D33 y D35 en `docs/supuestos.md`.
 Salidas (en `data/clean/`): `dotaciones_distrito.csv` (una fila por distrito) y `exigencia_capas_sector.csv` (el requisito de cada sector por capa). Inventario previo: `docs/equivalencias_dotaciones.md`. Uso del suelo: `docs/` de MapBiomas en `data/raw/mapbiomas_paraguay/README.md`.
 
 ## En palabras simples
@@ -44,10 +44,10 @@ Correlación de rangos entre los índices (30 km): energía–logística **0,85*
 
 ## Qué sectores exigen cada capa (`exigencia_capas_sector.csv`)
 Con la mediana de los productos como corte (energía 0,0146; valor por kilo 5,04 USD):
-- **Energía** (solo manufactura; 18 de 35 sectores con dato exigen): aceites, molinería, azúcar, papel, siderurgia, cemento, cerámica, vidrio, química, plásticos, textiles y madera, entre otros. Sin dato: agro, minería, servicios y S44.
-- **Logística** (valor por kilo por debajo de la mediana; 31 de 50 sectores con dato): los bienes pesados y de bajo valor, como cemento (0,20 USD/kg), azúcar (0,21), petróleo refinado (0,38), molinería (0,75) y aceites (0,96). No exigen farmacéutica (44 USD/kg), electrónica (42), joyería (25) ni confecciones (21).
+- **Energía** (solo manufactura; 17 de 35 sectores con dato exigen, con D37): molinería, azúcar, papel, imprenta, petróleo refinado, siderurgia, cemento, cerámica, vidrio, química, plásticos, textiles y madera, entre otros. Sin dato: agro, minería, servicios y S44.
+- **Logística** (valor por kilo por debajo de la mediana; 30 de 50 sectores con dato, con D37): los bienes pesados y de bajo valor, como cemento (0,20 USD/kg), azúcar (0,21), petróleo refinado (0,38), y molinería (0,75). No exigen farmacéutica (142 USD/kg), electrónica (97) ni confecciones (24).
 - **Recursos** (lista de 22 sectores: S01 a S07, S09 a S21, S23 y S24), **con medida en 18**: agricultura para S01, S02, S04, S05, S11, S12, S15, S16, S17, S18, S20 y S21; pastura para S03, S09, S10 y S23; plantación forestal para S06 y S24. **Sin medida** (siguen en la lista pero sin brecha: sin dato, por decisión de Joaquín): S07 pesca, S13 panificados, S14 confitería y pastas y S19 bebidas.
-- **Capital:** solo informativo, como «inversión inicial exigida». Los más intensivos: petróleo refinado (1.875 mil USD por trabajador), azúcar (950) y química básica (625).
+- **Capital:** solo informativo, como «inversión inicial exigida». Los más intensivos, con D37: petróleo refinado (2.611 mil USD por trabajador), azúcar (950) y metales no ferrosos (731).
 
 ## Límites que hay que tener presentes
 - **MapBiomas dice cuánta tierra es agrícola, ganadera o forestal, pero no el cultivo, el rendimiento ni la calidad.** La clase «agricultura» no separa soja de otros cultivos; «pastura» incluye pasturas cultivadas y manejadas y no separa carne de leche. La plantación forestal es muy escasa (0,09 millones de hectáreas).

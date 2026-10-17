@@ -60,3 +60,11 @@ def test_escalon_resta_la_mediana_de_los_sectores_que_el_distrito_produce():
     assert e.loc["d1", "C"] == 60.0 and e.loc["d1", "A"] == -20.0                    # mediana de 10 y 50 = 30
     assert e.loc["d2"].isna().all()                                                  # el distrito sin sectores con PCI queda sin dato
     assert list(dm.etiqueta_escalon(pd.Series([60.0, 5.0, -5.0, -20.0, np.nan]))) == ["más complejo", "similar", "similar", "menos complejo", ""]
+
+
+def test_pesos_de_comercio_multiplican_la_fraccion_del_sector_por_el_valor_mundial_del_hs4():
+    from src.modelos.candidatos_sector import pesos_comercio, valor_mundial_hs4
+    pu = pd.DataFrame({"hs92": ["010101", "010102", "020201"], "sector_id": ["S1", "S1", "S2"], "peso": [1.0, 1.0, 1.0], "valor_mundial": [30.0, 10.0, 5.0]})
+    assert valor_mundial_hs4(pu).to_dict() == {"0101": 40.0, "0202": 5.0}
+    w = pesos_comercio(pu).set_index(["hs4", "sector_id"])["w"]
+    assert w[("0101", "S1")] == 40.0 and w[("0202", "S2")] == 5.0                       # fracción 1 del HS4 por su valor mundial
