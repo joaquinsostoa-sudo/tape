@@ -1,11 +1,12 @@
-"""Dotaciones por distrito distintas del capital humano: energía, logística y recursos (D33).
+"""Dotaciones por distrito distintas del capital humano: energía, logística y recursos (D33 y D35).
 
 Cada capa tiene un equivalente territorial de lo que en el modelo nacional era un indicador por país (`docs/equivalencias_dotaciones.md`):
 - **Energía**: potencia disponible (MW) de las subestaciones del mapa MIC, promedio 2026-2028 (redes 23 kV y 220/66 kV y su suma, que puede solaparse), con proximidad
   (D30: exp(−d/s), s = 15, 30 y 60 km) desde el punto de la ciudad del distrito a cada subestación; y distancia a la subestación de 220 kV o 500 kV más cercana. Mide disponibilidad, no precio.
 - **Logística**: acceso a aduanas, puertos y pasos de frontera (distancia al más cercano y pool del comercio USD de los 35 puntos), km de ruta nacional del distrito y su pool, y
   distancia mínima a un polo (Asunción, Ciudad del Este, Encarnación, Puerto Central).
-- **Recursos**: superficie agropecuaria de las fincas (Censo Agropecuario 2022) del distrito y su pool.
+- **Recursos (D35)**: hectáreas de agricultura, pastura y plantación forestal de cada distrito (MapBiomas Paraguay, 2023) y su pool por proximidad; cada sector usa la clase de su materia prima.
+  La medida antigua de D33 (hectáreas de fincas del Censo Agropecuario, dominadas por el Chaco) se conserva solo como `*_fincas`, descartada.
 Cada índice es el promedio de los percentiles entre los 263 distritos de sus medidas (empates al valor más bajo, D29; las distancias, invertidas).
 Son distancias en línea recta. El capital físico no se construye por distrito (lo reemplaza la densidad) y el crédito es un indicador del sector (D33).
 
@@ -25,6 +26,7 @@ SALIDA = C / "dotaciones_distrito.csv"
 ANIOS_POTENCIA = (2026, 2027, 2028)
 ALTA_TENSION = ("220 kV", "500 kV")
 POLOS = ("dist_asu_km", "dist_cde_km", "dist_enc_km", "dist_puerto_central_km")
+CLASES_TIERRA = ("agricultura", "pastura", "plantacion_forestal")
 
 
 def pool_puntos(coord_distritos: np.ndarray, coord_puntos: np.ndarray, valores: np.ndarray, escala: float) -> np.ndarray:
@@ -77,6 +79,9 @@ def construir() -> pd.DataFrame:
     fi = pd.DataFrame({"dep": [bc.departamento(v) for v in fi["departamento"]], "clave": [bc.llave(v) for v in fi["ciudad"]], "superficie_ha": fi["superficie_ha"], "fincas": fi["fincas"]})
     x = x.merge(fi, on=["dep", "clave"], how="left")
     x["recursos_sin_dato"] = x["superficie_ha"].isna()
+    mb = pd.read_csv(C / "mapbiomas_uso_distrito.csv")[["departamento", "distrito", "ha_agricultura_2023", "ha_pastura_2023", "ha_plantacion_forestal_2023", "ha_total", "pct_agricultura", "pct_pastura"]]
+    x = x.merge(mb, on=["departamento", "distrito"], how="left")
+    x["uso_suelo_sin_dato"] = x["ha_total"].isna()
     # pools e índices por escala
     for s in ESCALAS:
         for col in ("mw_23kv", "mw_220_66kv", "mw_total"):
@@ -88,7 +93,10 @@ def construir() -> pd.DataFrame:
         x[f"idx_logistica_{s}"], _ = bc.indice(pd.DataFrame({
             "a": bc.percentil(x[f"pool_comercio_usd_{s}"]), "b": bc.percentil(x["dist_aduana_km"], mayor_es_mejor=False),
             "c": bc.percentil(x[f"pool_km_ruta_{s}"]), "d": bc.percentil(x["dist_polo_min_km"], mayor_es_mejor=False)}))
-        x[f"idx_recursos_{s}"] = bc.percentil(x[f"pool_superficie_ha_{s}"])
+        x[f"idx_recursos_fincas_{s}"] = bc.percentil(x[f"pool_superficie_ha_{s}"])  # descartado en D35: mide extensión
+        for clase in CLASES_TIERRA:
+            x[f"pool_ha_{clase}_{s}"] = pool(D, x[f"ha_{clase}_2023"].fillna(0.0).to_numpy(), s)
+            x[f"idx_recursos_{clase}_{s}"] = bc.percentil(x[f"pool_ha_{clase}_{s}"]).where(~x["uso_suelo_sin_dato"])
     return x.drop(columns=["dep", "clave"]).round(3)
 
 
@@ -96,12 +104,15 @@ def main() -> None:
     x = construir()
     x.to_csv(SALIDA, index=False, encoding="utf-8")
     s = ESCALA_PRINCIPAL
-    print(f"distritos {len(x)} | sin coordenadas: {int(x['lat'].isna().sum())} | recursos sin dato: {int(x['recursos_sin_dato'].sum())} | con ruta nacional: {int((x['km_ruta_propio'] > 0).sum())}")
-    for idx in ("energia", "logistica", "recursos"):
+    print(f"distritos {len(x)} | sin coordenadas: {int(x['lat'].isna().sum())} | sin dato de uso del suelo: {int(x['uso_suelo_sin_dato'].sum())} | con ruta nacional: {int((x['km_ruta_propio'] > 0).sum())}")
+    indices = ["energia", "logistica", *[f"recursos_{c}" for c in CLASES_TIERRA]]
+    for idx in indices:
         c = f"idx_{idx}_{s}"
-        print(f"\n{c}: mediana {x[c].median():.1f} | más altos:", x.sort_values(c, ascending=False).head(5)["distrito"].tolist(), "| más bajos:", x.sort_values(c).head(4)["distrito"].tolist())
-    print("\ncorrelación de rangos entre índices (30 km) y con la población:")
-    print(x[[f"idx_energia_{s}", f"idx_logistica_{s}", f"idx_recursos_{s}", "poblacion"]].corr(method="spearman").round(2).to_string())
+        a, _, z = (x[f"idx_{idx}_{e}"] for e in (15, 30, 60))
+        print(f"{c}: mediana {x[c].median():.1f} | más altos:", x.sort_values(c, ascending=False).head(5)["distrito"].tolist(), "| estabilidad 15 vs 60 km (rangos):", round(float(a.corr(z, method="spearman")), 2),
+              "| cambian más de 10 puntos:", int(((a - z).abs() > 10).sum()))
+    print("correlación de rangos entre índices (30 km) y con la población:")
+    print(x[[f"idx_{i}_{s}" for i in indices] + ["poblacion"]].corr(method="spearman").round(2).to_string())
 
 
 if __name__ == "__main__":

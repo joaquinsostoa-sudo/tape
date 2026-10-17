@@ -57,3 +57,22 @@ def test_exigencia_de_energia_y_logistica_contra_la_mediana_de_los_productos():
 def test_recursos_exigen_los_sectores_agropecuarios_y_de_primera_transformacion():
     assert {"S01", "S07", "S09", "S21", "S23", "S24"} <= set(ec.RECURSOS)
     assert not ({"S08", "S22", "S25", "S31", "S40", "S64"} & set(ec.RECURSOS))
+
+
+def test_los_sectores_de_recursos_tienen_clase_de_tierra_o_estan_marcados_sin_medida():
+    clases = [s for secs in ec.CLASE_TIERRA.values() for s in secs]
+    assert len(clases) == len(set(clases))                                  # un sector no puede tener dos clases
+    assert set(clases) | set(ec.SIN_MEDIDA) == set(ec.RECURSOS)             # la lista de D33 queda cubierta, y nada fuera de ella
+    assert not (set(clases) & set(ec.SIN_MEDIDA))
+    assert set(ec.CLASE_TIERRA) == set(dd.CLASES_TIERRA)                     # las clases de los requisitos son las que se miden por distrito
+
+
+def test_exigencia_de_recursos_marca_con_medida_y_sin_medida():
+    tax = pd.DataFrame({"sector_id": ["S01", "S07", "S09", "S22", "S40"], "nombre": list("abcde")})
+    pesos = pd.DataFrame({"hs4": ["a"], "sector_id": ["S40"], "w": [1.0]})
+    req = pd.DataFrame({"hs4": ["a"], "energia": [0.01], "capital": [100.0], "valor_peso_usd_kg": [10.0]})
+    o = ec.exigencia_capas(req, pesos, tax).set_index("sector_id")
+    assert o.loc["S01", "clase_tierra"] == "agricultura" and o.loc["S01", "recursos_con_medida"] == "si"
+    assert o.loc["S09", "clase_tierra"] == "pastura"
+    assert o.loc["S07", "clase_tierra"] == "" and o.loc["S07", "recursos_con_medida"] == "no" and o.loc["S07", "exige_recursos"] == "si"   # en la lista, sin medida
+    assert o.loc["S22", "exige_recursos"] == "no" and o.loc["S22", "recursos_con_medida"] == ""                                                # confecciones no exige recursos

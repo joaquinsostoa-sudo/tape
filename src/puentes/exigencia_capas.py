@@ -4,6 +4,7 @@ Nivel sector, media ponderada por el comercio mundial de cada producto como en D
 - **Energía**: intensidad energética (costo de energía / valor de envíos, NBER-CES). Exige si es ≥ la mediana de los productos con dato. Solo manufactura (el NBER no cubre agro, minería ni servicios).
 - **Logística**: valor por kilo (BACI), en escala logarítmica. Un bien de bajo valor por kilo es pesado y depende más de la logística: exige si está por debajo de la mediana de los productos.
 - **Recursos**: exige si el sector es agropecuario (S01 a S07) o de primera transformación (S09 a S21, S23 y S24). Lista elegida por Claude, ajustable.
+  D35: cada sector con medida usa la clase de tierra de su materia prima (agricultura, pastura o plantación forestal de MapBiomas); S07, S13, S14 y S19 siguen en la lista pero **sin medida** (sin dato).
 - **Capital**: intensidad de capital (NBER-CES), **solo informativa** («inversión inicial exigida»): no es una capa distrital (la reemplaza la densidad).
 Los sectores sin dato no se clasifican y no se imputan. Confianza según cuántos productos del sector tienen dato (10 o más alta, de 3 a 9 media, 1 o 2 baja).
 
@@ -21,6 +22,12 @@ from .taxonomia_tape import RAIZ
 C = RAIZ / "data" / "clean"
 SALIDA = C / "exigencia_capas_sector.csv"
 RECURSOS = tuple([f"S{i:02d}" for i in range(1, 8)] + [f"S{i:02d}" for i in range(9, 22)] + ["S23", "S24"])
+CLASE_TIERRA = {
+    "agricultura": ("S01", "S02", "S04", "S05", "S11", "S12", "S15", "S16", "S17", "S18", "S20", "S21"),
+    "pastura": ("S03", "S09", "S10", "S23"),
+    "plantacion_forestal": ("S06", "S24"),
+}
+SIN_MEDIDA = ("S07", "S13", "S14", "S19")  # en la lista de recursos pero sin clase de tierra que los represente: sin dato
 
 
 def media_ponderada(x: pd.DataFrame, valor: str) -> pd.DataFrame:
@@ -47,6 +54,9 @@ def exigencia_capas(req: pd.DataFrame, pesos: pd.DataFrame, taxonomia: pd.DataFr
     out["exige_logistica"] = np.where(tvp, np.where(out["log_valor_peso"] <= med_logvp, "si", "no"), "")
     out["confianza_logistica"] = [confianza(int(n)) if t else "" for n, t in zip(out["n_log_valor_peso"].fillna(0), tvp, strict=True)]
     out["exige_recursos"] = np.where(out["sector_id"].isin(RECURSOS), "si", "no")
+    clase = {sec: c for c, secs in CLASE_TIERRA.items() for sec in secs}
+    out["clase_tierra"] = out["sector_id"].map(clase).fillna("")
+    out["recursos_con_medida"] = np.where(out["clase_tierra"] != "", "si", np.where(out["exige_recursos"] == "si", "no", ""))
     out["capital_k_usd_trabajador"] = out["capital"].round(1)
     out["valor_peso_usd_kg"] = (10 ** out["log_valor_peso"]).round(2)
     out["mediana_energia_productos"] = round(med_energia, 4)
